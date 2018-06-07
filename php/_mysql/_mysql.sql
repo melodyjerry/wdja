@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- 主机: 127.0.0.1
--- 生成日期: 2018 年 06 月 06 日 23:22
+-- 生成日期: 2018 年 06 月 07 日 19:35
 -- 服务器版本: 5.5.53
 -- PHP 版本: 5.2.17
 
@@ -31,6 +31,7 @@ CREATE TABLE IF NOT EXISTS `wdja_aboutus` (
   `ab_topic` varchar(50) DEFAULT NULL,
   `ab_keywords` varchar(152) DEFAULT NULL,
   `ab_description` varchar(252) DEFAULT NULL,
+  `ab_image` varchar(255) DEFAULT NULL,
   `ab_content` text,
   `ab_content_images_list` text,
   `ab_cttype` int(1) DEFAULT '0',
@@ -51,9 +52,9 @@ CREATE TABLE IF NOT EXISTS `wdja_aboutus` (
 -- 转存表中的数据 `wdja_aboutus`
 --
 
-INSERT INTO `wdja_aboutus` (`abid`, `ab_topic`, `ab_keywords`, `ab_description`, `ab_content`, `ab_content_images_list`, `ab_cttype`, `ab_cp_note`, `ab_cp_mode`, `ab_cp_type`, `ab_cp_num`, `ab_time`, `ab_hidden`, `ab_update`, `ab_good`, `ab_count`, `ab_lng`) VALUES
-(1, 'wdja简介', 'wdja,简介', 'wdja简介wdja简介', '<p>wdja简介wdja简介wdja简介wdja简介wdja简介wdja简介wdja简介wdja简介wdja简介wdja简介wdja简介wdja简介wdja简介wdja简介wdja简介wdja简介wdja简介wdja简介wdja简介wdja简介wdja简介wdja简介wdja简介wdja简介wdja简介wdja简介wdja简介wdja简介wdja简介wdja简介wdja简介wdja简介wdja简介wdja简介wdja简介wdja简介wdja简介wdja简介wdja简介wdja简介&nbsp;</p>', '', 0, 0, 0, 0, 100, '2018-05-24 06:18:41', 0, 0, 0, 150, 'chinese'),
-(2, '22', '', '', '<p>&nbsp;<img src="/aboutus/common/upload/simg/2018/05/31/18285156.jpg" border="0" alt="" /><img src="/aboutus/common/upload/simg/2018/05/31/18285156.jpg" border="0" alt="" /></p>', '/aboutus/common/upload/simg/2018/05/31/18285156.jpg', 0, 0, 0, 0, 100, '2018-05-31 18:28:53', 1, 0, 0, 0, 'chinese');
+INSERT INTO `wdja_aboutus` (`abid`, `ab_topic`, `ab_keywords`, `ab_description`, `ab_image`, `ab_content`, `ab_content_images_list`, `ab_cttype`, `ab_cp_note`, `ab_cp_mode`, `ab_cp_type`, `ab_cp_num`, `ab_time`, `ab_hidden`, `ab_update`, `ab_good`, `ab_count`, `ab_lng`) VALUES
+(1, 'wdja简介', 'wdja,简介', 'wdja简介wdja简介', NULL, '<p>wdja简介wdja简介wdja简介wdja简介wdja简介wdja简介wdja简介wdja简介wdja简介wdja简介wdja简介wdja简介wdja简介wdja简介wdja简介wdja简介wdja简介wdja简介wdja简介wdja简介wdja简介wdja简介wdja简介wdja简介wdja简介wdja简介wdja简介wdja简介wdja简介wdja简介wdja简介wdja简介wdja简介wdja简介wdja简介wdja简介wdja简介wdja简介wdja简介wdja简介&nbsp;</p>', '', 0, 0, 0, 0, 100, '2018-05-24 06:18:41', 0, 0, 0, 151, 'chinese'),
+(2, '22', '', '', NULL, '<p>&nbsp;<img src="/aboutus/common/upload/simg/2018/05/31/18285156.jpg" border="0" alt="" /><img src="/aboutus/common/upload/simg/2018/05/31/18285156.jpg" border="0" alt="" /></p>', '/aboutus/common/upload/simg/2018/05/31/18285156.jpg', 0, 0, 0, 0, 100, '2018-05-31 18:28:53', 1, 0, 0, 0, 'chinese');
 
 -- --------------------------------------------------------
 
@@ -77,7 +78,7 @@ CREATE TABLE IF NOT EXISTS `wdja_admin` (
 --
 
 INSERT INTO `wdja_admin` (`aid`, `a_name`, `a_pword`, `a_popedom`, `a_lock`, `a_lasttime`, `a_lastip`) VALUES
-(1, 'admin', '21232f297a57a5a743894a0e4a801fc3', '-1', 0, '2018-06-07 06:50:03', '127.0.0.1');
+(1, 'admin', '21232f297a57a5a743894a0e4a801fc3', '-1', 0, '2018-06-08 03:17:51', '127.0.0.1');
 
 -- --------------------------------------------------------
 
@@ -92,7 +93,7 @@ CREATE TABLE IF NOT EXISTS `wdja_admin_log` (
   `l_ip` varchar(50) DEFAULT NULL,
   `l_islogin` int(1) DEFAULT '0',
   PRIMARY KEY (`lid`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=28 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=29 ;
 
 --
 -- 转存表中的数据 `wdja_admin_log`
@@ -124,7 +125,8 @@ INSERT INTO `wdja_admin_log` (`lid`, `l_name`, `l_time`, `l_ip`, `l_islogin`) VA
 (24, 'admin', '2018-06-02 15:58:25', '127.0.0.1', 1),
 (25, 'admin', '2018-06-04 19:32:41', '127.0.0.1', 1),
 (26, 'admin', '2018-06-07 05:08:50', '127.0.0.1', 0),
-(27, 'admin', '2018-06-07 05:10:35', '127.0.0.1', 1);
+(27, 'admin', '2018-06-07 05:10:35', '127.0.0.1', 1),
+(28, 'admin', '2018-06-08 03:17:51', '127.0.0.1', 1);
 
 -- --------------------------------------------------------
 

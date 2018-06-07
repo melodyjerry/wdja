@@ -22,6 +22,7 @@ function wdja_cms_admin_manage_adddisp()
   global $ngenre, $slng;
   global $ndatabase, $nidfield, $nfpre, $nsaveimages;
   $tbackurl = $_GET['backurl'];
+  $timage = ii_left(ii_cstr($_POST['image']), 255);
   if($nsaveimages == '1' ) $tcontent = ii_left(ii_cstr(saveimages($_POST['content'])), 100000);
   else $tcontent =ii_left(ii_cstr($_POST['content']), 100000);
   $tcontent_images_list = ii_left(ii_cstr($_POST['content_images_list']), 10000);
@@ -29,6 +30,7 @@ function wdja_cms_admin_manage_adddisp()
   " . ii_cfname('topic') . ",
   " . ii_cfname('keywords') . ",
   " . ii_cfname('description') . ",
+    " . ii_cfname('image') . ",
   " . ii_cfname('content') . ",
   " . ii_cfname('cttype') . ",
   " . ii_cfname('cp_note') . ",
@@ -44,6 +46,7 @@ function wdja_cms_admin_manage_adddisp()
   '" . ii_left(ii_cstr($_POST['topic']), 50) . "',
   '" . ii_left(ii_cstr($_POST['keywords']), 150) . "',
   '" . ii_left(ii_cstr($_POST['description']), 250) . "',
+    '$timage',
   '$tcontent',
   " . ii_get_num($_POST['cttype']) . ",
   " . ii_get_num($_POST['content_cutepage']) . ",
@@ -72,6 +75,7 @@ function wdja_cms_admin_manage_editdisp()
   global $ngenre;
   global $ndatabase, $nidfield, $nfpre, $nsaveimages;
   $tbackurl = $_GET['backurl'];
+  $timage = ii_left(ii_cstr($_POST['image']), 255);
   if($nsaveimages == '1' ) $tcontent = ii_left(ii_cstr(saveimages($_POST['content'])), 100000);
   else $tcontent = ii_left(ii_cstr($_POST['content']), 100000);
   $tcontent_images_list = ii_left(ii_cstr($_POST['content_images_list']), 10000);
@@ -80,6 +84,7 @@ function wdja_cms_admin_manage_editdisp()
   " . ii_cfname('topic') . "='" . ii_left(ii_cstr($_POST['topic']), 50) . "',
   " . ii_cfname('keywords') . "='" . ii_left(ii_cstr($_POST['keywords']), 150) . "',
   " . ii_cfname('description') . "='" . ii_left(ii_cstr($_POST['description']), 250) . "',
+    " . ii_cfname('image') . "='$timage',
   " . ii_cfname('content') . "='$tcontent',
   " . ii_cfname('cttype') . "=" . ii_get_num($_POST['cttype']) . ",
   " . ii_cfname('cp_note') . "=" . ii_get_num($_POST['content_cutepage']) . ",
