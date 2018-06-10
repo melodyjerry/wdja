@@ -205,7 +205,7 @@ function uu_upload_files()
          uu_upload_create_database_note($ngenre, $stfilename, $ngenre .$uptext);
          mm_client_redirect('?type=upload&upform=' . $upform . '&uptext=' . $uptext . '&upftype=' . $upftype . '&upfname=/' . $ngenre .'/' .$stfilename);//补全上传图片返回路径为带模块缩略图文件夹
       }else{
-        if($doriginal != '1') uu_upload_create_database_note($ngenre, $tfilename, $uptext);
+        uu_upload_create_database_note($ngenre, $tfilename, $uptext);
         mm_client_redirect('?type=upload&upform=' . $upform . '&uptext=' . $uptext . '&upftype=' . $upftype . '&upfname=/' . $ngenre .'/'. $tfilename);//补全上传图片返回路径为带模块文件夹
       }
     }
