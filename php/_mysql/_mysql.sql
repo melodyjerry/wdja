@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- 主机: 127.0.0.1
--- 生成日期: 2018 年 06 月 07 日 19:35
+-- 生成日期: 2018 年 06 月 11 日 22:33
 -- 服务器版本: 5.5.53
 -- PHP 版本: 5.2.17
 
@@ -53,7 +53,7 @@ CREATE TABLE IF NOT EXISTS `wdja_aboutus` (
 --
 
 INSERT INTO `wdja_aboutus` (`abid`, `ab_topic`, `ab_keywords`, `ab_description`, `ab_image`, `ab_content`, `ab_content_images_list`, `ab_cttype`, `ab_cp_note`, `ab_cp_mode`, `ab_cp_type`, `ab_cp_num`, `ab_time`, `ab_hidden`, `ab_update`, `ab_good`, `ab_count`, `ab_lng`) VALUES
-(1, 'wdja简介', 'wdja,简介', 'wdja简介wdja简介', NULL, '<p>wdja简介wdja简介wdja简介wdja简介wdja简介wdja简介wdja简介wdja简介wdja简介wdja简介wdja简介wdja简介wdja简介wdja简介wdja简介wdja简介wdja简介wdja简介wdja简介wdja简介wdja简介wdja简介wdja简介wdja简介wdja简介wdja简介wdja简介wdja简介wdja简介wdja简介wdja简介wdja简介wdja简介wdja简介wdja简介wdja简介wdja简介wdja简介wdja简介wdja简介&nbsp;</p>', '', 0, 0, 0, 0, 100, '2018-05-24 06:18:41', 0, 0, 0, 151, 'chinese'),
+(1, 'wdja简介', 'wdja,简介', 'wdja简介wdja简介', NULL, '<p>wdja简介wdja简介wdja简介wdja简介wdja简介wdja简介wdja简介wdja简介wdja简介wdja简介wdja简介wdja简介wdja简介wdja简介wdja简介wdja简介wdja简介wdja简介wdja简介wdja简介wdja简介wdja简介wdja简介wdja简介wdja简介wdja简介wdja简介wdja简介wdja简介wdja简介wdja简介wdja简介wdja简介wdja简介wdja简介wdja简介wdja简介wdja简介wdja简介wdja简介&nbsp;</p>', '', 0, 0, 0, 0, 100, '2018-05-24 06:18:41', 0, 0, 0, 152, 'chinese'),
 (2, '22', '', '', NULL, '<p>&nbsp;<img src="/aboutus/common/upload/simg/2018/05/31/18285156.jpg" border="0" alt="" /><img src="/aboutus/common/upload/simg/2018/05/31/18285156.jpg" border="0" alt="" /></p>', '/aboutus/common/upload/simg/2018/05/31/18285156.jpg', 0, 0, 0, 0, 100, '2018-05-31 18:28:53', 1, 0, 0, 0, 'chinese');
 
 -- --------------------------------------------------------
@@ -78,7 +78,7 @@ CREATE TABLE IF NOT EXISTS `wdja_admin` (
 --
 
 INSERT INTO `wdja_admin` (`aid`, `a_name`, `a_pword`, `a_popedom`, `a_lock`, `a_lasttime`, `a_lastip`) VALUES
-(1, 'admin', '21232f297a57a5a743894a0e4a801fc3', '-1', 0, '2018-06-08 03:17:51', '127.0.0.1');
+(1, 'admin', '21232f297a57a5a743894a0e4a801fc3', '-1', 0, '2018-06-08 03:42:34', '127.0.0.1');
 
 -- --------------------------------------------------------
 
@@ -93,7 +93,7 @@ CREATE TABLE IF NOT EXISTS `wdja_admin_log` (
   `l_ip` varchar(50) DEFAULT NULL,
   `l_islogin` int(1) DEFAULT '0',
   PRIMARY KEY (`lid`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=29 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=31 ;
 
 --
 -- 转存表中的数据 `wdja_admin_log`
@@ -126,7 +126,9 @@ INSERT INTO `wdja_admin_log` (`lid`, `l_name`, `l_time`, `l_ip`, `l_islogin`) VA
 (25, 'admin', '2018-06-04 19:32:41', '127.0.0.1', 1),
 (26, 'admin', '2018-06-07 05:08:50', '127.0.0.1', 0),
 (27, 'admin', '2018-06-07 05:10:35', '127.0.0.1', 1),
-(28, 'admin', '2018-06-08 03:17:51', '127.0.0.1', 1);
+(28, 'admin', '2018-06-08 03:17:51', '127.0.0.1', 1),
+(29, 'admin', '2018-06-08 03:42:34', '127.0.0.1', 1),
+(30, 'admin', '2018-06-08 03:42:55', '127.0.0.1', 1);
 
 -- --------------------------------------------------------
 
@@ -371,6 +373,35 @@ CREATE TABLE IF NOT EXISTS `wdja_help` (
   `h_good` int(1) DEFAULT '0',
   `h_count` int(9) DEFAULT '0',
   PRIMARY KEY (`hid`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `wdja_news`
+--
+
+CREATE TABLE IF NOT EXISTS `wdja_news` (
+  `nid` int(9) NOT NULL AUTO_INCREMENT,
+  `n_topic` varchar(50) DEFAULT NULL,
+  `n_keywords` varchar(152) DEFAULT NULL,
+  `n_description` varchar(252) DEFAULT NULL,
+  `n_image` varchar(255) DEFAULT NULL,
+  `n_content` text,
+  `n_content_images_list` text,
+  `n_cttype` int(1) DEFAULT '0',
+  `n_cp_note` int(1) DEFAULT '0',
+  `n_cp_mode` int(1) DEFAULT '0',
+  `n_cp_type` int(1) DEFAULT '0',
+  `n_cp_num` int(9) DEFAULT '0',
+  `n_time` datetime DEFAULT NULL,
+  `n_cls` text,
+  `n_class` int(9) DEFAULT '0',
+  `n_hidden` int(1) DEFAULT '0',
+  `n_update` int(1) DEFAULT '0',
+  `n_good` int(1) DEFAULT '0',
+  `n_count` int(9) DEFAULT '0',
+  PRIMARY KEY (`nid`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------

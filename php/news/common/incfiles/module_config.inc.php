@@ -182,7 +182,6 @@ elseif(ii_isnull($tclassid)){
       $tmpstr = substr($tmpstr,0,-1); 
       echo '['.$tmpstr.']';
 }
-
 //****************************************************
 // WDJA CMS Power by wdja.cn
 // Email: admin@wdja.cn
