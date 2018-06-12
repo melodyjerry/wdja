@@ -12,30 +12,8 @@ function wdja_cms_module_index()
 
 function wdja_cms_module()
 {
-  switch($_GET['type'])
-  {
-    case 'api':
-      return wdja_cms_module_api();
-      break;
-    default:
-      return wdja_cms_module_index();
-      break;
-  }
+    return wdja_cms_module_index();
 }
-
-function wdja_cms_module_api(){
-    global $nurlpre;
-    $tmpstr .= '{';
-    $tmpstr .= '"sort":'.file_get_contents($nurlpre.'/page/?type=api').',';
-    $tmpstr .= '"slide":'.file_get_contents($nurlpre.'/page/?type=api').',';
-    $tmpstr .= '"news":'.file_get_contents($nurlpre.'/page/?type=api').',';
-    $tmpstr .= '"article":'.file_get_contents($nurlpre.'/article/?type=api').',';
-    $tmpstr .= '"aboutus":'.file_get_contents($nurlpre.'/page/?type=api');
-    $tmpstr .= '}';
-    echo $tmpstr;
-}
-
-
 
 //****************************************************
 // WDJA CMS Power by wdja.cn

@@ -63,61 +63,12 @@ function wdja_cms_module_detail()
   else mm_client_alert(ii_itake('manage.notexists', 'lng'), -1);
 }
 
-function wdja_cms_module_api()
-{
-  global $conn;
-  global $ndatabase, $nidfield, $nfpre;
-  $trootstr = pp_get_xml_root() . XML_SFX;
-  if (file_exists($trootstr))
-  {
-    $tdoc = new DOMDocument();
-    $tdoc -> load($trootstr);
-    $txpath = new DOMXPath($tdoc);
-    $tquery = '//xml/configure/node';
-    $tnode = $txpath -> query($tquery) -> item(0) -> nodeValue;
-    $tquery = '//xml/configure/field';
-    $tfield = $txpath -> query($tquery) -> item(0) -> nodeValue;
-    $tquery = '//xml/configure/base';
-    $tbase = $txpath -> query($tquery) -> item(0) -> nodeValue;
-    $tfieldary = explode(',', $tfield);
-    $tlength = count($tfieldary) - 1;
-    $tquery = '//xml/' . $tbase . '/' . $tnode;
-    $trests = $txpath -> query($tquery);
-    $tmpstr .= '{';
-    foreach ($trests as $trest)
-    {
-      $tnodelength = $trest -> childNodes -> length;
-      for ($i = 0; $i <= $tlength; $i += 1)
-      {
-        $ti = $i * 2 + 1;
-        if ($ti < $tnodelength)
-        {
-          $nodeValue = $trest -> childNodes -> item($ti) -> nodeValue;
-        }
-        if($i < $tlength) $k = ii_htmlencode($nodeValue);
-        if($i == $tlength) {
-          if(ii_isnull($GLOBALS['RS_' . $k])) $GLOBALS['RS_' . $k] = $nodeValue;
-          $tmpstr .= "\"".$k."\":\"".addslashes($nodeValue)."\",";
-        }
-      }
-    }
-      $tmpstr = substr($tmpstr,0,-1); 
-      $tmpstr .= '},';
-      $tmpstr = substr($tmpstr,0,-1); 
-      echo '['.$tmpstr.']';
-  }
-  else mm_client_alert(ii_itake('manage.notexists', 'lng'), -1);
-}
-
 function wdja_cms_module()
 {
   switch($_GET['type'])
   {
     case 'detail':
       return wdja_cms_module_detail();
-      break;
-    case 'api':
-      return wdja_cms_module_api();
       break;
     default:
       return wdja_cms_module_detail();

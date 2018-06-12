@@ -112,9 +112,6 @@ function wdja_cms_module()
     case 'list':
       return wdja_cms_module_list();
       break;
-    case 'api':
-      return wdja_cms_module_api();
-      break;
     case 'detail':
       return wdja_cms_module_detail();
       break;
@@ -127,61 +124,6 @@ function wdja_cms_module()
   }
 }
 
-function wdja_cms_module_api()
-{
-  global $conn, $nlng, $ngenre;
-  $tclassid = ii_get_num($_GET['classid']);
-  $toffset = ii_get_num($_GET['offset']);
-  global $nclstype, $nlisttopx, $npagesize;
-  global $ndatabase, $nidfield, $nfpre;
-  $tclassids = mm_get_sortids($ngenre, $nlng);
-  $tsqlstr = "select * from $ndatabase where " . ii_cfname('hidden') . "=0";
-  if ($tclassid != 0)
-  {
-    if (ii_cinstr($tclassids, $tclassid, ','))
-    {
-      mm_cntitle(mm_get_sorttext($ngenre, $nlng, $tclassid));
-      mm_cnkeywords(mm_get_sortkeywords($ngenre, $nlng, $tclassid));
-      mm_cndescription(mm_get_sortdescription($ngenre, $nlng, $tclassid));
-      if ($nclstype == 0) $tsqlstr .= " and " . ii_cfname('class') . "=$tclassid";
-      else $tsqlstr .= " and " . ii_cfname('cls') . " like '%|" . $tclassid . "|%'";
-    }
-  }
-elseif(ii_isnull($tclassid)){
-      mm_cnkeywords($nkeywords);
-      mm_cndescription($ndescription);
-}else
-  {
-    if (!ii_isnull($tclassids)) $tsqlstr .= " and " . ii_cfname('class') . " in ($tclassids)";
-  }
-  $tsqlstr .= " order by " . ii_cfname('time') . " desc";
-  $tcp = new cc_cutepage;
-  $tcp -> id = $nidfield;
-  $tcp -> pagesize = $npagesize;
-  $tcp -> rslimit = $nlisttopx;
-  $tcp -> sqlstr = $tsqlstr;
-  $tcp -> offset = $toffset;
-  $tcp -> listkey = $tclassid;
-  $tcp -> init();
-  $trsary = $tcp -> get_rs_array();
-  if (is_array($trsary))
-  {
-    foreach($trsary as $trs)
-    {
-      $tmpstr .= '{';
-      foreach ($trs as $key => $val)
-      {
-        $tkey = ii_get_lrstr($key, '_', 'rightr');
-        $GLOBALS['RS_' . $tkey] = $val;
-        $tmpstr .= "\"".$tkey."\":\"".addslashes($val)."\",";
-      }
-      $tmpstr = substr($tmpstr,0,-1); 
-      $tmpstr .= '},';
-    }
-  }
-      $tmpstr = substr($tmpstr,0,-1); 
-      echo '['.$tmpstr.']';
-}
 //****************************************************
 // WDJA CMS Power by wdja.cn
 // Email: admin@wdja.cn

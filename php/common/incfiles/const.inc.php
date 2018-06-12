@@ -23,7 +23,7 @@ if(!defined('E_DEPRECATED')) error_reporting(E_ALL ^ E_NOTICE ^ E_WARNING);
 else error_reporting(E_ALL ^ E_NOTICE ^ E_DEPRECATED ^ E_WARNING);
 header('Content-Type: text/html; charset=' . CHARSET);
 $starttime = microtime(1);
-$db_host = '127.0.0.1';
+$db_host = 'localhost';
 $db_username = 'root';
 $db_password = 'root';
 $db_database = 'wdja';
