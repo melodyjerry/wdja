@@ -3,13 +3,20 @@
 // WDJA CMS Power by wdja.cn
 // Email: admin@wdja.cn
 // Web: http://www.wdja.cn/
+//必须通过根目录下的api.php调用以下所有函数
+//否则请修改参数   $nroute = 'root';//root,child,node 
+//调用方式
+//单页模块 wdja_cms_singlepage_api(模块文件夹名)
+//关于我们模块等无分类的模块 wdja_cms_page_api(模块文件夹名)
+//列表页wdja_cms_list_api($module)(模块文件夹名)
+//详情页wdja_cms_detail_api($module)(模块文件夹名)调用的页面URL请传递内容?id=
 //****************************************************
 
 function wdja_cms_detail_api($module)
 {
    global $conn, $nlng, $variable;
   $ngenre = $module;
-  $nroute = 'child';
+  $nroute = 'root';
   wdja_cms_init($nroute);
   $ndatabase = $variable[$ngenre . '.ndatabase'];
   $nidfield = $variable[$ngenre . '.nidfield'];
