@@ -90,10 +90,52 @@ function wdja_cms_list_api($module)
       return '['.$tmpstr.']';
 }
 
+
+
 function wdja_cms_page_api($module)
 {
+   global $conn, $nlng, $variable;
+  $ngenre = $module;
+  $nroute = 'root';//root,child,node
+  $toffset = '0';
+  wdja_cms_init($nroute);
+  $ndatabase = $variable[ii_cvgenre($ngenre) . '.ndatabase'];
+  $nidfield = $variable[ii_cvgenre($ngenre) . '.nidfield'];
+  $nfpre = $variable[ii_cvgenre($ngenre) . '.nfpre'];;
+  $npagesize = $variable[ii_cvgenre($ngenre) . '.npagesize'];
+  $tsqlstr = "select * from $ndatabase order by " . ii_cfnames($nfpre.'time') . " desc";
+  $tcp = new cc_cutepage;
+  $tcp -> id = $nidfield;
+  $tcp -> sqlstr = $tsqlstr;
+  $tcp -> offset = $toffset;
+  $tcp -> pagesize = $npagesize;
+  $tcp -> init();
+  $trsary = $tcp -> get_rs_array();
+  if (is_array($trsary))
+  {
+    foreach($trsary as $trs)
+    {
+      $tmpstr .= '{';
+      foreach ($trs as $key => $val)
+      {
+        $tkey = ii_get_lrstr($key, '_', 'rightr');
+        $GLOBALS['RS_' . $tkey] = $val;
+        $tmpstr .= "\"".$tkey."\":\"".addslashes($val)."\",";
+      }
+      $tmpstr = substr($tmpstr,0,-1); 
+      $tmpstr .= '},';
+    }
+  }
+      $tmpstr = substr($tmpstr,0,-1); 
+      return '['.$tmpstr.']';
+}
+
+
+
+function wdja_cms_singlepage_api($module)
+{
   $ngenre = $module;//'page';
-  $trootstr = '../../'.ii_get_actual_route($ngenre).'/common/language/module.wdja';
+  $trootstr = ii_get_actual_route($ngenre).'/common/language/module.wdja';
   if (file_exists($trootstr))
   {
     $tdoc = new DOMDocument();
@@ -130,7 +172,7 @@ function wdja_cms_page_api($module)
       $tmpstr = substr($tmpstr,0,-1); 
       $tmpstr .= '},';
       $tmpstr = substr($tmpstr,0,-1); 
-      echo '['.$tmpstr.']';
+      return '['.$tmpstr.']';
   }
 }
 

@@ -9,10 +9,10 @@ require('common/incfiles/api.inc.php');
 wdja_cms_module_api();
 function wdja_cms_module_api(){
     $tmpstr .= '{';
-    $tmpstr .= '"slide":'.wdja_cms_list_api('support/slide').',';
-    $tmpstr .= '"news":'.wdja_cms_list_api('news').',';
-    $tmpstr .= '"article":'.wdja_cms_list_api('article').',';
-    $tmpstr .= '"aboutus":'.wdja_cms_list_api('aboutus');
+    $tmpstr .= '"slide":'.wdja_cms_page_api('support/slide').',';
+    $tmpstr .= '"product":'.wdja_cms_list_api('product').',';
+    $tmpstr .= '"news":'.wdja_cms_list_api('article').',';
+    $tmpstr .= '"page":'.wdja_cms_singlepage_api('page');
     $tmpstr .= '}';
     echo $tmpstr;
 }
