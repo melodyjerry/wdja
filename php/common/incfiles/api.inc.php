@@ -148,8 +148,6 @@ function wdja_cms_list_api($module,$num='')
       return '['.$tmpstr.']';
 }
 
-
-
 function wdja_cms_page_api($module)
 {
    global $conn, $nlng, $variable;
@@ -190,8 +188,6 @@ function wdja_cms_page_api($module)
       $tmpstr = substr($tmpstr,0,-1); 
       return '['.$tmpstr.']';
 }
-
-
 
 function wdja_cms_singlepage_api($module)
 {
