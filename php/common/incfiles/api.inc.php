@@ -4,7 +4,6 @@
 // Email: admin@wdja.cn
 // Web: http://www.wdja.cn/
 //必须通过根目录下的api.php调用以下所有函数
-//否则请修改参数   $nroute = 'root';//root,child,node 
 //调用方式
 //单页模块 wdja_cms_singlepage_api(模块文件夹名)
 //关于我们模块等无分类的模块 wdja_cms_page_api(模块文件夹名)
@@ -12,51 +11,103 @@
 //详情页wdja_cms_detail_api($module)(模块文件夹名)调用的页面URL请传递内容?id=
 //****************************************************
 
-function wdja_cms_detail_api($module)
+function wdja_cms_form_api()
 {
-   global $conn, $nlng, $variable;
+  global $conn, $variable;
+  ii_conn_init();
+  ii_get_variable_init();
+  $ngenre = 'support/gbook';
+  $nlng = ii_get_active_things('lng');
+  $ndatabase = $variable[ii_cvgenre($ngenre) . '.ndatabase'];
+  $nidfield = $variable[ii_cvgenre($ngenre) . '.nidfield'];
+  $nfpre = $variable[ii_cvgenre($ngenre) . '.nfpre'];
+  $ttopic = $_GET['topic'];
+  $tqq = $_GET['qq'];
+  $temail = $_GET['email'];
+  $tcontent = $_GET['content'];
+    $tsqlstr = "insert into $ndatabase (
+    " . ii_cfnames($nfpre.'topic') . ",
+    " . ii_cfnames($nfpre.'qq') . ",
+    " . ii_cfnames($nfpre.'email') . ",
+    " . ii_cfnames($nfpre.'content') . ",
+    " . ii_cfnames($nfpre.'lng') . ",
+    " . ii_cfnames($nfpre.'time') . "
+    ) values (
+    '" . ii_left(ii_cstr($ttopic), 50) . "',
+    '" . ii_get_num($tqq) . "',
+    '" . ii_left(ii_cstr($temail), 50) . "',
+    '" . ii_left(ii_cstr($tcontent), 10000) . "',
+    '$nlng',
+    '" . ii_now() . "'
+    )";
+    $trs = ii_conn_query($tsqlstr, $conn);
+    if ($trs)
+    {
+      $status = '1';
+      $title ='留言成功';
+    }else{
+      $status = '0';
+      $title ='留言失败';
+    }
+  $status = '{"status":"'.$status.'","title":"'.$title.'"}';
+  return $status;
+}
+
+function wdja_cms_detail_api($module,$id)
+{
+  global $conn, $nlng, $variable;
+  ii_conn_init();
+  ii_get_variable_init();
   $ngenre = $module;
-  $nroute = 'root';
-  wdja_cms_init($nroute);
   $ndatabase = $variable[$ngenre . '.ndatabase'];
   $nidfield = $variable[$ngenre . '.nidfield'];
   $nfpre = $variable[$ngenre . '.nfpre'];
-  $tid = ii_get_num($_GET['id']);
-  $tsqlstr = "select * from $ndatabase where " . ii_cfnames($nfpre.'hidden') . "=0 and $nidfield=$tid";
+  $tid = ii_get_num($id);
+  $tsqlstr = "select * from $ndatabase where $nidfield=$tid";
   $trs = ii_conn_query($tsqlstr, $conn);
   $trs = ii_conn_fetch_array($trs);
   if ($trs)
   {
-     $tmpstr .= '{';
+    $tmpstr .= '{';
     foreach ($trs as $key => $val)
     {
       $tkey = ii_get_lrstr($key, '_', 'rightr');
       $GLOBALS['RS_' . $tkey] = $val;
-        $tmpstr .= "\"".$tkey."\":\"".addslashes($val)."\",";
+      $tmpstr .= "\"".$tkey."\":\"".addslashes($val)."\",";
     }
       $tmpstr = substr($tmpstr,0,-1); 
       $tmpstr .= '},';
       $tmpstr = substr($tmpstr,0,-1); 
-      return '['.$tmpstr.']';
+      return '{"'.$ngenre.'":['.$tmpstr.']}';
   }
 }
 
-function wdja_cms_list_api($module)
+function wdja_cms_list_api($module,$num='')
 {
-   global $conn, $nlng, $variable;
+  global $conn, $nlng, $variable;
+  ii_conn_init();
+  ii_get_variable_init();
   $ngenre = $module;
-  $nroute = 'root';//root,child,node
-  $toffset =  ii_get_num($_GET['offset']);//'0';
-  $tclassid =  ii_get_num($_GET['classid']);//'99';
-  wdja_cms_init($nroute);
+  $toffset =  ii_get_num($_GET['offset']);
+  $tpage =  ii_get_num($_GET['page'],'');
+  $tpage_size =  ii_get_num($_GET['page_size'],'');
+  $tnum =  ii_get_num($num,'');
+  $tclassid =  ii_get_num($_GET['classid']);
   $ndatabase = $variable[$ngenre . '.ndatabase'];
   $nidfield = $variable[$ngenre . '.nidfield'];
   $nfpre = $variable[$ngenre . '.nfpre'];
   $nclstype =$variable[$ngenre . '.nclstype'];
   $nlisttopx = $variable[$ngenre . '.nlisttopx'];
-  $npagesize = $variable[$ngenre . '.npagesize'];
+  if(!ii_isnull($tnum)){
+    $npagesize = $tnum;
+  }elseif(!ii_isnull($tpage) && !ii_isnull($tpage_size)){
+    $toffset = ($tpage - 1)*$tpage_size;
+    $npagesize = $tpage_size;
+  }else{
+    $npagesize = $variable[$ngenre . '.npagesize'];
+  }
   $tsqlstr = "select * from $ndatabase where " . ii_cfnames($nfpre.'hidden') . "=0";
-    if ($tclassid != 0)
+  if ($tclassid != 0)
   {
     if (ii_cinstr($tclassids, $tclassid, ','))
     {
@@ -102,15 +153,18 @@ function wdja_cms_list_api($module)
 function wdja_cms_page_api($module)
 {
    global $conn, $nlng, $variable;
+  ii_conn_init();
+  ii_get_variable_init();
   $ngenre = $module;
-  $nroute = 'root';//root,child,node
   $toffset = '0';
-  wdja_cms_init($nroute);
+  $tid =  ii_get_num($_GET['id'],'');
   $ndatabase = $variable[ii_cvgenre($ngenre) . '.ndatabase'];
   $nidfield = $variable[ii_cvgenre($ngenre) . '.nidfield'];
   $nfpre = $variable[ii_cvgenre($ngenre) . '.nfpre'];;
   $npagesize = $variable[ii_cvgenre($ngenre) . '.npagesize'];
-  $tsqlstr = "select * from $ndatabase order by " . ii_cfnames($nfpre.'time') . " desc";
+  $tsqlstr = "select * from $ndatabase";
+  if(!ii_isnull($tid)) $tsqlstr .= "where " . $nidfield . " = ".$tid;
+  $tsqlstr .= " order by " . ii_cfnames($nfpre.'time') . " desc";
   $tcp = new cc_cutepage;
   $tcp -> id = $nidfield;
   $tcp -> sqlstr = $tsqlstr;
@@ -141,7 +195,7 @@ function wdja_cms_page_api($module)
 
 function wdja_cms_singlepage_api($module)
 {
-  $ngenre = $module;//'page';
+  $ngenre = $module;
   $trootstr = ii_get_actual_route($ngenre).'/common/language/module.wdja';
   if (file_exists($trootstr))
   {
