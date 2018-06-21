@@ -12,7 +12,8 @@ function wdja_cms_module_api(){
     $tmpstr .= '"slide":'.wdja_cms_page_api('wechat/slide').',';
     $tmpstr .= '"product":'.wdja_cms_list_api('wechat/product',4).',';
     $tmpstr .= '"news":'.wdja_cms_list_api('wechat/news',6).',';
-    $tmpstr .= '"page":'.wdja_cms_singlepage_api('wechat/page');
+    $tmpstr .= '"aboutus":'.wdja_cms_singlepage_api('wechat/aboutus').',';
+    $tmpstr .= '"contact":'.wdja_cms_singlepage_api('wechat/contact');
     $tmpstr .= '}';
     echo $tmpstr;
 }
