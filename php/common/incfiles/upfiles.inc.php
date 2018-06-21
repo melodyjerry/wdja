@@ -176,6 +176,8 @@ function uu_upload_files()
   global $nupmaxsize, $nuptype, $nuppath, $variable;
   global $upform, $uptext, $upftype;
   $sthumbnail = ii_get_num($variable['common.thumbnail.switch']);//缩略图开关
+  $mthumbnail = ii_get_num($variable[ii_cvgenre($ngenre).'thumbnail.switch']);//模块缩略图开关
+  $sthumbnail = (!ii_isnull($mthumbnail)) ? $mthumbnail : $sthumbnail;//模块开关优先
   $doriginal = ii_get_num($variable['common.thumbnail.original']);//删除原图
   $sfile = $variable['common.thumbnail.file'];//
   $tfilesize = ii_get_num($_FILES['file1']['size']);
