@@ -78,6 +78,7 @@ function wdja_cms_detail_api($module,$id)
       $tmpstr = substr($tmpstr,0,-1); 
       $tmpstr .= '},';
       $tmpstr = substr($tmpstr,0,-1); 
+      $tmpstr = str_replace(array("　","\t","\n","\r"), '', $tmpstr);
       return '{"'.$ngenre.'":['.$tmpstr.']}';
   }
 }
@@ -145,6 +146,7 @@ function wdja_cms_list_api($module,$num='')
     }
   }
       $tmpstr = substr($tmpstr,0,-1); 
+      $tmpstr = str_replace(array("　","\t","\n","\r"), '', $tmpstr);
       return '['.$tmpstr.']';
 }
 
@@ -186,6 +188,7 @@ function wdja_cms_page_api($module)
     }
   }
       $tmpstr = substr($tmpstr,0,-1); 
+      $tmpstr = str_replace(array("　","\t","\n","\r"), '', $tmpstr);
       return '['.$tmpstr.']';
 }
 
@@ -228,7 +231,8 @@ function wdja_cms_singlepage_api($module)
     }
       $tmpstr = substr($tmpstr,0,-1); 
       $tmpstr .= '},';
-      $tmpstr = substr($tmpstr,0,-1); 
+      $tmpstr = substr($tmpstr,0,-1);
+      $tmpstr = str_replace(array("　","\t","\n","\r"), '', $tmpstr);
       return '['.$tmpstr.']';
   }
 }
