@@ -79,7 +79,7 @@ function wdja_cms_detail_api($module,$id)
       $tmpstr .= '},';
       $tmpstr = substr($tmpstr,0,-1); 
       $tmpstr = str_replace(array("　","\t","\n","\r"), '', $tmpstr);
-      return '{"'.$ngenre.'":['.$tmpstr.']}';
+      return '['.$tmpstr.']';
   }
 }
 
