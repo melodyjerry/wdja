@@ -12,6 +12,7 @@
     <item varstr="nsaveimages" strvalue="1" />
     <item varstr="nindex" strvalue="index.php" />
     <item varstr="ncontentcutepage" strvalue="1" />
+    <item varstr="thumbnail.switch" strvalue="1" />
     <item varstr="ncreatefolder" strvalue="htmldata" />
     <item varstr="ncreatefiletype" strvalue=".html" />
     <item varstr="nuninstall" strvalue="1|1|1" />

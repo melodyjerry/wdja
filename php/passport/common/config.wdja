@@ -12,6 +12,7 @@
     <item varstr="face_height_max" strvalue="100" />
     <item varstr="register_close" strvalue="0" />
     <item varstr="lostpassword_close" strvalue="0" />
+    <item varstr="thumbnail.switch" strvalue="1" />
     <item varstr="nuninstall" strvalue="1|0|0" />
   </configure>
 </xml>
