@@ -59,9 +59,9 @@ function wdja_cms_detail_api($module,$id)
   ii_conn_init();
   ii_get_variable_init();
   $ngenre = $module;
-  $ndatabase = $variable[$ngenre . '.ndatabase'];
-  $nidfield = $variable[$ngenre . '.nidfield'];
-  $nfpre = $variable[$ngenre . '.nfpre'];
+  $ndatabase = $variable[ii_cvgenre($ngenre) . '.ndatabase'];
+  $nidfield = $variable[ii_cvgenre($ngenre) . '.nidfield'];
+  $nfpre = $variable[ii_cvgenre($ngenre) . '.nfpre'];
   $tid = ii_get_num($id);
   $tsqlstr = "select * from $ndatabase where $nidfield=$tid";
   $trs = ii_conn_query($tsqlstr, $conn);
@@ -94,11 +94,11 @@ function wdja_cms_list_api($module,$num='')
   $tpage_size =  ii_get_num($_GET['page_size'],'');
   $tnum =  ii_get_num($num,'');
   $tclassid =  ii_get_num($_GET['classid']);
-  $ndatabase = $variable[$ngenre . '.ndatabase'];
-  $nidfield = $variable[$ngenre . '.nidfield'];
-  $nfpre = $variable[$ngenre . '.nfpre'];
-  $nclstype =$variable[$ngenre . '.nclstype'];
-  $nlisttopx = $variable[$ngenre . '.nlisttopx'];
+  $ndatabase = $variable[ii_cvgenre($ngenre) . '.ndatabase'];
+  $nidfield = $variable[ii_cvgenre($ngenre) . '.nidfield'];
+  $nfpre = $variable[ii_cvgenre($ngenre) . '.nfpre'];
+  $nclstype =$variable[ii_cvgenre($ngenre) . '.nclstype'];
+  $nlisttopx = $variable[ii_cvgenre($ngenre) . '.nlisttopx'];
   if(!ii_isnull($tnum)){
     $npagesize = $tnum;
   }elseif(!ii_isnull($tpage) && !ii_isnull($tpage_size)){
