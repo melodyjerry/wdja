@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xml mode="wdja" author="wdja">
+  <configure>
+    <node>item</node>
+    <field>disinfo,chinese</field>
+    <base>language_list</base>
+  </configure>
+  <language_list>
+    <item>
+      <disinfo><![CDATA[topic]]></disinfo>
+      <chinese><![CDATA[你好]]></chinese>
+    </item>
+    <item>
+      <disinfo><![CDATA[keywords]]></disinfo>
+      <chinese><![CDATA[你好,世界]]></chinese>
+    </item>
+    <item>
+      <disinfo><![CDATA[description]]></disinfo>
+      <chinese><![CDATA[世界世界]]></chinese>
+    </item>
+    <item>
+      <disinfo><![CDATA[content]]></disinfo>
+      <chinese><![CDATA[]]></chinese>
+    </item>
+    <item>
+      <disinfo><![CDATA[att]]></disinfo>
+      <chinese><![CDATA[]]></chinese>
+    </item>
+  </language_list>
+</xml>

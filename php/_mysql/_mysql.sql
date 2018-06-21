@@ -407,6 +407,35 @@ CREATE TABLE IF NOT EXISTS `wdja_news` (
 -- --------------------------------------------------------
 
 --
+-- 表的结构 `wdja_wechat_news`
+--
+
+CREATE TABLE IF NOT EXISTS `wdja_wechat_news` (
+  `nid` int(9) NOT NULL AUTO_INCREMENT,
+  `n_topic` varchar(50) DEFAULT NULL,
+  `n_keywords` varchar(152) DEFAULT NULL,
+  `n_description` varchar(252) DEFAULT NULL,
+  `n_image` varchar(255) DEFAULT NULL,
+  `n_content` text,
+  `n_content_images_list` text,
+  `n_cttype` int(1) DEFAULT '0',
+  `n_cp_note` int(1) DEFAULT '0',
+  `n_cp_mode` int(1) DEFAULT '0',
+  `n_cp_type` int(1) DEFAULT '0',
+  `n_cp_num` int(9) DEFAULT '0',
+  `n_time` datetime DEFAULT NULL,
+  `n_cls` text,
+  `n_class` int(9) DEFAULT '0',
+  `n_hidden` int(1) DEFAULT '0',
+  `n_update` int(1) DEFAULT '0',
+  `n_good` int(1) DEFAULT '0',
+  `n_count` int(9) DEFAULT '0',
+  PRIMARY KEY (`nid`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
 -- 表的结构 `wdja_passport`
 --
 
@@ -490,6 +519,32 @@ CREATE TABLE IF NOT EXISTS `wdja_passport_message` (
 --
 
 CREATE TABLE IF NOT EXISTS `wdja_product` (
+  `pid` int(9) NOT NULL AUTO_INCREMENT,
+  `p_snum` varchar(50) DEFAULT NULL,
+  `p_topic` varchar(50) DEFAULT NULL,
+  `p_keywords` varchar(152) DEFAULT NULL,
+  `p_description` varchar(252) DEFAULT NULL,
+  `p_image` varchar(255) DEFAULT NULL,
+  `p_content` text,
+  `p_content_images_list` text,
+  `p_cttype` int(1) DEFAULT '0',
+  `p_time` datetime DEFAULT NULL,
+  `p_cls` text,
+  `p_class` int(9) DEFAULT '0',
+  `p_hidden` int(1) DEFAULT '0',
+  `p_update` int(1) DEFAULT '0',
+  `p_good` int(1) DEFAULT '0',
+  `p_count` int(9) DEFAULT '0',
+  PRIMARY KEY (`pid`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `wdja_wechat_product`
+--
+
+CREATE TABLE IF NOT EXISTS `wdja_wechat_product` (
   `pid` int(9) NOT NULL AUTO_INCREMENT,
   `p_snum` varchar(50) DEFAULT NULL,
   `p_topic` varchar(50) DEFAULT NULL,
@@ -597,6 +652,31 @@ CREATE TABLE IF NOT EXISTS `wdja_support_gbook` (
 -- --------------------------------------------------------
 
 --
+-- 表的结构 `wdja_wechat_gbook`
+--
+
+CREATE TABLE IF NOT EXISTS `wdja_wechat_gbook` (
+  `gid` int(9) NOT NULL AUTO_INCREMENT,
+  `g_author` varchar(50) DEFAULT NULL,
+  `g_authorip` varchar(50) DEFAULT NULL,
+  `g_sex` int(1) DEFAULT '0',
+  `g_qq` int(12) DEFAULT '0',
+  `g_face` int(9) DEFAULT '0',
+  `g_email` varchar(50) DEFAULT NULL,
+  `g_homepage` varchar(255) DEFAULT NULL,
+  `g_topic` varchar(50) DEFAULT NULL,
+  `g_content` text,
+  `g_time` datetime DEFAULT NULL,
+  `g_reply` text,
+  `g_replytime` datetime DEFAULT NULL,
+  `g_hidden` int(1) DEFAULT '0',
+  `g_lng` varchar(50) DEFAULT NULL,
+  PRIMARY KEY (`gid`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
 -- 表的结构 `wdja_support_linktext`
 --
 
@@ -655,6 +735,23 @@ INSERT INTO `wdja_support_slide` (`sid`, `s_topic`, `s_url`, `s_lng`, `s_image`,
 (3, '3', '', 'chinese', 'common/upload/2018/04/12/756001L.jpg', '', '2018-04-12 07:55:40'),
 (4, '4', '', 'chinese', 'common/upload/2018/04/12/7561394.jpg', '', '2018-04-12 07:56:04'),
 (5, '5', '', 'chinese', 'common/upload/2018/04/12/75632M8.jpg', '', '2018-04-12 07:56:19');
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `wdja_wechat_slide`
+--
+
+CREATE TABLE IF NOT EXISTS `wdja_wechat_slide` (
+  `sid` int(9) NOT NULL AUTO_INCREMENT,
+  `s_topic` varchar(50) DEFAULT NULL,
+  `s_url` varchar(255) DEFAULT NULL,
+  `s_lng` varchar(50) DEFAULT NULL,
+  `s_image` varchar(255) DEFAULT NULL,
+  `s_intro` varchar(255) DEFAULT NULL,
+  `s_time` datetime DEFAULT NULL,
+  PRIMARY KEY (`sid`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=6 ;
 
 -- --------------------------------------------------------
 
