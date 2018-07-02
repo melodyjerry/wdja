@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xml mode="wdja" author="wdja">
+  <configure>
+    <node>item</node>
+    <field>disinfo,chinese</field>
+    <base>language_list</base>
+  </configure>
+  <language_list>
+    <item>
+      <disinfo><![CDATA[topic]]></disinfo>
+      <chinese><![CDATA[联系我们]]></chinese>
+    </item>
+    <item>
+      <disinfo><![CDATA[keywords]]></disinfo>
+      <chinese><![CDATA[你好,世界]]></chinese>
+    </item>
+    <item>
+      <disinfo><![CDATA[description]]></disinfo>
+      <chinese><![CDATA[世界世界]]></chinese>
+    </item>
+    <item>
+      <disinfo><![CDATA[content]]></disinfo>
+      <chinese><![CDATA[<p>手机: 15919723399</p>
+<p>QQ: 925474725</p>
+<p>Email: shadoweb@qq.com</p>]]></chinese>
+    </item>
+    <item>
+      <disinfo><![CDATA[att]]></disinfo>
+      <chinese><![CDATA[]]></chinese>
+    </item>
+  </language_list>
+</xml>
