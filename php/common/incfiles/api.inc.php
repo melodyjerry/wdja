@@ -16,7 +16,7 @@ function wdja_cms_form_api()
   global $conn, $variable;
   ii_conn_init();
   ii_get_variable_init();
-  $ngenre = 'support/gbook';
+  $ngenre = 'wechat/gbook';
   $nlng = ii_get_active_things('lng');
   $ndatabase = $variable[ii_cvgenre($ngenre) . '.ndatabase'];
   $nidfield = $variable[ii_cvgenre($ngenre) . '.nidfield'];
