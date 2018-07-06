@@ -23,6 +23,9 @@ function wdja_cms_module(){
   $id = $_GET['id'];
   switch($_GET['type'])
   {
+    case 'search':
+      echo wdja_cms_search_api($module);
+      break;
     case 'list':
       echo wdja_cms_list_api($module);
       break;

@@ -11,6 +11,68 @@
 //详情页wdja_cms_detail_api($module)(模块文件夹名)调用的页面URL请传递内容?id=
 //****************************************************
 
+function wdja_cms_search_api($module)
+{
+  global $conn, $nlng, $variable;
+  ii_conn_init();
+  ii_get_variable_init();
+  $ngenre = $module;
+  $tkeywords = $_GET['keywords'];
+  $tpage =  ii_get_num($_GET['page'])==0?1:ii_get_num($_GET['page']);
+  $tpage_size =  ii_get_num($_GET['page_size']);
+  $tclassid =  ii_get_num($_GET['classid']);
+  $ndatabase = $variable[ii_cvgenre($ngenre) . '.ndatabase'];
+  $nidfield = $variable[ii_cvgenre($ngenre) . '.nidfield'];
+  $nfpre = $variable[ii_cvgenre($ngenre) . '.nfpre'];
+  $nclstype =$variable[ii_cvgenre($ngenre) . '.nclstype'];
+  $nlisttopx = $variable[ii_cvgenre($ngenre) . '.nlisttopx'];
+  $npagesize = $variable[ii_cvgenre($ngenre) . '.npagesize'];
+  if($tpage_size !=0 ) $npagesize = $tpage_size;
+  $toffset = ($tpage - 1)*$npagesize;
+  $tsqlstr = "select * from $ndatabase where " . ii_cfnames($nfpre.'hidden') . "=0";
+  if(!ii_isnull($tkeywords)) $tsqlstr .= " and " . ii_cfnames($nfpre.'topic') . " like '%" . $tkeywords . "%'";
+  if ($tclassid != 0)
+  {
+    if (ii_cinstr($tclassids, $tclassid, ','))
+    {
+      if ($nclstype == 0) $tsqlstr .= " and " . ii_cfnames($nfpre.'class') . "=$tclassid";
+      else $tsqlstr .= " and " . ii_cfnames($nfpre.'cls') . " like '%|" . $tclassid . "|%'";
+    }
+  }
+  else
+  {
+    if (!ii_isnull($tclassids)) $tsqlstr .= " and " . ii_cfnames($nfpre.'class') . " in ($tclassids)";
+  }
+  $tsqlstr .= " order by " . ii_cfnames($nfpre.'time') . " desc";
+  $tcp = new cc_cutepage;
+  $tcp -> id = $nidfield;
+  $tcp -> pagesize = $npagesize;
+  $tcp -> rslimit = $nlisttopx;
+  $tcp -> sqlstr = $tsqlstr;
+  $tcp -> offset = $toffset;
+  $tcp -> listkey = $tclassid;
+  $tcp -> init();
+  $trsary = $tcp -> get_rs_array();
+  if (is_array($trsary))
+  {
+    foreach($trsary as $trs)
+    {
+      $tmpstr .= '{';
+      foreach ($trs as $key => $val)
+      {
+        $tkey = ii_get_lrstr($key, '_', 'rightr');
+        $GLOBALS['RS_' . $tkey] = $val;
+        $tmpstr .= "\"".$tkey."\":\"".addslashes($val)."\",";
+      }
+      $tmpstr = substr($tmpstr,0,-1); 
+      $tmpstr .= '},';
+    }
+  }
+      $tmpstr = substr($tmpstr,0,-1); 
+      $tmpstr = str_replace(array("　","\t","\n","\r"), '', $tmpstr);
+      return '['.$tmpstr.']';
+}
+
 function wdja_cms_form_api()
 {
   global $conn, $variable;
