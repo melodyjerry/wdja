@@ -384,6 +384,7 @@ function mm_get_mysortary($genre, $lng, $fsid)
     $tary[$trow[$sort_idfield]]['sort'] = $trow[ii_cfnames($sort_fpre, 'sort')];
     $tary[$trow[$sort_idfield]]['keywords'] = $trow[ii_cfnames($sort_fpre, 'keywords')];
     $tary[$trow[$sort_idfield]]['description'] = $trow[ii_cfnames($sort_fpre, 'description')];
+    $tary[$trow[$sort_idfield]]['image'] = $trow[ii_cfnames($sort_fpre, 'image')];
     $tary[$trow[$sort_idfield]]['fid'] = $trow[ii_cfnames($sort_fpre, 'fid')];
     $tary[$trow[$sort_idfield]]['fsid'] = $trow[ii_cfnames($sort_fpre, 'fsid')];
     $tary[$trow[$sort_idfield]]['order'] = $trow[ii_cfnames($sort_fpre, 'order')];
@@ -987,6 +988,7 @@ function vv_isort($genre, $vars, $sortAry = '')
         {
           $tmptstr = str_replace('{$id}', $key, $tmpastr);
           $tmptstr = str_replace('{$sort}', $val['sort'], $tmptstr);
+          $tmptstr = str_replace('{$image}', $val['image'], $tmptstr);
           $tmptstr = str_replace('{$baseurl}', $tbaseurl, $tmptstr);
           $tmptstr = str_replace('{$urltype}', $turltype, $tmptstr);
           $tmptstr = str_replace('{$createfolder}', $tcreatefolder, $tmptstr);
