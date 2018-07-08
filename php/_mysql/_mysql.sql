@@ -46,15 +46,8 @@ CREATE TABLE IF NOT EXISTS `wdja_aboutus` (
   `ab_count` int(9) DEFAULT '0',
   `ab_lng` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`abid`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
---
--- 转存表中的数据 `wdja_aboutus`
---
-
-INSERT INTO `wdja_aboutus` (`abid`, `ab_topic`, `ab_keywords`, `ab_description`, `ab_image`, `ab_content`, `ab_content_images_list`, `ab_cttype`, `ab_cp_note`, `ab_cp_mode`, `ab_cp_type`, `ab_cp_num`, `ab_time`, `ab_hidden`, `ab_update`, `ab_good`, `ab_count`, `ab_lng`) VALUES
-(1, 'wdja简介', 'wdja,简介', 'wdja简介wdja简介', NULL, '<p>wdja简介wdja简介wdja简介wdja简介wdja简介wdja简介wdja简介wdja简介wdja简介wdja简介wdja简介wdja简介wdja简介wdja简介wdja简介wdja简介wdja简介wdja简介wdja简介wdja简介wdja简介wdja简介wdja简介wdja简介wdja简介wdja简介wdja简介wdja简介wdja简介wdja简介wdja简介wdja简介wdja简介wdja简介wdja简介wdja简介wdja简介wdja简介wdja简介wdja简介&nbsp;</p>', '', 0, 0, 0, 0, 100, '2018-05-24 06:18:41', 0, 0, 0, 152, 'chinese'),
-(2, '22', '', '', NULL, '<p>&nbsp;<img src="/aboutus/common/upload/simg/2018/05/31/18285156.jpg" border="0" alt="" /><img src="/aboutus/common/upload/simg/2018/05/31/18285156.jpg" border="0" alt="" /></p>', '/aboutus/common/upload/simg/2018/05/31/18285156.jpg', 0, 0, 0, 0, 100, '2018-05-31 18:28:53', 1, 0, 0, 0, 'chinese');
 
 -- --------------------------------------------------------
 
@@ -93,42 +86,12 @@ CREATE TABLE IF NOT EXISTS `wdja_admin_log` (
   `l_ip` varchar(50) DEFAULT NULL,
   `l_islogin` int(1) DEFAULT '0',
   PRIMARY KEY (`lid`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=31 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 --
 -- 转存表中的数据 `wdja_admin_log`
 --
 
-INSERT INTO `wdja_admin_log` (`lid`, `l_name`, `l_time`, `l_ip`, `l_islogin`) VALUES
-(2, 'admin', '2018-04-20 16:11:49', '113.116.219.57', 1),
-(3, 'admin', '2018-05-18 22:40:53', '113.116.150.71', 1),
-(4, 'admin', '2018-05-19 06:08:55', '120.229.51.71', 1),
-(5, 'admin', '2018-05-20 06:04:14', '120.229.51.175', 1),
-(6, 'admin', '2018-05-20 06:58:48', '120.229.51.175', 1),
-(7, 'shadoweb', '2018-05-20 07:03:35', '120.229.51.175', 0),
-(8, 'admin', '2018-05-20 07:03:44', '120.229.51.175', 0),
-(9, 'admin', '2018-05-20 07:03:59', '120.229.51.175', 1),
-(10, 'shadoweb', '2018-05-24 06:02:11', '120.229.51.181', 0),
-(11, 'admin', '2018-05-24 06:02:22', '120.229.51.181', 0),
-(12, 'admin', '2018-05-24 06:02:35', '120.229.51.181', 1),
-(13, 'mywdja', '2018-05-26 03:19:49', '120.229.51.204', 0),
-(14, 'admin', '2018-05-26 03:20:00', '120.229.51.204', 1),
-(15, 'admin', '2018-05-27 08:07:59', '120.229.51.191', 0),
-(16, 'admin', '2018-05-27 08:08:14', '120.229.51.191', 1),
-(17, 'admin', '2018-05-28 23:21:31', '113.102.131.56', 1),
-(18, 'admin', '2018-05-29 00:02:05', '113.102.131.56', 1),
-(19, 'admin', '2018-05-31 00:49:34', '183.221.84.244', 0),
-(20, 'admin', '2018-05-31 00:49:44', '183.221.84.244', 0),
-(21, 'admin', '2018-05-31 00:49:54', '183.221.84.244', 0),
-(22, 'admin', '2018-05-31 17:56:43', '116.24.188.123', 1),
-(23, 'admin', '2018-06-01 16:35:46', '113.116.218.86', 1),
-(24, 'admin', '2018-06-02 15:58:25', '127.0.0.1', 1),
-(25, 'admin', '2018-06-04 19:32:41', '127.0.0.1', 1),
-(26, 'admin', '2018-06-07 05:08:50', '127.0.0.1', 0),
-(27, 'admin', '2018-06-07 05:10:35', '127.0.0.1', 1),
-(28, 'admin', '2018-06-08 03:17:51', '127.0.0.1', 1),
-(29, 'admin', '2018-06-08 03:42:34', '127.0.0.1', 1),
-(30, 'admin', '2018-06-08 03:42:55', '127.0.0.1', 1);
 
 -- --------------------------------------------------------
 
@@ -157,14 +120,8 @@ CREATE TABLE IF NOT EXISTS `wdja_article` (
   `a_good` int(1) DEFAULT '0',
   `a_count` int(9) DEFAULT '0',
   PRIMARY KEY (`aid`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
---
--- 转存表中的数据 `wdja_article`
---
-
-INSERT INTO `wdja_article` (`aid`, `a_topic`, `a_keywords`, `a_description`, `a_image`, `a_content`, `a_content_images_list`, `a_cttype`, `a_cp_note`, `a_cp_mode`, `a_cp_type`, `a_cp_num`, `a_time`, `a_cls`, `a_class`, `a_hidden`, `a_update`, `a_good`, `a_count`) VALUES
-(1, '全局搜索', '', '', '/article/common/upload/simg/2018/06/07/7211994.png', '', '', 0, 0, 0, 0, 100, '2018-06-07 06:53:21', '|0|,|5|', 5, 0, 0, 0, 2);
 
 -- --------------------------------------------------------
 
@@ -470,15 +427,7 @@ CREATE TABLE IF NOT EXISTS `wdja_passport` (
   `p_lasttime` datetime DEFAULT NULL,
   `p_pretime` datetime DEFAULT NULL,
   PRIMARY KEY (`pid`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
-
---
--- 转存表中的数据 `wdja_passport`
---
-
-INSERT INTO `wdja_passport` (`pid`, `p_username`, `p_password`, `p_email`, `p_city`, `p_sex`, `p_old`, `p_name`, `p_qq`, `p_msn`, `p_phone`, `p_homepage`, `p_code`, `p_address`, `p_emoney`, `p_integral`, `p_topic`, `p_face`, `p_face_u`, `p_face_url`, `p_face_width`, `p_face_height`, `p_sign`, `p_forum_admin`, `p_utype`, `p_lock`, `p_time`, `p_lasttime`, `p_pretime`) VALUES
-(1, 'Pinksky', '351c7a53b3b0dc1c38907abc4d85dc1c', '1989018806@qq.com', '23', '1', '1991', '周近平', '1989018806', '', '', '', '', '', 0, 0, 0, 0, 0, NULL, 0, 0, NULL, 0, 0, 0, '2018-05-25 03:10:13', NULL, NULL),
-(2, '二虎吧噔', '2e87093f5831487886a09c46dcd5015f', '1004015178@qq.com', '14', '1', '1997', '', '1004015178', '', '', '', '', '', 0, 0, 0, 0, 0, NULL, 0, 0, NULL, 0, 0, 0, '2018-06-01 04:35:03', NULL, NULL);
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -723,18 +672,7 @@ CREATE TABLE IF NOT EXISTS `wdja_support_slide` (
   `s_intro` varchar(255) DEFAULT NULL,
   `s_time` datetime DEFAULT NULL,
   PRIMARY KEY (`sid`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=6 ;
-
---
--- 转存表中的数据 `wdja_support_slide`
---
-
-INSERT INTO `wdja_support_slide` (`sid`, `s_topic`, `s_url`, `s_lng`, `s_image`, `s_intro`, `s_time`) VALUES
-(1, '1', '', 'chinese', 'common/upload/2018/04/12/70652Qj.jpg', '', '2018-04-12 07:06:45'),
-(2, '2', '', 'chinese', 'common/upload/2018/04/12/70818O8.jpg', '', '2018-04-12 07:08:10'),
-(3, '3', '', 'chinese', 'common/upload/2018/04/12/756001L.jpg', '', '2018-04-12 07:55:40'),
-(4, '4', '', 'chinese', 'common/upload/2018/04/12/7561394.jpg', '', '2018-04-12 07:56:04'),
-(5, '5', '', 'chinese', 'common/upload/2018/04/12/75632M8.jpg', '', '2018-04-12 07:56:19');
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -751,7 +689,7 @@ CREATE TABLE IF NOT EXISTS `wdja_wechat_slide` (
   `s_intro` varchar(255) DEFAULT NULL,
   `s_time` datetime DEFAULT NULL,
   PRIMARY KEY (`sid`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=6 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -814,6 +752,7 @@ CREATE TABLE IF NOT EXISTS `wdja_sys_sort` (
   `sort_sort` varchar(50) DEFAULT NULL,
   `sort_keywords` varchar(50) DEFAULT NULL,
   `sort_description` varchar(250) DEFAULT NULL,
+  `sort_image` varchar(255) DEFAULT NULL,
   `sort_fid` varchar(255) DEFAULT NULL,
   `sort_fsid` int(9) DEFAULT '0',
   `sort_lid` int(9) DEFAULT '0',
@@ -822,18 +761,7 @@ CREATE TABLE IF NOT EXISTS `wdja_sys_sort` (
   `sort_hidden` int(1) DEFAULT '0',
   `sort_order` int(9) DEFAULT '0',
   PRIMARY KEY (`sortid`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=6 ;
-
---
--- 转存表中的数据 `wdja_sys_sort`
---
-
-INSERT INTO `wdja_sys_sort` (`sortid`, `sort_pid`, `sort_sort`, `sort_keywords`, `sort_description`, `sort_fid`, `sort_fsid`, `sort_lid`, `sort_genre`, `sort_lng`, `sort_hidden`, `sort_order`) VALUES
-(1, 0, '使用手册', '使用手册', '使用手册', '0', 0, 0, 'help', 'chinese', 0, 0),
-(2, 0, '前台使用', NULL, NULL, '1', 1, 0, 'help', 'chinese', 0, 0),
-(3, 0, '后台使用', NULL, NULL, '1', 1, 0, 'help', 'chinese', 0, 1),
-(4, 0, '开发手册', NULL, NULL, '0', 0, 0, 'help', 'chinese', 0, 1),
-(5, 0, '功能说明', '', '', '0', 0, 0, 'article', 'chinese', 0, 0);
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -853,16 +781,7 @@ CREATE TABLE IF NOT EXISTS `wdja_sys_upload` (
   `up_valid` int(1) DEFAULT '0',
   `up_voidreason` int(1) DEFAULT '0',
   PRIMARY KEY (`upid`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=32 ;
-
---
--- 转存表中的数据 `wdja_sys_upload`
---
-
-INSERT INTO `wdja_sys_upload` (`upid`, `up_genre`, `up_upident`, `up_filename`, `up_field`, `up_fid`, `up_time`, `up_user`, `up_valid`, `up_voidreason`) VALUES
-(29, 'aboutus', '', 'common/upload/simg/2018/05/31/184717Q6.jpg', 'aboutuscontent_images', 0, '2018-05-31 18:47:17', 'admin', 0, 0),
-(30, 'article', '', 'common/upload/simg/2018/06/07/653161n.png', 'articleimage', 0, '2018-06-07 06:53:16', 'admin', 0, 0),
-(31, 'article', '', 'common/upload/simg/2018/06/07/7211994.png', 'articleimage', 0, '2018-06-07 07:21:19', 'admin', 0, 0);
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
