@@ -123,7 +123,9 @@ function wdja_cms_module_detail()
 function wdja_cms_module_index()
 {
   global $ngenre;
-  $tmpstr = ii_ireplace('module.index', 'tpl');
+  $tmpstr = ii_itake('module.index', 'tpl');
+  $tmpstr = str_replace('{$genre}', $ngenre, $tmpstr);
+  $tmpstr = ii_creplace($tmpstr);
   if (!ii_isnull($tmpstr)) return $tmpstr;
   else return wdja_cms_module_list();
 }

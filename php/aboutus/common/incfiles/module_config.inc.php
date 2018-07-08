@@ -35,11 +35,14 @@ function wdja_cms_module_detail()
     mm_imessage(ii_itake('global.lng_config.nodata', 'lng'), '-1');   
   }
 }
-
 function wdja_cms_module_index()
 {
-  $tmpstr = ii_ireplace('module.index', 'tpl');
-  return $tmpstr;
+  global $ngenre;
+  $tmpstr = ii_itake('module.index', 'tpl');
+  $tmpstr = str_replace('{$genre}', $ngenre, $tmpstr);
+  $tmpstr = ii_creplace($tmpstr);
+  if (!ii_isnull($tmpstr)) return $tmpstr;
+  else return wdja_cms_module_detail();
 }
 
 function wdja_cms_module()
