@@ -86,7 +86,7 @@ function wdja_cms_form_api()
   $ttopic = $_GET['topic'];
   $tqq = $_GET['qq'];
   $temail = $_GET['email'];
-  $tcontent = $_GET['content'];
+  $tinfo = $_GET['info'];
     $tsqlstr = "insert into $ndatabase (
     " . ii_cfnames($nfpre.'topic') . ",
     " . ii_cfnames($nfpre.'qq') . ",
@@ -98,7 +98,7 @@ function wdja_cms_form_api()
     '" . ii_left(ii_cstr($ttopic), 50) . "',
     '" . ii_get_num($tqq) . "',
     '" . ii_left(ii_cstr($temail), 50) . "',
-    '" . ii_left(ii_cstr($tcontent), 10000) . "',
+    '" . ii_left(ii_cstr($tinfo), 10000) . "',
     '$nlng',
     '" . ii_now() . "'
     )";
