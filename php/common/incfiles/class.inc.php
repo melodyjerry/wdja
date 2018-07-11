@@ -81,9 +81,9 @@ class cc_cutepage
   function get_rs_count()
   {
     global $conn;
-    $tsqlstr = 'select count(' . $this -> id . ') from' . ii_get_lrstr($this -> sqlstr, 'from', 'rightr');
+    $tsqlstr = 'select count(' . $this -> id . ') from (' . $this -> sqlstr .') as sum';
     $trs = ii_conn_query($tsqlstr, $conn);
-    $trs = ii_conn_fetch_array($trs); 
+    $trs = ii_conn_fetch_array($trs);
     return $trs[0];
   }
 
