@@ -137,6 +137,7 @@ h1 {padding-left: 5px;color:red;}
 <script language="javascript" src="{$=#global_images_route}js/main.js"></script>
 <script language="javascript" src="{$=#global_images_route}js/selects.js"></script>
 <script language="javascript" src="{$=#global_images_route}js/manage.js"></script>
+<script language="javascript" src="{$=#global_images_route}js/exif.js"></script>
 </head>
 <body onload="nhrefstate()">]]></tpl_default>
     </item>
