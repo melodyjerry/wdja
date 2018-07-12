@@ -1,8 +1,20 @@
+@charset "UTF-8";
+@font-face {
+  font-family: "webfont";
+  src: url("webfont/webfont.woff2") format("woff2"),
+       url("webfont/webfont.woff") format("woff"),
+       url("webfont/webfont.ttf") format("truetype"),
+       url("webfont/webfont.eot") format("embedded-opentype"),
+       url("webfont/webfont.svg") format("svg"),
+       url("webfont/webfont.otf") format("opentype");
+  font-weight: normal;
+  font-style: normal;
+}
 HTML,BODY {
   WIDTH: 100%; HEIGHT: 100%
 }
 BODY {
-  MARGIN: 0px; PADDING: 0px; BACKGROUND: #EEEEEE; COLOR: #535353; FONT-FAMILY: arial,verdana,sans-serif
+  font-family: "webfont";MARGIN: 0px; PADDING: 0px; BACKGROUND: #EEEEEE; COLOR: #535353;
 }
 TABLE {
   FONT-SIZE: 12px; TEXT-ALIGN: left; MARGIN: auto
@@ -17,7 +29,7 @@ FORM,INPUT,SELECT,TEXTAREA {
   MARGIN: 0px; PADDING: 0px
 }
 INPUT,SELECT,TEXTAREA {
-  FONT-SIZE: 12px; FONT-FAMILY: arial; VERTICAL-ALIGN: middle
+  FONT-SIZE: 12px; VERTICAL-ALIGN: middle
 }
 INPUT.text {
   HEIGHT: 16px; PADDING: 2px; BORDER: #999999 1px solid
@@ -62,7 +74,7 @@ A:hover {
   WIDTH: 100%; POSITION: relative; PADDING-TOP: 60px
 }
 #topContent H2 {
-  MARGIN: 0px; PADDING-LEFT: 10px; POSITION: absolute; TOP: 15px; LEFT: 0px; COLOR: #666666; FONT-FAMILY: "Trebuchet MS"; FONT-SIZE: 24px; FONT-WEIGHT: bold
+  MARGIN: 0px; PADDING-LEFT: 10px; POSITION: absolute; TOP: 15px; LEFT: 0px; COLOR: #666666; FONT-SIZE: 24px; FONT-WEIGHT: bold
 }
 #topContent H2 A {
   COLOR: #666666; TEXT-DECORATION: none
@@ -153,7 +165,7 @@ A:hover {
   COLOR: #333333; TEXT-DECORATION: underline
 }
 #bottomMenu {
-  POSITION: absolute; TOP: 15px; RIGHT: 5px; FONT-FAMILY: PMingLiu; FONT-SIZE: 11px; COLOR: #666666
+  POSITION: absolute; TOP: 15px; RIGHT: 5px; FONT-SIZE: 11px; COLOR: #666666
 }
 #bottomMenu A {
   COLOR: #666666; TEXT-DECORATION: none
