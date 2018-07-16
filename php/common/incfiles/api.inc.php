@@ -11,6 +11,61 @@
 //详情页wdja_cms_detail_api($module)(模块文件夹名)调用的页面URL请传递内容?id=
 //****************************************************
 
+function wdja_cms_sort_api($module)
+{
+  global $conn, $nlng, $variable;
+  ii_conn_init();
+  ii_get_variable_init();
+  $ngenre = $module;
+  $ndatabase = $variable['common.sort.ndatabase'];
+  $nidfield = $variable['common.sort.nidfield'];
+  $nfpre = $variable['common.sort.nfpre'];
+  $tsqlstr = "select * from $ndatabase";
+  $tsqlstr .= " where " . ii_cfnames($nfpre.'genre') . " = '".$ngenre."'";
+  $tsqlstr .= " order by " . ii_cfnames($nfpre.'order') . " desc";
+  $trs = ii_conn_query($tsqlstr, $conn);
+   while ($trow = ii_conn_fetch_array($trs))
+    {
+      $tmpstr .= '{';
+      foreach ($trow as $key => $val)
+      {
+        $tkey = ii_get_lrstr($key, '_', 'rightr');
+        $GLOBALS['RS_' . $tkey] = $val;
+        $tmpstr .= "\"".$tkey."\":\"".addslashes($val)."\",";
+      }
+      $tmpstr = substr($tmpstr,0,-1); 
+      $tmpstr .= '},';
+    }
+      $tmpstr = substr($tmpstr,0,-1); 
+      $tmpstr = str_replace(array("　","\t","\n","\r"), '', $tmpstr);
+      return '['.$tmpstr.']';
+}
+
+function wdja_cms_wxlogin_api(){
+    $code = $_GET['code'];
+    $appid = 'wx0a9e41cd4c4f4502';
+    $secret = '7ff8e2c8e99cafbec7891451c941a39a';
+    $curl = curl_init();
+    // 使用curl_setopt()设置要获取的URL地址
+    $url='https://api.weixin.qq.com/sns/jscode2session?appid='.$appid.'&secret='.$secret.'&js_code='.$code.'&grant_type=authorization_code';
+    curl_setopt($curl, CURLOPT_URL, $url);
+    // 设置是否输出header
+    curl_setopt($curl, CURLOPT_HEADER, false);
+    // 设置是否输出结果
+    curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+    // 设置是否检查服务器端的证书
+    curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
+    // 使用curl_exec()将CURL返回的结果转换成正常数据并保存到一个变量
+    $data = curl_exec($curl);
+    // 使用 curl_close() 关闭CURL会话
+    curl_close($curl);
+    $data = json_decode($data);
+    $data = get_object_vars($data);
+    $data['appid']=$appid;
+    $data = json_encode($data);
+    return $data;
+}
+
 function wdja_cms_search_api($module)
 {
   global $conn, $nlng, $variable;
@@ -31,18 +86,6 @@ function wdja_cms_search_api($module)
   $toffset = ($tpage - 1)*$npagesize;
   $tsqlstr = "select * from $ndatabase where " . ii_cfnames($nfpre.'hidden') . "=0";
   if(!ii_isnull($tkeywords)) $tsqlstr .= " and " . ii_cfnames($nfpre.'topic') . " like '%" . $tkeywords . "%'";
-  if ($tclassid != 0)
-  {
-    if (ii_cinstr($tclassids, $tclassid, ','))
-    {
-      if ($nclstype == 0) $tsqlstr .= " and " . ii_cfnames($nfpre.'class') . "=$tclassid";
-      else $tsqlstr .= " and " . ii_cfnames($nfpre.'cls') . " like '%|" . $tclassid . "|%'";
-    }
-  }
-  else
-  {
-    if (!ii_isnull($tclassids)) $tsqlstr .= " and " . ii_cfnames($nfpre.'class') . " in ($tclassids)";
-  }
   $tsqlstr .= " order by " . ii_cfnames($nfpre.'time') . " desc";
   $tcp = new cc_cutepage;
   $tcp -> id = $nidfield;
@@ -86,7 +129,7 @@ function wdja_cms_form_api()
   $ttopic = $_GET['topic'];
   $tqq = $_GET['qq'];
   $temail = $_GET['email'];
-  $tinfo = $_GET['info'];
+  $tcontent = $_GET['info'];
     $tsqlstr = "insert into $ndatabase (
     " . ii_cfnames($nfpre.'topic') . ",
     " . ii_cfnames($nfpre.'qq') . ",
@@ -98,7 +141,7 @@ function wdja_cms_form_api()
     '" . ii_left(ii_cstr($ttopic), 50) . "',
     '" . ii_get_num($tqq) . "',
     '" . ii_left(ii_cstr($temail), 50) . "',
-    '" . ii_left(ii_cstr($tinfo), 10000) . "',
+    '" . ii_left(ii_cstr($tcontent), 10000) . "',
     '$nlng',
     '" . ii_now() . "'
     )";
@@ -172,15 +215,7 @@ function wdja_cms_list_api($module,$num='')
   $tsqlstr = "select * from $ndatabase where " . ii_cfnames($nfpre.'hidden') . "=0";
   if ($tclassid != 0)
   {
-    if (ii_cinstr($tclassids, $tclassid, ','))
-    {
-      if ($nclstype == 0) $tsqlstr .= " and " . ii_cfname('class') . "=$tclassid";
-      else $tsqlstr .= " and " . ii_cfname('cls') . " like '%|" . $tclassid . "|%'";
-    }
-  }
-  else
-  {
-    if (!ii_isnull($tclassids)) $tsqlstr .= " and " . ii_cfname('class') . " in ($tclassids)";
+      $tsqlstr .= " and " . ii_cfnames($nfpre.'cls') . " like '%|" . $tclassid . "|%'";
   }
   $tsqlstr .= " order by " . ii_cfnames($nfpre.'time') . " desc";
   $tcp = new cc_cutepage;
