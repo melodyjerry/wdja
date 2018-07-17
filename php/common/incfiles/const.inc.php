@@ -30,6 +30,7 @@ $db_database = 'wdja';
 $default_language = 'chinese';
 $default_template = 'tpl_default';
 $default_skin = 'default';
+$m_skin = 'm';
 $default_head = 'default_head';
 $default_foot = 'default_foot';
 //****************************************************

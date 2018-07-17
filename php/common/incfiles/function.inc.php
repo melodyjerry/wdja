@@ -16,7 +16,7 @@ function ii_isAdmin()
   return $bool;
 }
 
-function ii_isMobile()
+function ii_isMobileAgent()
 {
   $bool = false;
   $userAgent = strtolower($_SERVER['HTTP_USER_AGENT']);
@@ -547,6 +547,8 @@ function ii_get_active_things($type)
   {
     $trthings = ii_get_safecode($_COOKIE[APP_NAME . 'config'][$tthings]);
     if (ii_isnull($trthings)) $trthings = $GLOBALS['default_' . $tthings];
+    if (!ii_isnull($trthings) && ii_isMobileAgent() && $tthings = 'skin') $trthings = $GLOBALS['m_' . $tthings];
+    if (ii_isAdmin() && $tthings == 'skin') $trthings = $GLOBALS['default_' . $tthings];
   }
   return $trthings;
 }
@@ -1034,6 +1036,8 @@ function ii_replace_xinfo_ary($strers, $type)
   {
     case 'tpl':
       $troot = 'common/template';
+      if(ii_isMobileAgent()) $troot = $troot . '/' . $GLOBALS['m_skin' ];
+      if(ii_isAdmin()) $troot = 'common/template';
       break;
     case 'lng':
       $troot = 'common/language';
