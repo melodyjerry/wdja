@@ -19,6 +19,18 @@
       <chinese><![CDATA[留言人]]></chinese>
     </item>
     <item>
+      <disinfo><![CDATA[name]]></disinfo>
+      <chinese><![CDATA[联系人]]></chinese>
+    </item>
+    <item>
+      <disinfo><![CDATA[mobile]]></disinfo>
+      <chinese><![CDATA[手机号]]></chinese>
+    </item>
+    <item>
+      <disinfo><![CDATA[info]]></disinfo>
+      <chinese><![CDATA[留言内容]]></chinese>
+    </item>
+    <item>
       <disinfo><![CDATA[topic]]></disinfo>
       <chinese><![CDATA[留言标题]]></chinese>
     </item>

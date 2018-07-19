@@ -11,6 +11,72 @@
 //详情页wdja_cms_detail_api($module)(模块文件夹名)调用的页面URL请传递内容?id=
 //****************************************************
 
+function getAccessToken(){
+  $appid = '';
+  $secret = '';
+  $url='https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid='.$appid.'&secret='.$secret;
+  $html = file_get_contents($url);
+  $output = json_decode($html, true);
+  $access_token = $output['access_token'];
+  return $access_token;
+}
+
+function getOpenid($code){
+    $appid = '';
+    $secret = '';
+    $curl = curl_init();
+    $url='https://api.weixin.qq.com/sns/jscode2session?appid='.$appid.'&secret='.$secret.'&js_code='.$code.'&grant_type=authorization_code';
+    curl_setopt($curl, CURLOPT_URL, $url);
+    curl_setopt($curl, CURLOPT_HEADER, false);
+    curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+    curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
+    $data = curl_exec($curl);
+    curl_close($curl);
+    $data = json_decode($data);
+    $data = get_object_vars($data);
+    return $data['openid'];
+}
+
+function send_template_message($code,$formid,$time,$name,$mobile,$info){
+ $color = '#e3e3e3';
+ $templateid = '';
+ $openid = getOpenid($code);
+ $data_arr = array(
+  'keyword1' => array( "value" => $time, "color" => $color),
+  'keyword2' => array( "value" => $name, "color" => $color),
+  'keyword3' => array( "value" => $mobile, "color" => $color),
+  'keyword4' => array( "value" => $info, "color" => $color)
+  );
+  $post_data = array (
+    "touser"           => $openid,
+    "template_id"      => $templateid,
+    "page"             => "/pages/index/index",  // 点击模板消息后跳转到的页面，可以传递参数
+    "form_id"          => $formid,
+    "data"             => $data_arr,
+    "emphasis_keyword" => "keyword2.DATA" // 需要强调的关键字，会加大居中显示
+  );
+  $url = "https://api.weixin.qq.com/cgi-bin/message/wxopen/template/send?access_token=".getAccessToken();
+  $data = urldecode(json_encode($post_data));
+  if( empty( $url ) ){
+   return ;
+  }
+  $ch = curl_init();
+  curl_setopt($ch, CURLOPT_URL, $url);
+  curl_setopt($ch, CURLOPT_HEADER, 0);
+  curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+  curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, FALSE);
+  curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, FALSE);
+  if( $data != '' && !empty( $data ) ){
+   curl_setopt($ch, CURLOPT_POST, 1);
+   curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
+   curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json', 'Content-Length: ' . strlen($data)));
+  }
+  curl_setopt($ch, CURLOPT_TIMEOUT, 15);//超时时间
+  $res = curl_exec($ch);
+  curl_close($ch);
+  return $res;
+}
+
 function wdja_cms_sort_api($module)
 {
   global $conn, $nlng, $variable;
@@ -43,21 +109,15 @@ function wdja_cms_sort_api($module)
 
 function wdja_cms_wxlogin_api(){
     $code = $_GET['code'];
-    $appid = 'wx0a9e41cd4c4f4502';
-    $secret = '7ff8e2c8e99cafbec7891451c941a39a';
+    $appid = '';
+    $secret = '';
     $curl = curl_init();
-    // 使用curl_setopt()设置要获取的URL地址
     $url='https://api.weixin.qq.com/sns/jscode2session?appid='.$appid.'&secret='.$secret.'&js_code='.$code.'&grant_type=authorization_code';
     curl_setopt($curl, CURLOPT_URL, $url);
-    // 设置是否输出header
     curl_setopt($curl, CURLOPT_HEADER, false);
-    // 设置是否输出结果
     curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
-    // 设置是否检查服务器端的证书
     curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
-    // 使用curl_exec()将CURL返回的结果转换成正常数据并保存到一个变量
     $data = curl_exec($curl);
-    // 使用 curl_close() 关闭CURL会话
     curl_close($curl);
     $data = json_decode($data);
     $data = get_object_vars($data);
@@ -126,30 +186,34 @@ function wdja_cms_form_api()
   $ndatabase = $variable[ii_cvgenre($ngenre) . '.ndatabase'];
   $nidfield = $variable[ii_cvgenre($ngenre) . '.nidfield'];
   $nfpre = $variable[ii_cvgenre($ngenre) . '.nfpre'];
-  $ttopic = $_GET['topic'];
-  $tqq = $_GET['qq'];
+  $tname = $_GET['name'];
+  $tmobile = $_GET['mobile'];
   $temail = $_GET['email'];
-  $tcontent = $_GET['info'];
+  $tinfo = $_GET['info'];
+  $tcode = $_GET['code'];
+  $tformid = $_GET['formid'];
+  $ttime = ii_now();
     $tsqlstr = "insert into $ndatabase (
-    " . ii_cfnames($nfpre.'topic') . ",
-    " . ii_cfnames($nfpre.'qq') . ",
+    " . ii_cfnames($nfpre.'name') . ",
+    " . ii_cfnames($nfpre.'mobile') . ",
     " . ii_cfnames($nfpre.'email') . ",
-    " . ii_cfnames($nfpre.'content') . ",
+    " . ii_cfnames($nfpre.'info') . ",
     " . ii_cfnames($nfpre.'lng') . ",
     " . ii_cfnames($nfpre.'time') . "
     ) values (
-    '" . ii_left(ii_cstr($ttopic), 50) . "',
-    '" . ii_get_num($tqq) . "',
+    '" . ii_left(ii_cstr($tname), 50) . "',
+    '" . ii_get_num($tmobile) . "',
     '" . ii_left(ii_cstr($temail), 50) . "',
-    '" . ii_left(ii_cstr($tcontent), 10000) . "',
+    '" . ii_left(ii_cstr($tinfo), 10000) . "',
     '$nlng',
-    '" . ii_now() . "'
+    '$ttime'
     )";
     $trs = ii_conn_query($tsqlstr, $conn);
     if ($trs)
     {
       $status = '1';
       $title ='留言成功';
+      send_template_message($tcode,$tformid,$ttime,$tname,$tmobile,$tinfo);
     }else{
       $status = '0';
       $title ='留言失败';

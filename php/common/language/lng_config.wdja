@@ -83,6 +83,18 @@
       <chinese><![CDATA[作者]]></chinese>
     </item>
     <item>
+      <disinfo><![CDATA[name]]></disinfo>
+      <chinese><![CDATA[联系人]]></chinese>
+    </item>
+    <item>
+      <disinfo><![CDATA[mobile]]></disinfo>
+      <chinese><![CDATA[手机号]]></chinese>
+    </item>
+    <item>
+      <disinfo><![CDATA[email]]></disinfo>
+      <chinese><![CDATA[邮箱]]></chinese>
+    </item>
+    <item>
       <disinfo><![CDATA[time]]></disinfo>
       <chinese><![CDATA[时间]]></chinese>
     </item>
