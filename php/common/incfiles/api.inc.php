@@ -50,7 +50,7 @@ function send_template_message($code,$formid,$time,$name,$mobile,$info){
   $post_data = array (
     "touser"           => $openid,
     "template_id"      => $templateid,
-    "page"             => "/pages/index/index",  // 点击模板消息后跳转到的页面，可以传递参数
+    "page"             => "pages/index/index",  // 点击模板消息后跳转到的页面，可以传递参数
     "form_id"          => $formid,
     "data"             => $data_arr,
     "emphasis_keyword" => "keyword2.DATA" // 需要强调的关键字，会加大居中显示
