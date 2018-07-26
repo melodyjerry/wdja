@@ -6,6 +6,7 @@
 //****************************************************
 ob_start();
 session_start();
+date_default_timezone_set('Asia/Shanghai');
 define('ADMIN_FOLDER', 'admin');
 define('APP_NAME', 'wdja_');
 define('CACHE_DIR', '_CACHE');
