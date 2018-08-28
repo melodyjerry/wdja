@@ -12,13 +12,12 @@
 {$=ii_ireplace('global.module.swiper-slide','tpl')}
 <div id="middle">
   <div id="middleContent">
-    <div class="middleSide">
-      <div class="list">
-        <dl>
-        <dt>{$=ii_itake('global.passport:api.userlogin', 'lng')}</dt>
-        <dd>{$=ii_ireplace('global.passport:api.login', 'tpl')}</dd>
-      </div>
-    </div>
+
+         <div class="title">{$=ii_itake('global.passport:api.userlogin', 'lng')}</div>
+            {$=ii_ireplace('global.passport:api.login', 'tpl')}
+
+
+
     <div class="middleMain">
       <div class="middleMainContent">
        <div class="main_r_top">
