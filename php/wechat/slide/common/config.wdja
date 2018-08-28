@@ -7,7 +7,7 @@
     <item varstr="ndatabase" strvalue="wdja_wechat_slide" />
     <item varstr="nidfield" strvalue="sid" />
     <item varstr="nfpre" strvalue="s_" />
-    <item varstr="thumbnail.switch" strvalue="1" />
+    <item varstr="thumbnail.switch" strvalue="0" />
     <item varstr="nuninstall" strvalue="1|0|1" />
   </configure>
 </xml>

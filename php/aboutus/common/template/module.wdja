@@ -12,8 +12,11 @@
 <div id="middle">
   <div id="middleContent">
     <div class="middleSide">
-      <div class="box1">
-        <h3>{$=ii_itake('module.channel_title','lng')}</h3>{$=vv_itransfer('new', '1', 'topx=50')}
+      <div class="list">
+        <dl>
+        <dt>{$=ii_itake('module.channel_title','lng')}</dt>
+        {$=vv_itransfer('new', '1', 'topx=50')}
+        </dl>
       </div>
     </div>
     <div class="middleMain">

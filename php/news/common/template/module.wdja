@@ -12,11 +12,17 @@
 <div id="middle">
   <div id="middleContent">
     <div class="middleSide">
-      <div class="box1">
-        <h3>{$=ii_itake('module.class', 'lng')}</h3>{$=vv_isort('{$genre}', 'tpl=sort')}
+      <div class="list">
+        <dl>
+        <dt>{$=ii_itake('module.class', 'lng')}</dt>
+        {$=vv_isort('{$genre}', 'tpl=sort')}
+        </dl>
       </div>
-      <div class="box1">
-        <h3>{$=ii_itake('module.good','lng')}</h3>{$=vv_itransfer('good', '1', 'topx=10;tnum=26')}
+      <div class="list">
+        <dl>
+        <dt>{$=ii_itake('module.good', 'lng')}</dt>
+        {$=vv_itransfer('good', '1', 'topx=10;tnum=26')}
+        </dl>
       </div>
     </div>
     <div class="middleMain">
@@ -59,11 +65,17 @@
 <div id="middle">
   <div id="middleContent">
     <div class="middleSide">
-      <div class="box1">
-        <h3>{$=ii_itake('module.class', 'lng')}</h3>{$=vv_isort('{$genre}', 'tpl=sort')}
+      <div class="list">
+        <dl>
+        <dt>{$=ii_itake('module.class', 'lng')}</dt>
+        {$=vv_isort('{$genre}', 'tpl=sort')}
+        </dl>
       </div>
-      <div class="box1">
-        <h3>{$=ii_itake('module.good','lng')}</h3>{$=vv_itransfer('good', '1', 'topx=10;tnum=26')}
+      <div class="list">
+        <dl>
+        <dt>{$=ii_itake('module.good', 'lng')}</dt>
+        {$=vv_itransfer('good', '1', 'topx=10;tnum=26')}
+        </dl>
       </div>
     </div>
     <div class="middleMain">

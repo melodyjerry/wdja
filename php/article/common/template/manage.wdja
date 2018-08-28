@@ -132,6 +132,7 @@
                   <input type="hidden" name="sel_ids">
                     <tr>
                       <td height="25" width="30"><input type="checkbox" name="sel_all" class="checkbox" onClick="select_all()"></td>
+                      <td height="25" width="30">{$=ii_itake('global.lng_config.id','lng')}</td>
                       <td width="*">{$=ii_itake('global.lng_config.topic','lng')}</td>
                       <td width="100">{$=ii_itake('global.lng_config.sort','lng')}</td>
                       <td width="120">{$=ii_itake('global.lng_config.time','lng')}</td>
@@ -140,6 +141,7 @@
                     </tr>{@recurrence_ida}
                     <tr>
                       <td height="25"><input type="checkbox" name="sel_id" value="{$id}" class="checkbox"></td>
+                      <td>{$id}</td>
                       <td><a href="/{$=#ngenre}/?type=detail&id={$id}" target="_blank"><img src="{$=#global_images_route}public/small/url.gif" border="0"></a>&nbsp;<a href="?type=edit&id={$id}&backurl={$=urlencode($GLOBALS['nurl'])}">{$topic}</a></td>
                       <td><a href="?classid={$classid}">{$sort}</a></td>
                       <td>{$time}</td>

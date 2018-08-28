@@ -533,6 +533,8 @@ function ii_get_active_things($type)
   switch($type)
   {
     case 'lng':
+      $tthings = 'language';
+      break;
     case 'sel':
       $tthings = 'language';
       break;

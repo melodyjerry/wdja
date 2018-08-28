@@ -22,6 +22,11 @@ function wdja_cms_admin_manage_adddisp()
   if (!(ii_isnull(ii_cstr($_POST['name']))))
   {
     $tsqlstr = "insert into $ndatabase (
+    " . ii_cfname('openid') . ",
+    " . ii_cfname('nickName') . ",
+    " . ii_cfname('avatarUrl') . ",
+    " . ii_cfname('gender') . ",
+    " . ii_cfname('city') . ",
     " . ii_cfname('name') . ",
     " . ii_cfname('mobile') . ",
     " . ii_cfname('email') . ",
@@ -29,6 +34,11 @@ function wdja_cms_admin_manage_adddisp()
     " . ii_cfname('hidden') . ",
     " . ii_cfname('time') . "
     ) values (
+    '" . ii_left(ii_cstr($_POST['openid']), 50) . "',
+    '" . ii_left(ii_cstr($_POST['nickName']), 50) . "',
+    '" . ii_left(ii_cstr(saveimages($_POST['avatarUrl'])), 255) . "',
+    '" . ii_get_num($_POST['gender']) . "',
+    '" . ii_left(ii_cstr($_POST['city']), 50) . "',
     '" . ii_left(ii_cstr($_POST['name']), 255) . "',
     " . ii_get_num($_POST['mobile']) . ",
     '" . ii_left(ii_cstr($_POST['email']), 50) . "',
@@ -56,6 +66,10 @@ function wdja_cms_admin_manage_editdisp()
   if (!(ii_isnull($tname)))
   {
     $tsqlstr = "update $ndatabase set
+    " . ii_cfname('nickName') . "='" . ii_left(ii_cstr($_POST['nickName']), 50) . "',
+    " . ii_cfname('avatarUrl') . "='" . ii_left(ii_cstr(saveimages($_POST['avatarUrl'])), 255) . "',
+    " . ii_cfname('gender') . "=" . ii_get_num($_POST['gender']) . ",
+    " . ii_cfname('city') . "='" . ii_left(ii_cstr($_POST['city']), 50) . "',
     " . ii_cfname('name') . "='" . ii_left($tname, 50) . "',
     " . ii_cfname('mobile') . "=" . ii_get_num($_POST['mobile']) . ",
     " . ii_cfname('email') . "='" . ii_left(ii_cstr($_POST['email']), 50) . "',
@@ -165,7 +179,11 @@ function wdja_cms_admin_manage_list()
         $ttopic = str_replace($search_keyword, $font_red, $ttopic);
       }
       if ($trs[ii_cfname('hidden')] == 1) $tname = str_replace('{$explain}', $tname, $font_disabled);
-      $tmptstr = str_replace('{$name}', $tname, $tmpastr);
+      $tmptstr = str_replace('{$nickName}', ii_htmlencode($trs[ii_cfname('nickName')]), $tmpastr);
+      $tmptstr = str_replace('{$avatarUrl}', ii_htmlencode($trs[ii_cfname('avatarUrl')]), $tmptstr);
+      $tmptstr = str_replace('{$gender}', ii_get_num($trs[ii_cfname('gender')]), $tmptstr);
+      $tmptstr = str_replace('{$city}', ii_htmlencode($trs[ii_cfname('city')]), $tmptstr);
+      $tmptstr = str_replace('{$name}', $tname, $tmptstr);
       $tmptstr = str_replace('{$topicstr}', ii_encode_scripts(ii_htmlencode($trs[ii_cfname('name')])), $tmptstr);
       $tmptstr = str_replace('{$mobile}', ii_get_num($trs[ii_cfname('mobile')]), $tmptstr);
       $tmptstr = str_replace('{$email}', ii_htmlencode($trs[ii_cfname('email')]), $tmptstr);

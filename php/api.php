@@ -6,7 +6,16 @@
 //****************************************************
 require('common/incfiles/common.inc.php');
 require('common/incfiles/api.inc.php');
+
 wdja_cms_module();
+
+function wdja_cms_api(){
+  $appid = "";
+  if($appid != $_GET['appid']){
+  echo "404";
+  exit();
+  }
+}
 function wdja_cms_module_api(){
     $tmpstr .= '{';
     $tmpstr .= '"slide":'.wdja_cms_page_api('wechat/slide').',';
@@ -19,12 +28,22 @@ function wdja_cms_module_api(){
 }
 
 function wdja_cms_module(){
+  wdja_cms_api();
   $module = $_GET['module'];
   $id = $_GET['id'];
   switch($_GET['type'])
   {
+    case 'wxlogin':
+      echo wdja_cms_wxlogin_api();
+      break;
+    case 'wxlogin_code':
+      echo wdja_cms_wxlogin_code_api();
+      break;
     case 'search':
       echo wdja_cms_search_api($module);
+      break;
+    case 'sort':
+      echo wdja_cms_sort_api($module);
       break;
     case 'list':
       echo wdja_cms_list_api($module);

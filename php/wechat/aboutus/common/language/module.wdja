@@ -16,7 +16,7 @@
     </item>
     <item>
       <disinfo><![CDATA[description]]></disinfo>
-      <chinese><![CDATA[WDJA网站内容管理系统]]></chinese>
+      <chinese><![CDATA[WDJA网站内容管理系统是一套可对现有模块进行扩充与克隆的网站系统核心，采用UTF-8编码，采取 语言/代码/程序 两两分离的技术模式，全面使用了模板包与语言包结构，为用户的修改提供方便，网站内容的每一个角落都可以在后台予以管理，是一套非常适合用做系统建站或者进行二次开发的程序核心。]]></chinese>
     </item>
     <item>
       <disinfo><![CDATA[content]]></disinfo>

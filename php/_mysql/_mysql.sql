@@ -606,6 +606,11 @@ CREATE TABLE IF NOT EXISTS `wdja_support_gbook` (
 
 CREATE TABLE IF NOT EXISTS `wdja_wechat_gbook` (
   `gid` int(9) NOT NULL AUTO_INCREMENT,
+  `g_openid` varchar(50) DEFAULT NULL,
+  `g_nickName` varchar(50) DEFAULT NULL,
+  `g_avatarUrl` varchar(255) DEFAULT NULL,
+  `g_gender` int(6) DEFAULT '0',
+  `g_city` varchar(50) DEFAULT NULL,
   `g_name` varchar(50) DEFAULT NULL,
   `g_mobile` int(12) DEFAULT '0',
   `g_email` varchar(50) DEFAULT NULL,

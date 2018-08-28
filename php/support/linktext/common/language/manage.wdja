@@ -7,6 +7,10 @@
   </configure>
   <language_list>
     <item>
+      <disinfo><![CDATA[channel_title]]></disinfo>
+      <chinese><![CDATA[友情链接]]></chinese>
+    </item>
+    <item>
       <disinfo><![CDATA[mgtitle]]></disinfo>
       <chinese><![CDATA[文字链接]]></chinese>
     </item>

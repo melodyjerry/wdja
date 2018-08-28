@@ -19,6 +19,26 @@
       <chinese><![CDATA[留言人]]></chinese>
     </item>
     <item>
+      <disinfo><![CDATA[openid]]></disinfo>
+      <chinese><![CDATA[用户ID]]></chinese>
+    </item>
+    <item>
+      <disinfo><![CDATA[nickName]]></disinfo>
+      <chinese><![CDATA[微信昵称]]></chinese>
+    </item>
+    <item>
+      <disinfo><![CDATA[avatarUrl]]></disinfo>
+      <chinese><![CDATA[头像]]></chinese>
+    </item>
+    <item>
+      <disinfo><![CDATA[gender]]></disinfo>
+      <chinese><![CDATA[性别]]></chinese>
+    </item>
+    <item>
+      <disinfo><![CDATA[city]]></disinfo>
+      <chinese><![CDATA[城市]]></chinese>
+    </item>
+    <item>
       <disinfo><![CDATA[name]]></disinfo>
       <chinese><![CDATA[联系人]]></chinese>
     </item>

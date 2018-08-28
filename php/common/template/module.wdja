@@ -13,69 +13,42 @@
 <div id="middle">
   <div id="middleContent">
     <div class="middleSide">
-      <div class="box1">
-        <h3>{$=ii_itake('global.passport:api.userlogin', 'lng')}</h3>
-        <div class="box1s">{$=ii_ireplace('global.passport:api.login', 'tpl')}</div>
+      <div class="list">
+        <dl>
+        <dt>{$=ii_itake('global.passport:api.userlogin', 'lng')}</dt>
+        <dd>{$=ii_ireplace('global.passport:api.login', 'tpl')}</dd>
       </div>
     </div>
     <div class="middleMain">
       <div class="middleMainContent">
-        <table width="100%" cellpadding="0" cellspacing="0" border="0">
-          <tr>
-            <td width="50%" valign="top">
-              <div class="box2">
-                <h3>{$=ii_itake('global.lng_menu.article', 'lng')}</h3>{$=vv_itransfer('top', '1', 'topx=10;tnum=30;genre=article')}
-              </div>
-            </td>
-            <td width="50%" valign="top">
-              <div class="box2">
-                <h3>{$=ii_itake('global.lng_menu.product', 'lng')}</h3>{$=vv_itransfer('top', '1', 'topx=10;tnum=30;genre=product')}
-              </div>
-            </td>
-          </tr>
-          <tr>
-            <td valign="top">
-              <div class="box2">
-                <h3>{$=ii_itake('global.lng_menu.download', 'lng')}</h3>{$=vv_itransfer('top', '1', 'topx=10;tnum=30;genre=download')}
-              </div>
-            </td>
-            <td valign="top">
-              <div class="box2">
-                <h3>{$=ii_itake('global.lng_menu.shop', 'lng')}</h3>{$=vv_itransfer('top', '1', 'topx=10;tnum=30;genre=shop')}
-              </div>
-            </td>
-          </tr>
-        </table>
-        <form method="get" name="search" action="search">
-        <table width="100%" cellpadding="0" cellspacing="0" border="0">
-          <tr>
-            <td width="10" height="10"></td>
-            <td></td>
-          </tr>
-          <tr>
-            <td></td>
-            <td height="25"><strong>{$=ii_itake('global.lng_config.search', 'lng')}</strong></td>
-          </tr>
-          <tr>
-            <td></td>
-            <td height="35">{$=ii_itake('global.lng_config.keyword', 'lng')} <input type="text" name="keyword" size="15" class="text" /> <input type="submit" value="{$=ii_itake('global.lng_config.search','lng')}" class="button" /></td>
-          </tr>
-          <tr>
-            <td height="10"></td>
-            <td></td>
-          </tr>
-        </table>
-        </form>
+       <div class="main_r_top">
+         <div class="title">{$=ii_itake('global.news:module.channel_title', 'lng')}</div>
+           {$=vv_itransfer('top', '3', 'topx=10;tnum=30;genre=news')}
+       </div>
+       <div class="main_r_top">
+         <div class="title">{$=ii_itake('global.lng_menu.product', 'lng')}</div>
+           {$=vv_itransfer('top', '3', 'topx=10;tnum=30;genre=product')}
+       </div>
+       <div class="main_r_top">
+         <div class="title">{$=ii_itake('global.lng_menu.download', 'lng')}</div>
+           {$=vv_itransfer('top', '3', 'topx=10;tnum=30;genre=download')}
+       </div>
+       <div class="main_r_top">
+         <div class="title">{$=ii_itake('global.lng_menu.shop', 'lng')}</div>
+           {$=vv_itransfer('top', '3', 'topx=10;tnum=30;genre=shop')}
+       </div>
       </div>
     </div>
     <div class="clear"></div>
   </div>
+{$=ii_ireplace('global.module.links','tpl')}
 </div>
 {$=mm_web_foot($GLOBALS['nfoot'])}]]></tpl_default>
     </item>
     <item>
       <name><![CDATA[swiper-slide]]></name>
-      <tpl_default><![CDATA[<div class="swiper-container">
+      <tpl_default><![CDATA[<div class="swiper">
+<div class="swiper-container">
     <div class="swiper-wrapper">
        {$=vv_itransfer('all', 'slide', 'topx=5;tnum=30;genre=support/slide')}
     </div>
@@ -85,8 +58,21 @@
     <!-- 如果需要导航按钮 -->
     <div class="swiper-button-prev"></div>
     <div class="swiper-button-next"></div>
-    
+</div> 
 </div>]]></tpl_default>
+    </item>
+    <item>
+      <name><![CDATA[links]]></name>
+      <tpl_default><![CDATA[<div class="links">
+                <div class="title">
+                    <strong>
+                        {$=ii_itake('global.support/linktext:manage.channel_title', 'lng')}(交换QQ:858512104)
+              </strong>
+                </div>
+                <p>
+                   {$=vv_itransfer('all', '1', 'topx=5;tnum=30;genre=support/linktext')}
+                </p>
+   </div>]]></tpl_default>
     </item>
   </item_list>
 </xml>

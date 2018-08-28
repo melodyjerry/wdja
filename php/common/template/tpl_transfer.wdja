@@ -8,7 +8,7 @@
   <item_list>
     <item>
       <name><![CDATA[1]]></name>
-      <tpl_default><![CDATA[{@}<a href="{$=ii_curl('{$baseurl}', ii_iurl('detail', {$id}, {$urltype}, 'folder={$createfolder};filetype={$createfiletype};time={$time}'))}">{$topic}</a>{@}]]></tpl_default>
+      <tpl_default><![CDATA[{@}<dd><a href="{$=ii_curl('{$baseurl}', ii_iurl('detail', {$id}, {$urltype}, 'folder={$createfolder};filetype={$createfiletype};time={$time}'))}"><strong>{$topic}</strong></a></dd>{@}]]></tpl_default>
     </item>
     <item>
       <name><![CDATA[2]]></name>
@@ -18,9 +18,8 @@
     </item>
     <item>
       <name><![CDATA[sort]]></name>
-      <tpl_default><![CDATA[<ul>{@}
-  <li><span><a href="{$=ii_curl('{$baseurl}', ii_iurl('list', {$id}, {$urltype}, 'folder={$createfolder};filetype={$createfiletype}'))}">{$sort}</a></span></li>{@}
-</ul>]]></tpl_default>
+      <tpl_default><![CDATA[{@}
+  <dd><a href="{$=ii_curl('{$baseurl}', ii_iurl('list', {$id}, {$urltype}, 'folder={$createfolder};filetype={$createfiletype}'))}"><strong>{$sort}</strong></a></dd>{@}]]></tpl_default>
     </item>
     <item>
       <name><![CDATA[m1]]></name>
@@ -29,7 +28,20 @@
     <item>
       <name><![CDATA[slide]]></name>
       <tpl_default><![CDATA[{@}
-        <div class="swiper-slide"><img src="{$genre}/{$image}" /></div>
+        <div class="swiper-slide"><img src="{$image}" /></div>
+{@}]]></tpl_default>
+    </item>
+    <item>
+      <name><![CDATA[3]]></name>
+      <tpl_default><![CDATA[{@}
+<dl class="product">
+   <dt>
+       <a href="{$=ii_curl('{$baseurl}', ii_iurl('detail', {$id}, {$urltype}, 'folder={$createfolder};filetype={$createfiletype};time={$time}'))}">
+          <img src="{$image}" width="230" height="230" alt="{$topic}">
+       <h3>{$topic}</h3>
+       </a>
+    </dt>
+</dl>
 {@}]]></tpl_default>
     </item>
   </item_list>

@@ -37,7 +37,7 @@ function getOpenid($code){
     return $data['openid'];
 }
 
-function send_template_message($code,$formid,$time,$name,$mobile,$info){
+function send_template_message($code,$formid,$time,$name,$mobile,$email,$info){
  $color = '#e3e3e3';
  $templateid = '';
  $openid = getOpenid($code);
@@ -45,7 +45,8 @@ function send_template_message($code,$formid,$time,$name,$mobile,$info){
   'keyword1' => array( "value" => $time, "color" => $color),
   'keyword2' => array( "value" => $name, "color" => $color),
   'keyword3' => array( "value" => $mobile, "color" => $color),
-  'keyword4' => array( "value" => $info, "color" => $color)
+  'keyword4' => array( "value" => $email, "color" => $color),
+  'keyword5' => array( "value" => $info, "color" => $color)
   );
   $post_data = array (
     "touser"           => $openid,
@@ -53,7 +54,7 @@ function send_template_message($code,$formid,$time,$name,$mobile,$info){
     "page"             => "pages/index/index",  // 点击模板消息后跳转到的页面，可以传递参数
     "form_id"          => $formid,
     "data"             => $data_arr,
-    "emphasis_keyword" => "keyword2.DATA" // 需要强调的关键字，会加大居中显示
+    "emphasis_keyword" => "" // 需要强调的关键字，会加大居中显示
   );
   $url = "https://api.weixin.qq.com/cgi-bin/message/wxopen/template/send?access_token=".getAccessToken();
   $data = urldecode(json_encode($post_data));
@@ -108,6 +109,7 @@ function wdja_cms_sort_api($module)
 }
 
 function wdja_cms_wxlogin_api(){
+    $sessionid = $_GET['sessionid'];
     $code = $_GET['code'];
     $appid = '';
     $secret = '';
@@ -122,9 +124,41 @@ function wdja_cms_wxlogin_api(){
     $data = json_decode($data);
     $data = get_object_vars($data);
     $data['appid']=$appid;
+    //生成第三方3rd_session
+      $session3rd  = null;
+      $strPol = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
+      $max = strlen($strPol)-1;
+      for($i=0;$i<16;$i++){
+          $session3rd .=$strPol[rand(0,$max)];
+      }
+      $session3rd = $session3rd;
+//
+    session_start();
+    $_SESSION[$session3rd]=$data['openid'].$data['session_key'];
+//
+     $data['sessionid']=session_id();
+     $data['code'] = "1";
+     $data['value'] = $_SESSION[$session3rd];
     $data = json_encode($data);
     return $data;
 }
+
+function wdja_cms_wxlogin_code_api(){
+session_start();
+     $sessionid = $_GET['sessionid'];
+     $data['sessionid'] = $sessionid;
+    if(session_id($sessionid)){
+     $data['code'] = "1";
+     $data['value'] = session_id($sessionid);
+    }else{
+     $data['code'] = "0";
+     $data['value'] = session_id($sessionid);
+    }
+    $data = json_encode($data);
+    return $data;
+}
+
+
 
 function wdja_cms_search_api($module)
 {
@@ -182,10 +216,15 @@ function wdja_cms_form_api()
   ii_conn_init();
   ii_get_variable_init();
   $ngenre = 'wechat/gbook';
-  $nlng = ii_get_active_things('lng');
+  $nlng = 'chinese';
   $ndatabase = $variable[ii_cvgenre($ngenre) . '.ndatabase'];
   $nidfield = $variable[ii_cvgenre($ngenre) . '.nidfield'];
   $nfpre = $variable[ii_cvgenre($ngenre) . '.nfpre'];
+  $topenid = $_GET['openid'];
+  $tnickName = $_GET['nickName'];
+  $tavatarUrl = saveimages($_GET['avatarUrl']);
+  $tgender = $_GET['gender'];
+  $tcity = $_GET['city'];
   $tname = $_GET['name'];
   $tmobile = $_GET['mobile'];
   $temail = $_GET['email'];
@@ -194,6 +233,11 @@ function wdja_cms_form_api()
   $tformid = $_GET['formid'];
   $ttime = ii_now();
     $tsqlstr = "insert into $ndatabase (
+    " . ii_cfnames($nfpre.'openid') . ",
+    " . ii_cfnames($nfpre.'nickName') . ",
+    " . ii_cfnames($nfpre.'avatarUrl') . ",
+    " . ii_cfnames($nfpre.'gender') . ",
+    " . ii_cfnames($nfpre.'city') . ",
     " . ii_cfnames($nfpre.'name') . ",
     " . ii_cfnames($nfpre.'mobile') . ",
     " . ii_cfnames($nfpre.'email') . ",
@@ -201,6 +245,11 @@ function wdja_cms_form_api()
     " . ii_cfnames($nfpre.'lng') . ",
     " . ii_cfnames($nfpre.'time') . "
     ) values (
+    '" . ii_left(ii_cstr($topenid), 50) . "',
+    '" . ii_left(ii_cstr($tnickName), 50) . "',
+    '" . ii_left(ii_cstr($tavatarUrl), 255) . "',
+    '" . ii_get_num($tgender) . "',
+    '" . ii_left(ii_cstr($tcity), 50) . "',
     '" . ii_left(ii_cstr($tname), 50) . "',
     '" . ii_get_num($tmobile) . "',
     '" . ii_left(ii_cstr($temail), 50) . "',
@@ -213,7 +262,7 @@ function wdja_cms_form_api()
     {
       $status = '1';
       $title ='留言成功';
-      send_template_message($tcode,$tformid,$ttime,$tname,$tmobile,$tinfo);
+      send_template_message($tcode,$tformid,$ttime,$tname,$tmobile,$temail,$tinfo);
     }else{
       $status = '0';
       $title ='留言失败';

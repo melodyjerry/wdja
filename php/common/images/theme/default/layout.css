@@ -14,7 +14,7 @@ HTML,BODY {
   WIDTH: 100%; HEIGHT: 100%
 }
 BODY {
-  font-family: "webfont";MARGIN: 0px; PADDING: 0px; BACKGROUND: #EEEEEE; COLOR: #535353;
+  MARGIN: 0px; PADDING: 0px; BACKGROUND: #EEEEEE; COLOR: #535353; FONT-FAMILY: arial,verdana,sans-serif
 }
 TABLE {
   FONT-SIZE: 12px; TEXT-ALIGN: left; MARGIN: auto
@@ -29,7 +29,7 @@ FORM,INPUT,SELECT,TEXTAREA {
   MARGIN: 0px; PADDING: 0px
 }
 INPUT,SELECT,TEXTAREA {
-  FONT-SIZE: 12px; VERTICAL-ALIGN: middle
+  FONT-SIZE: 12px; FONT-FAMILY: arial; VERTICAL-ALIGN: middle
 }
 INPUT.text {
   HEIGHT: 16px; PADDING: 2px; BORDER: #999999 1px solid
@@ -65,16 +65,25 @@ A {
   COLOR: #535353; TEXT-DECORATION: none
 }
 A:hover {
-  TEXT-DECORATION: underline
+  TEXT-DECORATION: none
+}
+ul, ol {
+    list-style-type: none;
+}
+*{
+ margin:0px;
+ padding:0px;
 }
 #top {
-  WIDTH: 888px
+    WIDTH: 1000px;
+    padding: 0 6px;
+    background-color: #FFFFFF;
 }
 #topContent {
-  WIDTH: 100%; POSITION: relative; PADDING-TOP: 60px
+  WIDTH: 100%; POSITION: relative; PADDING-TOP: 80px
 }
 #topContent H2 {
-  MARGIN: 0px; PADDING-LEFT: 10px; POSITION: absolute; TOP: 15px; LEFT: 0px; COLOR: #666666; FONT-SIZE: 24px; FONT-WEIGHT: bold
+  MARGIN: 0px; PADDING-LEFT: 0px; POSITION: absolute; TOP: 0px; LEFT: 0px; COLOR: #666666; FONT-FAMILY: "Trebuchet MS"; FONT-SIZE: 24px; FONT-WEIGHT: bold
 }
 #topContent H2 A {
   COLOR: #666666; TEXT-DECORATION: none
@@ -89,7 +98,7 @@ A:hover {
   COLOR: #999999
 }
 #menu {
-  WIDTH: 100%; HEIGHT: 27px; BACKGROUND: url(menu.bg.gif); BORDER-BOTTOM: #0096D4 2px solid
+  WIDTH: 100%; HEIGHT: 35px; background: #3eb4fa;
 }
 #menu UL {
   MARGIN: 0px; PADDING: 0px; PADDING-TOP: 1px; LIST-STYLE: none
@@ -97,16 +106,27 @@ A:hover {
 #menu LI {
   DISPLAY: block; FLOAT: left; WHITE-SPACE: nowrap
 }
+#menu LI:hover {
+  BACKGROUND: #0096D4; 
+}
 #menu A {
-  DISPLAY: block; COLOR: #333333; FONT-WEIGHT: bold; TEXT-DECORATION: none; MARGIN-LEFT: 10px; LINE-HEIGHT: 26px; PADDING-LEFT: 6px; PADDING-RIGHT: 6px
+  DISPLAY: block; COLOR: #fff; font-size:14px;FONT-WEIGHT: bold; TEXT-DECORATION: none; MARGIN: 0 10px; LINE-HEIGHT: 34px; PADDING-LEFT: 15px; PADDING-RIGHT: 14px;
 }
 #menu A:hover {
-  BACKGROUND: #0096D4; COLOR: #FFFFFF; TEXT-DECORATION: none
+  TEXT-DECORATION: none
+}
+.swiper {
+    width: 1012px;
+    margin: 0 auto;
+    height: 300px;
+    background:#fff;
 }
 .swiper-container {
-    width: 888px;
+    width: 1000px;
+    margin: 0 auto;
     height: 300px;
 }
+
     .swiper-slide {
       text-align: center;
       font-size: 18px;
@@ -126,6 +146,9 @@ A:hover {
       -webkit-align-items: center;
       align-items: center;
     }
+.swiper-slide img{
+  width:100%;
+}
     .swiper-pagination-bullet {
       width: 20px;
       height: 20px;
@@ -140,23 +163,271 @@ A:hover {
       color:#fff;
       background: #007aff;
     }
+
+#service {
+    WIDTH: 1000px;
+    padding: 0 6px;
+    background-color: #FFFFFF;
+}
+.list_main {
+	background:url("../images/img1.png") no-repeat;
+	height:192px;
+	padding:28px 21px 36px;
+	width:957px;
+}
+.list_main li {
+	float:left;
+}
+.list_main li.ali1 {
+	margin-right:10px;
+	padding-right:21px;
+	width:214px;
+}
+.list_main li .bt {
+	color:#3D3C3C;
+	font-size:14px;
+	font-weight:bold;
+	text-align:left;
+	height:29px;
+	line-height:29px;
+	padding-left:12px;
+}
+.list_main li .atu {
+	height:48px;
+	padding-left:12px;
+	width:202px;
+}
+.list_main li .azw {
+	color:#626262;
+	height:40px;
+	line-height:24px;
+	overflow:hidden;
+	padding:10px 0 10px 18px;
+}
+.list_main li .nazw {
+	color:#626262;
+	height:90px;
+	text-align:left;
+	line-height:18px;
+	overflow:hidden;
+	padding:10px 0 10px 18px;
+}
+.list_main li .ayw {
+	color:#A7A7A7;
+	font-family:Arial,Helvetica,sans-serif;
+	font-size:11px;
+	height:48px;
+	line-height:15px;
+	overflow:hidden;
+	padding-left:18px;
+}
+.list_main li .more {
+	padding-top:2px;
+}
+.list_main li .more a {
+	display:block;
+	float:right;
+}
+.list_main .ali2 {
+	margin-right:10px;
+	padding-right:26px;
+	width:214px;
+}
+.list_main .ali3 {
+	margin-right:10px;
+	padding-right:24px;
+	width:214px;
+}
+.list_main .ali4 {
+	width:214px;
+}
+
+.middleSide .list{
+    overflow: hidden;
+}
+.middleSide .list dl {
+	width:216px;
+}
+.middleSide .list dt {
+	width:191px;
+	text-align:left;
+    background: #3eb4fa;
+	height:31px;
+	line-height:31px;
+	padding-left:25px;
+	color:#fff;
+	font-weight:bold;
+	padding-bottom:0px;
+	font-size:14px;
+}
+.middleSide .list dd {
+	width:216px;
+	float:left;
+	margin-top:2px;
+    margin-left: 0px;
+    margin-bottom: 2px;
+    background-color: #fff;
+    border-bottom: 1px solid #e2e2e4;
+}
+.middleSide .list dd span {
+	margin:0 auto;
+    text-align: center;
+    background: #3eb4fa;
+	height:28px;
+	line-height:28px;
+	font-weight:bold;
+	font-size:14px;
+	color:#fff;
+	display:inline-block;
+	width:185px;
+}
+.middleSide .list dd a {
+	background:url(../images/list_r3_c1.jpg) no-repeat;
+	width:155px;
+	height:28px;
+	margin:0 auto;
+	display:inline-block;
+	line-height:28px;
+	text-align:left;
+	padding-left:30px;
+    overflow: hidden;
+}
+
+
+
+.main_r_top {
+	width:766px;
+	float:left;
+	height:300px;
+}
+.main_r_top .title {
+	background:#3eb4fa;
+	width:710px;
+	height:34px;
+	line-height:34px;
+	text-align:left;
+	padding:0px 14px 0px 40px;
+	font-size:14px;
+	color:#fff;
+	font-weight:bold;
+}
+.main_r_top .title a {
+	color:#fff;
+	float:right;
+	font-weight:normal;
+	font-size:12px;
+}
+.main_r_top .title span {
+	color:#fff;
+	font-weight:normal;
+	font-size:12px;
+}
+
+.main_r_top .product {
+	float:left;
+	width:240px;
+	padding:10px 0px 0px 10px;
+}
+.main_r_top .product dt {
+	float:left;
+	width:240px;
+	padding-right:10px;
+}
+.main_r_top .product dt img {
+	float:left;
+	width:240px;
+	padding:2px;
+	border:1px solid #e2e2e4;
+}
+.main_r_top .product dd {
+	float:left;
+	width:160px;
+	text-align:left;
+	line-height:20px;
+}
+.main_r_top .product dd a {
+	font-weight:bold;
+	color:#FC6700;
+	font-size:14px;
+}
+.main_r_top .product dd a:link {
+	color:#FC6700;
+}
+.main_r_top .product dd a:hover {
+	color:#FC6700;
+}
+.main_r_top .product dd a:active {
+	color:#FC6700;
+}
+.main_r_top .product dd a:visited {
+	color:#FC6700;
+}
+.main_r_top .product dd .tu3 {
+	margin-top:5px;
+}
+
+
+
+.links {
+    PADDING: 10px 0px 10px 0px;
+    BACKGROUND: none;
+    overflow: hidden;
+}
+.links .title{
+    text-align: left;
+    background: #3eb4fa;
+    height: 31px;
+    line-height: 31px;
+    padding-left: 25px;
+    color: #fff;
+    font-weight: bold;
+    padding-bottom: 0px;
+    font-size: 14px;
+}
+.links img {
+	float:left;
+}
+.links p {
+	background:url(../images/index2_r1_c1.jpg) no-repeat center top;
+	width:980px;
+	text-align:left;
+	padding:3px 10px 0px 10px;
+	line-height:24px;
+	float:left;
+}
+.links p strong {
+	background:url(../images/list_r24_c3.jpg) no-repeat 0px 6px;
+	padding:0px 15px 0px 25px;
+	color:#0066cc;
+	float:left;
+}
+.links p a {
+	margin:0px 5px;
+	color:#666;
+}
+
+
 #middle {
-  WIDTH: 888px; BACKGROUND: url(bg.1.1.gif)
+    WIDTH: 1000px;
+    padding: 0 6px;
+    background-color: #FFFFFF;
 }
 #middleContent {
-  PADDING: 10px 10px 30px 10px; BACKGROUND: url(bg.1.2.gif) bottom center no-repeat
+  PADDING: 10px 0px 30px 0px; BACKGROUND: none;
 }
 #middleContent2 {
   PADDING: 10px 10px 30px 10px; MARGIN-BOTTOM: -5px; BACKGROUND: url(bg.1.2.gif) bottom center no-repeat
 }
 #bottom {
-  WIDTH: 888px
+    WIDTH: 1000px;
+    padding: 0 6px;
+    background-color: #FFFFFF;
 }
 #bottomContent {
   POSITION: relative; PADDING: 10px 5px 30px 5px
 }
 #bottomContent P {
-  MARGIN: 0px; FONT-SIZE: 11px; COLOR: #666666; LINE-HEIGHT: 20px; HEIGHT: 20px; TEXT-ALIGN: left
+  MARGIN: 0px; FONT-SIZE: 11px; COLOR: #666666; LINE-HEIGHT: 20px; HEIGHT: 20px; TEXT-ALIGN: center
 }
 #bottomContent P A {
   COLOR: #666666; TEXT-DECORATION: none
@@ -165,7 +436,7 @@ A:hover {
   COLOR: #333333; TEXT-DECORATION: underline
 }
 #bottomMenu {
-  POSITION: absolute; TOP: 15px; RIGHT: 5px; FONT-SIZE: 11px; COLOR: #666666
+    text-align: center; FONT-FAMILY: PMingLiu; FONT-SIZE: 11px; COLOR: #666666
 }
 #bottomMenu A {
   COLOR: #666666; TEXT-DECORATION: none
@@ -177,7 +448,7 @@ A:hover {
   COLOR: #666666
 }
 .box1 {
-  WIDTH: 200px; MARGIN-BOTTOM: 10px; BACKGROUND: #F6F9FB; BORDER: #E1E1E1 1px solid
+  WIDTH: 218px; MARGIN-BOTTOM: 10px; 
 }
 .box1 H3 {
   MARGIN: 10px; FONT-SIZE: 14px; FONT-WEIGHT: bold; COLOR: #9F9F9F
@@ -236,30 +507,73 @@ A:hover {
 .jloader DIV {
   MARGIN: 0px; BACKGROUND: url(jloading.gif) left center no-repeat; HEIGHT: 48px; LINE-HEIGHT: 48px; PADDING-LEFT: 40px; PADDING-RIGHT: 8px; COLOR: #666666
 }
-.list {
-  PADDING-TOP: 10px
-}
 .line1 {
   HEIGHT: 1px; BACKGROUND: url(line.1.jpg)
 }
 .middleSide {
-  WIDTH: 200px; DISPLAY: inline; FLOAT: left
+  WIDTH: 218px; DISPLAY: inline; FLOAT: left
 }
 .middleMain {
-  WIDTH: 666px; DISPLAY: inline; FLOAT: left
+  WIDTH: 766px; DISPLAY: inline; FLOAT: right;
 }
-.middleMainContent {
-  MARGIN-LEFT: 10px; PADDING-LEFT: 10px; PADDING-RIGHT: 10px; BORDER: #DEDEDE 1px solid
+
+.middleMainContent .tablen .nav{
+    background: #3eb4fa;
+    color:#fff;
+    width: 710px;
+    height: 34px;
+    line-height: 34px;
+    text-align: left;
+    padding: 0px 14px 0px 40px;
 }
-.nav SPAN {
-  DISPLAY: block; LINE-HEIGHT: 25px; PADDING-TOP: 2px; COLOR: #454545; BORDER-BOTTOM: #DEDEDE 1px dashed
+.middleMainContent .tablen .nav a{
+    color:#fff;
 }
-.nav SPAN A {
-  COLOR: #454545; TEXT-DECORATION: none
+
+
+.middleMainContent .product {
+	float:left;
+	width:240px;
+    padding: 10px 5px 0px 5px;
 }
-.nav SPAN A:hover {
-  TEXT-DECORATION: underline
+.middleMainContent .product dt {
+	float:left;
+	width:240px;
+	padding-right:10px;
 }
+.middleMainContent .product dt img {
+	float:left;
+	width:240px;
+	padding:2px;
+	border:1px solid #CECECE;
+}
+.middleMainContent .product dd {
+	float:left;
+	width:160px;
+	text-align:left;
+	line-height:20px;
+}
+.middleMainContent .product dd a {
+	font-weight:bold;
+	color:#FC6700;
+	font-size:14px;
+}
+.middleMainContent .product dd a:link {
+	color:#FC6700;
+}
+.middleMainContent .product dd a:hover {
+	color:#FC6700;
+}
+.middleMainContent .product dd a:active {
+	color:#FC6700;
+}
+.middleMainContent .product dd a:visited {
+	color:#FC6700;
+}
+.middleMainContent .product dd .tu3 {
+	margin-top:5px;
+}
+
 .probox1 {
   WIDTH: 158px; FLOAT: left; DISPLAY: inline
 }
