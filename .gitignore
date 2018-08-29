@@ -1,4 +1,4 @@
 const.inc.php
-upload/
+/upload/
 cache/
 !/upload/noimg.gif
