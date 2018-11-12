@@ -8,7 +8,7 @@
   <item_list>
     <item>
       <disinfo><![CDATA[{$folder}:description]]></disinfo>
-      <chinese><![CDATA[微信管理]]></chinese>
+      <chinese><![CDATA[小程序管理]]></chinese>
     </item>
   </item_list>
 </xml>

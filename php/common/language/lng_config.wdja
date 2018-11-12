@@ -107,6 +107,10 @@
       <chinese><![CDATA[介绍]]></chinese>
     </item>
     <item>
+      <disinfo><![CDATA[ip]]></disinfo>
+      <chinese><![CDATA[IP地址]]></chinese>
+    </item>
+    <item>
       <disinfo><![CDATA[mode]]></disinfo>
       <chinese><![CDATA[模式]]></chinese>
     </item>
@@ -157,6 +161,10 @@
     <item>
       <disinfo><![CDATA[upload]]></disinfo>
       <chinese><![CDATA[上传]]></chinese>
+    </item>
+    <item>
+      <disinfo><![CDATA[create]]></disinfo>
+      <chinese><![CDATA[生成]]></chinese>
     </item>
     <item>
       <disinfo><![CDATA[popedom]]></disinfo>

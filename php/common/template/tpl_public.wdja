@@ -22,7 +22,9 @@
 <title>{$=mm_web_title($GLOBALS['ntitle'])}</title>
 <meta name="keywords" content="{$=mm_web_keywords($GLOBALS['nkeywords'])}" />
 <meta name="description" content="{$=mm_web_description($GLOBALS['ndescription'])}" />
+<script language="javascript" src="{$=#global_images_route}js/jquery-1.7.min.js"></script>
 <script type="text/javascript" src="{$=#global_images_route}js/main.js"></script>
+<script type="text/javascript" src="{$=#global_images_route}js/shorturl.js"></script>
 <script type="text/javascript" src="{$=#global_images_route}js/writeflashhtml2.js"></script>
 <script type="text/javascript" src="{$=#global_images_route}theme/{$=#nskin}/swiper/swiper-4.2.2.min.js"></script>
 <link type="text/css" rel="stylesheet" href="{$=#global_images_route}theme/{$=#nskin}/swiper/swiper-4.2.2.min.css" />
@@ -31,22 +33,24 @@
 <body>
 <div id="top">
   <div id="topContent">
-    <h2><a href="{$=ii_get_actual_route("./")}">{$=ii_itake('global.module.web_title', 'lng')}</a></h2>
+   <div style="width:1000px;margin:0 auto;height:80px;line-height:80px;POSITION: relative;">
+    <h2><a href="{$=ii_get_actual_route("./")}"><img src="{$=ii_itake('global.admin/global:home.logo','lng')}" alt="{$=ii_itake('global.module.web_title', 'lng')}"></a></h2>
     <div id="panel">
-        <form method="get" name="search" action="search"><strong>{$=ii_itake('global.lng_config.search', 'lng')}</strong><input type="text" name="keyword" size="15" class="text" placeholder="{$=ii_itake('global.lng_config.keyword', 'lng')}"/> <input type="submit" value="{$=ii_itake('global.lng_config.search','lng')}" class="button" />
+        <form method="get" name="search" action="search"><input type="text" name="keyword" size="15" class="text" placeholder="{$=ii_itake('global.lng_config.keyword', 'lng')}"/> <input type="submit" value="{$=ii_itake('global.lng_config.search','lng')}" class="button" />
         </form>
+    </div>
     </div>
     <div id="menu">
       <ul>
-        <li><a href="{$=#nurlpre}">{$=ii_itake('global.module.channel_title', 'lng')}</a></li>
-        <li><a href="{$=ii_get_actual_route('aboutus')}">{$=ii_itake('global.aboutus:module.channel_title', 'lng')}</a></li>
-        <li><a href="{$=ii_get_actual_route('article')}">{$=ii_itake('global.article:module.channel_title', 'lng')}</a></li>
-        <li><a href="{$=ii_get_actual_route('product')}">{$=ii_itake('global.product:module.channel_title', 'lng')}</a></li>
-        <li><a href="{$=ii_get_actual_route('download')}">{$=ii_itake('global.download:module.channel_title', 'lng')}</a></li>
-        <li><a href="{$=ii_get_actual_route('shop')}">{$=ii_itake('global.shop:module.channel_title', 'lng')}</a></li>
+        <li id="m"><a href="{$=#nurlpre}">{$=ii_itake('global.module.channel_title', 'lng')}</a></li>
+        <li id="maboutus"><a href="{$=ii_get_actual_route('aboutus')}">{$=ii_itake('global.aboutus:module.channel_title', 'lng')}</a></li>
+        <li id="marticle"><a href="{$=ii_get_actual_route('article')}">{$=ii_itake('global.article:module.channel_title', 'lng')}</a></li>
+        <li id="mproduct"><a href="{$=ii_get_actual_route('product')}">{$=ii_itake('global.product:module.channel_title', 'lng')}</a></li>
+        <li id="mdownload"><a href="{$=ii_get_actual_route('download')}">{$=ii_itake('global.download:module.channel_title', 'lng')}</a></li>
+        <li id="mshop"><a href="{$=ii_get_actual_route('shop')}">{$=ii_itake('global.shop:module.channel_title', 'lng')}</a></li>
         <!--li><a href="{$=ii_get_actual_route('forum')}">{$=ii_itake('global.forum:module.channel_title', 'lng')}</a></li-->
-        <li><a href="{$=ii_get_actual_route('page')}">{$=ii_itake('global.page:manage.channel_title', 'lng')}</a></li>
-        <li><a href="{$=ii_get_actual_route('help')}" target="_blank">{$=ii_itake('global.help:module.channel_title', 'lng')}</a></li>
+        <li id="mpage"><a href="{$=ii_get_actual_route('page')}">{$=ii_itake('global.page:manage.channel_title', 'lng')}</a></li>
+        <li id="mhelp"><a href="{$=ii_get_actual_route('help')}" target="_blank">{$=ii_itake('global.help:module.channel_title', 'lng')}</a></li>
         <li><a href="https://wdja.taobao.com/" target="_blank">官方淘宝店</a></li>
       </ul>
     </div>
@@ -87,6 +91,7 @@
     },
   })        
   </script>
+<script type="text/javascript">get_id('m{$=#ngenre}').className = 'on';</script>
 </body>
 </html>]]></tpl_default>
     </item>
@@ -139,7 +144,9 @@ h1 {padding-left: 5px;color:red;}
 <meta http-equiv="Content-Type" content="text/html; charset={$=CHARSET}" />
 <link href="{$=ii_get_actual_route(ADMIN_FOLDER . '/common/images/default.css')}" type="text/css" rel="stylesheet" />
 <title>{$=mm_web_title($GLOBALS['ntitle'])}</title>
+<script language="javascript" src="{$=#global_images_route}js/jquery-1.7.min.js"></script>
 <script language="javascript" src="{$=#global_images_route}js/main.js"></script>
+<script language="javascript" src="{$=#global_images_route}js/shorturl.js"></script>
 <script language="javascript" src="{$=#global_images_route}js/selects.js"></script>
 <script language="javascript" src="{$=#global_images_route}js/manage.js"></script>
 </head>

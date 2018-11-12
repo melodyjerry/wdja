@@ -31,6 +31,10 @@
       <chinese><![CDATA[字段前缀]]></chinese>
     </item>
     <item>
+      <disinfo><![CDATA[nupre]]></disinfo>
+      <chinese><![CDATA[短链前缀]]></chinese>
+    </item>
+    <item>
       <disinfo><![CDATA[nhead]]></disinfo>
       <chinese><![CDATA[前台头模板名称]]></chinese>
     </item>

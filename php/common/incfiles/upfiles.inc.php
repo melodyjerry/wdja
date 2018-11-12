@@ -73,8 +73,8 @@ function uu_get_upload_user()
 function uu_get_upload_filename($filetype)
 {
   global $upbasefname;
-  if (ii_isnull($upbasefname)) $tfilename = ii_format_date(ii_now(), 20) . ii_random(2) . '.' . $filetype;
-  else $tfilename = $upbasefname . ii_format_date(ii_now(), 20) . ii_random(2) . '.' . $filetype;
+  if (ii_isnull($upbasefname)) $tfilename =  ii_format_date(ii_now(), 0).ii_random(2) . '.' . $filetype;
+  else $tfilename = $upbasefname . ii_format_date(ii_now(), 0).ii_random(2) . '.' . $filetype;
   return $tfilename;
 }
 

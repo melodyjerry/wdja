@@ -384,8 +384,6 @@ function mm_get_mysortary($genre, $lng, $fsid)
     $tary[$trow[$sort_idfield]]['sort'] = $trow[ii_cfnames($sort_fpre, 'sort')];
     $tary[$trow[$sort_idfield]]['keywords'] = $trow[ii_cfnames($sort_fpre, 'keywords')];
     $tary[$trow[$sort_idfield]]['description'] = $trow[ii_cfnames($sort_fpre, 'description')];
-    $tary[$trow[$sort_idfield]]['image'] = $trow[ii_cfnames($sort_fpre, 'image')];
-    $tary[$trow[$sort_idfield]]['genre'] = $trow[ii_cfnames($sort_fpre, 'genre')];
     $tary[$trow[$sort_idfield]]['fid'] = $trow[ii_cfnames($sort_fpre, 'fid')];
     $tary[$trow[$sort_idfield]]['fsid'] = $trow[ii_cfnames($sort_fpre, 'fsid')];
     $tary[$trow[$sort_idfield]]['order'] = $trow[ii_cfnames($sort_fpre, 'order')];
@@ -845,13 +843,13 @@ function vv_itransfer($type, $tpl, $vars)
         if ($tcls != 0) $tsqlstr .= " and " . ii_cfnames($tfpre, 'cls') . " like '%|" . $tcls . "|%'";
         if ($tclass != 0) $tsqlstr .= " and " . ii_cfnames($tfpre, 'class') . "=$tclass";
         if (!ii_isnull($tosql)) $tsqlstr .= $tosql;
-        $tsqlstr .= $tsqlorder . " limit 0,$ttopx";
+        if (strpos($ttopx,',') !== false) $tsqlstr .= $tsqlorder . " limit $ttopx";
+        else $tsqlstr .= $tsqlorder . " limit 0,$ttopx";
       }
       else $tsqlstr = $tbsql;
       $trs = ii_conn_query($tsqlstr, $conn);
       if (substr($tpl, 0, 7) == 'global.') $tmpstr = ii_itake($tpl, 'tpl');
       else $tmpstr = ii_itake('global.tpl_transfer.' . $tpl, 'tpl');
-     // $tmpstr = ii_itake('global.tpl_transfer.' . $tpl, 'tpl');
       if (!ii_isnull($tmpstr))
       {
         if (!ii_isnull($ttransVars))
@@ -989,8 +987,6 @@ function vv_isort($genre, $vars, $sortAry = '')
         {
           $tmptstr = str_replace('{$id}', $key, $tmpastr);
           $tmptstr = str_replace('{$sort}', $val['sort'], $tmptstr);
-          $tmptstr = str_replace('{$image}', $val['image'], $tmptstr);
-          $tmptstr = str_replace('{$genre}', $val['genre'], $tmptstr);
           $tmptstr = str_replace('{$baseurl}', $tbaseurl, $tmptstr);
           $tmptstr = str_replace('{$urltype}', $turltype, $tmptstr);
           $tmptstr = str_replace('{$createfolder}', $tcreatefolder, $tmptstr);

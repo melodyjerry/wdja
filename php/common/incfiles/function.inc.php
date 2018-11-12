@@ -43,7 +43,7 @@ function ii_conn_query($sqlstr, $conn)
 
 function ii_conn_fetch_array($result)
 {
-  return mysql_fetch_array($result);
+  return mysql_fetch_array($result);//只取关联数组(MYSQL_ASSOC - 关联数组,MYSQL_NUM - 数字数组,MYSQL_BOTH - 默认。同时产生关联和数字数组)
 }
 
 function ii_conn_insert_id()

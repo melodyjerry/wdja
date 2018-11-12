@@ -281,3 +281,4 @@ function select_all()
   }
   else { frm.sel_id.checked = sall; }
 }
+

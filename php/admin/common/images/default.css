@@ -1,5 +1,5 @@
 BODY {
-  BACKGROUND: #0096d4; MARGIN: 0px; FONT-FAMILY: arial,verdana,sans-serif
+  BACKGROUND: none; MARGIN: 0px; FONT-FAMILY: arial,verdana,sans-serif
 }
 TABLE {
   BORDER-RIGHT: 0px; BORDER-TOP: 0px; FONT-SIZE: 12px; BORDER-LEFT: 0px; BORDER-BOTTOM: 0px
@@ -68,25 +68,31 @@ SELECT.select {
   BACKGROUND: #173667; COLOR: #ffffff; TEXT-DECORATION: none
 }
 .tbtop {
-  PADDING-LEFT: 10px; FONT-WEIGHT: bold; BACKGROUND: url(admin_bg_1.gif); COLOR: #ffffff
+  PADDING-LEFT: 10px; FONT-WEIGHT: bold; BACKGROUND: #3eb4fa; COLOR: #ffffff
 }
 .trr {
   BACKGROUND: #d6dff7
 }
 .trw {
-  BACKGROUND: #0096d4
+  BACKGROUND: none;
 }
 .lrbtline {
-  BORDER-RIGHT: #0081b4 1px solid; BORDER-TOP: #0081b4 1px solid; BACKGROUND: #ffffff; BORDER-LEFT: #0081b4 1px solid; BORDER-BOTTOM: #0081b4 1px solid
+  BORDER: #3eb4fa 1px solid; 
 }
 .sec_menu {
-  BORDER-RIGHT: #0081b4 1px solid; BACKGROUND: #ffffff; BORDER-LEFT: #0081b4 1px solid; BORDER-BOTTOM: #0081b4 1px solid
+  BORDER: #3eb4fa 1px solid
 }
 .menu_title {
-  CURSOR: pointer
+  CURSOR: pointer;background: #3eb4fa;
 }
 .menu_title SPAN {
-  FONT-WEIGHT: bold; LEFT: 8px; COLOR: #ffffff; POSITION: relative; TOP: 2px
+  FONT-WEIGHT: bold; LEFT: 5px; COLOR: #ffffff; POSITION: relative; TOP: 2px
+}
+
+.menu_title SPAN::before {
+    content:'\039E';
+    font-size: 14px;
+    padding-right:2px;
 }
 .hrs {
   COLOR: #f6f6f6; HEIGHT: 1px

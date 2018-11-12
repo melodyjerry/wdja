@@ -17,10 +17,10 @@
     <item varstr="upload.nidfield" strvalue="upid" />
     <item varstr="upload.nfpre" strvalue="up_" />
     <item varstr="thumbnail.switch" strvalue="1" />
-    <item varstr="thumbnail.original" strvalue="1" />
+    <item varstr="thumbnail.original" strvalue="0" />
     <item varstr="thumbnail.file" strvalue="simg" />
-    <item varstr="thumbnail.width" strvalue="135" />
-    <item varstr="thumbnail.height" strvalue="112" />
+    <item varstr="thumbnail.width" strvalue="242" />
+    <item varstr="thumbnail.height" strvalue="232" />
     <item varstr="mail.type" strvalue="1" />
     <item varstr="mail.smtpcharset" strvalue="gbk" />
     <item varstr="mail.smtpserver" strvalue="" />

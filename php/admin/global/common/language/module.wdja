@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xml mode="wdja" author="wdja">
+  <configure>
+    <node>item</node>
+    <field>disinfo,chinese</field>
+    <base>language_list</base>
+  </configure>
+  <language_list>
+    <item>
+      <disinfo><![CDATA[logo]]></disinfo>
+      <chinese><![CDATA[/admin/home/common/upload/2018/09/07/20180907220347r8.png]]></chinese>
+    </item>
+    <item>
+      <disinfo><![CDATA[download_name]]></disinfo>
+      <chinese><![CDATA[下载WDJA]]></chinese>
+    </item>
+    <item>
+      <disinfo><![CDATA[download_url]]></disinfo>
+      <chinese><![CDATA[/admin/home/common/upload/2018/09/07/20180907220357dq.zip]]></chinese>
+    </item>
+    <item>
+      <disinfo><![CDATA[demo_url]]></disinfo>
+      <chinese><![CDATA[http://wdja.cn]]></chinese>
+    </item>
+    <item>
+      <disinfo><![CDATA[product_id]]></disinfo>
+      <chinese><![CDATA[19]]></chinese>
+    </item>
+    <item>
+      <disinfo><![CDATA[module_id]]></disinfo>
+      <chinese><![CDATA[18]]></chinese>
+    </item>
+    <item>
+      <disinfo><![CDATA[topic]]></disinfo>
+      <chinese><![CDATA[WDJA网站内容管理系统]]></chinese>
+    </item>
+    <item>
+      <disinfo><![CDATA[keywords]]></disinfo>
+      <chinese><![CDATA[WDJA网站内容管理系统2]]></chinese>
+    </item>
+    <item>
+      <disinfo><![CDATA[description]]></disinfo>
+      <chinese><![CDATA[WDJA网站内容管理系统3]]></chinese>
+    </item>
+    <item>
+      <disinfo><![CDATA[content]]></disinfo>
+      <chinese><![CDATA[<p>&nbsp;<img src="/wechat/aboutus/common/upload/simg/2018/06/21/1844121V.png" border="0" vspace="5" hspace="5" align="left" alt="" />WDJA网站内容管理系统是一套可对现有模块进行扩充与克隆的网站系统核心，采用UTF-8编码，采取 语言/代码/程序 两两分离的技术模式，全面使用了模板包与语言包结构，为用户的修改提供方便，网站内容的每一个角落都可以在后台予以管理，是一套非常适合用做系统建站或者进行二次开发的程序核心。</p>]]></chinese>
+    </item>
+    <item>
+      <disinfo><![CDATA[att]]></disinfo>
+      <chinese><![CDATA[]]></chinese>
+    </item>
+  </language_list>
+</xml>
