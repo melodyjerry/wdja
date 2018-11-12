@@ -7,4 +7,6 @@ $ndatabase = $sort_database;
 $nidfield = $sort_idfield;
 $nfpre = $sort_fpre;
 $npagesize = $variable[ii_cvgenre($ngenre) . '.npagesize'];
+$nuppath = $variable[ii_cvgenre($ngenre) . '.nuppath'];
+$nuptype = $variable[ii_cvgenre($ngenre) . '.nuptype'];
 ?>

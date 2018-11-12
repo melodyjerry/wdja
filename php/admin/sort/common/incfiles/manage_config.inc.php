@@ -21,6 +21,7 @@ function wdja_cms_admin_manage_adddisp()
   $tsort = ii_get_safecode($_POST['sort']);
   $tkeywords = ii_get_safecode($_POST['keywords']);
   $tdescription = ii_get_safecode($_POST['description']);
+  $timage = ii_get_safecode($_POST['image']);
   $tbackurl = $_GET['backurl'];
   $tid = ii_get_num($_GET['id']);
   if (!(ii_isnull($tsort)))
@@ -39,7 +40,7 @@ function wdja_cms_admin_manage_adddisp()
     if (strlen($tfid) < 255)
     {
       $tfid_count = mm_get_sortfid_count($tfid, $sgenre, $slng);
-      $tsqlstr = "insert into $ndatabase (" . ii_cfname('sort') . "," . ii_cfname('keywords') . "," . ii_cfname('description') . "," . ii_cfname('fid') . "," . ii_cfname('fsid') . "," . ii_cfname('genre') . "," . ii_cfname('lng') . "," . ii_cfname('order') . ") values ('" . ii_left($tsort, 50) . "','" . ii_left($tkeywords, 100) . "','" . ii_left($tdescription, 250) . "','" . $tfid . "'," . $tid . ",'" . $sgenre . "','" . $slng . "'," . $tfid_count . ")";
+      $tsqlstr = "insert into $ndatabase (" . ii_cfname('sort') . "," . ii_cfname('keywords') . "," . ii_cfname('description') . "," . ii_cfname('image') . "," . ii_cfname('fid') . "," . ii_cfname('fsid') . "," . ii_cfname('genre') . "," . ii_cfname('lng') . "," . ii_cfname('order') . ") values ('" . ii_left($tsort, 50) . "','" . ii_left($tkeywords, 100) . "','" . ii_left($tdescription, 250) . "','" . ii_left($timage, 250) . "','" . $tfid . "'," . $tid . ",'" . $sgenre . "','" . $slng . "'," . $tfid_count . ")";
       $trs = ii_conn_query($tsqlstr, $conn);
       if ($trs)
       {
@@ -70,7 +71,8 @@ function wdja_cms_admin_manage_editdisp()
   $tsort = ii_get_safecode($_POST['sort']);
   $tkeywords = ii_get_safecode($_POST['keywords']);
   $tdescription = ii_get_safecode($_POST['description']);
-  $tsqlstr = "update $ndatabase set " . ii_cfname('sort') . "='$tsort'," . ii_cfname('keywords') . "='$tkeywords'," . ii_cfname('description') . "='$tdescription' where $nidfield=$tid";
+  $timage = ii_get_safecode($_POST['image']);
+  $tsqlstr = "update $ndatabase set " . ii_cfname('sort') . "='$tsort'," . ii_cfname('keywords') . "='$tkeywords'," . ii_cfname('description') . "='$tdescription'," . ii_cfname('image') . "='$timage' where $nidfield=$tid";
   $trs = ii_conn_query($tsqlstr, $conn);
   if ($trs)
   {
@@ -167,6 +169,9 @@ function wdja_cms_admin_manage_action()
     case 'control':
       wdja_cms_admin_controldisp($ndatabase, $nidfield, $nfpre, $ncontrol);
       break;
+    case 'upload':
+      uu_upload_files();
+      break;
   }
 }
 
@@ -186,6 +191,7 @@ function wdja_cms_admin_manage_edit()
     $tmpstr = str_replace('{$sort}', $trs[ii_cfname('sort')], $tmpstr);
     $tmpstr = str_replace('{$keywords}', $trs[ii_cfname('keywords')], $tmpstr);
     $tmpstr = str_replace('{$description}', $trs[ii_cfname('description')], $tmpstr);
+    $tmpstr = str_replace('{$image}', $trs[ii_cfname('image')], $tmpstr);
     $tmpstr = str_replace('{$sgenre}', $sgenre, $tmpstr);
     $tmpstr = str_replace('{$nav_sort}', mm_nav_sort($sgenre, '?sgenre=' . $sgenre . '&id=', $tid), $tmpstr);
     $tmpstr = ii_creplace($tmpstr);
@@ -264,6 +270,9 @@ function wdja_cms_admin_manage()
       break;
     default:
       return wdja_cms_admin_manage_list();
+      break;
+    case 'upload':
+      uu_upload_files_html('upload_html');
       break;
   }
 }
