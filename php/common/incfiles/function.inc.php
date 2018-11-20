@@ -540,6 +540,8 @@ function ii_get_active_things($type)
       break;
     case 'tpl':
       $tthings = 'template';
+      if(ii_isMobileAgent()) $tthings = $tthings . '/' . $GLOBALS['m_skin' ];
+      if(ii_isAdmin()) $tthings = 'template';
       break;
     case 'skin':
       $tthings = 'skin';
@@ -549,7 +551,7 @@ function ii_get_active_things($type)
   {
     $trthings = ii_get_safecode($_COOKIE[APP_NAME . 'config'][$tthings]);
     if (ii_isnull($trthings)) $trthings = $GLOBALS['default_' . $tthings];
-    if (!ii_isnull($trthings) && ii_isMobileAgent() && $tthings = 'skin') $trthings = $GLOBALS['m_' . $tthings];
+    if (!ii_isnull($trthings) && ii_isMobileAgent() && $tthings == 'skin') $trthings = $GLOBALS['m_' . $tthings];
     if (ii_isAdmin() && $tthings == 'skin') $trthings = $GLOBALS['default_' . $tthings];
   }
   return $trthings;
