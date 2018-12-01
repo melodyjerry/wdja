@@ -19,7 +19,7 @@
     <item>
       <name><![CDATA[sort]]></name>
       <tpl_default><![CDATA[{@}
-  <h3><a href="{$=ii_curl('{$baseurl}', ii_iurl('list', {$id}, {$urltype}, 'folder={$createfolder};filetype={$createfiletype}'))}"><strong>{$sort}</strong></a></h3>{@}]]></tpl_default>
+  <li><a href="{$=ii_curl('{$baseurl}', ii_iurl('list', {$id}, {$urltype}, 'folder={$createfolder};filetype={$createfiletype}'))}"><strong>{$sort}</strong></a></li>{@}]]></tpl_default>
     </item>
     <item>
       <name><![CDATA[m1]]></name>
@@ -57,7 +57,7 @@
     </item>
     <item>
       <name><![CDATA[link]]></name>
-      <tpl_default><![CDATA[{@}<li><a href="{$=ii_curl('{$baseurl}', ii_iurl('detail', {$id}, {$urltype}, 'folder={$createfolder};filetype={$createfiletype};time={$time}'))}"><strong>{$topic}</strong></a></li>{@}]]></tpl_default>
+      <tpl_default><![CDATA[{@}<li><a href="{$url}"><strong>{$topic}</strong></a></li>{@}]]></tpl_default>
     </item>
   </item_list>
 </xml>

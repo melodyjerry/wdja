@@ -12,8 +12,8 @@ function uu_upload_create_thumbnail($strURL1, $strURL2, $strScale = 0)
   global $variable;
   $tstrURL1 = $strURL1;
   $tstrURL2 = $strURL2;
-  $strWidth = $variable['common.thumbnail.width'];//'1800';
-  $strHeight = $variable['common.thumbnail.height'];//'120000';
+  $strWidth = $variable['common.thumbnail.width'];
+  $strHeight = $variable['common.thumbnail.height'];
   $tstrScale = ii_get_num($strScale, 0);
   $tstrWidth = ii_get_num($strWidth, 0);
   $tstrHeight = ii_get_num($strHeight, 0);
@@ -56,7 +56,6 @@ function uu_upload_create_thumbnail($strURL1, $strURL2, $strScale = 0)
       elseif ($tImageType == 'gif') imagegif ($timgs, $strURL2);
       elseif ($tImageType == 'png') imagepng ($timgs, $strURL2);
       imagedestroy($timg);
-      //return 1;
     }
   }
 }
@@ -149,7 +148,7 @@ function uu_upload_init()
 {
   global $variable;
   global $nupmaxsize, $upload_tpl_href, $upload_tpl_kong, $upload_tpl_back;
-  global $upform, $uptext, $upfname, $upftype, $upbasefname, $upbasefolder;
+  global $upform, $uptext, $upfname, $upftype, $upsimg, $upbasefname, $upbasefolder;
   if (ii_get_num($nupmaxsize) == 0) $nupmaxsize = ii_get_num($variable['common.nupmaxsize'], 0);
   $upload_tpl_href = ii_itake('global.tpl_upfiles.a_href_self', 'tpl');
   $upload_tpl_kong = ii_itake('global.tpl_config.html_kong', 'tpl');
@@ -159,6 +158,7 @@ function uu_upload_init()
   $uptext = $_GET['uptext'];
   $upfname = $_GET['upfname'];
   $upftype = $_GET['upftype'];
+  $upsimg = $_GET['upsimg'];//缩略图开关
   $upbasefname = $_GET['upbasefname'];
   $upbasefolder = $_GET['upbasefolder'];
 }
@@ -174,10 +174,7 @@ function uu_upload_files()
   uu_upload_init();
   global $ngenre;
   global $nupmaxsize, $nuptype, $nuppath, $variable;
-  global $upform, $uptext, $upftype;
-  $sthumbnail = ii_get_num($variable['common.thumbnail.switch']);//缩略图开关
-  $mthumbnail = ii_get_num($variable[ii_cvgenre($ngenre).'.thumbnail.switch']);//模块缩略图开关
-  $sthumbnail = (!ii_isnull($mthumbnail)) ? $mthumbnail : $sthumbnail;//模块开关优先
+  global $upform, $uptext, $upftype, $upsimg;
   $doriginal = ii_get_num($variable['common.thumbnail.original']);//删除原图
   $sfile = $variable['common.thumbnail.file'];//
   $tfilesize = ii_get_num($_FILES['file1']['size']);
@@ -192,7 +189,7 @@ function uu_upload_files()
     if (!(is_dir($tfilefolder))) ii_mkdir($tfilefolder);
     $nfilename = uu_get_upload_filename($tfiletype);
     $tfilename = $tfilefolder . '/' .$nfilename ; 
-    if ($sthumbnail == '1')
+    if ($upsimg == 1)
     {
       $stfilefolder = $nuppath.$sfile.'/' . uu_get_upload_foldername();//缩略图文件夹
       if (!(is_dir($stfilefolder))) ii_mkdir($stfilefolder);//判断是否存在缩略图,不存在则创建
@@ -201,7 +198,7 @@ function uu_upload_files()
     if (move_uploaded_file($tmp_filename, $tfilename))
     {
       chmod($tfilename, 0755);
-      if ($sthumbnail == '1') {
+      if ($upsimg == 1) {
          uu_upload_create_thumbnail($tfilename,$stfilename,1);//生成缩略图
          if($doriginal == '1') unlink($tfilename);//删除原图
          else uu_upload_create_database_note($ngenre, $tfilename, $uptext);

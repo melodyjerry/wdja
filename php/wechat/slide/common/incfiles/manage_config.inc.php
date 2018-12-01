@@ -110,7 +110,11 @@ function wdja_cms_admin_manage_action()
 
 function wdja_cms_admin_manage_add()
 {
-  $tmpstr = ii_ireplace('manage.add', 'tpl');
+  global $nupsimg, $nupsimgs;
+  $tmpstr = ii_itake('manage.add', 'tpl');
+  $tmpstr = str_replace('{$upsimg}', $nupsimg, $tmpstr);
+  $tmpstr = str_replace('{$upsimgs}', $nupsimgs, $tmpstr);
+  $tmpstr = ii_creplace($tmpstr);
   return $tmpstr;
 }
 
@@ -132,6 +136,8 @@ function wdja_cms_admin_manage_edit()
       $tmpstr = str_replace('{$' . $tkey . '}', ii_htmlencode($val), $tmpstr);
     }
     $tmpstr = str_replace('{$id}', $trs[$nidfield], $tmpstr);
+    $tmpstr = str_replace('{$upsimg}', $nupsimg, $tmpstr);
+    $tmpstr = str_replace('{$upsimgs}', $nupsimgs, $tmpstr);
     $tmpstr = ii_creplace($tmpstr);
     return $tmpstr;
   }

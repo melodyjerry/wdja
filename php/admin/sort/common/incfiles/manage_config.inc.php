@@ -40,7 +40,7 @@ function wdja_cms_admin_manage_adddisp()
     if (strlen($tfid) < 255)
     {
       $tfid_count = mm_get_sortfid_count($tfid, $sgenre, $slng);
-      $tsqlstr = "insert into $ndatabase (" . ii_cfname('sort') . "," . ii_cfname('keywords') . "," . ii_cfname('description') . "," . ii_cfname('image') . "," . ii_cfname('fid') . "," . ii_cfname('fsid') . "," . ii_cfname('genre') . "," . ii_cfname('lng') . "," . ii_cfname('order') . ") values ('" . ii_left($tsort, 50) . "','" . ii_left($tkeywords, 100) . "','" . ii_left($tdescription, 250) . "','" . ii_left($timage, 250) . "','" . $tfid . "'," . $tid . ",'" . $sgenre . "','" . $slng . "'," . $tfid_count . ")";
+      $tsqlstr = "insert into $ndatabase (" . ii_cfname('sort') . "," . ii_cfname('keywords') . "," . ii_cfname('description') . "," . ii_cfname('image') . "," . ii_cfname('hidden') . "," . ii_cfname('fid') . "," . ii_cfname('fsid') . "," . ii_cfname('genre') . "," . ii_cfname('lng') . "," . ii_cfname('order') . "," . ii_cfname('time') . ") values ('" . ii_left($tsort, 50) . "','" . ii_left($tkeywords, 100) . "','" . ii_left($tdescription, 250) . "','" . ii_left($timage, 250) . "','" . ii_get_num($thidden) . "','" . $tfid . "'," . $tid . ",'" . $sgenre . "','" . $slng . "'," . $tfid_count . ",'" . ii_now() . "')";
       $trs = ii_conn_query($tsqlstr, $conn);
       if ($trs)
       {
@@ -72,7 +72,9 @@ function wdja_cms_admin_manage_editdisp()
   $tkeywords = ii_get_safecode($_POST['keywords']);
   $tdescription = ii_get_safecode($_POST['description']);
   $timage = ii_get_safecode($_POST['image']);
-  $tsqlstr = "update $ndatabase set " . ii_cfname('sort') . "='$tsort'," . ii_cfname('keywords') . "='$tkeywords'," . ii_cfname('description') . "='$tdescription'," . ii_cfname('image') . "='$timage' where $nidfield=$tid";
+  $thidden = ii_get_num($_POST['hidden']);
+  $ttime = ii_now();
+  $tsqlstr = "update $ndatabase set " . ii_cfname('sort') . "='$tsort'," . ii_cfname('keywords') . "='$tkeywords'," . ii_cfname('description') . "='$tdescription'," . ii_cfname('time') . "='$ttime'," . ii_cfname('image') . "='$timage'," . ii_cfname('hidden') . "='$thidden' where $nidfield=$tid";
   $trs = ii_conn_query($tsqlstr, $conn);
   if ($trs)
   {
@@ -192,6 +194,7 @@ function wdja_cms_admin_manage_edit()
     $tmpstr = str_replace('{$keywords}', $trs[ii_cfname('keywords')], $tmpstr);
     $tmpstr = str_replace('{$description}', $trs[ii_cfname('description')], $tmpstr);
     $tmpstr = str_replace('{$image}', $trs[ii_cfname('image')], $tmpstr);
+    $tmpstr = str_replace('{$hidden}', $trs[ii_cfname('hidden')], $tmpstr);
     $tmpstr = str_replace('{$sgenre}', $sgenre, $tmpstr);
     $tmpstr = str_replace('{$nav_sort}', mm_nav_sort($sgenre, '?sgenre=' . $sgenre . '&id=', $tid), $tmpstr);
     $tmpstr = ii_creplace($tmpstr);

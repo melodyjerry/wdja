@@ -9,7 +9,7 @@ function wdja_cms_module_list()
   global $conn, $nlng, $ngenre;
   $tclassid = ii_get_num($_GET['classid']);
   $toffset = ii_get_num($_GET['offset']);
-  global $nclstype, $nlisttopx, $npagesize;
+  global $nclstype, $nlisttopx, $npagesize, $nkeywords, $ndescription;
   global $ndatabase, $nidfield, $nfpre;
   $tclassids = mm_get_sortids($ngenre, $nlng);
   $tmpstr = ii_itake('module.list', 'tpl');

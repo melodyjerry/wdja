@@ -7,5 +7,7 @@ $nuptype = $variable[ii_cvgenre($ngenre) . '.nuptype'];
 $ndatabase = $variable[ii_cvgenre($ngenre) . '.ndatabase'];
 $nidfield = $variable[ii_cvgenre($ngenre) . '.nidfield'];
 $nfpre = $variable[ii_cvgenre($ngenre) . '.nfpre'];
+$nupsimg = $variable[ii_cvgenre($ngenre) . '.thumbnail.upsimg'];
+$nupsimgs = $variable[ii_cvgenre($ngenre) . '.thumbnail.upsimgs'];
 $npagesize = $variable[ii_cvgenre($ngenre) . '.npagesize'];
 ?>

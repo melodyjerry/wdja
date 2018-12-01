@@ -35,6 +35,7 @@ function wdja_cms_module_detail()
     mm_imessage(ii_itake('global.lng_config.nodata', 'lng'), '-1');   
   }
 }
+
 function wdja_cms_module_index()
 {
   global $ngenre;
@@ -56,7 +57,7 @@ function wdja_cms_module()
       return wdja_cms_module_index();
       break;
     default:
-      return wdja_cms_module_detail();
+      return wdja_cms_module_index();
       break;
   }
 }

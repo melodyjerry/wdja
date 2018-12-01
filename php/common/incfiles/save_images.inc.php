@@ -1,7 +1,4 @@
 <?php
-/**
-        post发送请求
-    **/
     function pget($url,$head=false){
             $curl = curl_init(); // 启动一个CURL会话
       //以下三行代码解决https图片访问受限问题
@@ -27,10 +24,11 @@
                     echo 'Errno'.curl_error($curl);
             }
             if($head){ $data['head']=curl_getinfo($curl);}
-            curl_close($curl); // 关键CURL会话
+            curl_close($curl); // 关闭CURL会话
             $data['data']=$tmpInfo;
             return $data; // 返回数据
     }
+
 //远程图片本地化
 function saveimages($content){
   global $upbasefolder,$nuppath,$ngenre;
@@ -49,15 +47,16 @@ function saveimages($content){
     chmod($imgPath, 0777);
   }
   foreach($img_array as $key=>$value){
-        if(preg_match("#".$basehost."#i", $value)) 
+        $tvalue = ii_get_lrstr($value,'?','left');//过滤?及后面的字符串
+        if(preg_match("#".$basehost."#i", $tvalue)) 
         {
             continue; 
         }
-        if(!preg_match("#^(http|https):\/\/#i", $value))
+        if(!preg_match("#^(http|https):\/\/#i", $tvalue))
         {
             continue; 
         }
-    $http=pget($value,'$value',true);
+    $http=pget($tvalue,true);
     $itype=($http['head']['content_type']);
     $icode =($http['head']['http_code']);//图片状态码
     if($icode != '200'){ continue; }
@@ -87,10 +86,24 @@ function saveimages($content){
     fclose($tp);
     if(file_exists($rndFileName))
     {
-      $sqlurl='/'.$ngenre.'/'.$rndFileName;
-      $content = str_replace($value, $sqlurl, $content);
+      $sqlurl = '/'.$ngenre.'/'.$rndFileName;
+      $content = str_replace_limit($value, $sqlurl, $content, 1);
     }
   }
   return $content;
+}
+
+function str_replace_limit($search, $replace, $subject, $limit=-1) {
+    //替换次数限制
+    if (is_array($search)) {
+        foreach ($search as $k=>$v) {
+            $search[$k] = '`' . preg_quote($search[$k],'`') . '`';
+        }
+    }
+    else {
+        $search = '`' . preg_quote($search,'`') . '`';
+    }
+    // replacement
+    return preg_replace($search, $replace, $subject, $limit);
 }
 ?>

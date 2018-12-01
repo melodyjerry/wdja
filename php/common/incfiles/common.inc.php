@@ -32,22 +32,23 @@ function mm_cnfpre($genre, $strers = '')
 
 function mm_cntitle($strers)
 {
-  global $ntitle;
-  if (ii_isnull($ntitle)) $ntitle = ii_htmlencode($strers);
+  global $ntitle,$ngenre;
+  if (!ii_isnull($strers)) $ntitle = ii_htmlencode($strers);
+  elseif(ii_isnull($ngenre)) $ntitle = ii_htmlencode($strers);//首页title
   else $ntitle = ii_htmlencode($strers) . SP_STR . $ntitle;
 }
 
 function mm_cnkeywords($strers)
 {
   global $nkeywords;
-  if (ii_isnull($nkeywords)) $nkeywords = ii_htmlencode($strers);
+  if (!ii_isnull($strers)) $nkeywords = ii_htmlencode($strers);
   else $nkeywords = $nkeywords;
 }
 
 function mm_cndescription($strers)
 {
   global $ndescription;
-  if (ii_isnull($ndescription)) $ndescription = ii_htmlencode($strers);
+  if (!ii_isnull($strers)) $ndescription = ii_htmlencode($strers);
   else $ndescription = $ndescription;
 }
 
@@ -719,16 +720,22 @@ function mm_valcode()
 
 function mm_web_title($title)
 {
+  global $ngenre;
   $ttitle = $title;
-  $tweb_title = ii_itake('global.module.web_title', 'lng');
+  $tweb_topic = ii_itake('global.admin/global:seo.topic', 'lng');//首页title
+  $tweb_title = ii_itake('global.admin/global:seo.title', 'lng');//网站title
+  if (ii_isnull($ttitle)) $tweb_title = $tweb_topic;//未设置title,则显示首页title
   if (!(ii_isnull($ttitle))) $tweb_title = $ttitle . SP_STR . $tweb_title;
+  if (!(ii_isnull($ttitle)) && ii_isnull($ngenre)) $tweb_title = $ttitle;//首页title
+  if ((ii_isnull($ttitle)) && ii_isnull($ngenre)) $tweb_title = $tweb_topic;//首页title为空
   return $tweb_title;
 }
 
 function mm_web_keywords($keywords)
 {
   $tkeywords = $keywords;
-  $tweb_keywords = ii_itake('global.module.web_keywords', 'lng');
+  $tweb_keywords = ii_itake('global.admin/global:seo.keywords', 'lng');
+  if (ii_isnull($tweb_keywords)) $tweb_keywords = ii_itake('global.module.web_keywords', 'lng');
   if (!(ii_isnull($tkeywords))) $tweb_keywords = $tkeywords;
   return $tweb_keywords;
 }
@@ -736,7 +743,8 @@ function mm_web_keywords($keywords)
 function mm_web_description($description)
 {
   $tdescription = $description;
-  $tweb_description = ii_itake('global.module.web_description', 'lng');
+  $tweb_description = ii_itake('global.admin/global:seo.description', 'lng');
+  if (ii_isnull($tweb_description)) $tweb_description = ii_itake('global.module.web_description', 'lng');
   if (!(ii_isnull($tdescription))) $tweb_description = $tdescription;
   return $tweb_description;
 }

@@ -6,6 +6,9 @@
 //****************************************************
 function wdja_cms_module_index()
 {
+  $tweb_title = ii_itake('global.admin/global:seo.topic', 'lng');
+  if (ii_isnull($tweb_title)) $tweb_title = ii_itake('global.module.topic', 'lng');
+  mm_cntitle($tweb_title);
   $tmpstr = ii_ireplace('module.index', 'tpl');
   return $tmpstr;
 }

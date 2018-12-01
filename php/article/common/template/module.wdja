@@ -10,8 +10,8 @@
       <name><![CDATA[list]]></name>
       <tpl_default><![CDATA[{$=mm_web_head($GLOBALS['nhead'])}
 <div id="middle">
-  <div id="middleContent">
-    <div class="title">{$=vv_isort('{$genre}', 'tpl=sort')}</div>
+  <div class="lmenu">
+    <ul>{$=vv_isort('{$genre}', 'tpl=sort')}</ul>
   </div>
   <div id="middleContent">
         <table cellpadding="0" cellspacing="0" class="tablen">

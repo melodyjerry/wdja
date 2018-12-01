@@ -51,8 +51,12 @@
       <chinese><![CDATA[上传文件类型]]></chinese>
     </item>
     <item>
-      <disinfo><![CDATA[switch]]></disinfo>
-      <chinese><![CDATA[是否启用缩略图]]></chinese>
+      <disinfo><![CDATA[upsimg]]></disinfo>
+      <chinese><![CDATA[是否启用展示缩略图]]></chinese>
+    </item>
+    <item>
+      <disinfo><![CDATA[upsimgs]]></disinfo>
+      <chinese><![CDATA[是否启用图片集缩略图]]></chinese>
     </item>
     <item>
       <disinfo><![CDATA[original]]></disinfo>
@@ -127,7 +131,7 @@
       <chinese><![CDATA[模块卸载方式(修改请谨慎)]]></chinese>
     </item>
     <item>
-      <disinfo><![CDATA[nkeyword]]></disinfo>
+      <disinfo><![CDATA[nkeywords]]></disinfo>
       <chinese><![CDATA[模块首页关键词]]></chinese>
     </item>
     <item>

@@ -1,9 +1,15 @@
 <?php
 /*
 require('common/incfiles/common.inc.php');
-require('page/common/incfiles/config.inc.php');
-require('page/common/incfiles/module_config.inc.php');
-$myhtml = wdja_cms_module();
+require('support/shorturl/common/incfiles/config.inc.php');
+require('support/shorturl/common/incfiles/module_config.inc.php');
+$code = $_GET['code'];
+wdja_cms_module_action();
+if(ii_isnull($code)){
+  $myhtml = wdja_cms_module();
+}else{
+  $myhtml = wdja_cms_module($code);
+}
 echo $myhtml;
 */
 

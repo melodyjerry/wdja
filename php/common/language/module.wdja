@@ -15,11 +15,11 @@
       <chinese><![CDATA[WDJA网站管理系统]]></chinese>
     </item>
     <item>
-      <disinfo><![CDATA[keywords]]></disinfo>
+      <disinfo><![CDATA[web_keywords]]></disinfo>
       <chinese><![CDATA[WDJA(CMS)1.0]]></chinese>
     </item>
     <item>
-      <disinfo><![CDATA[description]]></disinfo>
+      <disinfo><![CDATA[web_description]]></disinfo>
       <chinese><![CDATA[WDJA(CMS)1.0网站管理系统]]></chinese>
     </item>
     <item>

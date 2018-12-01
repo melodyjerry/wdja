@@ -71,6 +71,56 @@ function wdja_cms_module_action()
 
 wdja_cms_module_action();
 
+function pp_vote_type($strers)
+{
+  if ($strers == 0) return 'radio';
+  else return 'checkbox';
+}
+
+function wdja_cms_module_detail()
+{
+  global $conn;
+  global $ndatabase, $nidfield, $nfpre;
+  global $ngenre;
+  $tid = ii_get_num($_GET['id']);
+  $tbackurl = $_GET['backurl'];
+  $tmpstr = ii_itake('module.detail', 'tpl');
+  if (!ii_isnull($tmpstr))
+  {
+    $tsqlstr = "select * from $ndatabase where $nidfield=$tid";
+    $trs = ii_conn_query($tsqlstr, $conn);
+    $trs = ii_conn_fetch_array($trs);
+    if ($trs)
+    {
+      $tmpstr = str_replace('{$vtopic}', ii_htmlencode($trs[ii_cfname('topic')]), $tmpstr);
+      $tmpstr = str_replace('{$type}', ii_htmlencode($trs[ii_cfname('type')]), $tmpstr);
+      $tmpstr = str_replace('{$vid}', $trs[$nidfield], $tmpstr);
+    }
+    $ndatabase = mm_cndatabase(ii_cvgenre($ngenre), 'data');
+    $nidfield = mm_cnidfield(ii_cvgenre($ngenre), 'data');
+    $nfpre = mm_cnfpre(ii_cvgenre($ngenre), 'data');
+    $tsqlstr = "select * from $ndatabase where " . ii_cfname('fid') . "=$tid order by " . ii_cfname('vid') . " asc";
+    $tmpastr = ii_ctemplate($tmpstr, '{@}');
+    $tmprstr = '';
+    $trs = ii_conn_query($tsqlstr, $conn);
+    while ($trow = ii_conn_fetch_array($trs))
+    {
+      $tmptstr = $tmpastr;
+      foreach ($trow as $key => $val)
+      {
+        $tkey = ii_get_lrstr($key, '_', 'rightr');
+        $GLOBALS['RS_' . $tkey] = $val;
+        $tmptstr = str_replace('{$' . $tkey . '}', ii_htmlencode($val), $tmptstr);
+      }
+      $tmptstr = str_replace('{$id}', $trow[$nidfield], $tmptstr);
+      $tmprstr .= $tmptstr;
+    }
+    $tmpstr = str_replace(WDJA_CINFO, $tmprstr, $tmpstr);
+    $tmpstr = ii_creplace($tmpstr);
+    return $tmpstr;
+  }
+}
+
 function wdja_cms_module_view()
 {
   global $conn;
@@ -116,6 +166,9 @@ function wdja_cms_module()
 {
   switch($_GET['type'])
   {
+    case 'detail':
+      return wdja_cms_module_detail();
+      break;
     case 'view':
       return wdja_cms_module_view();
       break;

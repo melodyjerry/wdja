@@ -13,7 +13,7 @@
 
 function getAccessToken(){
   $appid = '';
-  $secret = '';
+  $secret = '';      
   $url='https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid='.$appid.'&secret='.$secret;
   $html = file_get_contents($url);
   $output = json_decode($html, true);
@@ -222,7 +222,7 @@ function wdja_cms_form_api()
   $nfpre = $variable[ii_cvgenre($ngenre) . '.nfpre'];
   $topenid = $_GET['openid'];
   $tnickName = $_GET['nickName'];
-  $tavatarUrl = saveimages($_GET['avatarUrl']);
+  $tavatarUrl = $_GET['avatarUrl'];//saveimages($_GET['avatarUrl']);
   $tgender = $_GET['gender'];
   $tcity = $_GET['city'];
   $tname = $_GET['name'];

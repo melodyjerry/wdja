@@ -14,7 +14,7 @@
 <div id="middleContent" style="height:40px;line-height:40px;">
 <ul>
 <li style="float:left;overflow: hidden;width:600px;">{$=ii_ireplace('global.passport:api.login2', 'tpl')}</li>
-<li style="float:right;overflow: hidden;width:400px;text-align: right;"><a download href="{$=ii_itake('global.admin/home:module.download_url','lng')}" style="background:#3eb4fa;border-radius:5px;height: 26px;line-height: 26px;margin-right:10px;padding: 2px 5px;display: inline-block;text-align: center;color: #ffffff;">{$=ii_itake('global.admin/home:module.download_name','lng')}</a><a href="{$=ii_itake('global.admin/home:module.demo_url','lng')}" style="background:#3eb4fa;border-radius:5px;height: 26px;line-height: 26px;margin-right:10px;padding: 2px 5px;display: inline-block;text-align: center;color: #ffffff;" target="_blank">演示站</a></li>
+<li style="float:right;overflow: hidden;width:400px;text-align: right;"><a download href="{$=ii_itake('global.admin/home:module.download_url','lng')}" style="background:#3eb4fa;border-radius:5px;height: 26px;line-height: 26px;margin-right:10px;padding: 2px 5px;display: inline-block;text-align: center;color: #ffffff;">{$=ii_itake('global.admin/global:home.download_name','lng')}</a><a href="{$=ii_itake('global.admin/global:home.demo_url','lng')}" style="background:#3eb4fa;border-radius:5px;height: 26px;line-height: 26px;margin-right:10px;padding: 2px 5px;display: inline-block;text-align: center;color: #ffffff;" target="_blank">演示站</a></li>
 </ul>
 </div>
        <div id="middleContent">
@@ -28,7 +28,6 @@
        <div id="middleContent">
          <div class="title"><h3>{$=ii_itake('global.news:module.channel_title', 'lng')}</h3></div>
            {$=vv_itransfer('top', 'news-list', 'topx=10;tnum=30;genre=news')}
-         <div class="title"><a href="">more</a></div>
        </div>
     <div class="clear"></div>
 {$=ii_ireplace('global.module.links','tpl')}

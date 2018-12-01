@@ -85,7 +85,7 @@ function wdja_cms_admin_manage_action()
 function wdja_cms_admin_manage_edit()
 {
   global $conn;
-  global $ndatabase, $nidfield, $nfpre;
+  global $ndatabase, $nidfield, $nfpre, $nupsimg, $nupsimgs;
   $trootstr = pp_get_xml_root() . XML_SFX;
   if (file_exists($trootstr))
   {
@@ -122,6 +122,8 @@ function wdja_cms_admin_manage_edit()
     }
   	$tmpstr = str_replace('{$cttype}', $ncttype, $tmpstr);
     $tmpstr = str_replace('{$genre}', $ngenre, $tmpstr);
+    $tmpstr = str_replace('{$upsimg}', $nupsimg, $tmpstr);
+    $tmpstr = str_replace('{$upsimgs}', $nupsimgs, $tmpstr);
     $tmpstr = ii_creplace($tmpstr);
     return $tmpstr;
   }

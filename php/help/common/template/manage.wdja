@@ -253,7 +253,7 @@ function bfsubmit()
                     </tr>
                     <tr>
                       <td height="25">{$=ii_itake('global.lng_config.upload','lng')}</td>
-                      <td><iframe src="?type=upload&upform=form&uptext=image&upfname=/{$=#ngenre}/{$=#nuppath}noimg.gif" width="100%" height="25" scrolling="no" marginwidth="0" marginheight="0" align="middle" name="upload" frameborder="0"></iframe></td>
+                      <td><iframe src="?type=upload&upform=form&uptext=image&upfname=/{$=#ngenre}/{$=#nuppath}noimg.gif&upsimg={$upsimg}" width="100%" height="25" scrolling="no" marginwidth="0" marginheight="0" align="middle" name="upload" frameborder="0"></iframe></td>
                     </tr>
                     <tr>
                       <td height="25">{$=ii_itake('global.lng_config.mode','lng')}</td>
@@ -269,7 +269,7 @@ function bfsubmit()
                     </tr>
                     <tr>
                       <td height="25">{$=ii_itake('global.lng_config.upload','lng')}</td>
-                      <td><iframe src="?type=upload&upform=form&uptext=content_images&upftype=1" width="100%" height="25" scrolling="no" marginwidth="0" marginheight="0" align="middle" name="upload" frameborder="0"></iframe></td>
+                      <td><iframe src="?type=upload&upform=form&uptext=content_images&upftype=1&upsimg={$upsimgs}" width="100%" height="25" scrolling="no" marginwidth="0" marginheight="0" align="middle" name="upload" frameborder="0"></iframe></td>
                     </tr>
                     <tr>
                       <td height="25">{$=ii_itake('global.lng_admin.content_cutepage','lng')}</td>
@@ -387,7 +387,7 @@ function bfsubmit()
                     </tr>
                     <tr>
                       <td height="25">{$=ii_itake('global.lng_config.upload','lng')}</td>
-                      <td><iframe src="?type=upload&upform=form&uptext=image" width="100%" height="25" scrolling="no" marginwidth="0" marginheight="0" align="middle" name="upload" frameborder="0"></iframe></td>
+                      <td><iframe src="?type=upload&upform=form&uptext=image&upsimg={$upsimg}" width="100%" height="25" scrolling="no" marginwidth="0" marginheight="0" align="middle" name="upload" frameborder="0"></iframe></td>
                     </tr>
                     <tr>
                       <td height="25">{$=ii_itake('global.lng_config.mode','lng')}</td>
@@ -403,7 +403,7 @@ function bfsubmit()
                     </tr>
                     <tr>
                       <td height="25">{$=ii_itake('global.lng_config.upload','lng')}</td>
-                      <td><iframe src="?type=upload&upform=form&uptext=content_images&upftype=1" width="100%" height="25" scrolling="no" marginwidth="0" marginheight="0" align="middle" name="upload" frameborder="0"></iframe></td>
+                      <td><iframe src="?type=upload&upform=form&uptext=content_images&upftype=1&upsimg={$upsimgs}" width="100%" height="25" scrolling="no" marginwidth="0" marginheight="0" align="middle" name="upload" frameborder="0"></iframe></td>
                     </tr>
                     <tr>
                       <td height="25">{$=ii_itake('global.lng_admin.content_cutepage','lng')}</td>
