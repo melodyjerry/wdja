@@ -169,6 +169,56 @@ class cc_cutepage
     $tmpstr = ii_creplace($tmpstr);
     return $tmpstr;
   }
+function get_pagenum() 
+    {
+        global $nurltype, $ncreatefolder, $ncreatefiletype;
+        $maxlength = 10;
+    $toffset = $this -> offset;
+    $tpagesize = $this -> pagesize;
+    $trslimit = $this -> rslimit;
+    $tlistkey = $this -> listkey;
+    $tpagenums = ceil($trslimit / $tpagesize);
+    $tnpagenum = ceil($toffset / $tpagesize) + 1;
+    if ($tnpagenum > $tpagenums) $tnpagenum = $tpagenums;
+    $txpagenum = $tnpagenum + 1;
+    if ($txpagenum > $tpagenums) $txpagenum = $tpagenums;
+    $tstate1 = ($toffset > 0) ? 1 : 0;
+    $tstate2 = (($toffset + $tpagesize) < $trslimit) ? 1 : 0;
+        $tmpstr = '';
+        if($tpagenums > 1)
+        {
+            $tmpstr = ii_itake('global.tpl_common.pagenum', 'tpl');
+            $tmpastr = ii_ctemplate($tmpstr, '{@}');
+            $tmprstr = '';
+            $tstr = $tary[1];
+            for($ti = 0;$ti < $tpagenums; $ti++)
+            {
+                $tmptstr = $tmpastr;
+                $tmptstr = str_replace('{$pageurl}', ii_iurl('listpage', $ti*$tpagesize, $nurltype, 'folder=' . $ncreatefolder . ';filetype=' . $ncreatefiletype . ';listkey=' . $tlistkey), $tmptstr);
+                $tmptstr = str_replace('{$pagenum}', $ti + 1, $tmptstr);
+                $tmptstr = $ti + 1 == $tnpagenum ?  str_replace('{$current}', ' class="current-page"', $tmptstr) : str_replace('{$current}', '', $tmptstr);
+                if(($ti > $tpagenums - $maxlength - 1 || $ti > $tnpagenum - 6) && ($ti < $tnpagenum + $maxlength - 5 || $ti < $maxlength)) $tmprstr .= $tmptstr;
+            }
+            if ($tstate1)
+            {
+                $tmpstr = str_replace('{$pre}', '<a class="np-page" href="' . ii_iurl('listpage', $toffset - $tpagesize, $nurltype, 'folder=' . $ncreatefolder . ';filetype=' . $ncreatefiletype . ';listkey=' . $tlistkey) . '">' . ii_itake('global.lng_cutepage.prepage', 'lng') . '</a>', $tmpstr);
+            }
+            else $tmpstr = str_replace('{$pre}', '', $tmpstr);
+            if ($tstate2)
+            {
+                $tmpstr = str_replace('{$next}', '<a class="np-page" href="' . ii_iurl('listpage', $toffset + $tpagesize, $nurltype, 'folder=' . $ncreatefolder . ';filetype=' . $ncreatefiletype . ';listkey=' . $tlistkey) . '">' . ii_itake('global.lng_cutepage.nextpage', 'lng') . '</a>', $tmpstr);
+            }
+            else $tmpstr = str_replace('{$next}', '', $tmpstr);
+            $tmpstr = str_replace(WDJA_CINFO, $tmprstr, $tmpstr);
+            $tmpstr = str_replace('{$npagenum}', $tnpagenum, $tmpstr);
+            $tmpstr = str_replace('{$pagenums}', $tpagenums, $tmpstr);
+            $tmpstr = str_replace('{$xpagenum}', $txpagenum, $tmpstr);
+            $tmpstr = str_replace('{$pagesize}', $tpagesize, $tmpstr);
+            $tmpstr = ii_creplace($tmpstr);
+        }
+    return $tmpstr;
+    }
+
 }
 
 class cc_socketmail

@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xml mode="wdja" author="wdja">
+  <configure>
+    <node>item</node>
+    <field>name,tpl_default</field>
+    <base>item_list</base>
+  </configure>
+  <item_list>
+    <item>
+      <name><![CDATA[base]]></name>
+      <tpl_default><![CDATA[<base id="base" href="{$=ii_get_lrstr($GLOBALS['nurlpre'] . $GLOBALS['nuri'], '/', 'leftr')}/" />]]></tpl_default>
+    </item>
+    <item>
+      <name><![CDATA[default_head]]></name>
+      <tpl_default><![CDATA[<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0 user-scalable=yes">
+{$=mm_web_base()}
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"> 
+<meta http-equiv="Content-Type" content="text/html; charset={$=CHARSET}" />
+<title>{$=mm_web_title($GLOBALS['ntitle'])}</title>
+<meta name="keywords" content="{$=mm_web_keywords($GLOBALS['nkeywords'])}" />
+<meta name="description" content="{$=mm_web_description($GLOBALS['ndescription'])}" />
+<link type="text/css" rel="stylesheet" href="{$=#global_images_route}theme/{$=#nskin}/swiper/swiper-4.2.2.min.css" />
+<link type="text/css" rel="stylesheet" href="{$=#global_images_route}theme/{$=#nskin}/layout.css" />
+<link type="text/css" rel="stylesheet" href="{$=#global_images_route}theme/{$=#nskin}/global.css" />
+<script language="javascript" src="{$=#global_images_route}js/jquery-1.7.min.js"></script>
+<script type="text/javascript" src="{$=#global_images_route}js/main.js"></script>
+<script type="text/javascript" src="{$=#global_images_route}js/shorturl.js"></script>
+<script type="text/javascript" src="{$=#global_images_route}js/writeflashhtml2.js"></script>
+<script type="text/javascript" src="{$=#global_images_route}theme/{$=#nskin}/swiper/swiper-4.2.2.min.js"></script>
+</head>
+<body>
+<header id="top">
+	<section id="topContent">
+     <div style="width:1000px;margin:0 auto;height:80px;line-height:80px;POSITION: relative;">
+        <h2><a href="{$=ii_get_actual_route('./')}"><img src="{$=ii_itake('global.admin/global:home.logo','lng')}" alt="{$=ii_itake('global.module.web_title', 'lng')}"></a></h2>
+        <div class="desc">{$=ii_itake('global.admin/global:seo.topic','lng')}</div>
+        <div id="panel">
+            <form method="get" name="search" action="{$=ii_get_actual_route('search')}"><input type="text" name="keyword" size="15" class="text" placeholder="{$=ii_itake('global.lng_config.keyword', 'lng')}"/> <input type="submit" value="{$=ii_itake('global.lng_config.search','lng')}" class="button" />
+            </form>
+        </div>
+    </div>
+    <div id="menu">
+      <ul>
+        <li id="m"><a href="{$=#nurlpre}">{$=ii_itake('global.module.channel_title', 'lng')}</a></li>
+        <li id="maboutus"><a href="{$=ii_get_actual_route('aboutus')}">{$=ii_itake('global.aboutus:module.channel_title', 'lng')}</a></li>
+        <li id="mnews"><a href="{$=ii_get_actual_route('news')}">{$=ii_itake('global.news:module.channel_title', 'lng')}</a></li>
+        <li id="marticle"><a href="{$=ii_get_actual_route('article')}">{$=ii_itake('global.article:module.channel_title', 'lng')}</a></li>
+        <li id="mproduct"><a href="{$=ii_get_actual_route('product')}">{$=ii_itake('global.product:module.channel_title', 'lng')}</a></li>
+        <li id="mdownload"><a href="{$=ii_get_actual_route('download')}">{$=ii_itake('global.download:module.channel_title', 'lng')}</a></li>
+        <li id="mshop"><a href="{$=ii_get_actual_route('shop')}">{$=ii_itake('global.shop:module.channel_title', 'lng')}</a></li>
+        <li id="mforum"><a href="{$=ii_get_actual_route('forum')}">{$=ii_itake('global.forum:module.channel_title', 'lng')}</a></li>
+        <li id="mpage"><a href="{$=ii_get_actual_route('page')}">{$=ii_itake('global.page:manage.channel_title', 'lng')}</a></li>
+        <li id="mhelp"><a href="{$=ii_get_actual_route('help')}" target="_blank">{$=ii_itake('global.help:module.channel_title', 'lng')}</a></li>
+        <li><a href="https://wdja.taobao.com/" target="_blank">官方淘宝店</a></li>
+      </ul>
+    </div>
+    </section>
+</header>
+]]></tpl_default>
+    </item>
+    <item>
+      <name><![CDATA[default_foot]]></name>
+      <tpl_default><![CDATA[{$=ii_ireplace('global.module.links','tpl')}
+<footer id="bottom">
+  <section id="bottomContent">
+    <p style="height:88px;"><img src="/weixin.jpg" style="width:88px;height:88px;"></p>
+    <p>Copyright 2004-{$=date('Y', ii_mktime(ii_now()))} WDJA(<a href="http://www.wdja.cn/" target="_blank">CMS</a>) <a href="http://www.wdja.cn/" target="_blank">wdja.cn</a> All Rights Reserved.<a href="https://www.wdja.cn/sitemap.xml" target="_blank">Sitemap</a><a href="http://tongji.baidu.com/web/welcome/ico?s=fd1ac6bf0387f7abbf81212243d6333f" target="_blank">百度统计</a></p>
+    <div id="bottomMenu">{$=vv_itransfer('new', 'm1', 'topx=10;tnum=30;genre=aboutus;osql= and ab_lng=\'' . $GLOBALS['nlng'] . '\'')}<a href="{$=ii_get_actual_route('support')}/gbook/" target="_self">{$=ii_itake('global.lng_menu.gbook', 'lng')}</a></div>
+  </section>
+</footer>
+<script>        
+  var mySwiper = new Swiper ('.swiper-container', {
+                    autoplay: {
+                        delay:3000,//秒            
+                        disableOnInteraction: false,//滑动不会失效
+                        reverseDirection: false,//如果最后一个 反向播放
+                    },
+                    loop: true,//轮播
+                    followFinger: false,//手指滑动完毕在动
+    // 如果需要分页器
+      pagination: {
+        el: '.swiper-pagination',
+        clickable: true,
+        renderBullet: function (index, className) {
+          return '<span class="' + className + '">' + (index + 1) + '</span>';
+        },
+      },
+    
+    // 如果需要前进后退按钮
+    navigation: {
+      nextEl: '.swiper-button-next',
+      prevEl: '.swiper-button-prev',
+    },
+  })        
+  </script>
+<script type="text/javascript">get_id('m{$=#ngenre}').className = 'on';</script>
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?fd1ac6bf0387f7abbf81212243d6333f";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+</body>
+</html>]]></tpl_default>
+    </item>
+    <item>
+      <name><![CDATA[chead]]></name>
+      <tpl_default><![CDATA[<html>
+<head>
+<meta http-equiv="x-ua-compatible" content="IE=EmulateIE7" />
+<meta http-equiv="Content-Type" content="text/html; charset={$=CHARSET}">
+<link type="text/css" rel="stylesheet" href="{$=#global_images_route}theme/{$=#nskin}/layout.css" />
+<title>{$=mm_web_title($GLOBALS['ntitle'])}</title>
+<script language="javascript" src="{$=#global_images_route}js/main.js"></script>
+</head>
+<body>]]></tpl_default>
+    </item>
+    <item>
+      <name><![CDATA[cfoot]]></name>
+      <tpl_default><![CDATA[</body>
+</html>]]></tpl_default>
+    </item>
+    <item>
+      <name><![CDATA[clear_head]]></name>
+      <tpl_default><![CDATA[<html>
+<head>
+<meta http-equiv="x-ua-compatible" content="IE=EmulateIE7" />
+<meta http-equiv="Content-Type" content="text/html; charset={$=CHARSET}">
+<meta http-equiv="pragma" content="no-cache">
+<style>
+body {margin-left: 0px; margin-top: 2px; margin-right: 0px; margin-bottom: 0px; font-size:12px;}
+input {border:1px solid #c0c0c0; padding: 1px; height: 20px;}
+h1 {padding-left: 5px;color:red;}
+</style>
+<title></title>
+<script language="javascript" src="{$=#global_images_route}js/main.js"></script>
+<script language="javascript" src="{$=#global_images_route}js/selects.js"></script>
+</head>
+<body>
+]]></tpl_default>
+    </item>
+    <item>
+      <name><![CDATA[clear_foot]]></name>
+      <tpl_default><![CDATA[</body>
+</html>]]></tpl_default>
+    </item>
+    <item>
+      <name><![CDATA[admin_head]]></name>
+      <tpl_default><![CDATA[<html>
+<head>
+<meta http-equiv="x-ua-compatible" content="IE=EmulateIE7" />
+<meta http-equiv="Content-Type" content="text/html; charset={$=CHARSET}" />
+<link href="{$=ii_get_actual_route(ADMIN_FOLDER . '/common/images/default.css')}" type="text/css" rel="stylesheet" />
+<title>{$=mm_web_title($GLOBALS['ntitle'])}</title>
+<script language="javascript" src="{$=#global_images_route}js/jquery-1.7.min.js"></script>
+<script language="javascript" src="{$=#global_images_route}js/main.js"></script>
+<script language="javascript" src="{$=#global_images_route}js/shorturl.js"></script>
+<script language="javascript" src="{$=#global_images_route}js/selects.js"></script>
+<script language="javascript" src="{$=#global_images_route}js/manage.js"></script>
+</head>
+<body onload="nhrefstate()">]]></tpl_default>
+    </item>
+    <item>
+      <name><![CDATA[admin_foot]]></name>
+      <tpl_default><![CDATA[</body>
+</html>]]></tpl_default>
+    </item>
+  </item_list>
+</xml>

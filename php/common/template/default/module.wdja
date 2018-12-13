@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xml mode="wdja" author="wdja">
+  <configure>
+    <node>item</node>
+    <field>name,tpl_default</field>
+    <base>item_list</base>
+  </configure>
+  <item_list>
+    <item>
+      <name><![CDATA[index]]></name>
+      <tpl_default><![CDATA[{$=mm_web_head($GLOBALS['nhead'])}
+{$=ii_ireplace('global.module.swiper-slide','tpl')}
+<section id="middle">
+    <div id="middleContent" style="height:40px;line-height:40px;">
+        <ul>
+        <li style="float:left;overflow: hidden;width:800px;">{$=ii_ireplace('global.passport:api.login2', 'tpl')}</li>
+        <li style="float:right;overflow: hidden;width:200px;text-align: right;"><a download href="{$=ii_itake('global.admin/global:home.download_url','lng')}" style="background:#3eb4fa;border-radius:5px;height: 26px;line-height: 26px;margin-right:10px;padding: 2px 5px;display: inline-block;text-align: center;color: #ffffff;">{$=ii_itake('global.admin/global:home.download_name','lng')}</a><a href="{$=ii_itake('global.admin/global:home.demo_url','lng')}" style="background:#3eb4fa;border-radius:5px;height: 26px;line-height: 26px;margin-right:10px;padding: 2px 5px;display: inline-block;text-align: center;color: #ffffff;" target="_blank">演示站</a></li>
+        </ul>
+    </div>
+</section>
+<section id="middle">
+    <div id="middleContent">
+        <div class="title"><h3>{$=ii_itake('global.product:module.channel_title', 'lng')}</h3></div>
+        {$=vv_itransfer('good', '3', 'topx=4;tnum=30;genre=product;osql= and p_class = \'' . ii_itake('global.admin/global:home.product_id','lng') . '\'')}
+    </div>
+</section>
+<section id="middle">
+    <div id="middleContent">
+        <div class="title"><h3>{$=ii_itake('global.product:module.module_new', 'lng')}</h3></div>
+        {$=vv_itransfer('good', '3', 'topx=4;tnum=30;genre=product;osql= and p_class = \'' . ii_itake('global.admin/global:home.module_id','lng') . '\'')}
+    </div>
+</section>
+<section id="middle">
+    <div id="middleContent">
+        <div class="title"><h3>{$=ii_itake('global.news:module.channel_title', 'lng')}</h3></div>
+        {$=vv_itransfer('top', 'news-list', 'topx=10;tnum=30;genre=news')}
+    </div>
+    <div class="clear"></div>
+</section>
+{$=mm_web_foot($GLOBALS['nfoot'])}]]></tpl_default>
+    </item>
+    <item>
+      <name><![CDATA[swiper-slide]]></name>
+      <tpl_default><![CDATA[<section class="swiper">
+<div class="swiper-container">
+    <div class="swiper-wrapper">
+       {$=vv_itransfer('all', 'slide', 'topx=5;tnum=30;genre=support/slide')}
+    </div>
+    <!-- 如果需要分页器 -->
+    <div class="swiper-pagination"></div>
+    <!-- 如果需要导航按钮 -->
+    <div class="swiper-button-prev"></div>
+    <div class="swiper-button-next"></div>
+</div> 
+</section>
+]]></tpl_default>
+    </item>
+    <item>
+      <name><![CDATA[links]]></name>
+      <tpl_default><![CDATA[<section class="links">
+                <div class="title">
+                    <strong>
+                        {$=ii_itake('global.support/linktext:manage.channel_title', 'lng')}(交换QQ:858512104)
+              </strong>
+                </div>
+                <ul>
+                   {$=vv_itransfer('all', 'link', 'topx=20;tnum=30;genre=support/linktext')}
+                </ul>
+   </section>
+]]></tpl_default>
+    </item>
+  </item_list>
+</xml>

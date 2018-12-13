@@ -37,7 +37,9 @@ function wdja_cms_module_list()
             {
                 $tsqlstr .= ii_cfnames($tfpre, $tnfield) . " as un_" . $tnfield . ",";
             }
-            $tsqlstr .= ii_cfnames($tfpre, 'content_images_list') . " as un_content_images_list," . ii_cfnames($tfpre, 'count') . " as un_count," . ii_cfnames($tfpre, 'time') . " as un_time,'" . $tndatabase . "' as un_genre from " . $tdatabase . " where " . ii_cfnames($tfpre, 'hidden') . "=0";
+            if($tndatabase == 'forum') $tsid = ii_cfnames($tfpre, 'sid');
+            else  $tsid = $tidfield;
+            $tsqlstr .= $tsid . " as un_sid," . ii_cfnames($tfpre, 'count') . " as un_count," . ii_cfnames($tfpre, 'time') . " as un_time,'" . $tndatabase . "' as un_genre from " . $tdatabase . " where " . ii_cfnames($tfpre, 'hidden') . "=0";
             foreach ($tshkeywords as $key => $val)
             {
                 foreach ($tnfields as $tnfield)
@@ -65,7 +67,6 @@ function wdja_cms_module_list()
                 $tmptstr = $tmpastr;
                 $tfshkeyword = str_replace('{$explain}', $tshkeyword, $font_red);
                 $ttopic = ii_htmlencode($trs['un_topic']);
-                $tcontent_images_list = $trs['un_content_images_list'];
                 $tcontent = $trs['un_content'];
                 $tmptstr = str_replace('{$topicstr}', $ttopic, $tmpastr);
                 if (!ii_isnull($tfshkeyword)) 
@@ -75,11 +76,13 @@ function wdja_cms_module_list()
                 }
                 $tmptstr = str_replace('{$topic}', $ttopic, $tmptstr);
                 $tmptstr = str_replace('{$content}', $tcontent, $tmptstr);
-                $tmptstr = str_replace('{$content_images_list}', $tcontent_images_list, $tmptstr);
                 $tmptstr = str_replace('{$time}', ii_get_date($trs['un_time']), $tmptstr);
                 $tmptstr = str_replace('{$count}', ii_get_num($trs['un_count']), $tmptstr);
                 $tmptstr = str_replace('{$id}', ii_get_num($trs['un_id']), $tmptstr);
-                $tmptstr = str_replace('{$baseurl}', ii_get_actual_route($trs['un_genre']) . '/', $tmptstr);
+                $tmptstr = str_replace('{$module}', '<a href="'.ii_get_actual_route($trs['un_genre']).'">['.ii_itake('global.'.$trs['un_genre'].':module.channel_title', 'lng').']</a>&nbsp;', $tmptstr);
+                if($trs['un_genre'] == 'forum') $tmptstr = str_replace('{$url}', ii_get_actual_route($trs['un_genre']).'/?type=detail&sid='.ii_get_num($trs['un_sid']).'&tid='.ii_get_num($trs['un_id']), $tmptstr);
+                else $tmptstr = str_replace('{$url}', ii_curl(ii_get_actual_route($trs['un_genre']), ii_iurl('detail', ii_get_num($trs['un_id']), $turltype, 'folder='.$tcreatefolder.';filetype='.$tcreatefiletype.';time='.ii_get_date($trs['un_time']))), $tmptstr);
+
                 $tmprstr .= $tmptstr;
             }
         }

@@ -94,7 +94,7 @@ function wdja_cms_admin_manage_adddisp()
     $trs = ii_conn_query($tsqlstr, $conn);
     if ($trs)
     {
-      $upfid = ii_conn_insert_id();
+      $upfid = ii_conn_insert_id($conn);
       uu_upload_update_database_note($ngenre, $timage, 'image', $upfid);
       uu_upload_update_database_note($ngenre, $tcontent_images_list, 'content_images', $upfid);
       wdja_cms_admin_msg(ii_itake('global.lng_public.add_succeed', 'lng'), $tbackurl, 1);
@@ -132,7 +132,7 @@ function wdja_cms_admin_manage_editdisp()
     " . ii_cfname('content') . "='$tcontent',
     " . ii_cfname('cttype') . "=" . ii_get_num($_POST['cttype']) . ",
     " . ii_cfname('content_images_list') . "='$tcontent_images_list',
-    " . ii_cfname('size') . "=" . ii_get_num($_POST['size']) . ",
+    " . ii_cfname('size') . "=" . $_POST['size'] . ",
     " . ii_cfname('runco') . "='" . ii_left(mm_get_postarystr($_POST['runco']), 255) . "',
     " . ii_cfname('star') . "=" . ii_get_num($_POST['star']) . ",
     " . ii_cfname('accredit') . "=" . ii_get_num($_POST['accredit']) . ",

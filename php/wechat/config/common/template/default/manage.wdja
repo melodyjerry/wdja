@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xml mode="wdja" author="wdja">
+  <configure>
+    <node>item</node>
+    <field>name,tpl_default</field>
+    <base>item_list</base>
+  </configure>
+  <item_list>
+    <item>
+      <name><![CDATA[config]]></name>
+      <tpl_default><![CDATA[<script language="javascript" src="{$=#global_images_route}js/preview_images.js"></script>
+<script language="javascript" src="{$=#global_images_route}js/loader.js"></script>
+<script language="javascript">
+function bfsubmit()
+{
+  get_id("att").value = get_selects_list(get_id('content_images'));
+}
+</script>
+<table border="0" width="100%" cellSpacing="0" cellPadding="0">
+  <tr>
+    <td width="100%" height="5"></td>
+  </tr>
+  <tr>
+    <td width="100%" align="center">
+      <table border="0" width="98%" cellSpacing="0" cellPadding="0">
+        <tr>
+          <td width="99" align="center" valign="top">
+
+            <table border="0" width="100%" cellSpacing="0" cellPadding="0" class="lrbtline">
+              <tr>
+                <td width="100%" height="25" class="tbtop">{$=ii_itake('manage.global','lng')}</td>
+              </tr>
+              <tr>
+                <td width="100%" align="center">
+                  <table border="0" width="98%" cellSpacing="0" cellPadding="0">
+                    <tr>
+                      <td width="100%" height="5"></td>
+                    </tr>
+                    <tr>
+                      <td width="100%" height="20">&nbsp;<img src="{$=#global_images_route}public/small/sico.gif" border="0">&nbsp;<span id="tpl_module"><a href="/wechat/config/manage.php" target="_self">{$=ii_itake('manage.config','lng')}</a></span></td>
+                    </tr>
+                    <tr>
+                      <td width="100%" height="5"></td>
+                    </tr>
+                  </table>
+                </td>
+              </tr>
+            </table>
+            <table border="0" width="100%" cellSpacing="0" cellPadding="0">
+              <tr>
+                <td width="100%" height="5"></td>
+              </tr>
+            </table>
+            </td>
+            <td width="5"></td>
+            <td width="*" align="center" valign="top">
+
+            <table border="0" width="100%" cellSpacing="0" cellPadding="0" class="lrbtline">
+              <tr>
+                <td width="100%" height="25" class="tbtop">{$=ii_itake('manage.edit','lng')}</td>
+              </tr>
+              <tr>
+                <td width="100%" align="center">
+                  <table border="0" width="98%" cellSpacing="0" cellPadding="0">
+                    <tr>
+                      <td width="100%" height="5"></td>
+                    </tr>
+                  </table>
+                  <form name="form" method="post" action="?action=config&backurl={$=urlencode($GLOBALS['nurl'])}" onsubmit="bfsubmit()">
+                  <table border="0" width="98%" cellSpacing="0" cellPadding="0">
+                    <tr>
+                      <td height="25">{$=ii_itake('manage.logo','lng')}</td>
+                      <td><input type="text" size="40" name="logo" id="logo" value="{$logo}"> <input type="button" class="button" value="{$=ii_itake('global.lng_config.preview','lng')}" onclick="preview_images(get_id('logo').value, event)"></td>
+                    </tr>
+                    <tr>
+                      <td height="25">{$=ii_itake('global.lng_config.upload','lng')}</td>
+                      <td><iframe src="?type=upload&upform=form&uptext=logo" width="100%" height="25" scrolling="no" marginwidth="0" marginheight="0" align="middle" name="upload" frameborder="0"></iframe></td>
+                    </tr>
+                    <tr>
+                      <td width="80" height="25">{$=ii_itake('manage.appid','lng')}</td>
+                      <td width="*"><input type="text" name="appid" size="40" value="{$appid}"></td>
+                    </tr>
+                    <tr>
+                      <td height="25">{$=ii_itake('manage.secret','lng')}</td>
+                      <td><input type="text" name="secret" size="40" value="{$secret}"></td>
+                    </tr>
+                    <tr>
+                      <td height="25">{$=ii_itake('manage.templateid','lng')}</td>
+                      <td><input type="text" name="templateid" size="40" value="{$templateid}"></td>
+                    </tr>
+                    <tr>
+                      <td height="25">{$=ii_itake('manage.templateurl','lng')}</td>
+                      <td><input type="text" name="templateurl" size="40" value="{$templateurl}"></td>
+                    </tr>
+                    <tr>
+                      <td height="25"></td>
+                      <td><input type="submit" name="submit" value="{$=ii_itake('global.lng_config.submit','lng')}" class="button"></td>
+                    </tr>
+                  </table>
+                  </form>
+                  <table border="0" width="98%" cellSpacing="0" cellPadding="0">
+                    <tr>
+                      <td width="100%" height="5"></td>
+                    </tr>
+                  </table>
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+  <tr>
+    <td width="100%" height="5"></td>
+  </tr>
+</table>]]></tpl_default>
+    </item>
+  </item_list>
+</xml>

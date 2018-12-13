@@ -8,19 +8,19 @@
   <language_list>
     <item>
       <disinfo><![CDATA[topic]]></disinfo>
-      <chinese><![CDATA[软件名称]]></chinese>
+      <chinese><![CDATA[文件名称]]></chinese>
     </item>
     <item>
       <disinfo><![CDATA[scont]]></disinfo>
-      <chinese><![CDATA[软件简介]]></chinese>
+      <chinese><![CDATA[文件简介]]></chinese>
     </item>
     <item>
       <disinfo><![CDATA[content]]></disinfo>
-      <chinese><![CDATA[软件介绍]]></chinese>
+      <chinese><![CDATA[文件介绍]]></chinese>
     </item>
     <item>
       <disinfo><![CDATA[size]]></disinfo>
-      <chinese><![CDATA[软件大小]]></chinese>
+      <chinese><![CDATA[文件大小]]></chinese>
     </item>
     <item>
       <disinfo><![CDATA[runco]]></disinfo>
@@ -28,7 +28,7 @@
     </item>
     <item>
       <disinfo><![CDATA[star]]></disinfo>
-      <chinese><![CDATA[软件星级]]></chinese>
+      <chinese><![CDATA[文件星级]]></chinese>
     </item>
     <item>
       <disinfo><![CDATA[accredit]]></disinfo>
@@ -36,7 +36,7 @@
     </item>
     <item>
       <disinfo><![CDATA[lng]]></disinfo>
-      <chinese><![CDATA[软件语言]]></chinese>
+      <chinese><![CDATA[文件语言]]></chinese>
     </item>
     <item>
       <disinfo><![CDATA[link]]></disinfo>
@@ -44,7 +44,11 @@
     </item>
     <item>
       <disinfo><![CDATA[author]]></disinfo>
-      <chinese><![CDATA[软件作者]]></chinese>
+      <chinese><![CDATA[文件作者]]></chinese>
+    </item>
+    <item>
+      <disinfo><![CDATA[count]]></disinfo>
+      <chinese><![CDATA[浏览数]]></chinese>
     </item>
     <item>
       <disinfo><![CDATA[urls_count]]></disinfo>

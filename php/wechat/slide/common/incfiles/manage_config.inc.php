@@ -40,7 +40,7 @@ function wdja_cms_admin_manage_adddisp()
     $trs = ii_conn_query($tsqlstr, $conn);
     if ($trs)
     {
-      $upfid = ii_conn_insert_id();
+      $upfid = ii_conn_insert_id($conn);
       uu_upload_update_database_note($ngenre, $timage, 'image', $upfid);
       wdja_cms_admin_msg(ii_itake('global.lng_public.add_succeed', 'lng'), $tbackurl, 1);
     }

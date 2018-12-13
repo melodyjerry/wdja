@@ -127,7 +127,7 @@ function wdja_cms_admin_manage_createdisp()
   $tbackurl = $_GET['backurl'];
   $turl = ii_itake('global.expansion/sitemap:config.url', 'lng');
   if(ii_isnull($turl)) $turl = $nurlpre;
-  if($save == 1) $tburl = ii_get_actual_route() . '/sitemap.xml';//保存在根目录
+  if($save == 1) $tburl = ii_get_actual_route('./') . 'sitemap.xml';//保存在根目录
   else $tburl = pp_get_xml_root() . 'sitemap.xml';//保存在插件语言文件夹
   if (!file_exists($tburl)) fopen($tburl,'w');
   if (file_exists($tburl))
@@ -202,10 +202,10 @@ function wdja_cms_admin_manage_action()
   switch($_GET['action'])
   {
     case 'config':
-      wdja_cms_admin_manage_configdisp();
+      return wdja_cms_admin_manage_configdisp();
       break;
     case 'create':
-      wdja_cms_admin_manage_createdisp();
+      return wdja_cms_admin_manage_createdisp();
       break;
   }
 }
@@ -216,6 +216,8 @@ function wdja_cms_admin_manage_config()
   global $ndatabase, $nidfield, $nfpre;
   $save = ii_itake('config.save','lng');
   $trootstr = pp_get_xml_root() . 'config'. XML_SFX;
+  $turl = ii_itake('global.expansion/sitemap:config.url', 'lng');
+  if(ii_isnull($turl)) $turl = $nurlpre;
   if (file_exists($trootstr))
   {
     $tmpstr = ii_itake('manage.config' , 'tpl');
@@ -250,8 +252,8 @@ function wdja_cms_admin_manage_config()
         }
       }
     }
-    if($save == 1) $sitemap = $nurlpre . '/sitemap.xml';
-    else $sitemap = $nurlpre .'/'.ii_get_actual_route($ngenre). '/common/language/sitemap.xml';
+    if($save == 1) $sitemap = $turl . '/sitemap.xml';
+    else $sitemap = $turl .'/'.ii_get_actual_route($ngenre). '/common/language/sitemap.xml';
     $sitemap = str_replace('../', '', $sitemap);
     $tmpstr = str_replace('{$sitemap}', $sitemap, $tmpstr);
     $tmpstr = ii_creplace($tmpstr);

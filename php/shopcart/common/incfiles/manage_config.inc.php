@@ -33,7 +33,9 @@ function wdja_cms_admin_manage_editdisp()
     $tprolist = $trs[ii_cfname('fid')];
     $tstates = ii_get_num($trs[ii_cfname('state')], 0);
     $tstate = ii_get_num($_POST['state'], 0);
+    $texpress = ii_get_num($_POST['express'], 0);
     $ttraffic = ii_get_num($_POST['traffic'], 0);
+    $tmerchandiseprice = ii_get_num($_POST['merchandiseprice'], 0);
     $ttrafficprice = ii_itake('sel_traffic_fare.' . $ttraffic, 'sel');
     $tallprice = $tmerchandiseprice + $ttrafficprice;
     $tsqlstr = "update $ndatabase set
@@ -42,6 +44,8 @@ function wdja_cms_admin_manage_editdisp()
     " . ii_cfname('trafficprice') . "=$ttrafficprice,
     " . ii_cfname('allprice') . "=$tallprice,
     " . ii_cfname('state') . "=$tstate,
+    " . ii_cfname('express') . "=$texpress,
+    " . ii_cfname('expressid') . "=" . ii_get_num($_POST['expressid']) . ",
     " . ii_cfname('prepaid') . "=" . ii_get_num($_POST['prepaid']) . ",
     " . ii_cfname('dtime') . "='" . ii_now() . "'
     where $nidfield=$tid";
@@ -150,7 +154,8 @@ function wdja_cms_admin_manage_edit()
     {
       $tkey = ii_get_lrstr($key, '_', 'rightr');
       $GLOBALS['RS_' . $tkey] = $val;
-      $tmpstr = str_replace('{$' . $tkey . '}', ii_htmlencode($val), $tmpstr);
+      if($tkey=='expressid' && ii_htmlencode($val) == 0 ) $tmpstr = str_replace('{$' . $tkey . '}', '', $tmpstr);
+      else $tmpstr = str_replace('{$' . $tkey . '}', ii_htmlencode($val), $tmpstr);
     }
     $tmpstr = str_replace('{$id}', $trs[$nidfield], $tmpstr);
     $tmpstr = ii_creplace($tmpstr);
@@ -170,6 +175,7 @@ function wdja_cms_admin_manage_list()
   $toffset = ii_get_num($_GET['offset']);
   $search_field = ii_get_safecode($_GET['field']);
   $search_keyword = ii_get_safecode($_GET['keyword']);
+  $tusername = ii_get_safecode($_GET['username']);
   $tmpstr = ii_itake('manage.list', 'tpl');
   $tmpastr = ii_ctemplate($tmpstr, '{@recurrence_ida}');
   $tmprstr = '';
@@ -195,6 +201,7 @@ function wdja_cms_admin_manage_list()
   $tmpastr = ii_ctemplate($tmpstr, '{@recurrence_idb}');
   $tmprstr = '';
   $tsqlstr = "select * from $ndatabase where $nidfield>0";
+  if (!ii_isnull($tusername)) $tsqlstr .= " and " . ii_cfname('username') . "='" . $tusername."'";
   if ($search_field == 'name') $tsqlstr .= " and " . ii_cfname('name') . " like '%" . $search_keyword . "%'";
   if ($search_field == 'orderid') $tsqlstr .= " and " . ii_cfname('orderid') . " like '%" . $search_keyword . "%'";
   if ($search_field == 'state') $tsqlstr .= " and " . ii_cfname('state') . "=" . ii_get_num($search_keyword);
@@ -220,7 +227,8 @@ function wdja_cms_admin_manage_list()
         $font_red = str_replace('{$explain}', $search_keyword, $font_red);
         $tname = str_replace($search_keyword, $font_red, $tname);
       }
-      $tmptstr = str_replace('{$name}', $tname, $tmpastr);
+      $tmptstr = str_replace('{$username}', ii_htmlencode($trs[ii_cfname('username')]), $tmpastr);
+      $tmptstr = str_replace('{$name}', $tname, $tmptstr);
       $tmptstr = str_replace('{$namestr}', ii_encode_scripts(ii_htmlencode($trs[ii_cfname('name')])), $tmptstr);
       $tmptstr = str_replace('{$orderid}', ii_htmlencode($trs[ii_cfname('orderid')]), $tmptstr);
       $tmptstr = str_replace('{$paystate}', ii_itake('sel_paystate.' . ii_get_num($trs[ii_cfname('prepaid')]), 'lng'), $tmptstr);

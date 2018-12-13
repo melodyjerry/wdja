@@ -48,7 +48,7 @@
     </item>
     <item>
       <disinfo><![CDATA[url_tips]]></disinfo>
-      <chinese><![CDATA[(设置网站的首页网址,开头带'htt'p,结尾不带'/'.)]]></chinese>
+      <chinese><![CDATA[(设置网站的首页网址,开头带'http(s),结尾不带'/'.)]]></chinese>
     </item>
     <item>
       <disinfo><![CDATA[sitemap]]></disinfo>

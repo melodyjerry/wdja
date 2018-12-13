@@ -51,7 +51,7 @@ function wdja_cms_admin_manage_adddisp()
     $trs = ii_conn_query($tsqlstr, $conn);
     if ($trs)
     {
-      $upfid = ii_conn_insert_id();
+      $upfid = ii_conn_insert_id($conn);
       $tdatabase = mm_cndatabase(ii_cvgenre($ngenre), 'data');
       $tidfield = mm_cnidfield(ii_cvgenre($ngenre), 'data');
       $tfpre = mm_cnfpre(ii_cvgenre($ngenre), 'data');

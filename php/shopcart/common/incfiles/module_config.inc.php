@@ -11,7 +11,11 @@ function wdja_cms_module_adddisp()
   $tid = ii_get_num($_GET['id'], 0);
   $tbuynum = ii_get_num($_GET['buynum'], 1);
   if ($tbuynum < 1) $tbuynum = 1;
-  if ($tid != 0) setcookie(APP_NAME . $ngenre . '[' . $tid . ']', $tbuynum, 0, COOKIES_PATH);
+  if ($tid != 0) {
+      $tnum = ii_get_num($_COOKIE[APP_NAME . $ngenre][$tid], 0);
+      if ($tnum != 0) $tbuynum = $tbuynum + $tnum;
+      setcookie(APP_NAME . $ngenre . '[' . $tid . ']', $tbuynum, 0, COOKIES_PATH);
+  }
   mm_client_redirect('./?type=list&backurl' . urlencode($tbackurl));
 }
 
@@ -137,11 +141,21 @@ function wdja_cms_module_buydisp()
     $trs = ii_conn_query($tsqlstr, $conn);
     if ($trs)
     {
-      $tupid = ii_conn_insert_id();
+      $tupid = ii_conn_insert_id($conn);
       $torderid = ii_format_date(ii_now(), 0) . ($tupid % 10);
-      $tsqlstr = "update $ndatabase set " . ii_cfname('orderid') . "=$torderid where $nidfield=$tupid";
-      @ii_conn_query($tsqlstr, $conn);
-      mm_client_redirect('./?type=succeed&orderid=' . $torderid);
+      $torderuser = $nusername;
+      $tsqlostr = "update $ndatabase set " . ii_cfname('orderid') . "=$torderid where $nidfield=$tupid";
+      ii_conn_query($tsqlostr, $conn);
+        //购买成功清空购物车
+        $tcookiesAry = $_COOKIE[APP_NAME . $ngenre];
+        if (is_array($tcookiesAry))
+        {
+          foreach ($tcookiesAry as $key => $val)
+          {
+            setcookie(APP_NAME . $ngenre . '[' . $key . ']', 0, time() - 3600, COOKIES_PATH);
+          }
+        }
+        mm_client_redirect('./?type=succeed&orderid=' . $torderid.'&orderuser=' . $torderuser);
     }
     else mm_imessage(ii_itake('global.lng_public.sudd', 'lng'), -1);
   }
@@ -152,16 +166,16 @@ function wdja_cms_module_action()
   switch($_GET['action'])
   {
     case 'add':
-      wdja_cms_module_adddisp();
+      return wdja_cms_module_adddisp();
       break;
     case 'edit':
-      wdja_cms_module_editdisp();
+      return wdja_cms_module_editdisp();
       break;
     case 'delete':
-      wdja_cms_module_deletedisp();
+      return wdja_cms_module_deletedisp();
       break;
     case 'buy':
-      wdja_cms_module_buydisp();
+      return wdja_cms_module_buydisp();
       break;
   }
 }
@@ -220,6 +234,7 @@ function wdja_cms_module_succeed()
   global $conn;
   global $ndatabase, $nidfield, $nfpre;
   $torderid = ii_cstr($_GET['orderid']);
+  $torderuser = ii_cstr($_GET['orderuser']);
   $tsqlstr = "select * from $ndatabase where " . ii_cfname('orderid') . "='$torderid'";
   $trs = ii_conn_query($tsqlstr, $conn);
   $trs = ii_conn_fetch_array($trs);
@@ -227,6 +242,7 @@ function wdja_cms_module_succeed()
   {
     $tmpstr = ii_itake('module.succeed', 'tpl');
     $tmpstr = str_replace('{$orderid}', $torderid, $tmpstr);
+    $tmpstr = str_replace('{$orderuser}', $torderuser, $tmpstr);
     $tmpstr = ii_creplace($tmpstr);
     return $tmpstr;
   }

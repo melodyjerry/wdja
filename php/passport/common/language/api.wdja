@@ -48,7 +48,7 @@
     </item>
     <item>
       <disinfo><![CDATA[membercenter]]></disinfo>
-      <chinese><![CDATA[进入会员中心]]></chinese>
+      <chinese><![CDATA[会员中心]]></chinese>
     </item>
     <item>
       <disinfo><![CDATA[nologin]]></disinfo>
@@ -60,7 +60,7 @@
     </item>
     <item>
       <disinfo><![CDATA[message]]></disinfo>
-      <chinese><![CDATA[您当前共有[]条未读短信]]></chinese>
+      <chinese><![CDATA[未读短信[]条]]></chinese>
     </item>
     <item>
       <disinfo><![CDATA[jslogin_load]]></disinfo>

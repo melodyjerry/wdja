@@ -213,7 +213,7 @@ function wdja_cms_module_topic_releasedisp()
       $trs = ii_conn_query($tsqlstr, $conn);
       if ($trs)
       {
-        $tvoteid = ii_conn_insert_id();
+        $tvoteid = ii_conn_insert_id($conn);
         $tdatabase = mm_cndatabase($ngenre, 'vote_data');
         $tidfield = mm_cnidfield($ngenre, 'vote_data');
         $tfpre = mm_cnfpre($ngenre, 'vote_data');
@@ -276,7 +276,7 @@ function wdja_cms_module_topic_releasedisp()
     $trs = ii_conn_query($tsqlstr, $conn);
     if ($trs)
     {
-      $tid = ii_conn_insert_id();
+      $tid = ii_conn_insert_id($conn);
       if ($nuser_upload == 1) uu_upload_update_database_note($ngenre, $tcontent_files_list, 'content_files', $tid);
       $tdatabase = mm_cndatabase($ngenre, 'sort');
       $tidfield = mm_cnidfield($ngenre, 'sort');

@@ -10,7 +10,7 @@ require('common/incfiles/api.inc.php');
 wdja_cms_module();
 
 function wdja_cms_api(){
-  $appid = "";
+  $appid = ii_itake('global.wechat/config:config.appid','lng');//"wx0a9e41cd4c4f4502";
   if($appid != $_GET['appid']){
   echo "404";
   exit();

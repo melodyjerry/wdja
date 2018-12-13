@@ -61,7 +61,8 @@ elseif(ii_isnull($tclassid)){
     }
   }
   $tmpstr = str_replace(WDJA_CINFO, $tmprstr, $tmpstr);
-  $tmpstr = str_replace('{$cpagestr}', $tcp -> get_pagestr(), $tmpstr);
+  //$tmpstr = str_replace('{$cpagestr}', $tcp -> get_pagestr(), $tmpstr);
+  $tmpstr = str_replace('{$cpagestr}', $tcp -> get_pagenum(), $tmpstr);
   $tmpstr = str_replace('{$genre}', $ngenre, $tmpstr);
   $tmpstr = str_replace('{$classid}', $tclassid, $tmpstr);
   $tmpstr = ii_creplace($tmpstr);

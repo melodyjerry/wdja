@@ -17,7 +17,7 @@ function pp_get_xml_root($strers)
       switch($tary[1])
       {
         case 'tpl':
-          $tmproot = 'common/template/';
+          $tmproot = 'common/template/'.$GLOBALS['default_skin'].'/';
           break;
         case 'lng':
           $tmproot = 'common/language/';

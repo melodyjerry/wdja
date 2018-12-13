@@ -127,7 +127,7 @@
     </item>
     <item>
       <name><![CDATA[sys_spsort]]></name>
-      <tpl_default><![CDATA[â”œ]]></tpl_default>
+      <tpl_default><![CDATA[├]]></tpl_default>
     </item>
   </item_list>
 </xml>

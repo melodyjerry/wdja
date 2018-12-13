@@ -4,7 +4,6 @@
 // Email: admin@wdja.cn
 // Web: http://www.wdja.cn/
 //****************************************************
-
 function ii_isAdmin()
 {
   $bool = false;
@@ -30,25 +29,28 @@ function ii_isMobileAgent()
 function ii_conn_init()
 {
   global $conn, $db_host, $db_username, $db_password, $db_database;
-  $conn = @mysql_connect($db_host, $db_username, $db_password);
-  if (!$conn) die('MYSQL.Connect.Error!');
-  mysql_query("SET NAMES 'UTF8'");
-  mysql_select_db($db_database, $conn);
+  $conn = new mysqli($db_host, $db_username, $db_password, $db_database);
+  if(mysqli_connect_errno()) die('MYSQL.Connect.Error!');
+  //if (!$conn) die('MYSQL.Connect.Error!');
+  //$conn -> query("SET NAMES 'UTF8'");
+  mysqli_query($conn,'set names utf8'); 
+  mysqli_select_db($db_database, $conn);
 }
 
 function ii_conn_query($sqlstr, $conn)
 {
-  return mysql_query($sqlstr, $conn);
+  //return $conn -> query($sqlstr);
+  return mysqli_query($conn,$sqlstr); 
 }
 
 function ii_conn_fetch_array($result)
 {
-  return mysql_fetch_array($result);//只取关联数组(MYSQL_ASSOC - 关联数组,MYSQL_NUM - 数字数组,MYSQL_BOTH - 默认。同时产生关联和数字数组)
+  return mysqli_fetch_array($result);//只取关联数组(MYSQL_ASSOC - 关联数组,MYSQL_NUM - 数字数组,MYSQL_BOTH - 默认。同时产生关联和数字数组)
 }
 
-function ii_conn_insert_id()
+function ii_conn_insert_id($conn)
 {
-  return mysql_insert_id();
+  return mysqli_insert_id($conn);
 }
 
 function ii_cache_is($name)
@@ -248,10 +250,13 @@ function ii_cvgenre($strers)
 
 function ii_csize($size)
 {
+  /*
   if ($size >= 1073741824) return (intval(($size / 1073741824) * 1000) / 1000) . 'GB';
   elseif ($size >= 1048576) return (intval(($size / 1048576) * 1000) / 1000) . 'MB';
   elseif ($size >= 1024) return (intval(($size / 1024) * 1000) / 1000) . 'KB';
   else return $size . 'B';
+  */
+  return $size . 'M';
 }
 
 function ii_deldir($dir)
@@ -541,7 +546,8 @@ function ii_get_active_things($type)
     case 'tpl':
       $tthings = 'template';
       if(ii_isMobileAgent()) $tthings = $tthings . '/' . $GLOBALS['m_skin' ];
-      if(ii_isAdmin()) $tthings = 'template';
+      else $tthings = $tthings . '/' . $GLOBALS['default_skin' ];
+      if(ii_isAdmin()) $tthings = 'template/' . $GLOBALS['default_skin' ];
       break;
     case 'skin':
       $tthings = 'skin';
@@ -1041,7 +1047,8 @@ function ii_replace_xinfo_ary($strers, $type)
     case 'tpl':
       $troot = 'common/template';
       if(ii_isMobileAgent()) $troot = $troot . '/' . $GLOBALS['m_skin' ];
-      if(ii_isAdmin()) $troot = 'common/template';
+      else $troot = $troot . '/' . $GLOBALS['default_skin' ];
+      if(ii_isAdmin()) $troot = 'common/template/' . $GLOBALS['default_skin' ];
       break;
     case 'lng':
       $troot = 'common/language';

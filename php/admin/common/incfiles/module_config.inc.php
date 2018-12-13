@@ -66,7 +66,7 @@ function pp_get_leftmenu_array_config($path)
     }
   }
   $twebdir -> close();
-  $torderary = split(',', $torder);
+  $torderary = explode(',', $torder);
   if (is_array($torderary))
   {
     foreach($torderary as $key => $val)
@@ -177,11 +177,11 @@ function wdja_cms_left()
   if (is_array($tarray))
   {
     $tplstr = ii_ireplace('module.left', 'tpl');
-    $tcrca = split('{@recurrence_ida}', $tplstr);
+    $tcrca = explode('{@recurrence_ida}', $tplstr);
     if (count($tcrca) == 3)
     {
       $tcrcastr = $tcrca[1];
-      $tcrcb = split('{@recurrence_idb}', $tcrcastr);
+      $tcrcb = explode('{@recurrence_idb}', $tcrcastr);
       if (count($tcrcb) == 3) $tcrcbstr = $tcrcb[1];
       $ttplstr = $tcrca[0];
       $tii = 0;

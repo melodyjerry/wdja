@@ -25,10 +25,6 @@ function wdja_cms_module_logindisp()
   $tpassword = md5(ii_get_safecode($_POST['password']));
   if (ap_check_username($tusername, $tpassword))
   {
-    setcookie(APP_NAME . 'user[username]', $tusername, 0, COOKIES_PATH);
-    setcookie(APP_NAME . 'user[password]', $tpassword, 0, COOKIES_PATH);
-    //session_register(APP_NAME . 'username');
-    $_SESSION[APP_NAME . 'username'] = $tusername;
     mm_client_redirect($tbackurl);
   }
   else mm_imessage(ii_itake('global.lng_error.login', 'lng'), $tbackurl);

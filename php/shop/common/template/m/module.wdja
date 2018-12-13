@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xml mode="wdja" author="wdja">
+  <configure>
+    <node>item</node>
+    <field>name,tpl_default</field>
+    <base>item_list</base>
+  </configure>
+  <item_list>
+    <item>
+      <name><![CDATA[list]]></name>
+      <tpl_default><![CDATA[{$=mm_web_head($GLOBALS['nhead'])}
+<section id="middle">
+  <div id="middleContent">
+    <main class="list">
+    <nav class="nav">{$=vv_inavigation('{$genre}', 'classid={$classid};strers=module;strurl={$genre}')}</nav>
+      <div id="list_menu">
+        <ul>{$=vv_isort('{$genre}', 'tpl=sort')}</ul>
+      </div>
+      <div class="list_con">
+      <ol>
+        {@recurrence_ida}
+            <li>
+              <a href="{$=ii_iurl('detail', {$id}, $GLOBALS['nurltype'], 'folder=' . $GLOBALS['ncreatefolder'] . ';filetype=' . $GLOBALS['ncreatefiletype'] . ';time={$time}')}" title="{$topic}">
+              <img src="{$image}" alt="{$topic}">
+              <strong>{$topic}</strong>
+              <strong>{$wprice}{$=ii_itake('global.lng_unit.money', 'lng')}</strong>
+              </a>
+            </li>
+        {@recurrence_ida}
+      </ol>
+      <div id="cutepage" class="cutepage">{$cpagestr}</div>
+      </div>
+    <div class="clear"></div>
+    </main>
+  </div>
+</section>
+<script type="text/javascript">get_id('lm{$classid}').className = 'on';</script>
+{$=mm_web_foot($GLOBALS['nfoot'])}]]></tpl_default>
+    </item>
+    <item>
+      <name><![CDATA[detail]]></name>
+      <tpl_default><![CDATA[{$=mm_web_head($GLOBALS['nhead'])}
+<section id="middle">
+  <div id="middleContent">
+    <div class="content">
+        <nav class="nav">{$=vv_inavigation('{$genre}', 'classid={$class};strers=module;strurl={$genre}')}</nav>
+        <h1>{$topic}</h1>
+        <div class="con_text">
+        <p>{$=ii_itake('global.lng_config.time','lng')}:{$time},{$=ii_itake('global.lng_config.count','lng')}:<span id="count">0</span></p>
+                    <p><img src="{$image}" alt="{$image}" width="122" height="96" /></p>
+                    <table width="100%" cellspacing="0" cellpadding="0" border="0">
+                      <tr>
+                        <td width="80" height="25" align="right">{$=ii_itake('config.snum', 'lng')}</td>
+                        <td width="5"></td>
+                        <td>{$snum}</td>
+                      </tr>
+                      <tr>
+                        <td height="25" align="right">{$=ii_itake('config.topic', 'lng')}</td>
+                        <td></td>
+                        <td>{$topic}</td>
+                      </tr>
+                      <tr>
+                        <td height="25" align="right">{$=ii_itake('config.price', 'lng')}</td>
+                        <td></td>
+                        <td>{$price}{$=ii_itake('global.lng_unit.money', 'lng')}</td>
+                      </tr>
+                      <tr>
+                        <td height="25" align="right">{$=ii_itake('config.wprice', 'lng')}</td>
+                        <td></td>
+                        <td>{$wprice}{$=ii_itake('global.lng_unit.money', 'lng')}</td>
+                      </tr>
+                      <tr>
+                        <td height="25" align="right">{$=ii_itake('config.limitnum', 'lng')}</td>
+                        <td></td>
+                        <td>{$limitnum}{$unit}</td>
+                      </tr>
+                    </table>
+              <form method="get" action="{$=ii_get_actual_route($GLOBALS['nshopcart'])}" onSubmit="return ACBuy.tcksubmit();">
+              <input type="hidden" name="action" value="add" />
+              <input type="hidden" name="id" value="{$id}" />
+              <input type="hidden" name="backurl" value="{$=urlencode($GLOBALS['nurl'])}" />
+              <table width="100%" cellspacing="0" cellpadding="0" border="0">
+                <tr>
+                  <td height="5"></td>
+                </tr>
+                <tr>
+                  <td height="25">{$=ii_itake('module.buynum', 'lng')} <input type="text" id="buynum" name="buynum" value="1" size="4" onkeyup="ACBuy.tcklimitnum(this.id, this.value);" /> <input type="image" id="buyimg" src="{$=#images_route}buy_{$=#nlng}.gif" /></td>
+                </tr>
+                <tr>
+                  <td height="5"></td>
+                </tr>
+              </table>
+              </form>
+        {$=mm_encode_content($GLOBALS['RS_content'], '{$cttype}')}</div>
+        <div class="updown">
+            <div class="up">{$=vv_itransfer('up', 'updown', 'topx=1;genre={$genre};bid={$id}')} </div>
+            <div class="down">{$=vv_itransfer('down', 'updown', 'topx=1;genre={$genre};bid={$id}')}</div>
+        </div>
+    </div>
+    <div class="clear"></div>
+  </div>
+</section>
+<script type="text/javascript">
+ACBuy = {
+  tstate: 0,
+  tlimitnum: {$limitnum},
+  tinit: function ()
+  {
+    if (this.tlimitnum <= 0)
+    {
+      this.tstate = 1;
+      get_id('buynum').value = 0;
+      get_id('buyimg').src = '{$=#images_route}buyn_{$=#nlng}.gif';
+    }
+    else get_id('buynum').value = 1;
+  },
+  tcklimitnum: function (strid, strnum)
+  {
+    var tstrnum = get_num(strnum);
+    get_id(strid).value = tstrnum;
+    if (tstrnum > this.tlimitnum)
+    {
+      if (this.tlimitnum != 0) alert('{$=ii_itake('module.limitnumerror', 'lng')}');
+      get_id(strid).value = this.tlimitnum;
+    };
+  },
+  tcksubmit: function()
+  {
+    if (this.tstate == 1)
+    {
+      alert('{$=ii_itake('module.limitnumerror2', 'lng')}');
+      return false;
+    };
+  }
+};
+
+ACBuy.tinit();
+
+function innerCOUNT(strers)
+{
+  if (strers != "$error$" && strers.length <= 10) get_id("count").innerHTML = strers;
+};
+
+igets("{$=ii_get_actual_route('expansion')}/count/?genre={$=urlencode($GLOBALS['ngenre'])}&id={$id}", innerCOUNT);
+</script>
+{$=mm_web_foot($GLOBALS['nfoot'])}]]></tpl_default>
+    </item>
+  </item_list>
+</xml>

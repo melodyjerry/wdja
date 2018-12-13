@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xml mode="wdja" author="wdja">
+  <configure>
+    <node>item</node>
+    <field>name,tpl_default</field>
+    <base>item_list</base>
+  </configure>
+  <item_list>
+    <item>
+      <name><![CDATA[list]]></name>
+      <tpl_default><![CDATA[{$=mm_web_head($GLOBALS['nhead'])}
+<section id="middle">
+  <div id="middleContent">
+    <main class="list">
+    <nav class="nav">{$=vv_inavigation('{$genre}', 'classid={$classid};strers=module;strurl={$genre}')}</nav>
+      <div id="list_menu">
+        <ul>{$=vv_isort('{$genre}', 'tpl=sort')}</ul>
+      </div>
+      <div class="list_con">
+      <ol>
+        {@recurrence_ida}
+            <li>
+              <a href="{$=ii_iurl('detail', {$id}, $GLOBALS['nurltype'], 'folder=' . $GLOBALS['ncreatefolder'] . ';filetype=' . $GLOBALS['ncreatefiletype'] . ';time={$time}')}" title="{$topic}">
+              <img src="{$image}" alt="{$topic}">
+              <strong>{$topic}</strong>
+              </a>
+            </li>
+        {@recurrence_ida}
+      </ol>
+      <div id="cutepage" class="cutepage">{$cpagestr}</div>
+      </div>
+    <div class="clear"></div>
+    </main>
+  </div>
+</section>
+<script type="text/javascript">get_id('lm{$classid}').className = 'on';</script>
+{$=mm_web_foot($GLOBALS['nfoot'])}]]></tpl_default>
+    </item>
+    <item>
+      <name><![CDATA[detail]]></name>
+      <tpl_default><![CDATA[{$=mm_web_head($GLOBALS['nhead'])}
+<section id="middle">
+  <div id="middleContent">
+    <div class="content">
+        <nav class="nav">{$=vv_inavigation('{$genre}', 'classid={$class};strers=module;strurl={$genre}')}</nav>
+        <h1>{$topic}</h1>
+        <div class="con_text">
+        <p>{$=ii_itake('global.lng_config.time','lng')}:{$time},{$=ii_itake('global.lng_config.count','lng')}:<span id="count">0</span></p>
+        {$=mm_encode_content($GLOBALS['RS_content'], '{$cttype}')}
+        </div>
+        <div class="updown">
+            <div class="up">{$=vv_itransfer('up', 'updown', 'topx=1;genre={$genre};bid={$id}')} </div>
+            <div class="down">{$=vv_itransfer('down', 'updown', 'topx=1;genre={$genre};bid={$id}')}</div>
+        </div>
+    </div>
+    <div class="clear"></div>
+  </div>
+</section>
+<script type="text/javascript">igets('{$=ii_get_actual_route('expansion')}/count/?genre={$=urlencode($GLOBALS['ngenre'])}&id={$id}', nll);</script>
+{$=mm_web_foot($GLOBALS['nfoot'])}]]></tpl_default>
+    </item>
+  </item_list>
+</xml>

@@ -7,6 +7,14 @@
   </configure>
   <language_list>
     <item>
+      <disinfo><![CDATA[myaddress]]></disinfo>
+      <chinese><![CDATA[地址薄]]></chinese>
+    </item>
+    <item>
+      <disinfo><![CDATA[username]]></disinfo>
+      <chinese><![CDATA[用户名]]></chinese>
+    </item>
+    <item>
       <disinfo><![CDATA[name]]></disinfo>
       <chinese><![CDATA[收货人姓名]]></chinese>
     </item>
@@ -57,6 +65,14 @@
     <item>
       <disinfo><![CDATA[paystate]]></disinfo>
       <chinese><![CDATA[支付状态]]></chinese>
+    </item>
+    <item>
+      <disinfo><![CDATA[express]]></disinfo>
+      <chinese><![CDATA[快递状态]]></chinese>
+    </item>
+    <item>
+      <disinfo><![CDATA[expressid]]></disinfo>
+      <chinese><![CDATA[快递单号]]></chinese>
     </item>
     <item>
       <disinfo><![CDATA[time]]></disinfo>

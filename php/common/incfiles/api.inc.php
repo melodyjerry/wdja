@@ -12,8 +12,8 @@
 //****************************************************
 
 function getAccessToken(){
-  $appid = '';
-  $secret = '';      
+  $appid = ii_itake('global.wechat/config:config.appid','lng');
+  $secret = ii_itake('global.wechat/config:config.secret','lng');
   $url='https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid='.$appid.'&secret='.$secret;
   $html = file_get_contents($url);
   $output = json_decode($html, true);
@@ -22,8 +22,8 @@ function getAccessToken(){
 }
 
 function getOpenid($code){
-    $appid = '';
-    $secret = '';
+    $appid = ii_itake('global.wechat/config:config.appid','lng');
+    $secret = ii_itake('global.wechat/config:config.secret','lng');
     $curl = curl_init();
     $url='https://api.weixin.qq.com/sns/jscode2session?appid='.$appid.'&secret='.$secret.'&js_code='.$code.'&grant_type=authorization_code';
     curl_setopt($curl, CURLOPT_URL, $url);
@@ -39,7 +39,8 @@ function getOpenid($code){
 
 function send_template_message($code,$formid,$time,$name,$mobile,$email,$info){
  $color = '#e3e3e3';
- $templateid = '';
+ $templateid = ii_itake('global.wechat/config:config.templateid','lng');
+ $templateurl = ii_itake('global.wechat/config:config.templateurl','lng');
  $openid = getOpenid($code);
  $data_arr = array(
   'keyword1' => array( "value" => $time, "color" => $color),
@@ -51,7 +52,7 @@ function send_template_message($code,$formid,$time,$name,$mobile,$email,$info){
   $post_data = array (
     "touser"           => $openid,
     "template_id"      => $templateid,
-    "page"             => "pages/index/index",  // 点击模板消息后跳转到的页面，可以传递参数
+    "page"             => $templateurl, // 点击模板消息后跳转到的页面，可以传递参数
     "form_id"          => $formid,
     "data"             => $data_arr,
     "emphasis_keyword" => "" // 需要强调的关键字，会加大居中显示
@@ -88,8 +89,8 @@ function wdja_cms_sort_api($module)
   $nidfield = $variable['common.sort.nidfield'];
   $nfpre = $variable['common.sort.nfpre'];
   $tsqlstr = "select * from $ndatabase";
-  $tsqlstr .= " where " . ii_cfnames($nfpre.'genre') . " = '".$ngenre."'";
-  $tsqlstr .= " order by " . ii_cfnames($nfpre.'order') . " desc";
+  $tsqlstr .= " where " . ii_cfnames($nfpre,'genre') . " = '".$ngenre."'";
+  $tsqlstr .= " order by " . ii_cfnames($nfpre,'order') . " desc";
   $trs = ii_conn_query($tsqlstr, $conn);
    while ($trow = ii_conn_fetch_array($trs))
     {
@@ -111,8 +112,8 @@ function wdja_cms_sort_api($module)
 function wdja_cms_wxlogin_api(){
     $sessionid = $_GET['sessionid'];
     $code = $_GET['code'];
-    $appid = '';
-    $secret = '';
+    $appid = ii_itake('global.wechat/config:config.appid','lng');
+    $secret = ii_itake('global.wechat/config:config.secret','lng');
     $curl = curl_init();
     $url='https://api.weixin.qq.com/sns/jscode2session?appid='.$appid.'&secret='.$secret.'&js_code='.$code.'&grant_type=authorization_code';
     curl_setopt($curl, CURLOPT_URL, $url);
@@ -178,9 +179,9 @@ function wdja_cms_search_api($module)
   $npagesize = $variable[ii_cvgenre($ngenre) . '.npagesize'];
   if($tpage_size !=0 ) $npagesize = $tpage_size;
   $toffset = ($tpage - 1)*$npagesize;
-  $tsqlstr = "select * from $ndatabase where " . ii_cfnames($nfpre.'hidden') . "=0";
-  if(!ii_isnull($tkeywords)) $tsqlstr .= " and " . ii_cfnames($nfpre.'topic') . " like '%" . $tkeywords . "%'";
-  $tsqlstr .= " order by " . ii_cfnames($nfpre.'time') . " desc";
+  $tsqlstr = "select * from $ndatabase where " . ii_cfnames($nfpre,'hidden') . "=0";
+  if(!ii_isnull($tkeywords)) $tsqlstr .= " and " . ii_cfnames($nfpre,'topic') . " like '%" . $tkeywords . "%'";
+  $tsqlstr .= " order by " . ii_cfnames($nfpre,'time') . " desc";
   $tcp = new cc_cutepage;
   $tcp -> id = $nidfield;
   $tcp -> pagesize = $npagesize;
@@ -233,17 +234,17 @@ function wdja_cms_form_api()
   $tformid = $_GET['formid'];
   $ttime = ii_now();
     $tsqlstr = "insert into $ndatabase (
-    " . ii_cfnames($nfpre.'openid') . ",
-    " . ii_cfnames($nfpre.'nickName') . ",
-    " . ii_cfnames($nfpre.'avatarUrl') . ",
-    " . ii_cfnames($nfpre.'gender') . ",
-    " . ii_cfnames($nfpre.'city') . ",
-    " . ii_cfnames($nfpre.'name') . ",
-    " . ii_cfnames($nfpre.'mobile') . ",
-    " . ii_cfnames($nfpre.'email') . ",
-    " . ii_cfnames($nfpre.'info') . ",
-    " . ii_cfnames($nfpre.'lng') . ",
-    " . ii_cfnames($nfpre.'time') . "
+    " . ii_cfnames($nfpre,'openid') . ",
+    " . ii_cfnames($nfpre,'nickName') . ",
+    " . ii_cfnames($nfpre,'avatarUrl') . ",
+    " . ii_cfnames($nfpre,'gender') . ",
+    " . ii_cfnames($nfpre,'city') . ",
+    " . ii_cfnames($nfpre,'name') . ",
+    " . ii_cfnames($nfpre,'mobile') . ",
+    " . ii_cfnames($nfpre,'email') . ",
+    " . ii_cfnames($nfpre,'info') . ",
+    " . ii_cfnames($nfpre,'lng') . ",
+    " . ii_cfnames($nfpre,'time') . "
     ) values (
     '" . ii_left(ii_cstr($topenid), 50) . "',
     '" . ii_left(ii_cstr($tnickName), 50) . "',
@@ -325,12 +326,12 @@ function wdja_cms_list_api($module,$num='')
   }else{
     $npagesize = $variable[$ngenre . '.npagesize'];
   }
-  $tsqlstr = "select * from $ndatabase where " . ii_cfnames($nfpre.'hidden') . "=0";
+  $tsqlstr = "select * from $ndatabase where " . ii_cfnames($nfpre,'hidden') . "=0";
   if ($tclassid != 0)
   {
-      $tsqlstr .= " and " . ii_cfnames($nfpre.'cls') . " like '%|" . $tclassid . "|%'";
+      $tsqlstr .= " and " . ii_cfnames($nfpre,'cls') . " like '%|" . $tclassid . "|%'";
   }
-  $tsqlstr .= " order by " . ii_cfnames($nfpre.'time') . " desc";
+  $tsqlstr .= " order by " . ii_cfnames($nfpre,'time') . " desc";
   $tcp = new cc_cutepage;
   $tcp -> id = $nidfield;
   $tcp -> pagesize = $npagesize;
@@ -374,7 +375,7 @@ function wdja_cms_page_api($module)
   $npagesize = $variable[ii_cvgenre($ngenre) . '.npagesize'];
   $tsqlstr = "select * from $ndatabase";
   if(!ii_isnull($tid)) $tsqlstr .= "where " . $nidfield . " = ".$tid;
-  $tsqlstr .= " order by " . ii_cfnames($nfpre.'time') . " desc";
+  $tsqlstr .= " order by " . ii_cfnames($nfpre,'time') . " desc";
   $tcp = new cc_cutepage;
   $tcp -> id = $nidfield;
   $tcp -> sqlstr = $tsqlstr;

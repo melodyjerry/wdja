@@ -113,7 +113,7 @@ function wdja_cms_admin_manage_other_editdisp()
 {
   global $nsaveimages;
   $tbackurl = $_GET['backurl'];
-  $tburl = pp_get_xml_root('seo') . XML_SFX;
+  $tburl = pp_get_xml_root('other') . XML_SFX;
   $tnode = 'item';
   $tfield = 'disinfo,chinese';
   $tbase = 'language_list';
@@ -167,8 +167,6 @@ function wdja_cms_admin_manage_action()
     case 'upload':
       uu_upload_files();
       break;
-    defaule:
-      wdja_cms_admin_manage_home_editdisp();
   }
 }
 

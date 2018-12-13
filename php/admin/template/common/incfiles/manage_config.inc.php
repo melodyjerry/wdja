@@ -15,7 +15,7 @@ function pp_get_template_select()
     foreach ($tary as $key => $val)
     {
       $tmprstr = $option_unselected;
-      if(file_exists(ii_get_actual_route($val) . '/common/template/module' . XML_SFX)){
+      if(file_exists(ii_get_actual_route($val) . '/common/template/' . $GLOBALS['default_skin' ].'/module' . XML_SFX)){
         $tmprstr = str_replace('{$explain}', '(' . mm_get_genre_description($val) . ')' , $tmprstr);
         //$tmprstr = str_replace('{$explain}', '(' . mm_get_genre_description($val) . ')' . $val, $tmprstr);
         $tmprstr = str_replace('{$value}', $val, $tmprstr);
@@ -40,7 +40,7 @@ function pp_get_template_root($strers)
       switch($tary[1])
       {
         case 'tpl':
-          $tmproot = 'common/template/';
+          $tmproot = 'common/template/' . $GLOBALS['default_skin' ].'/';
           break;
         default:
           $tmproot = 'common/';
@@ -125,8 +125,8 @@ function wdja_cms_admin_manage_edit()
   $txml = $_GET['xml'];
   $tmodule = ii_get_safecode($_GET['module']);
   if(!ii_isnull($txml)) $trootstr = pp_get_template_root($txml) . XML_SFX;
-  elseif($tmodule == 'common') $trootstr = ii_get_actual_route() . '/common/template/module' . XML_SFX;
-  else $trootstr = ii_get_actual_route($tmodule) . '/common/template/module' . XML_SFX;
+  elseif($tmodule == 'common') $trootstr = ii_get_actual_route() . '/common/template/' . $GLOBALS['default_skin' ].'/module' . XML_SFX;
+  else $trootstr = ii_get_actual_route($tmodule) . '/common/template/' . $GLOBALS['default_skin' ].'/module' . XML_SFX;
   //echo $trootstr;exit;
   if (file_exists($trootstr))
   {

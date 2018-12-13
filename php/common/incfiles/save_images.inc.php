@@ -1,10 +1,25 @@
 <?php
+/**
+百度cdn图片,需判断来源是否包含cdn,包含则自动设置Referer
+微信公众号图片,限制只替换一次.因img标签含有data-src参数
+百度百家号图片,需替换URL中的&amp;为&
+部分cdn和oss存储图片采集需指定来源地址
+     if(strstr($ref, 'csdn'))  $ref = 'https://blog.csdn.net/';
+     if(strstr($ref, 'bcebos'))  $ref = 'https://www.baidu.com/';
+     if(strstr($ref, 'alicdn'))  $ref = 'https://www.aliyun.com/';
+     if(strstr($ref, 'aliyuncs'))  $ref = 'https://www.aliyun.com/';
+     
+**/
     function pget($url,$head=false){
             $curl = curl_init(); // 启动一个CURL会话
       //以下三行代码解决https图片访问受限问题
      $dir = pathinfo($url);//以数组的形式返回图片路径的信息
      $host = $dir['dirname'];//图片路径
      $ref = $host.'/';
+     if(strstr($ref, 'csdn'))  $ref = 'https://blog.csdn.net/';
+     if(strstr($ref, 'bcebos'))  $ref = 'https://www.baidu.com/';
+     if(strstr($ref, 'alicdn'))  $ref = 'https://www.aliyun.com/';
+     if(strstr($ref, 'aliyuncs'))  $ref = 'https://www.aliyun.com/';
             curl_setopt($curl, CURLOPT_URL, $url); // 要访问的地址    
             curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false); // 对认证证书来源的检查
             curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, false); // 从证书中检查SSL加密算法是否存在
@@ -36,6 +51,7 @@ function saveimages($content){
   if($iport == '443') $basehost = "https://".$_SERVER["HTTP_HOST"]; 
   else  $basehost = "http://".$_SERVER["HTTP_HOST"]; 
   $img_array = array();
+  $content = str_replace('&amp;', '&', $content);
   $content = stripslashes($content);
   preg_match_all("/src=[\"|'|\s]([^\"|^\'|^\s]*?)/isU",$content,$img_array);
   $img_array = array_unique($img_array[1]);
@@ -47,16 +63,15 @@ function saveimages($content){
     chmod($imgPath, 0777);
   }
   foreach($img_array as $key=>$value){
-        $tvalue = ii_get_lrstr($value,'?','left');//过滤?及后面的字符串
-        if(preg_match("#".$basehost."#i", $tvalue)) 
+        if(preg_match("#".$basehost."#i", $value)) 
         {
             continue; 
         }
-        if(!preg_match("#^(http|https):\/\/#i", $tvalue))
+        if(!preg_match("#^(http|https):\/\/#i", $value))
         {
             continue; 
         }
-    $http=pget($tvalue,true);
+    $http=pget($value,true);
     $itype=($http['head']['content_type']);
     $icode =($http['head']['http_code']);//图片状态码
     if($icode != '200'){ continue; }

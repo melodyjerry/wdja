@@ -28,13 +28,14 @@ function ap_check_userlogin()
   if (!ii_isnull($_SESSION[APP_NAME . 'username'])) return true;
   else
   {
+    $tuserid = ii_get_safecode($_COOKIE[APP_NAME . 'user']['userid']);
     $tusername = ii_get_safecode($_COOKIE[APP_NAME . 'user']['username']);
     $tpassword = ii_get_safecode($_COOKIE[APP_NAME . 'user']['password']);
     if (!ii_isnull($tusername))
     {
       if (ap_check_username($tusername, $tpassword))
       {
-        //session_register(APP_NAME . 'username');
+        $_SESSION[APP_NAME . 'userid'] = $tuserid;
         $_SESSION[APP_NAME . 'username'] = $tusername;
         return true;
       }
@@ -57,8 +58,12 @@ function ap_check_username($username, $password)
   $trs = ii_conn_fetch_array($trs);
   if ($trs)
   {
+    setcookie(APP_NAME . 'user[userid]', $trs[$tidfield], 0, COOKIES_PATH);
+    setcookie(APP_NAME . 'user[username]', $tusername, 0, COOKIES_PATH);
+    setcookie(APP_NAME . 'user[password]', $tpassword, 0, COOKIES_PATH);
     $tsqlstr = "update $tdatabase set " . ii_cfnames($tfpre, 'pretime') . "=" . ii_cfnames($tfpre, 'lasttime') . "," . ii_cfnames($tfpre, 'lasttime') . "='" . ii_now() . "' where " . ii_cfnames($tfpre, 'username') . "='$tusername'";
     $trs = ii_conn_query($tsqlstr, $conn);
+    $_SESSION[APP_NAME . 'username'] = $tusername;
     return true;
   }
   else return false;
@@ -188,8 +193,9 @@ function ap_user_islogin($url = '')
 
 function ap_user_init()
 {
-  global $nusername;
+  global $nusername,$nuserid;
   if (ap_check_userlogin()) $nusername = ii_get_safecode($_SESSION[APP_NAME . 'username']);
+  if (ap_check_userlogin()) $nuserid = ii_get_safecode($_SESSION[APP_NAME . 'userid']);
 }
 
 function ap_update_userproperty($strers, $value, $type, $username)
