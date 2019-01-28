@@ -290,7 +290,8 @@ document.getElementById('phone').value = '';
 document.getElementById('email').value = '';
 if(id != 0){
   var domain = document.domain;
-  var url = '//'+domain+'/passport/address/api.php?id=' + id;
+  var port = window.location.port;
+  var url = '//'+domain+':'+port+'/passport/address/api.php?id=' + id;
   var ajax = createXMLHttpRequest();
   ajax.open('get',url);
   ajax.send(null);
