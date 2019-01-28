@@ -8,7 +8,7 @@
   <language_list>
     <item>
       <disinfo><![CDATA[channel_title]]></disinfo>
-      <chinese><![CDATA[我的购物车]]></chinese>
+      <chinese><![CDATA[购物车]]></chinese>
     </item>
     <item>
       <disinfo><![CDATA[select]]></disinfo>
@@ -64,11 +64,11 @@
     </item>
     <item>
       <disinfo><![CDATA[paysucceed]]></disinfo>
-      <chinese><![CDATA[提交成功，请牢记您的定单编号以方便查询]]></chinese>
+      <chinese><![CDATA[提交成功，赶快查看订单进行付款吧!]]></chinese>
     </item>
     <item>
       <disinfo><![CDATA[orderid]]></disinfo>
-      <chinese><![CDATA[定单编号：]]></chinese>
+      <chinese><![CDATA[定单号：]]></chinese>
     </item>
     <item>
       <disinfo><![CDATA[payol]]></disinfo>
@@ -93,6 +93,10 @@
     <item>
       <disinfo><![CDATA[back]]></disinfo>
       <chinese><![CDATA[点击返回]]></chinese>
+    </item>
+    <item>
+      <disinfo><![CDATA[order]]></disinfo>
+      <chinese><![CDATA[查看订单]]></chinese>
     </item>
   </language_list>
 </xml>

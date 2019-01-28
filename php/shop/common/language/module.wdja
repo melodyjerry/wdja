@@ -20,7 +20,7 @@
     </item>
     <item>
       <disinfo><![CDATA[buynum]]></disinfo>
-      <chinese><![CDATA[订购数量]]></chinese>
+      <chinese><![CDATA[购买量]]></chinese>
     </item>
     <item>
       <disinfo><![CDATA[limitnumerror]]></disinfo>

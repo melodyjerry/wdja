@@ -246,12 +246,15 @@ class cc_socketmail
     if (ii_isnull($tserver) || ii_isnull($tport)) return false;
     else
     {
-      $tfp = fsockopen($tserver, $tport);
+      $tfp = fsockopen("ssl://".$tserver, $tport);//ssl加密发件方式,需要配置服务址前缀.可以通过判断端口号.来区别是否添加,本次未判断.
+      //$tfp = fsockopen($tserver, $tport);
       if (!$tfp) return false;
       else
       {
-        set_socket_blocking($tfp, true);
-        $tlastmessage = fgets($tfp, 512);
+        stream_set_blocking($tfp, 1);//如果 mode 为0，资源流将会被转换为非阻塞模式；如果是1，资源流将会被转换为阻塞模式。 该参数的设置将会影响到像 fgets() 和 fread() 这样的函数从资源流里读取数据。 在非阻塞模式下，调用 fgets() 总是会立即返回；而在阻塞模式下，将会一直等到从资源流里面获取到数据才能返回。
+        $tlastmessage = fgets($tfp,512);
+        //set_socket_blocking($tfp, true);
+        //$tlastmessage = fgets($tfp, 512);
         if (substr($tlastmessage, 0, 3) != 220) return false;
         else
         {

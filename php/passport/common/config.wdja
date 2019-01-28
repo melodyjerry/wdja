@@ -8,6 +8,9 @@
     <item varstr="ndatabase" strvalue="wdja_passport" />
     <item varstr="nidfield" strvalue="pid" />
     <item varstr="nfpre" strvalue="p_" />
+    <item varstr="address.ndatabase" strvalue="wdja_passport_address" />
+    <item varstr="address.nidfield" strvalue="addressid" />
+    <item varstr="address.nfpre" strvalue="address_" />
     <item varstr="face_width_max" strvalue="100" />
     <item varstr="face_height_max" strvalue="100" />
     <item varstr="register_close" strvalue="0" />

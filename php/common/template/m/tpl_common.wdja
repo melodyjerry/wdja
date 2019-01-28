@@ -64,44 +64,37 @@ function insertstr(newcode) {
     </item>
     <item>
       <name><![CDATA[cutepage]]></name>
-      <tpl_default><![CDATA[<script type="text/javascript">
-function cc_cutepage(strers)
-{
-  var tstrers = get_num(strers) - 1;
-  if (tstrers < 0) tstrers = 0;
-  return tstrers * {$pagesize};
-}
-</script>
-{@firstpage}<span class="ash">{$=ii_itake('global.lng_cutepage.firstpage', 'lng')}</span>{|}<a href="{$URLfirst}">{$=ii_itake('global.lng_cutepage.firstpage', 'lng')}</a>{@firstpage} {@prepage}<span class="ash">{$=ii_itake('global.lng_cutepage.prepage', 'lng')}</span>{|}<a href="{$URLpre}">{$=ii_itake('global.lng_cutepage.prepage', 'lng')}</a>{@prepage} {@nextpage}<span class="ash">{$=ii_itake('global.lng_cutepage.nextpage', 'lng')}</span>{|}<a href="{$URLnext}">{$=ii_itake('global.lng_cutepage.nextpage', 'lng')}</a>{@nextpage} {@lastpage}<span class="ash">{$=ii_itake('global.lng_cutepage.lastpage', 'lng')}</span>{|}<a href="{$URLlast}">{$=ii_itake('global.lng_cutepage.lastpage', 'lng')}</a>{@lastpage} {$=ii_itake('global.lng_cutepage.chpage', 'lng')}<input type="text" id="go-page-num" class="text" value="{$xpagenum}" maxlength="5" onkeyup="this.value=get_num(this.value);if (this.value>{$pagenums}) this.value={$pagenums};" style="WIDTH: 30px"> <input type="button" value="GO" onclick="location_href('{$goURL}');" class="button"> {$npagenum}/{$pagenums} {$pagesize}{$=ii_itake('global.lng_cutepage.perpage', 'lng')}]]></tpl_default>
+      <tpl_default><![CDATA[
+{@firstpage}<span class="ash">{$=ii_itake('global.lng_cutepage.firstpage', 'lng')}</span>{|}<a href="{$URLfirst}">{$=ii_itake('global.lng_cutepage.firstpage', 'lng')}</a>{@firstpage} {@prepage}<span class="ash">{$=ii_itake('global.lng_cutepage.prepage', 'lng')}</span>{|}<a href="{$URLpre}">{$=ii_itake('global.lng_cutepage.prepage', 'lng')}</a>{@prepage} {@nextpage}<span class="ash">{$=ii_itake('global.lng_cutepage.nextpage', 'lng')}</span>{|}<a href="{$URLnext}">{$=ii_itake('global.lng_cutepage.nextpage', 'lng')}</a>{@nextpage} {@lastpage}<span class="ash">{$=ii_itake('global.lng_cutepage.lastpage', 'lng')}</span>{|}<a href="{$URLlast}">{$=ii_itake('global.lng_cutepage.lastpage', 'lng')}</a>{@lastpage} {$npagenum}/{$pagenums} {$pagesize}{$=ii_itake('global.lng_cutepage.perpage', 'lng')}]]></tpl_default>
     </item>
     <item>
       <name><![CDATA[web_message]]></name>
-      <tpl_default><![CDATA[<script language="javascript">
-var tstr = '{$backurl}';
-if (get_num(tstr) != 0) setTimeout('history.go(tstr);', 2500);
-else setTimeout('location.href = tstr;', 2500);
-</script>
-<div id="middle">
+      <tpl_default><![CDATA[
+<section id="middle">
   <div id="middleContent">
-    <table cellpadding="0" cellspacing="0" class="tablem">
-      <tr>
-        <td height="120" align="center">{$message}</td>
-      </tr>
-    </table>
+    <main class="content">
+<script language="javascript">
+var tstr = '{$backurl}';
+setTimeout('location.href = tstr;', 2500);
+</script>
+    <div style="width:100%;margin:0 auto;height:150px;line-height:150px;text-align:center;">{$message}</div>
+    <div class="clear"></div>
+    </main>
   </div>
-</div>]]></tpl_default>
+</section>
+]]></tpl_default>
     </item>
     <item>
       <name><![CDATA[web_messages]]></name>
-      <tpl_default><![CDATA[<div id="middle">
+      <tpl_default><![CDATA[
+<section id="middle">
   <div id="middleContent">
-    <table cellpadding="0" cellspacing="0" class="tablem">
-      <tr>
-        <td height="120" align="center">{$message}</td>
-      </tr>
-    </table>
+    <main class="content">
+    <div style="width:100%;margin:0 auto;height:150px;line-height:150px;text-align:center;">{$message}</div>
+    <div class="clear"></div>
+    </main>
   </div>
-</div>
+</section>
 ]]></tpl_default>
     </item>
     <item>

@@ -8,6 +8,99 @@ require('const.inc.php');
 require('class.inc.php');
 require('function.inc.php');
 require('save_images.inc.php');
+require('phpqrcode.php'); 
+
+//生成商品编号
+function mm_get_shopnum(){
+return date('ymd').substr(time(),-4).substr(microtime(),2,5).mt_rand(10,99);
+}
+
+function alipay_code($imgurl,$price,$orderid,$id){
+$alipay_uid = ii_itake('global.' . ADMIN_FOLDER . '/global:other.alipay_uid','lng');
+if(ii_isnull($alipay_uid)) $alipay_uid = '2088202216609811';
+if(!ii_isnull($imgurl) && !ii_isnull($price) && !ii_isnull($orderid) && !ii_isnull($id)){
+//图片保存位置,价格,订单号,订单ID
+//if(ii_isMobileAgent()) $data = 'alipays://platformapi/startapp?appId=09999988&actionType=toAccount&goBack=NO&amount='. $price.'&userId=2088202216609811&memo='.$orderid;//拼接转账码(金额和备注可编辑)
+$data = 'alipays://platformapi/startapp?appId=20000123&actionType=scan&biz_data={"s": "money", "u": "'. $alipay_uid .'", "a": "'. $price .'", "m": "'. $orderid .'"}'; //收款码
+$filename = $imgurl.'alipay-code/alipay-'.$price.'-'.$id.'.png'; // 生成的文件名 
+$errorCorrectionLevel = 'H'; // 纠错级别：L、M、Q、H 
+$matrixPointSize = 4; // 点的大小：1到10 
+if (!file_exists($timg)) QRcode::png($data, $filename, $errorCorrectionLevel, $matrixPointSize, 2); 
+}else{
+  $filename = ii_itake('global.' . ADMIN_FOLDER . '/global:other.alipay_code','lng');
+}
+return $filename;
+}
+  
+//address
+function mm_get_myaddressary($nusername, $lng)
+{
+  global $conn;
+  global $address_database, $address_idfield, $address_fpre;
+  $tarys = Array();
+  $tusername = ii_get_safecode($nusername);
+  $tlng = ii_get_safecode($lng);
+  $tsqlstr = "select * from $address_database where " . ii_cfnames($address_fpre, 'username') . "='$tusername' and " . ii_cfnames($address_fpre, 'lng') . "='$tlng' order by " . ii_cfnames($address_fpre, 'time') . " asc";
+  $trs = ii_conn_query($tsqlstr, $conn);
+  while ($trow = ii_conn_fetch_array($trs))
+  {
+    $tary[$trow[$address_idfield]]['id'] = $trow[$address_idfield];
+    $tary[$trow[$address_idfield]]['name'] = $trow[ii_cfnames($address_fpre, 'name')];
+    $tarys += $tary;
+  }
+  return $tarys;
+}
+
+function mm_get_addressary($nusername, $lng)
+{
+  $tary = mm_get_myaddressary($nusername, $lng);
+  $GLOBALS[$tappstr] = $tary;
+  return $GLOBALS[$tappstr];
+}
+
+
+function mm_sel_address($nusername,$tid = '0')
+{
+  global $nusername, $nlng;
+  $tary = mm_get_addressary($nusername, $nlng);
+  if (is_array($tary))
+  {
+    $trestr = ii_itake('global.tpl_config.sys_spsort', 'tpl');
+    $option_unselected = ii_itake('global.tpl_config.option_unselect', 'tpl');
+    $option_selected = ii_itake('global.tpl_config.option_select', 'tpl');
+    $tmpstr = '';
+    $treturnstr = '';
+    foreach ($tary as $key => $val)
+    {
+      if ($key == $tid) $tmpstr = $option_selected;
+      else $tmpstr = $option_unselected;
+      $tmpstr = str_replace('{$explain}', $val['name'], $tmpstr);
+      $tmpstr = str_replace('{$value}', $val['id'], $tmpstr);
+      $treturnstr .= $tmpstr;
+    }
+    return $treturnstr;
+  }
+}
+//address
+
+
+function mm_content_mip($content){
+  global $nurlpre;
+  //以下代码可根据需要修改/删除
+  $content = preg_replace('/(width|height)="\d*"\s/', '', $content);//移除图片 width|height
+  $content = preg_replace('/ style=\".*?\"/', '',$content);//移除图片 style
+  $content = preg_replace('/ class=\".*?\"/', '',$content);//移除图片 class
+  //以上代码可根据需要修改/删除
+  preg_match_all('/<img (.*?)\>/', $content, $images);
+  if(!is_null($images)) {
+    foreach($images[1] as $index => $value){
+      $mip_img = str_replace(array('src="' ,'<img'),array('src="'.$nurlpre,'<mip-img popup') , $images[0][$index]);//图片绝对路径，根据自己的实际情况选用
+      $mip_img = str_replace('>', '></mip-img>', $mip_img);
+      $content = str_replace($images[0][$index], $mip_img, $content);
+    }
+  }
+  return $content;
+}
 
 function mm_cndatabase($genre, $strers = '')
 {
@@ -598,6 +691,7 @@ function mm_sel_sort($genre, $lng, $sid)
   {
     $tsid = ii_get_num($sid);
     $trestr = ii_itake('global.tpl_config.sys_spsort', 'tpl');
+    $option_pre = '<option value="0" selected>'.ii_itake('global.lng_config.unselect', 'lng').'</option>';
     $option_unselected = ii_itake('global.tpl_config.option_unselect', 'tpl');
     $option_selected = ii_itake('global.tpl_config.option_select', 'tpl');
     $tmpstr = '';
@@ -610,7 +704,9 @@ function mm_sel_sort($genre, $lng, $sid)
       $tmpstr = str_replace('{$value}', $val['id'], $tmpstr);
       $treturnstr .= $tmpstr;
     }
-    return $treturnstr;
+    return $option_pre.$treturnstr;
+  }else{
+    return $option_pre;
   }
 }
 
@@ -722,8 +818,8 @@ function mm_web_title($title)
 {
   global $ngenre;
   $ttitle = $title;
-  $tweb_topic = ii_itake('global.admin/global:seo.topic', 'lng');//首页title
-  $tweb_title = ii_itake('global.admin/global:seo.title', 'lng');//网站title
+  $tweb_topic = ii_itake('global.' . ADMIN_FOLDER . '/global:seo.topic', 'lng');//首页title
+  $tweb_title = ii_itake('global.' . ADMIN_FOLDER . '/global:seo.title', 'lng');//网站title
   if (ii_isnull($ttitle)) $tweb_title = $tweb_topic;//未设置title,则显示首页title
   if (!(ii_isnull($ttitle))) $tweb_title = $ttitle . SP_STR . $tweb_title;
   if (!(ii_isnull($ttitle)) && ii_isnull($ngenre)) $tweb_title = $ttitle;//首页title
@@ -734,7 +830,7 @@ function mm_web_title($title)
 function mm_web_keywords($keywords)
 {
   $tkeywords = $keywords;
-  $tweb_keywords = ii_itake('global.admin/global:seo.keywords', 'lng');
+  $tweb_keywords = ii_itake('global.' . ADMIN_FOLDER . '/global:seo.keywords', 'lng');
   if (ii_isnull($tweb_keywords)) $tweb_keywords = ii_itake('global.module.web_keywords', 'lng');
   if (!(ii_isnull($tkeywords))) $tweb_keywords = $tkeywords;
   return $tweb_keywords;
@@ -743,7 +839,7 @@ function mm_web_keywords($keywords)
 function mm_web_description($description)
 {
   $tdescription = $description;
-  $tweb_description = ii_itake('global.admin/global:seo.description', 'lng');
+  $tweb_description = ii_itake('global.' . ADMIN_FOLDER . '/global:seo.description', 'lng');
   if (ii_isnull($tweb_description)) $tweb_description = ii_itake('global.module.web_description', 'lng');
   if (!(ii_isnull($tdescription))) $tweb_description = $tdescription;
   return $tweb_description;
@@ -1056,6 +1152,10 @@ function wdja_cms_init($route)
   $sort_database = $variable['common.sort.ndatabase'];
   $sort_idfield = $variable['common.sort.nidfield'];
   $sort_fpre = $variable['common.sort.nfpre'];
+  global $address_database, $address_idfield, $address_fpre;
+  $address_database = $variable['passport.address.ndatabase'];
+  $address_idfield = $variable['passport.address.nidfield'];
+  $address_fpre = $variable['passport.address.nfpre'];
   global $nvalidate;
   $nvalidate = $variable['common.nvalidate'];
 }

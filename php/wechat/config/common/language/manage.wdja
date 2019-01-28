@@ -43,6 +43,18 @@
       <chinese><![CDATA[模板消息链接]]></chinese>
     </item>
     <item>
+      <disinfo><![CDATA[mail]]></disinfo>
+      <chinese><![CDATA[留言通知邮箱]]></chinese>
+    </item>
+    <item>
+      <disinfo><![CDATA[mail_topic]]></disinfo>
+      <chinese><![CDATA[通知主题]]></chinese>
+    </item>
+    <item>
+      <disinfo><![CDATA[mail_body]]></disinfo>
+      <chinese><![CDATA[通知内容]]></chinese>
+    </item>
+    <item>
       <disinfo><![CDATA[logo]]></disinfo>
       <chinese><![CDATA[LOGO]]></chinese>
     </item>

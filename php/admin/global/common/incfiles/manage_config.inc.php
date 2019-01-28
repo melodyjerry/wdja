@@ -117,7 +117,7 @@ function wdja_cms_admin_manage_other_editdisp()
   $tnode = 'item';
   $tfield = 'disinfo,chinese';
   $tbase = 'language_list';
-  $torder = 'logo,download_name,download_url,demo_url,product_id,module_id,topic,keywords,description,content,att,';
+  $torder = 'alipay_code,wechat_add,wechat_code,alipay_uid,gbook_mail,gbook_title,gbook_body,order_mail,order_title,order_body,topic,keywords,description,content,att,';
   if (ii_right($torder, 1) == ',') $torder = ii_left($torder, (strlen($torder) - 1));
   if (file_exists($tburl) && (!ii_isnull($tnode)) && (!ii_isnull($tfield)) && (!ii_isnull($tbase)))
   {

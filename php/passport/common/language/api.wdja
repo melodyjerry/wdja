@@ -35,6 +35,10 @@
       <chinese><![CDATA[安全退出]]></chinese>
     </item>
     <item>
+      <disinfo><![CDATA[close]]></disinfo>
+      <chinese><![CDATA[关闭]]></chinese>
+    </item>
+    <item>
       <disinfo><![CDATA[reg]]></disinfo>
       <chinese><![CDATA[注册]]></chinese>
     </item>

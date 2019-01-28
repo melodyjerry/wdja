@@ -20,7 +20,7 @@
       <div class="list_con">
               <form method="post" name="sel_form" action="{$=#nuri}?action=control&backurl={$=urlencode($GLOBALS['nurl'])}">
               <input type="hidden" name="sel_ids" />
-              <table width="100%" cellspacing="0" cellpadding="0" border="0">
+              <table class="table" width="100%" cellspacing="0" cellpadding="0" border="0">
                 <tr>
                   <td><strong>{$=ii_itake('manage.name','lng')}</strong></td>
                   <td width="100" align="center"><strong>{$=ii_itake('manage.time','lng')}</strong></td>

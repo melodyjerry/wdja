@@ -27,6 +27,10 @@
       <chinese><![CDATA[按姓名]]></chinese>
     </item>
     <item>
+      <value><![CDATA[phone]]></value>
+      <chinese><![CDATA[按电话]]></chinese>
+    </item>
+    <item>
       <value><![CDATA[author]]></value>
       <chinese><![CDATA[按作者]]></chinese>
     </item>

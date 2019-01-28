@@ -282,3 +282,46 @@ function select_all()
   else { frm.sel_id.checked = sall; }
 }
 
+function changeAddress(id){
+document.getElementById('name').value = '';
+document.getElementById('address').value = '';
+document.getElementById('code').value = '';
+document.getElementById('phone').value = '';
+document.getElementById('email').value = '';
+if(id != 0){
+  var domain = document.domain;
+  var url = '//'+domain+'/passport/address/api.php?id=' + id;
+  var ajax = createXMLHttpRequest();
+  ajax.open('get',url);
+  ajax.send(null);
+  ajax.onreadystatechange = function () {
+     if (ajax.readyState==4 &&ajax.status==200) {
+       //console.log(ajax.responseText);
+          var rtext = JSON.parse(ajax.responseText);
+          document.getElementById('name').value = rtext['name'];
+          document.getElementById('address').value = rtext['address'];
+          document.getElementById('code').value = rtext['code'];
+          document.getElementById('phone').value = rtext['phone'];
+          document.getElementById('email').value = rtext['email'];
+      }
+  }
+}
+}
+
+function createXMLHttpRequest() {
+        var xmlHttp;
+        try{
+            xmlHttp = new XMLHttpRequest();
+        } catch (e) {
+            try {
+                xmlHttp = new ActiveXObject("Msxml2.XMLHTTP");
+            } catch (e) {
+                try{
+                    xmlHttp = new ActiveXObject("Microsoft.XMLHTTP");
+                } catch (e){
+                alert("Your browser does not support AJAX！");
+                }
+            }
+        }            
+        return xmlHttp;
+    }

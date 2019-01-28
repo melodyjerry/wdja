@@ -34,7 +34,7 @@
               </table>
               <form method="post" name="sel_form" action="{$=#nuri}?action=control&backurl={$=urlencode($GLOBALS['nurl'])}" onSubmit="get_sel_id()">
               <input type="hidden" name="sel_ids" />
-              <table width="100%" cellspacing="0" cellpadding="0" border="0">
+              <table class="table" width="100%" cellspacing="0" cellpadding="0" border="0">
                 <tr>
                   <td width="40" height="25"><strong>{$=ii_itake('manage.state','lng')}</strong></td>
                   <td><strong>{$=ii_itake('global.lng_config.topic','lng')}</strong></td>

@@ -146,6 +146,14 @@ function wdja_cms_module_buydisp()
       $torderuser = $nusername;
       $tsqlostr = "update $ndatabase set " . ii_cfname('orderid') . "=$torderid where $nidfield=$tupid";
       ii_conn_query($tsqlostr, $conn);
+        $omail = ii_itake('global.' . ADMIN_FOLDER . '/global:other.order_mail','lng');
+        $otitle = ii_itake('global.' . ADMIN_FOLDER . '/global:other.order_title','lng');
+        $obody = ii_itake('global.' . ADMIN_FOLDER . '/global:other.order_body','lng');
+        $obody = str_replace('{$time}', ii_now(), $obody);//订单时间
+        $obody = str_replace('{$orderid}', $torderid, $obody);//订单号
+        $obody = str_replace('{$price}', $tallprice, $obody);//订单总价
+        $obody = str_replace('{$uname}', $nusername, $obody);//用户名
+      	mm_sendemail($omail, $otitle, $obody);
         //购买成功清空购物车
         $tcookiesAry = $_COOKIE[APP_NAME . $ngenre];
         if (is_array($tcookiesAry))
@@ -240,7 +248,9 @@ function wdja_cms_module_succeed()
   $trs = ii_conn_fetch_array($trs);
   if ($trs)
   {
+    $tid = $trs[$nidfield];
     $tmpstr = ii_itake('module.succeed', 'tpl');
+    $tmpstr = str_replace('{$id}', $tid, $tmpstr);
     $tmpstr = str_replace('{$orderid}', $torderid, $tmpstr);
     $tmpstr = str_replace('{$orderuser}', $torderuser, $tmpstr);
     $tmpstr = ii_creplace($tmpstr);

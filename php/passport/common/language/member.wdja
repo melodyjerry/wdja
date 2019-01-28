@@ -30,5 +30,13 @@
       <disinfo><![CDATA[userdetail]]></disinfo>
       <chinese><![CDATA[用户资料]]></chinese>
     </item>
+    <item>
+      <disinfo><![CDATA[shopcart]]></disinfo>
+      <chinese><![CDATA[订单管理]]></chinese>
+    </item>
+    <item>
+      <disinfo><![CDATA[address]]></disinfo>
+      <chinese><![CDATA[地址管理]]></chinese>
+    </item>
   </language_list>
 </xml>

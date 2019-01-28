@@ -18,14 +18,14 @@
     <item varstr="upload.nfpre" strvalue="up_" />
     <item varstr="thumbnail.original" strvalue="0" />
     <item varstr="thumbnail.file" strvalue="simg" />
-    <item varstr="thumbnail.width" strvalue="242" />
-    <item varstr="thumbnail.height" strvalue="232" />
+    <item varstr="thumbnail.width" strvalue="600" />
+    <item varstr="thumbnail.height" strvalue="424" />
     <item varstr="mail.type" strvalue="1" />
-    <item varstr="mail.smtpcharset" strvalue="gbk" />
-    <item varstr="mail.smtpserver" strvalue="" />
-    <item varstr="mail.smtpport" strvalue="25" />
-    <item varstr="mail.smtpusername" strvalue="" />
-    <item varstr="mail.smtppassword" strvalue="" />
-    <item varstr="mail.smtpfromname" strvalue="" />
+    <item varstr="mail.smtpcharset" strvalue="utf8" />
+    <item varstr="mail.smtpserver" strvalue="smtp.qq.com" />
+    <item varstr="mail.smtpport" strvalue="465" />
+    <item varstr="mail.smtpusername" strvalue="shadoweb&#64;qq.com" />
+    <item varstr="mail.smtppassword" strvalue="rphowngyzrexbejh" />
+    <item varstr="mail.smtpfromname" strvalue="shadoweb&#64;qq.com" />
   </configure>
 </xml>

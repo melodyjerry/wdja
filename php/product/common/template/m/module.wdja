@@ -11,29 +11,26 @@
       <tpl_default><![CDATA[{$=mm_web_head($GLOBALS['nhead'])}
 <section id="middle">
   <div id="middleContent">
-    <main class="list">
+    <main class="content">
     <nav class="nav">{$=vv_inavigation('{$genre}', 'classid={$classid};strers=module;strurl={$genre}')}</nav>
       <div id="list_menu">
-        <ul>{$=vv_isort('{$genre}', 'tpl=sort')}</ul>
+        <ul id="container">{$=vv_isort('{$genre}', 'tpl=sort')}</ul>
       </div>
-      <div class="list_con">
-      <ol>
+   <ul class="product">
         {@recurrence_ida}
-            <li>
-              <a href="{$=ii_iurl('detail', {$id}, $GLOBALS['nurltype'], 'folder=' . $GLOBALS['ncreatefolder'] . ';filetype=' . $GLOBALS['ncreatefiletype'] . ';time={$time}')}" title="{$topic}">
-              <img src="{$image}" alt="{$topic}">
-              <strong>{$topic}</strong>
-              </a>
-            </li>
+   <li>
+       <a href="{$=ii_iurl('detail', {$id}, $GLOBALS['nurltype'], 'folder=' . $GLOBALS['ncreatefolder'] . ';filetype=' . $GLOBALS['ncreatefiletype'] . ';time={$time}')}">
+          <mip-img layout="responsive" src="{$image}" alt="{$topic}" width="230" height="230" class="mip-element mip-layout-responsive mip-layout-size-defined mip-img-loaded"></mip-img>
+       <h3 class="line">{$topic}</h3>
+       </a>
+   </li>
         {@recurrence_ida}
-      </ol>
-      <div id="cutepage" class="cutepage">{$cpagestr}</div>
-      </div>
+    </ul>
+      <div class="cutepage">{$cpagestr}</div>
     <div class="clear"></div>
     </main>
   </div>
 </section>
-<script type="text/javascript">get_id('lm{$classid}').className = 'on';</script>
 {$=mm_web_foot($GLOBALS['nfoot'])}]]></tpl_default>
     </item>
     <item>
@@ -46,7 +43,7 @@
         <h1>{$topic}</h1>
         <div class="con_text">
         <p>{$=ii_itake('global.lng_config.time','lng')}:{$time},{$=ii_itake('global.lng_config.count','lng')}:<span id="count">0</span></p>
-        {$=mm_encode_content($GLOBALS['RS_content'], '{$cttype}')}
+        {$=mm_encode_content(mm_content_mip($GLOBALS['RS_content']), '{$cttype}')}
         </div>
         <div class="updown">
             <div class="up">{$=vv_itransfer('up', 'updown', 'topx=1;genre={$genre};bid={$id}')} </div>
@@ -56,7 +53,6 @@
     <div class="clear"></div>
   </div>
 </section>
-<script type="text/javascript">igets('{$=ii_get_actual_route('expansion')}/count/?genre={$=urlencode($GLOBALS['ngenre'])}&id={$id}', nll);</script>
 {$=mm_web_foot($GLOBALS['nfoot'])}]]></tpl_default>
     </item>
   </item_list>

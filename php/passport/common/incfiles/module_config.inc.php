@@ -124,6 +124,7 @@ function wdja_cms_module_registerdisp()
 
 function wdja_cms_module_lostpassworddisp()
 {
+  $tbackurl = $_GET['backurl'];
   global $conn;
   global $ndatabase, $nidfield, $nfpre;
   $tusername = ii_get_safecode($_POST['username']);
@@ -150,7 +151,7 @@ function wdja_cms_module_lostpassworddisp()
     }
     else mm_imessage(ii_itake('module.lostpassword_emailerror', 'lng'));
   }
-  else mm_imessage(ii_itake('module.lostpassword_infoerror', 'lng'), -1);
+  else mm_imessage(ii_itake('module.lostpassword_infoerror', 'lng'), $tbackurl);
 }
 
 function wdja_cms_module_manage_informationdisp()
@@ -282,6 +283,130 @@ function wdja_cms_module_action()
       break;
   }
 }
+
+
+function wdja_cms_module_shopcart_detail()
+{
+  global $conn,  $variable;
+  $nshop = 'shop';
+  $ndatabase = $variable['shopcart.ndatabase'];
+  $nidfield = $variable['shopcart.nidfield'];
+  $nfpre = $variable['shopcart.nfpre'];
+  $tid = ii_get_num($_GET['id']);
+  $tbackurl = $_GET['backurl'];
+  $tsqlstr = "select * from $ndatabase where $nidfield=$tid";
+  $trs = ii_conn_query($tsqlstr, $conn);
+  $trs = ii_conn_fetch_array($trs);
+  if ($trs)
+  {
+    $tmpstr = ii_itake('module.shopcart_detail', 'tpl');
+    $tprolist = $trs[ii_cfnames($nfpre, 'fid')];
+    $tdatabase = mm_cndatabase($nshop);
+    $tidfield = mm_cnidfield($nshop);
+    $tfpre = mm_cnfpre($nshop);
+    $tmpastr = ii_ctemplate($tmpstr, '{@recurrence_ida}');
+    $tmprstr = '';
+    $tmerchandiseprice = 0;
+    if (!ii_isnull($tprolist))
+    {
+      $tary = explode(',', $tprolist);
+      if (is_array($tary))
+      {
+        foreach ($tary as $key => $val)
+        {
+          $tid = ii_get_num(ii_get_lrstr($val, ':', 'left'), 0);
+          if ($tid != 0)
+          {
+            $tsqlstr2 = "select * from $tdatabase where " . ii_cfnames($tfpre, 'hidden') . "=0 and $tidfield=$tid";
+            $trs2 = ii_conn_query($tsqlstr2, $conn);
+            $trs2 = ii_conn_fetch_array($trs2);
+            if ($trs2)
+            {
+              $tnum = ii_get_num(ii_get_lrstr($val, ':', 'right'), 0);
+              $tprice = ii_get_num($trs2[ii_cfnames($tfpre, 'price')], 0);
+              $twprice = ii_get_num($trs2[ii_cfnames($tfpre, 'wprice')], 0);
+              $tmerchandiseprice = $tmerchandiseprice + ($twprice * $tnum);
+              $tmptstr = $tmpastr;
+              $tmptstr = str_replace('{$id}', $trs2[$tidfield], $tmptstr);
+              $tmptstr = str_replace('{$num}', $tnum, $tmptstr);
+              $tmptstr = str_replace('{$price}', $tprice, $tmptstr);
+              $tmptstr = str_replace('{$wprice}', $twprice, $tmptstr);
+              $tmptstr = str_replace('{$topic}', ii_htmlencode($trs2[ii_cfnames($tfpre, 'topic')]), $tmptstr);
+              $tmptstr = str_replace('{$limitnum}', ii_get_num($trs2[ii_cfnames($tfpre, 'limitnum')], 0), $tmptstr);
+              $tmprstr .= $tmptstr;
+            }
+          }
+        }
+      }
+    }
+    $tmpstr = str_replace(WDJA_CINFO, $tmprstr, $tmpstr);
+    $tmpstr = str_replace('{$tallprice}', $tmerchandiseprice, $tmpstr);
+    foreach ($trs as $key => $val)
+    {
+      $tkey = ii_get_lrstr($key, '_', 'rightr');
+      $GLOBALS['RS_' . $tkey] = $val;
+      if($tkey=='expressid' && ii_htmlencode($val) == 0 ) $tmpstr = str_replace('{$' . $tkey . '}', '', $tmpstr);
+      else $tmpstr = str_replace('{$' . $tkey . '}', ii_htmlencode($val), $tmpstr);
+    }
+    $tmpstr = str_replace('{$id}', $trs[$nidfield], $tmpstr);
+    $tmpstr = ii_creplace($tmpstr);
+    return $tmpstr;
+  }
+  else
+  {
+    mm_client_alert(ii_itake('global.lng_public.sudd', 'lng'), -1);
+  }
+}
+
+
+function wdja_cms_module_shopcart_list()
+{
+  global $conn,$variable;
+  $ndatabase = $variable['shopcart.ndatabase'];
+  $nidfield = $variable['shopcart.nidfield'];
+  $nfpre = $variable['shopcart.nfpre'];
+  $npagesize = $variable['shopcart.npagesize'];
+  $nlisttopx = $variable['shopcart.nlisttopx'];
+  $toffset = ii_get_num($_GET['offset']);
+  $tusername = ii_get_safecode($_COOKIE[APP_NAME . 'user']['username']);
+  $tmpstr = ii_itake('module.shopcart_list', 'tpl');
+  $tmpastr = ii_ctemplate($tmpstr, '{@recurrence_idb}');
+  $tmprstr = '';
+  $tsqlstr = "select * from $ndatabase where $nidfield>0";
+  if (!ii_isnull($tusername)) $tsqlstr .= " and " . ii_cfnames($nfpre,'username') . "='" . $tusername."'";
+  $tsqlstr .= " order by " . ii_cfnames($nfpre,'time') . " desc";
+  $tcp = new cc_cutepage;
+  $tcp -> id = $nidfield;
+  $tcp -> sqlstr = $tsqlstr;
+  $tcp -> offset = $toffset;
+  $tcp -> pagesize = $npagesize;
+  $tcp -> rslimit = $nlisttopx;
+  $tcp -> init();
+  $trsary = $tcp -> get_rs_array();
+  if (is_array($trsary))
+  {
+    foreach($trsary as $trs)
+    {
+      $tname = ii_htmlencode($trs[ii_cfnames($nfpre,'name')]);
+      $tmptstr = str_replace('{$username}', ii_htmlencode($trs[ii_cfnames($nfpre,'username')]), $tmpastr);
+      $tmptstr = str_replace('{$name}', $tname, $tmptstr);
+      $tmptstr = str_replace('{$namestr}', ii_encode_scripts(ii_htmlencode($trs[ii_cfnames($nfpre,'name')])), $tmptstr);
+      $tmptstr = str_replace('{$orderid}', ii_htmlencode($trs[ii_cfnames($nfpre,'orderid')]), $tmptstr);
+      $tmptstr = str_replace('{$allprice}', ii_get_num($trs[ii_cfnames($nfpre,'allprice')]), $tmptstr);
+      $tmptstr = str_replace('{$paystate}', ii_itake('global.shopcart:sel_paystate.' . ii_get_num($trs[ii_cfnames($nfpre,'prepaid')]), 'lng'), $tmptstr);
+      $tmptstr = str_replace('{$state}', ii_itake('global.shopcart:sel_state.' . ii_get_num($trs[ii_cfnames($nfpre,'state')]), 'lng'), $tmptstr);
+      $tmptstr = str_replace('{$time}', ii_get_date($trs[ii_cfnames($nfpre,'time')]), $tmptstr);
+      $tmptstr = str_replace('{$id}', ii_get_num($trs[$nidfield]), $tmptstr);
+      $tmprstr .= $tmptstr;
+    }
+  }
+  $tmpstr = str_replace('{$cpagestr}', $tcp -> get_pagestr(), $tmpstr);
+  $tmpstr = str_replace(WDJA_CINFO, $tmprstr, $tmpstr);
+  $tmpstr = ii_creplace($tmpstr);
+  return $tmpstr;
+}
+
+
 
 function wdja_cms_module_login()
 {
@@ -433,6 +558,43 @@ function wdja_cms_module_premise()
   return ii_ireplace('module.premise', 'tpl');
 }
 
+
+
+function wdja_cms_module_pay()
+{
+  global $nvalidate;
+  global $global_images_route, $nskin;
+  $tpayid = $_GET['payid'];//支付方式ID
+  $tprice = $_GET['price'];//价格
+  $torderid = $_GET['orderid'];//订单号
+  $tid = $_GET['id'];//订单ID
+  $timg_url_pre = $global_images_route . 'theme/' . $nskin . '/';
+  switch($tpayid)
+  {
+    case '1':
+      $timg = ii_itake('global.' . ADMIN_FOLDER . '/global:other.wechat_add','lng');
+      break;
+    case '2':
+      $timg = ii_itake('global.' . ADMIN_FOLDER . '/global:other.wechat_code','lng');
+      break;
+    case '3':
+      $timg = alipay_code($timg_url_pre,$tprice,$torderid,$tid);
+      break;
+    default:
+      $timg = $timg_url_pre.'payimg-1.png';
+      break;
+  }
+  $tmpstr = ii_itake('module.pay', 'tpl');
+  $tmpstr = str_replace('{$img}', $timg, $tmpstr);
+  $tmpstr = str_replace('{$price}', $tprice, $tmpstr);
+  $tmpstr = str_replace('{$orderid}', $torderid, $tmpstr);
+  $tmpstr = str_replace('{$id}', $tid, $tmpstr);
+  $tmpstr = ii_creplace($tmpstr);
+  return $tmpstr;
+}
+
+
+
 function wdja_cms_module()
 {
   switch(mm_ctype($_GET['type']))
@@ -441,6 +603,7 @@ function wdja_cms_module()
       return wdja_cms_module_login();
       break;
     case 'user_detail':
+      ap_user_islogin();
       return wdja_cms_module_user_detail();
       break;
     case 'lostpassword':
@@ -451,12 +614,25 @@ function wdja_cms_module()
       pp_check_isregister_close();
       return wdja_cms_module_register();
       break;
+    case 'shopcart_list':
+      ap_user_islogin();
+      return wdja_cms_module_shopcart_list();
+      break;
+    case 'shopcart_detail':
+      ap_user_islogin();
+      return wdja_cms_module_shopcart_detail();
+      break;
     case 'manage':
       ap_user_islogin();
       return wdja_cms_module_manage();
       break;
+    case 'pay':
+      ap_user_islogin();
+      return wdja_cms_module_pay();
+      break;
     default:
-      return wdja_cms_module_premise();
+      ap_user_islogin();
+      return wdja_cms_module_manage();
       break;
   }
 }

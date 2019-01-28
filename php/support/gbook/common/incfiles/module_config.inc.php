@@ -50,8 +50,15 @@ function wdja_cms_module_adddisp()
     '" . ii_now() . "'
     )";
     $trs = ii_conn_query($tsqlstr, $conn);
-    if ($trs) mm_client_redirect($nuri);
-    else mm_imessage(ii_itake('global.lng_public.sudd', 'lng'), '-1');
+    if ($trs){
+        $gmail = ii_itake('global.' . ADMIN_FOLDER . '/global:other.gbook_mail','lng');
+        $gtitle = ii_itake('global.' . ADMIN_FOLDER . '/global:other.gbook_title','lng');
+        $gbody = ii_itake('global.' . ADMIN_FOLDER . '/global:other.gbook_body','lng');
+      	mm_sendemail($gmail, $gtitle, $gbody);
+   		mm_imessage(ii_itake('global.lng_public.succeed', 'lng'), $nuri);
+    } else {
+    	mm_imessage(ii_itake('global.lng_public.sudd', 'lng'), '-1');
+    }
   }
 }
 
@@ -122,7 +129,10 @@ function wdja_cms_module_add()
 
 function wdja_cms_module_index()
 {
-  $tmpstr = ii_ireplace('module.index', 'tpl');
+  global $nvalidate;
+  $tmpstr = ii_itake('module.index', 'tpl');
+  $tmpstr = mm_cvalhtml($tmpstr, $nvalidate, '{@recurrence_valcode}');
+  $tmpstr = ii_creplace($tmpstr);
   if (ii_isnull($tmpstr)) $tmpstr = wdja_cms_module_list();
   return $tmpstr;
 }

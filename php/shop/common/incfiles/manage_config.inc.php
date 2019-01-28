@@ -30,6 +30,8 @@ function wdja_cms_admin_manage_adddisp()
   $tclass = ii_get_num($_POST['sort'], 0);
   $tbackurl = ii_replace_querystring('classid', $tclass, $tbackurl);
   $timage = ii_left(ii_cstr($_POST['image']), 255);
+  $tsum = ii_left(ii_cstr($_POST['snum']), 50) ;
+  if(ii_isnull($tsum)) $tsnum = mm_get_shopnum();//date("YmdHms", time()).mt_rand(1000,9999);
   if($nsaveimages == '1' ) $tcontent = ii_left(ii_cstr(saveimages($_POST['content'])), 100000);
   else $tcontent =ii_left(ii_cstr($_POST['content']), 100000);
   $tcontent_images_list = ii_left(ii_cstr($_POST['content_images_list']), 10000);
@@ -54,7 +56,7 @@ function wdja_cms_admin_manage_adddisp()
     " . ii_cfname('hidden') . ",
     " . ii_cfname('good') . "
     ) values (
-    '" . ii_left(ii_cstr($_POST['snum']), 50) . "',
+    '" . $tsum . "',
     '" . ii_left(ii_cstr($_POST['topic']), 50) . "',
   '" . ii_left(ii_cstr($_POST['keywords']), 150) . "',
   '" . ii_left(ii_cstr($_POST['description']), 250) . "',
@@ -169,7 +171,10 @@ function wdja_cms_admin_manage_action()
 function wdja_cms_admin_manage_add()
 {
   global $nupsimg, $nupsimgs;
+  date_default_timezone_set('PRC');
+  $snum = mm_get_shopnum();//date("YmdHms", time()).mt_rand(1000,9999);
   $tmpstr = ii_itake('manage.add', 'tpl');
+  $tmpstr = str_replace('{$snum}', $snum, $tmpstr);
   $tmpstr = str_replace('{$upsimg}', $nupsimg, $tmpstr);
   $tmpstr = str_replace('{$upsimgs}', $nupsimgs, $tmpstr);
   $tmpstr = ii_creplace($tmpstr);

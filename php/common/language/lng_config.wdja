@@ -71,6 +71,10 @@
       <chinese><![CDATA[网站名]]></chinese>
     </item>
     <item>
+      <disinfo><![CDATA[browse]]></disinfo>
+      <chinese><![CDATA[浏览]]></chinese>
+    </item>
+    <item>
       <disinfo><![CDATA[topic]]></disinfo>
       <chinese><![CDATA[标题]]></chinese>
     </item>
@@ -129,6 +133,14 @@
     <item>
       <disinfo><![CDATA[review]]></disinfo>
       <chinese><![CDATA[回复]]></chinese>
+    </item>
+    <item>
+      <disinfo><![CDATA[unselect]]></disinfo>
+      <chinese><![CDATA[请选择]]></chinese>
+    </item>
+    <item>
+      <disinfo><![CDATA[fsort]]></disinfo>
+      <chinese><![CDATA[上级类别]]></chinese>
     </item>
     <item>
       <disinfo><![CDATA[sort]]></disinfo>

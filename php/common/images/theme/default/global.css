@@ -81,3 +81,6 @@ a:focus {
 a:active, a:hover {
   outline: 0;
 }
+.clear{
+  clear:both;
+}

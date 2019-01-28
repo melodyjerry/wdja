@@ -14,20 +14,20 @@
     <div id="middleContent" style="height:40px;line-height:40px;">
         <ul>
         <li style="float:left;overflow: hidden;width:800px;">{$=ii_ireplace('global.passport:api.login2', 'tpl')}</li>
-        <li style="float:right;overflow: hidden;width:200px;text-align: right;"><a download href="{$=ii_itake('global.admin/global:home.download_url','lng')}" style="background:#3eb4fa;border-radius:5px;height: 26px;line-height: 26px;margin-right:10px;padding: 2px 5px;display: inline-block;text-align: center;color: #ffffff;">{$=ii_itake('global.admin/global:home.download_name','lng')}</a><a href="{$=ii_itake('global.admin/global:home.demo_url','lng')}" style="background:#3eb4fa;border-radius:5px;height: 26px;line-height: 26px;margin-right:10px;padding: 2px 5px;display: inline-block;text-align: center;color: #ffffff;" target="_blank">演示站</a></li>
+        <li style="float:right;overflow: hidden;width:200px;text-align: right;"><a download href="{$=ii_itake('global.' . ADMIN_FOLDER . '/global:home.download_url','lng')}" style="background:#3eb4fa;border-radius:5px;height: 26px;line-height: 26px;margin-right:10px;padding: 2px 5px;display: inline-block;text-align: center;color: #ffffff;">{$=ii_itake('global.admin/global:home.download_name','lng')}</a><a href="{$=ii_itake('global.admin/global:home.demo_url','lng')}" style="background:#3eb4fa;border-radius:5px;height: 26px;line-height: 26px;margin-right:10px;padding: 2px 5px;display: inline-block;text-align: center;color: #ffffff;" target="_blank">演示站</a></li>
         </ul>
     </div>
 </section>
 <section id="middle">
     <div id="middleContent">
         <div class="title"><h3>{$=ii_itake('global.product:module.channel_title', 'lng')}</h3></div>
-        {$=vv_itransfer('good', '3', 'topx=4;tnum=30;genre=product;osql= and p_class = \'' . ii_itake('global.admin/global:home.product_id','lng') . '\'')}
+        {$=vv_itransfer('good', '3', 'topx=4;tnum=30;genre=product;osql= and p_class = \'' . ii_itake('global.' . ADMIN_FOLDER . '/global:home.product_id','lng') . '\'')}
     </div>
 </section>
 <section id="middle">
     <div id="middleContent">
         <div class="title"><h3>{$=ii_itake('global.product:module.module_new', 'lng')}</h3></div>
-        {$=vv_itransfer('good', '3', 'topx=4;tnum=30;genre=product;osql= and p_class = \'' . ii_itake('global.admin/global:home.module_id','lng') . '\'')}
+        {$=vv_itransfer('good', '3', 'topx=4;tnum=30;genre=product;osql= and p_class = \'' . ii_itake('global.' . ADMIN_FOLDER . '/global:home.module_id','lng') . '\'')}
     </div>
 </section>
 <section id="middle">

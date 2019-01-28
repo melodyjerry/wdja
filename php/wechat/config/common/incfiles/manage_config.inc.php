@@ -37,7 +37,7 @@ function wdja_cms_admin_manage_config_editdisp()
   $tnode = 'item';
   $tfield = 'disinfo,chinese';
   $tbase = 'language_list';
-  $torder = 'logo,appid,secret,templateid,templateurl,';
+  $torder = 'logo,appid,secret,templateid,templateurl,mail,mail_topic,mail_body';
   if (ii_right($torder, 1) == ',') $torder = ii_left($torder, (strlen($torder) - 1));
   if (file_exists($tburl) && (!ii_isnull($tnode)) && (!ii_isnull($tfield)) && (!ii_isnull($tbase)))
   {

@@ -1,10 +1,3 @@
--- 主机: 8.8.8.8
--- 生成日期: 2018 年 08 月 08日 08:08
--- 服务器版本: 5.5.53
--- PHP 版本: 5.2.17
-
-SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
-SET time_zone = "+00:00";
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -44,9 +37,12 @@ CREATE TABLE `wdja_aboutus` (
   `ab_count` int(9) DEFAULT '0',
   `ab_lng` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`abid`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
+--
+-- Table structure for table `wdja_admin`
+--
 
 DROP TABLE IF EXISTS `wdja_admin`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
@@ -60,7 +56,7 @@ CREATE TABLE `wdja_admin` (
   `a_lasttime` datetime DEFAULT NULL,
   `a_lastip` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`aid`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -69,7 +65,7 @@ CREATE TABLE `wdja_admin` (
 
 LOCK TABLES `wdja_admin` WRITE;
 /*!40000 ALTER TABLE `wdja_admin` DISABLE KEYS */;
-INSERT INTO `wdja_admin` VALUES (1,'admin','21232f297a57a5a743894a0e4a801fc3','-1',0,'2018-08-08 08:08:08','8.8.8.8');
+INSERT INTO `wdja_admin` VALUES (1,'admin','926b4f1d65e19d81680d8f2b7449e627','-1',0,'2019-01-28 10:47:04','116.25.135.91');
 /*!40000 ALTER TABLE `wdja_admin` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -87,7 +83,7 @@ CREATE TABLE `wdja_admin_log` (
   `l_ip` varchar(50) DEFAULT NULL,
   `l_islogin` int(1) DEFAULT '0',
   PRIMARY KEY (`lid`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 
@@ -119,7 +115,7 @@ CREATE TABLE `wdja_article` (
   `a_good` int(1) DEFAULT '0',
   `a_count` int(9) DEFAULT '0',
   PRIMARY KEY (`aid`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 
@@ -142,7 +138,7 @@ CREATE TABLE `wdja_download` (
   `d_cttype` int(1) DEFAULT '0',
   `d_content` text,
   `d_content_images_list` text,
-  `d_size` int(9) DEFAULT '0',
+  `d_size` float DEFAULT '0',
   `d_runco` varchar(255) DEFAULT NULL,
   `d_star` int(9) DEFAULT '0',
   `d_accredit` int(9) DEFAULT '0',
@@ -156,7 +152,7 @@ CREATE TABLE `wdja_download` (
   `d_count` int(9) DEFAULT '0',
   `d_update` int(1) DEFAULT '0',
   PRIMARY KEY (`did`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 
@@ -179,8 +175,6 @@ CREATE TABLE `wdja_expansion_js` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
-
-
 --
 -- Table structure for table `wdja_forum_blacklist`
 --
@@ -198,7 +192,6 @@ CREATE TABLE `wdja_forum_blacklist` (
   PRIMARY KEY (`bid`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
 
 --
 -- Table structure for table `wdja_forum_sort`
@@ -232,9 +225,8 @@ CREATE TABLE `wdja_forum_sort` (
   `s_last_tid` int(9) DEFAULT '0',
   `s_last_time` datetime DEFAULT NULL,
   PRIMARY KEY (`sid`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
 
 --
 -- Table structure for table `wdja_forum_topic`
@@ -268,9 +260,8 @@ CREATE TABLE `wdja_forum_topic` (
   `t_lasttime` datetime DEFAULT NULL,
   `t_lastuser` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`tid`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
 
 --
 -- Table structure for table `wdja_forum_vote`
@@ -306,7 +297,6 @@ CREATE TABLE `wdja_forum_vote_data` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
-
 --
 -- Table structure for table `wdja_forum_vote_voter`
 --
@@ -324,8 +314,6 @@ CREATE TABLE `wdja_forum_vote_voter` (
   PRIMARY KEY (`vuid`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
-
 
 --
 -- Table structure for table `wdja_help`
@@ -356,9 +344,8 @@ CREATE TABLE `wdja_help` (
   `h_good` int(1) DEFAULT '0',
   `h_count` int(9) DEFAULT '0',
   PRIMARY KEY (`hid`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
 
 
 --
@@ -389,9 +376,8 @@ CREATE TABLE `wdja_news` (
   `n_good` int(1) DEFAULT '0',
   `n_count` int(9) DEFAULT '0',
   PRIMARY KEY (`nid`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
 
 --
 -- Table structure for table `wdja_passport`
@@ -431,9 +417,31 @@ CREATE TABLE `wdja_passport` (
   `p_lasttime` datetime DEFAULT NULL,
   `p_pretime` datetime DEFAULT NULL,
   PRIMARY KEY (`pid`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
+
+--
+-- Table structure for table `wdja_passport_address`
+--
+
+DROP TABLE IF EXISTS `wdja_passport_address`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `wdja_passport_address` (
+  `addressid` int(9) NOT NULL AUTO_INCREMENT,
+  `address_name` varchar(50) DEFAULT NULL,
+  `address_address` varchar(255) DEFAULT NULL,
+  `address_code` varchar(50) DEFAULT NULL,
+  `address_phone` varchar(50) DEFAULT NULL,
+  `address_email` varchar(50) DEFAULT NULL,
+  `address_username` varchar(50) DEFAULT NULL,
+  `address_lng` varchar(50) DEFAULT NULL,
+  `address_order` int(9) DEFAULT '0',
+  `address_time` datetime DEFAULT NULL,
+  PRIMARY KEY (`addressid`)
+) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
 
 --
@@ -453,7 +461,6 @@ CREATE TABLE `wdja_passport_friend` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 
-
 --
 -- Table structure for table `wdja_passport_message`
 --
@@ -471,10 +478,8 @@ CREATE TABLE `wdja_passport_message` (
   `m_addresser` varchar(50) DEFAULT NULL,
   `m_recipients` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`mid`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
-
 
 --
 -- Table structure for table `wdja_product`
@@ -501,10 +506,8 @@ CREATE TABLE `wdja_product` (
   `p_good` int(1) DEFAULT '0',
   `p_count` int(9) DEFAULT '0',
   PRIMARY KEY (`pid`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
-
 
 --
 -- Table structure for table `wdja_shop`
@@ -535,9 +538,8 @@ CREATE TABLE `wdja_shop` (
   `s_good` int(1) DEFAULT '0',
   `s_count` int(9) DEFAULT '0',
   PRIMARY KEY (`sid`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
 
 
 --
@@ -562,16 +564,17 @@ CREATE TABLE `wdja_shopcart` (
   `sc_payment` int(9) DEFAULT '0',
   `sc_traffic` int(9) DEFAULT '0',
   `sc_orderid` varchar(50) DEFAULT NULL,
-  `sc_prepaid` int(9) DEFAULT '0',
+  `sc_prepaid` int(20) DEFAULT '0',
   `sc_payid` varchar(50) DEFAULT NULL,
   `sc_state` int(1) DEFAULT '0',
+  `sc_express` int(1) DEFAULT '0',
+  `sc_expressid` varchar(30) DEFAULT '0 ',
   `sc_time` datetime DEFAULT NULL,
   `sc_dtime` datetime DEFAULT NULL,
   `sc_username` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`scid`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
 
 --
 -- Table structure for table `wdja_support_gbook`
@@ -597,7 +600,7 @@ CREATE TABLE `wdja_support_gbook` (
   `g_hidden` int(1) DEFAULT '0',
   `g_lng` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`gid`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 
@@ -616,7 +619,7 @@ CREATE TABLE `wdja_support_linktext` (
   `l_intro` varchar(255) DEFAULT NULL,
   `l_time` datetime DEFAULT NULL,
   PRIMARY KEY (`lid`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 
@@ -640,7 +643,6 @@ CREATE TABLE `wdja_support_review` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
-
 --
 -- Table structure for table `wdja_support_shorturl`
 --
@@ -657,8 +659,9 @@ CREATE TABLE `wdja_support_shorturl` (
   `s_intro` varchar(255) DEFAULT NULL,
   `s_ip` varchar(20) NOT NULL DEFAULT '0.0.0.0',
   `s_time` datetime DEFAULT NULL,
-  PRIMARY KEY (`sid`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+  PRIMARY KEY (`sid`),
+  KEY `s_code` (`s_code`)
+) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 
@@ -678,9 +681,8 @@ CREATE TABLE `wdja_support_slide` (
   `s_intro` varchar(255) DEFAULT NULL,
   `s_time` datetime DEFAULT NULL,
   PRIMARY KEY (`sid`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
 
 --
 -- Table structure for table `wdja_support_vote`
@@ -699,9 +701,8 @@ CREATE TABLE `wdja_support_vote` (
   `v_lock` int(1) DEFAULT '0',
   `v_time` datetime DEFAULT NULL,
   PRIMARY KEY (`vid`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
 
 --
 -- Table structure for table `wdja_support_vote_data`
@@ -717,9 +718,8 @@ CREATE TABLE `wdja_support_vote_data` (
   `vd_vid` int(9) DEFAULT '0',
   `vd_count` int(9) DEFAULT '0',
   PRIMARY KEY (`vdid`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
 
 --
 -- Table structure for table `wdja_support_vote_voter`
@@ -736,9 +736,8 @@ CREATE TABLE `wdja_support_vote_voter` (
   `vu_data` varchar(255) DEFAULT NULL,
   `vu_time` datetime DEFAULT NULL,
   PRIMARY KEY (`vuid`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
 
 --
 -- Table structure for table `wdja_sys_sort`
@@ -763,9 +762,8 @@ CREATE TABLE `wdja_sys_sort` (
   `sort_order` int(9) DEFAULT '0',
   `sort_time` datetime DEFAULT NULL,
   PRIMARY KEY (`sortid`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
 
 --
 -- Table structure for table `wdja_sys_upload`
@@ -786,9 +784,8 @@ CREATE TABLE `wdja_sys_upload` (
   `up_valid` int(1) DEFAULT '0',
   `up_voidreason` int(1) DEFAULT '0',
   PRIMARY KEY (`upid`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
 
 --
 -- Table structure for table `wdja_wechat_gbook`
@@ -815,9 +812,8 @@ CREATE TABLE `wdja_wechat_gbook` (
   `g_hidden` int(1) DEFAULT '0',
   `g_lng` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`gid`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
 
 --
 -- Table structure for table `wdja_wechat_news`
@@ -847,9 +843,8 @@ CREATE TABLE `wdja_wechat_news` (
   `n_good` int(1) DEFAULT '0',
   `n_count` int(9) DEFAULT '0',
   PRIMARY KEY (`nid`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
 
 --
 -- Table structure for table `wdja_wechat_product`
@@ -876,9 +871,8 @@ CREATE TABLE `wdja_wechat_product` (
   `p_good` int(1) DEFAULT '0',
   `p_count` int(9) DEFAULT '0',
   PRIMARY KEY (`pid`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
 
 --
 -- Table structure for table `wdja_wechat_slide`
@@ -896,5 +890,5 @@ CREATE TABLE `wdja_wechat_slide` (
   `s_intro` varchar(255) DEFAULT NULL,
   `s_time` datetime DEFAULT NULL,
   PRIMARY KEY (`sid`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;

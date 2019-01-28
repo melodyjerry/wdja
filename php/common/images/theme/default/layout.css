@@ -1,5 +1,55 @@
 @charset "UTF-8";
+.table,.table tr th, .table tr td { border-collapse:collapse;border:1px solid #666;padding:1px 2px; }
+.table tr:nth-of-type(1){background-color:#888;}
+.red{color:#f00;}
+input{
+    border: 1px solid #f1f1f1;
+    display: block;
+    box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    resize: none;
+    font-size: 16px;
+}
+input.text,select.select{
+height:24px;
+line-height:24px;
+    border: 1px solid #f1f1f1;
+    display: inline-block;
+    box-sizing: border-box;
+    padding:2px 3px;
+}
+input.radio{
+    display: inline-block;
+}
 
+.btn,.button {
+    line-height: 1;
+    border: 1px solid #f1f1f1;
+    display: inline-block;
+    box-sizing: border-box;
+    border-radius: 5px;
+    padding: 10px 15px;
+    margin: 5px;
+    font-size: 14px;
+    background: #fff;
+    color:#000000;
+}
+
+#buynum{
+display:inline;
+text-align:center;
+vertical-align:middle;
+}
+#buyimg{
+display:inline;
+vertical-align:middle;
+}
+.star-img{
+display: inline-flex;
+width: 90px !important;
+height:17px;
+vertical-align:middle;
+}
 #top {
   WIDTH: 100%;
   background-color: #FFFFFF;
@@ -9,14 +59,14 @@
   margin:0 auto;
 }
 #topContent H2 {
-width:143px;
+width:145px;
 float:left;
   MARGIN: 0px; 
  COLOR: #666666; FONT-SIZE: 24px; FONT-WEIGHT: bold
 }
 #topContent H2 A {
-position: relative; 
-width:143px;
+position: relative;
+width:145px;
 height:80px;
     display: block;
   COLOR: #666666; TEXT-DECORATION: none
@@ -24,6 +74,8 @@ height:80px;
 #topContent H2 A img{
     display: block;
     position: absolute;
+    width:145px;
+    height:50px;
     top: 50%;
     margin-top: -25px;
 }

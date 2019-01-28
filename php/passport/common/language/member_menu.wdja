@@ -30,5 +30,13 @@
       <disinfo><![CDATA[{$=ii_get_actual_route(USER_FOLDER)}/friend/?type=list]]></disinfo>
       <chinese><![CDATA[我的好友]]></chinese>
     </item>
+    <item>
+      <disinfo><![CDATA[{$=ii_get_actual_route(USER_FOLDER)}/?type=shopcart_list]]></disinfo>
+      <chinese><![CDATA[我的订单]]></chinese>
+    </item>
+    <item>
+      <disinfo><![CDATA[{$=ii_get_actual_route(USER_FOLDER)}/address/?type=list]]></disinfo>
+      <chinese><![CDATA[我的地址]]></chinese>
+    </item>
   </language_list>
 </xml>

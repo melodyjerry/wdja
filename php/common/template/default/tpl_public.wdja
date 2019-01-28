@@ -35,8 +35,8 @@
 <header id="top">
 	<section id="topContent">
      <div style="width:1000px;margin:0 auto;height:80px;line-height:80px;POSITION: relative;">
-        <h2><a href="{$=ii_get_actual_route('./')}"><img src="{$=ii_itake('global.admin/global:home.logo','lng')}" alt="{$=ii_itake('global.module.web_title', 'lng')}"></a></h2>
-        <div class="desc">{$=ii_itake('global.admin/global:seo.topic','lng')}</div>
+        <h2><a href="{$=ii_get_actual_route('./')}"><img src="{$=ii_itake('global.' . ADMIN_FOLDER . '/global:home.logo','lng')}" alt="{$=ii_itake('global.module.web_title', 'lng')}"></a></h2>
+        <div class="desc">{$=ii_itake('global.' . ADMIN_FOLDER . '/global:seo.topic','lng')}</div>
         <div id="panel">
             <form method="get" name="search" action="{$=ii_get_actual_route('search')}"><input type="text" name="keyword" size="15" class="text" placeholder="{$=ii_itake('global.lng_config.keyword', 'lng')}"/> <input type="submit" value="{$=ii_itake('global.lng_config.search','lng')}" class="button" />
             </form>

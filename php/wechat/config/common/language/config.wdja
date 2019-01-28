@@ -26,5 +26,17 @@
       <disinfo><![CDATA[templateurl]]></disinfo>
       <chinese><![CDATA[pages/index/index]]></chinese>
     </item>
+    <item>
+      <disinfo><![CDATA[mail]]></disinfo>
+      <chinese><![CDATA[shadoweb@qq.com]]></chinese>
+    </item>
+    <item>
+      <disinfo><![CDATA[mail_topic]]></disinfo>
+      <chinese><![CDATA[小程序WDJA留言通知!]]></chinese>
+    </item>
+    <item>
+      <disinfo><![CDATA[mail_body]]></disinfo>
+      <chinese><![CDATA[请登录小程序后台处理留言.]]></chinese>
+    </item>
   </language_list>
 </xml>

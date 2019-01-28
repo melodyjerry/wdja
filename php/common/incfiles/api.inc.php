@@ -216,6 +216,9 @@ function wdja_cms_form_api()
   global $conn, $variable;
   ii_conn_init();
   ii_get_variable_init();
+  $mail = ii_itake('global.wechat/config:config.mail','lng');
+  $mail_topic = ii_itake('global.wechat/config:config.mail_topic','lng');
+  $mail_body = ii_itake('global.wechat/config:config.mail_body','lng');
   $ngenre = 'wechat/gbook';
   $nlng = 'chinese';
   $ndatabase = $variable[ii_cvgenre($ngenre) . '.ndatabase'];
@@ -223,7 +226,7 @@ function wdja_cms_form_api()
   $nfpre = $variable[ii_cvgenre($ngenre) . '.nfpre'];
   $topenid = $_GET['openid'];
   $tnickName = $_GET['nickName'];
-  $tavatarUrl = $_GET['avatarUrl'];//saveimages($_GET['avatarUrl']);
+  $tavatarUrl = $_GET['avatarUrl'];
   $tgender = $_GET['gender'];
   $tcity = $_GET['city'];
   $tname = $_GET['name'];
@@ -263,6 +266,7 @@ function wdja_cms_form_api()
     {
       $status = '1';
       $title ='留言成功';
+      mm_sendemail($mail, $mail_topic, $mail_body);
       send_template_message($tcode,$tformid,$ttime,$tname,$tmobile,$temail,$tinfo);
     }else{
       $status = '0';

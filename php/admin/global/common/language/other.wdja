@@ -7,28 +7,49 @@
   </configure>
   <language_list>
     <item>
-      <disinfo><![CDATA[logo]]></disinfo>
-      <chinese><![CDATA[/admin/home/common/upload/2018/09/07/20180907220347r8.png]]></chinese>
+      <disinfo><![CDATA[alipay_code]]></disinfo>
+      <chinese><![CDATA[/admin/global/common/upload/2019/01/07/20190107130000WN.png]]></chinese>
     </item>
     <item>
-      <disinfo><![CDATA[download_name]]></disinfo>
-      <chinese><![CDATA[下载WDJA]]></chinese>
+      <disinfo><![CDATA[wechat_add]]></disinfo>
+      <chinese><![CDATA[/admin/global/common/upload/2019/01/07/20190107141453vG.png]]></chinese>
     </item>
     <item>
-      <disinfo><![CDATA[download_url]]></disinfo>
-      <chinese><![CDATA[/admin/home/common/upload/2018/09/07/20180907220357dq.zip]]></chinese>
+      <disinfo><![CDATA[wechat_code]]></disinfo>
+      <chinese><![CDATA[/admin/global/common/upload/2019/01/07/20190107141459W8.png]]></chinese>
     </item>
     <item>
-      <disinfo><![CDATA[demo_url]]></disinfo>
-      <chinese><![CDATA[http://wdja.cn]]></chinese>
+      <disinfo><![CDATA[alipay_uid]]></disinfo>
+      <chinese><![CDATA[2088202216609811]]></chinese>
     </item>
     <item>
-      <disinfo><![CDATA[product_id]]></disinfo>
-      <chinese><![CDATA[19]]></chinese>
+      <disinfo><![CDATA[gbook_mail]]></disinfo>
+      <chinese><![CDATA[shadoweb@qq.com]]></chinese>
     </item>
     <item>
-      <disinfo><![CDATA[module_id]]></disinfo>
-      <chinese><![CDATA[18]]></chinese>
+      <disinfo><![CDATA[gbook_title]]></disinfo>
+      <chinese><![CDATA[WDJA网站新留言提醒]]></chinese>
+    </item>
+    <item>
+      <disinfo><![CDATA[gbook_body]]></disinfo>
+      <chinese><![CDATA[WDJA网站有新留言啦!]]></chinese>
+    </item>
+    <item>
+      <disinfo><![CDATA[order_mail]]></disinfo>
+      <chinese><![CDATA[shadoweb@qq.com]]></chinese>
+    </item>
+    <item>
+      <disinfo><![CDATA[order_title]]></disinfo>
+      <chinese><![CDATA[WDJA网站新订单提醒]]></chinese>
+    </item>
+    <item>
+      <disinfo><![CDATA[order_body]]></disinfo>
+      <chinese><![CDATA[WDJA网站有新订单啦!
+订单信息如下:
+订单号{$orderid},
+订单总价{$price},
+用户名{$uname},
+订单时间{$time}]]></chinese>
     </item>
     <item>
       <disinfo><![CDATA[topic]]></disinfo>

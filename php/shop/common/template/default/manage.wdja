@@ -230,7 +230,7 @@ function bfsubmit()
                   <form name="form" method="post" action="?action=add&backurl={$=urlencode($GLOBALS['nurl'])}" onsubmit="bfsubmit()">
                     <tr>
                       <td width="80" height="25">{$=ii_itake('config.snum','lng')}</td>
-                      <td width="*"><input type="text" name="snum" size="20"></td>
+                      <td width="*"><input type="text" name="snum" size="20" value="{$snum}"></td>
                     </tr>
                     <tr>
                       <td height="25">{$=ii_itake('config.topic','lng')}</td>

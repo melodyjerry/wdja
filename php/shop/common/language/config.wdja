@@ -12,7 +12,7 @@
     </item>
     <item>
       <disinfo><![CDATA[topic]]></disinfo>
-      <chinese><![CDATA[商品名称]]></chinese>
+      <chinese><![CDATA[商品名]]></chinese>
     </item>
     <item>
       <disinfo><![CDATA[sort]]></disinfo>
@@ -20,15 +20,15 @@
     </item>
     <item>
       <disinfo><![CDATA[price]]></disinfo>
-      <chinese><![CDATA[市场价格]]></chinese>
+      <chinese><![CDATA[市场价]]></chinese>
     </item>
     <item>
       <disinfo><![CDATA[wprice]]></disinfo>
-      <chinese><![CDATA[网上价格]]></chinese>
+      <chinese><![CDATA[销售价]]></chinese>
     </item>
     <item>
       <disinfo><![CDATA[limitnum]]></disinfo>
-      <chinese><![CDATA[货存数量]]></chinese>
+      <chinese><![CDATA[库存量]]></chinese>
     </item>
     <item>
       <disinfo><![CDATA[unit]]></disinfo>
