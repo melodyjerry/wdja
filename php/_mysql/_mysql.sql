@@ -65,7 +65,7 @@ CREATE TABLE `wdja_admin` (
 
 LOCK TABLES `wdja_admin` WRITE;
 /*!40000 ALTER TABLE `wdja_admin` DISABLE KEYS */;
-INSERT INTO `wdja_admin` VALUES (1,'admin','926b4f1d65e19d81680d8f2b7449e627','-1',0,'2019-01-28 10:47:04','116.25.135.91');
+INSERT INTO `wdja_admin` VALUES (1,'admin','21232f297a57a5a743894a0e4a801fc3','-1',0,'2019-01-28 10:47:04','116.25.135.91');
 /*!40000 ALTER TABLE `wdja_admin` ENABLE KEYS */;
 UNLOCK TABLES;
 
