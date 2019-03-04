@@ -28,11 +28,11 @@
     </item>
     <item>
       <disinfo><![CDATA[gbook_title]]></disinfo>
-      <chinese><![CDATA[WDJA网站新留言提醒]]></chinese>
+      <chinese><![CDATA[网站新留言提醒]]></chinese>
     </item>
     <item>
       <disinfo><![CDATA[gbook_body]]></disinfo>
-      <chinese><![CDATA[WDJA网站有新留言啦!]]></chinese>
+      <chinese><![CDATA[网站有新留言啦!]]></chinese>
     </item>
     <item>
       <disinfo><![CDATA[order_mail]]></disinfo>
@@ -40,11 +40,11 @@
     </item>
     <item>
       <disinfo><![CDATA[order_title]]></disinfo>
-      <chinese><![CDATA[WDJA网站新订单提醒]]></chinese>
+      <chinese><![CDATA[网站新订单提醒]]></chinese>
     </item>
     <item>
       <disinfo><![CDATA[order_body]]></disinfo>
-      <chinese><![CDATA[WDJA网站有新订单啦!
+      <chinese><![CDATA[网站有新订单啦!
 订单信息如下:
 订单号{$orderid},
 订单总价{$price},
