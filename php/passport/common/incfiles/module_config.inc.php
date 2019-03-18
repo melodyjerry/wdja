@@ -579,6 +579,7 @@ function wdja_cms_module_pay()
       break;
     case '3':
       $timg = alipay_code($timg_url_pre,$tprice,$torderid,$tid);
+      $tcode = alipaycode($timg_url_pre,$tprice,$torderid,$tid);
       break;
     default:
       $timg = $timg_url_pre.'payimg-1.png';
@@ -586,6 +587,7 @@ function wdja_cms_module_pay()
   }
   $tmpstr = ii_itake('module.pay', 'tpl');
   $tmpstr = str_replace('{$img}', $timg, $tmpstr);
+  $tmpstr = str_replace('{$alipaycode}', $tcode, $tmpstr);
   $tmpstr = str_replace('{$price}', $tprice, $tmpstr);
   $tmpstr = str_replace('{$orderid}', $torderid, $tmpstr);
   $tmpstr = str_replace('{$id}', $tid, $tmpstr);

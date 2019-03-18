@@ -20,20 +20,14 @@
 </section>
 <section id="middle">
     <div id="middleContent">
-        <div class="title"><h3>{$=ii_itake('global.product:module.channel_title', 'lng')}</h3></div>
-        {$=vv_itransfer('good', '3', 'topx=4;tnum=30;genre=product;osql= and p_class = \'' . ii_itake('global.' . ADMIN_FOLDER . '/global:home.product_id','lng') . '\'')}
+        <div class="title"><h3>{$=ii_itake('global.'.ii_itake('global.' . ADMIN_FOLDER . '/global:home.modules_img','lng').':module.channel_title', 'lng')}</h3></div>
+	{$=vv_itransfer('new', '3', 'topx=4;tnum=30;genre=' . ii_itake('global.' . ADMIN_FOLDER . '/global:home.modules_img','lng') . '')}
     </div>
 </section>
 <section id="middle">
     <div id="middleContent">
-        <div class="title"><h3>{$=ii_itake('global.product:module.module_new', 'lng')}</h3></div>
-        {$=vv_itransfer('good', '3', 'topx=4;tnum=30;genre=product;osql= and p_class = \'' . ii_itake('global.' . ADMIN_FOLDER . '/global:home.module_id','lng') . '\'')}
-    </div>
-</section>
-<section id="middle">
-    <div id="middleContent">
-        <div class="title"><h3>{$=ii_itake('global.news:module.channel_title', 'lng')}</h3></div>
-        {$=vv_itransfer('top', 'news-list', 'topx=10;tnum=30;genre=news')}
+        <div class="title"><h3>{$=ii_itake('global.'.ii_itake('global.' . ADMIN_FOLDER . '/global:home.modules','lng').':module.channel_title', 'lng')}</h3></div>
+        {$=vv_itransfer('top', 'news-list', 'topx=10;tnum=30;genre=' . ii_itake('global.' . ADMIN_FOLDER . '/global:home.modules','lng') . '')}
     </div>
     <div class="clear"></div>
 </section>

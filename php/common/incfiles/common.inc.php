@@ -31,7 +31,18 @@ if (!file_exists($timg)) QRcode::png($data, $filename, $errorCorrectionLevel, $m
 }
 return $filename;
 }
-  
+
+function alipaycode($imgurl,$price,$orderid,$id){
+$alipay_uid = ii_itake('global.' . ADMIN_FOLDER . '/global:other.alipay_uid','lng');
+if(ii_isnull($alipay_uid)) $alipay_uid = '2088202216609811';
+if(!ii_isnull($imgurl) && !ii_isnull($price) && !ii_isnull($orderid) && !ii_isnull($id)){
+//图片保存位置,价格,订单号,订单ID
+//if(ii_isMobileAgent()) $data = 'alipays://platformapi/startapp?appId=09999988&actionType=toAccount&goBack=NO&amount='. $price.'&userId=2088202216609811&memo='.$orderid;//拼接转账码(金额和备注可编辑)
+$data = 'alipays://platformapi/startapp?appId=20000123&actionType=scan&biz_data={"s": "money", "u": "'. $alipay_uid .'", "a": "'. $price .'", "m": "'. $orderid .'"}'; //收款码
+return urlencode($data);
+}
+}
+
 //address
 function mm_get_myaddressary($nusername, $lng)
 {

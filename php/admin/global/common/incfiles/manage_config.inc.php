@@ -19,6 +19,43 @@ function delByValue($arr, $value){
     return $arr;  
 }  
 
+
+function mm_get_genre_title($genre)
+{
+  if (!ii_isnull($genre))
+  {
+    $tmpstr = @ii_itake('global.' . $genre . ':module.channel_title', 'lng');
+    if (ii_isnull($tmpstr)) $tmpstr = @ii_itake('global.' . $genre . ':module.channel_title', 'lng');
+    if (ii_isnull($tmpstr)) $tmpstr = '?';
+    return $tmpstr;
+  }
+}
+
+
+function pp_get_module_select($module)
+{
+  global $variable;
+  $tary = ii_get_valid_module();
+  if (is_array($tary))
+  {
+    $tmpstr = '';
+    $option_selected = ii_itake('global.tpl_config.option_select', 'tpl');
+    $option_unselected = ii_itake('global.tpl_config.option_unselect', 'tpl');
+    foreach ($tary as $key => $val)
+    {
+      if (!ii_isnull($module) && $val == $module) $tmprstr = $option_selected;
+      else $tmprstr = $option_unselected;
+      if (!ii_isnull($variable[ii_cvgenre($val) . '.nglobal'])){
+        $tmprstr = str_replace('{$explain}', '(' . mm_get_genre_title($val) . ')' , $tmprstr);
+        $tmprstr = str_replace('{$value}', $val, $tmprstr);
+      }
+      else continue;
+      $tmpstr .= $tmprstr;
+    }
+    return $tmpstr;
+  }
+}
+
 function pp_get_xml_root($module)
 {
   global $ngenre;
@@ -37,7 +74,7 @@ function wdja_cms_admin_manage_home_editdisp()
   $tnode = 'item';
   $tfield = 'disinfo,chinese';
   $tbase = 'language_list';
-  $torder = 'logo,download_name,download_url,demo_url,product_id,module_id,';
+  $torder = 'logo,download_name,download_url,demo_url,modules,modules_img,';
   if (ii_right($torder, 1) == ',') $torder = ii_left($torder, (strlen($torder) - 1));
   if (file_exists($tburl) && (!ii_isnull($tnode)) && (!ii_isnull($tfield)) && (!ii_isnull($tbase)))
   {

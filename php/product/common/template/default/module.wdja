@@ -46,6 +46,15 @@
         <h1>{$topic}</h1>
         <div class="con_text">
         <p>{$=ii_itake('global.lng_config.time','lng')}:{$time},{$=ii_itake('global.lng_config.count','lng')}:<span id="count">0</span></p>
+        <table width="100%" cellspacing="0" cellpadding="0" border="0">
+		{@recurrence_ida}
+          <tr>
+            <td width="80" height="25" align="right">{$infos_topic}</td>
+            <td width="5"></td>
+            <td>{$infos_link}</td>
+          </tr>
+		{@recurrence_ida}
+ 		</table>
         {$=mm_encode_content($GLOBALS['RS_content'], '{$cttype}')}
         </div>
         <div class="updown">

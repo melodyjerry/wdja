@@ -57,6 +57,12 @@
                 <span layout="flex-item">{$=ii_itake('config.topic', 'lng')}</span>
                 <span layout="flex-item">{$topic}</span>
                       </li>
+                    {@recurrence_ida}
+              <li id="container">
+                <span layout="flex-item">{$infos_topic}</span>
+                <span layout="flex-item">{$infos_link}</span>
+                      </li>
+                    {@recurrence_ida}
               <li id="container">
                 <span layout="flex-item">{$=ii_itake('config.price', 'lng')}</span>
                 <span layout="flex-item">{$price}{$=ii_itake('global.lng_unit.money', 'lng')}</span>

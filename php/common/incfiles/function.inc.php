@@ -215,6 +215,19 @@ function ii_ctemplate(&$templatestr, $distinstr)
   }
 }
 
+function ii_ctemplate_infos(&$templatestr, $distinstr)
+{
+  if (is_numeric(strpos($templatestr, $distinstr)))
+  {
+    $tarys = explode($distinstr, $templatestr);
+    if (count($tarys) == 3)
+    {
+      $templatestr = $tarys[0] . WDJA_CINFO_INFOS . $tarys[2];
+      return $tarys[1];
+    }
+  }
+}
+
 function ii_cidary($strers)
 {
   if (!ii_isnull($strers))

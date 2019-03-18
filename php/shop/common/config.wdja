@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<xml mode="wdjafg" author="wdja">
+<xml mode="wdjafgf" author="wdja">
   <configure>
     <item varstr="nhead" strvalue="default_head" />
     <item varstr="nfoot" strvalue="default_foot" />
@@ -19,6 +19,7 @@
     <item varstr="thumbnail.upsimg" strvalue="0" />
     <item varstr="thumbnail.upsimgs" strvalue="1" />
     <item varstr="nindex" strvalue="index.php" />
+    <item varstr="nglobal" strvalue="1" />
     <item varstr="ncreatefolder" strvalue="htmldata" />
     <item varstr="ncreatefiletype" strvalue=".html" />
     <item varstr="nuninstall" strvalue="1|1|1" />

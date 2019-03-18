@@ -2,6 +2,6 @@
 <xml mode="wdjafgf" author="wdja">
   <configure>
     <item varstr="morder" strvalue="support,expansion,passport,article,product,download,shop,shopcart,forum" />
-    <item varstr="norder" strvalue="cache,files,configure,template,language,upload,sql,module,user,userlog" />
+    <item varstr="norder" strvalue="cache,note,files,configure,template,language,upload,sql,module,user,userlog" />
   </configure>
 </xml>

@@ -22,5 +22,17 @@
       <disinfo><![CDATA[content]]></disinfo>
       <chinese><![CDATA[产品介绍]]></chinese>
     </item>
+    <item>
+      <disinfo><![CDATA[infos_count]]></disinfo>
+      <chinese><![CDATA[参数数量]]></chinese>
+    </item>
+    <item>
+      <disinfo><![CDATA[infos_topic]]></disinfo>
+      <chinese><![CDATA[参数标题]]></chinese>
+    </item>
+    <item>
+      <disinfo><![CDATA[infos_link]]></disinfo>
+      <chinese><![CDATA[参数内容]]></chinese>
+    </item>
   </language_list>
 </xml>

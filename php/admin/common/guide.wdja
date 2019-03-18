@@ -6,10 +6,10 @@
     <base>item_list</base>
   </configure>
   <item_list>
-    <item>
+    <!--item>
       <disinfo><![CDATA[description]]></disinfo>
       <chinese><![CDATA[显示语言]]></chinese>
-    </item>
+    </item-->
     <item>
       <disinfo><![CDATA[admin_manage.php?site_language=chinese]]></disinfo>
       <chinese><![CDATA[简体中文]]></chinese>

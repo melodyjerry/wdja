@@ -10,7 +10,6 @@
     <item varstr="nclstype" strvalue="1" />
     <item varstr="nbasehref" strvalue="1" />
     <item varstr="nsaveimages" strvalue="1" />
-    <item varstr="nindex" strvalue="index.php" />
     <item varstr="ncontentcutepage" strvalue="1" />
     <item varstr="thumbnail.switch" strvalue="0" />
     <item varstr="ncreatefolder" strvalue="htmldata" />

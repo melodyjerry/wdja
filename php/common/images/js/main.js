@@ -326,3 +326,47 @@ function createXMLHttpRequest() {
         }            
         return xmlHttp;
     }
+//获取URL参数
+function GetRequest() {
+   var url = location.search; //获取url中"?"符后的字串  
+   var theRequest = new Object();  
+   if (url.indexOf("?") != -1) {  
+      var str = url.substr(1);  
+      strs = str.split("&");  
+      for(var i = 0; i < strs.length; i ++) {  
+         theRequest[strs[i].split("=")[0]]=unescape(strs[i].split("=")[1]);
+      }  
+   }
+   return theRequest;  
+}
+//商品列表筛选
+function Filter(a,b){
+  var $ = function(e){return document.getElementById(e);}
+  var ipts = $('filterForm').getElementsByTagName('input'),result=[];
+  for(var i=0,l=ipts.length;i<l;i++){
+    if(ipts[i].getAttribute('to')=='filter'){
+      result.push(ipts[i]);
+    }
+  }
+  if($(a)){
+    $(a).value = b;
+    for(var j=0,len=result.length;j<len;j++){
+
+      if(result[j].value=='' || result[j].value=='0'){
+        result[j].parentNode.removeChild(result[j]);
+      }
+    }
+    document.forms['filterForm'].submit();
+  }
+  return false;
+} 
+//商品列表筛选高亮
+$(function(){
+  var obj=GetRequest(); 
+  if(typeof(obj)!='undefined'){
+    for(k in obj){
+      $("#"+k).val(obj[k]);
+      $("a["+k+"="+obj[k]+"]").parent().addClass("in").siblings().removeClass("in");
+    }
+  }
+})

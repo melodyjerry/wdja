@@ -24,7 +24,7 @@
     </item>
     <item>
       <disinfo><![CDATA[mgtitle]]></disinfo>
-      <chinese><![CDATA[首页管理]]></chinese>
+      <chinese><![CDATA[全局配置]]></chinese>
     </item>
     <item>
       <disinfo><![CDATA[edit]]></disinfo>
@@ -32,15 +32,15 @@
     </item>
     <item>
       <disinfo><![CDATA[channel_title]]></disinfo>
-      <chinese><![CDATA[首页管理]]></chinese>
+      <chinese><![CDATA[全局配置]]></chinese>
     </item>
     <item>
-      <disinfo><![CDATA[product_id]]></disinfo>
-      <chinese><![CDATA[产品服务分类]]></chinese>
+      <disinfo><![CDATA[modules]]></disinfo>
+      <chinese><![CDATA[首页文字列表]]></chinese>
     </item>
     <item>
-      <disinfo><![CDATA[module_id]]></disinfo>
-      <chinese><![CDATA[最新模板分类]]></chinese>
+      <disinfo><![CDATA[modules_img]]></disinfo>
+      <chinese><![CDATA[首页图片列表]]></chinese>
     </item>
     <item>
       <disinfo><![CDATA[product_num]]></disinfo>

@@ -91,12 +91,12 @@ function bfsubmit()
                       <td><input type="text" size="40" name="demo_url" id="demo_url" value="{$demo_url}"></td>
                     </tr>
                     <tr>
-                      <td width="80" height="25">{$=ii_itake('manage.product_id','lng')}</td>
-                      <td width="*"><select name="product_id" class="select">{$=mm_sel_sort('product',$GLOBALS['slng'],ii_get_num({$product_id}, 0))}</select></td>
+                      <td width="80" height="25">{$=ii_itake('manage.modules','lng')}</td>
+                      <td width="*"><select name="modules">{$=pp_get_module_select({$modules})}</select></td>
                     </tr>
                     <tr>
-                      <td width="80" height="25">{$=ii_itake('manage.module_id','lng')}</td>
-                      <td width="*"><select name="module_id" class="select">{$=mm_sel_sort('product',$GLOBALS['slng'],ii_get_num({$module_id}, 0))}</select></td>
+                      <td width="80" height="25">{$=ii_itake('manage.modules_img','lng')}</td>
+                      <td width="*"><select name="modules_img">{$=pp_get_module_select({$modules_img})}</select></td>
                     </tr>
                     <tr>
                       <td height="25"></td>

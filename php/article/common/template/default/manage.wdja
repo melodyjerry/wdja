@@ -229,8 +229,8 @@ function bfsubmit()
                       <td width="100%" height="5"></td>
                     </tr>
                   </table>
-                  <table border="0" width="98%" cellSpacing="0" cellPadding="0">
                   <form name="form" method="post" action="?action=add&backurl={$=urlencode($GLOBALS['nurl'])}" onsubmit="bfsubmit()">
+                  <table border="0" width="98%" cellSpacing="0" cellPadding="0">
                     <tr>
                       <td width="80" height="25">{$=ii_itake('global.lng_config.topic','lng')}</td>
                       <td width="*"><input type="text" name="topic" size="40"></td>
@@ -291,8 +291,8 @@ function bfsubmit()
                       <td height="25"></td>
                       <td><input type="submit" name="submit" value="{$=ii_itake('global.lng_config.submit','lng')}" class="button">&nbsp;<input type="reset" name="reset" value="{$=ii_itake('global.lng_config.reset','lng')}" class="button"></td>
                     </tr>
-                  </form>
                   </table>
+                  </form>
                   <table border="0" width="98%" cellSpacing="0" cellPadding="0">
                     <tr>
                       <td width="100%" height="5"></td>
@@ -363,8 +363,8 @@ function bfsubmit()
                       <td width="100%" height="5"></td>
                     </tr>
                   </table>
-                  <table border="0" width="98%" cellSpacing="0" cellPadding="0">
                   <form name="form" method="post" action="?action=edit&backurl={$=urlencode($GLOBALS['nurl'])}&id={$id}" onsubmit="bfsubmit()">
+                  <table border="0" width="98%" cellSpacing="0" cellPadding="0">
                     <tr>
                       <td width="80" height="25">{$=ii_itake('global.lng_config.topic','lng')}</td>
                       <td width="*"><input type="text" name="topic" size="40" value="{$topic}"></td>
@@ -433,8 +433,8 @@ function bfsubmit()
                       <td height="25"></td>
                       <td><input type="submit" name="submit" value="{$=ii_itake('global.lng_config.submit','lng')}" class="button">&nbsp;<input type="reset" name="reset" value="{$=ii_itake('global.lng_config.reset','lng')}" class="button"></td>
                     </tr>
-                  </form>
                   </table>
+                  </form>
                   <table border="0" width="98%" cellSpacing="0" cellPadding="0">
                     <tr>
                       <td width="100%" height="5"></td>

@@ -179,6 +179,7 @@
     <item>
       <name><![CDATA[add]]></name>
       <tpl_default><![CDATA[
+{$=ii_ireplace('manage.js_infos_set_date', 'tpl')}
 <script language="javascript" src="{$=#global_images_route}js/preview_images.js"></script>
 <script language="javascript" src="{$=#global_images_route}js/loader.js"></script>
 <script language="javascript">
@@ -226,8 +227,9 @@ function bfsubmit()
                       <td width="100%" height="5"></td>
                     </tr>
                   </table>
-                  <table border="0" width="98%" cellSpacing="0" cellPadding="0">
                   <form name="form" method="post" action="?action=add&backurl={$=urlencode($GLOBALS['nurl'])}" onsubmit="bfsubmit()">
+                  <input type="hidden" id="infos_date_option" name="infos_date_option" value="2">
+                  <table border="0" width="98%" cellSpacing="0" cellPadding="0">
                     <tr>
                       <td width="80" height="25">{$=ii_itake('config.snum','lng')}</td>
                       <td width="*"><input type="text" name="snum" size="20"></td>
@@ -257,6 +259,42 @@ function bfsubmit()
                       <td><iframe src="?type=upload&upform=form&uptext=image&upfname=/{$=#ngenre}/{$=#nuppath}noimg.gif&upsimg={$upsimg}" width="100%" height="25" scrolling="no" marginwidth="0" marginheight="0" align="middle" name="upload" frameborder="0"></iframe></td>
                     </tr>
                     <tr>
+                    <td colspan="2">
+                  <table border="0" width="98%" cellSpacing="0" cellPadding="0">
+                    <tr>
+                      <td width="80" height="25">{$=ii_itake('config.infos_count','lng')}</td>
+                      <td width="*"><input type="text" id="count" name="count" value="2" size="4" maxlength="3"> <input type="button" class="button" onclick="infos_set_date()" value="{$=ii_itake('global.lng_config.set', 'lng')}"></td>
+                    </tr>
+                  </table>
+                  <table border="0" width="98%" cellSpacing="0" cellPadding="0">
+                    <tr>
+                      <td width="100%" id="infos_date">
+                      <table id="infos_date_option1" border="0" width="100%" cellSpacing="0" cellPadding="0">
+                        <tr>
+                          <td width="80" height="25">{$=ii_itake('config.infos_topic','lng')}[1]</td>
+                          <td width="*"><input type="text" name="infos_topic1" size="20"></td>
+                        </tr>
+                        <tr>
+                          <td height="25">{$=ii_itake('config.infos_link','lng')}[1]</td>
+                          <td><input type="text" name="infos_link1" size="40"></td>
+                        </tr>
+                      </table>
+                      <table id="infos_date_option2" border="0" width="100%" cellSpacing="0" cellPadding="0">
+                        <tr>
+                          <td width="80" height="25">{$=ii_itake('config.infos_topic','lng')}[2]</td>
+                          <td width="*"><input type="text" name="infos_topic2" size="20"></td>
+                        </tr>
+                        <tr>
+                          <td height="25">{$=ii_itake('config.infos_link','lng')}[2]</td>
+                          <td><input type="text" name="infos_link2" size="40"></td>
+                        </tr>
+                      </table>
+                      </td>
+                    </tr>
+                  </table>
+                    </td>
+                    </tr>
+                    <tr>
                       <td height="25">{$=ii_itake('global.lng_config.mode','lng')}</td>
                       <td>{$=mm_get_html_content()}</td>
                     </tr>
@@ -284,8 +322,8 @@ function bfsubmit()
                       <td height="25"></td>
                       <td><input type="submit" name="submit" value="{$=ii_itake('global.lng_config.submit','lng')}" class="button">&nbsp;<input type="reset" name="reset" value="{$=ii_itake('global.lng_config.reset','lng')}" class="button"></td>
                     </tr>
-                  </form>
                   </table>
+                  </form>
                   <table border="0" width="98%" cellSpacing="0" cellPadding="0">
                     <tr>
                       <td width="100%" height="5"></td>
@@ -308,6 +346,7 @@ function bfsubmit()
     <item>
       <name><![CDATA[edit]]></name>
       <tpl_default><![CDATA[
+{$=ii_ireplace('manage.js_infos_set_date', 'tpl')}
 <script language="javascript" src="{$=#global_images_route}js/preview_images.js"></script>
 <script language="javascript" src="{$=#global_images_route}js/loader.js"></script>
 <script language="javascript">
@@ -355,8 +394,9 @@ function bfsubmit()
                       <td width="100%" height="5"></td>
                     </tr>
                   </table>
-                  <table border="0" width="98%" cellSpacing="0" cellPadding="0">
                   <form name="form" method="post" action="?action=edit&backurl={$=urlencode($GLOBALS['nurl'])}&id={$id}" onsubmit="bfsubmit()">
+                  <input type="hidden" id="infos_date_option" name="infos_date_option" value="{$inop_count}">
+                  <table border="0" width="98%" cellSpacing="0" cellPadding="0">
                     <tr>
                       <td width="80" height="25">{$=ii_itake('config.snum','lng')}</td>
                       <td width="*"><input type="text" name="snum" size="40" value="{$snum}"></td>
@@ -384,6 +424,32 @@ function bfsubmit()
                     <tr>
                       <td height="25">{$=ii_itake('global.lng_config.upload','lng')}</td>
                       <td><iframe src="?type=upload&upform=form&uptext=image&upsimg={$upsimg}" width="100%" height="25" scrolling="no" marginwidth="0" marginheight="0" align="middle" name="upload" frameborder="0"></iframe></td>
+                    </tr>
+                    <tr>
+                    <td colspan="2">
+                  <table border="0" width="98%" cellSpacing="0" cellPadding="0">
+                    <tr>
+                      <td width="80" height="25">{$=ii_itake('config.infos_count','lng')}</td>
+                      <td width="*"><input type="text" id="count" name="count" value="{$inop_count}" size="4" maxlength="3"> <input type="button" class="button" onclick="infos_set_date()" value="{$=ii_itake('global.lng_config.set', 'lng')}"></td>
+                    </tr>
+                  </table>
+                  <table border="0" width="98%" cellSpacing="0" cellPadding="0">
+                    <tr>
+                      <td width="100%" id="infos_date">{@recurrence_ida}
+                      <table id="infos_date_option{$inop_i}" border="0" width="100%" cellSpacing="0" cellPadding="0">
+                        <tr>
+                          <td width="80" height="25">{$=ii_itake('config.infos_topic','lng')}[{$inop_i}]</td>
+                          <td width="*"><input type="text" name="infos_topic{$inop_i}" size="20" value="{$infos_topic}"></td>
+                        </tr>
+                        <tr>
+                          <td height="25">{$=ii_itake('config.infos_link','lng')}[{$inop_i}]</td>
+                          <td><input type="text" name="infos_link{$inop_i}" size="40" value="{$infos_link}"></td>
+                        </tr>
+                      </table>{@recurrence_ida}
+                      </td>
+                    </tr>
+                  </table>
+                    </td>
                     </tr>
                     <tr>
                       <td height="25">{$=ii_itake('global.lng_config.mode','lng')}</td>
@@ -421,8 +487,8 @@ function bfsubmit()
                       <td height="25"></td>
                       <td><input type="submit" name="submit" value="{$=ii_itake('global.lng_config.submit','lng')}" class="button">&nbsp;<input type="reset" name="reset" value="{$=ii_itake('global.lng_config.reset','lng')}" class="button"></td>
                     </tr>
-                  </form>
                   </table>
+                  </form>
                   <table border="0" width="98%" cellspacing="0" cellPadding="0">
                     <tr>
                       <td width="100%" height="5"></td>
@@ -632,6 +698,55 @@ function bfsubmit()
   </tr>
 </table>
 ]]></tpl_default>
+    </item>
+    <item>
+      <name><![CDATA[js_infos_set_date]]></name>
+      <tpl_default><![CDATA[<script type="text/javascript">
+function infos_set_date()
+{
+  var tobj, tvalue;
+  tobj = get_id("count");
+  tvalue = get_num(tobj.value);
+  if (tvalue < 0) tvalue = 0;
+  var tdobj, tdvalue;
+  tdobj = get_id("infos_date_option");
+  tdvalue = get_num(tdobj.value);
+  if (tdvalue < 0) tdvalue = 0;
+  if (tvalue && tdvalue)
+  {
+    var tnums = tvalue - tdvalue ;
+    if (tnums < 0)
+    {
+      for (i = tdvalue; i > tvalue; i--)
+      {
+        if (get_id("infos_date_option" + i))
+        {
+          get_id("infos_date_option" + i).style.display = "none";
+        }
+      }
+    }
+    else
+    {
+      var tobjdate, tobjstr;
+      tobjdate = get_id("infos_date");
+      tobjstr = ""
+      for (i = tdvalue; i <= tvalue; i++)
+      {
+        if (get_id("infos_date_option" + i))
+        {
+          get_id("infos_date_option" + i).style.display = "";
+        }
+        else
+        {
+          tobjstr += "<table id=\"infos_date_option" + i + "\" border=\"0\" width=\"100%\" cellSpacing=\"0\" cellPadding=\"0\"><tr><td width=\"80\" height=\"25\">{$=ii_itake('config.infos_topic', 'lng')}[" + i + "]</td><td width=\"*\"><input type=\"text\" name=\"infos_topic" + i + "\" size=\"20\"></td></tr><tr><td height=\"25\">{$=ii_itake('config.infos_link', 'lng')}[" + i + "]</td><td width=\"*\"><input type=\"text\" name=\"infos_link" + i + "\" size=\"40\"></td></tr></table>"
+        }
+      }
+      tobjdate.innerHTML += tobjstr;
+    }
+    tdobj.value = tvalue;
+  }
+}
+</script>]]></tpl_default>
     </item>
   </item_list>
 </xml>

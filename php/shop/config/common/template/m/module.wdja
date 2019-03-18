@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xml mode="wdja" author="wdja">
+  <configure>
+    <node>item</node>
+    <field>name,tpl_default</field>
+    <base>item_list</base>
+  </configure>
+  <item_list>
+    <item>
+      <name><![CDATA[detail]]></name>
+      <tpl_default><![CDATA[{$=mm_web_head($GLOBALS['nhead'])}
+<form method="post" action="{$=ii_get_lrstr($GLOBALS['nuri'], '/', 'leftr')}/index.php?action=vote&id={$vid}">
+<table border="0" width="100%" cellspacing="0" cellpadding="0">
+  <tr>
+    <td height="25"><b>{$vtopic}</b></td>
+  </tr>{@}
+  <tr>
+    <td height="25"><input type="{$=pp_vote_type({$type})}" name="votes[]" value="{$id}" class="radio" /> {$topic}</span></td>
+  </tr>{@}
+  <tr>
+    <td height="5"></td>
+  </tr>
+  <tr>
+    <td height="25"><input type="submit" value="{$=ii_itake('module.submit','lng')}" class="button" /> <input type="button" value="{$=ii_itake('module.view','lng')}" class="button" onclick="pop_win('{$=ii_get_lrstr($GLOBALS['nuri'], '/', 'leftr')}/?type=view&id={$vid}', '_blank', 300, 300, 'yes');" /></td>
+  </tr>
+  <tr>
+    <td height="5"></td>
+  </tr>
+</table>
+</form>
+{$=mm_web_foot($GLOBALS['nfoot'])}]]></tpl_default>
+    </item>
+    <item>
+      <name><![CDATA[view]]></name>
+      <tpl_default><![CDATA[{$=mm_web_head($GLOBALS['nhead'])}
+<table width="96%" cellpadding="0" cellspacing="0" border="0" align="center">
+  <tr>
+    <td height="10"></td>
+  </tr>
+  <tr>
+    <td valign="top">
+      <table cellpadding="5" cellspacing="1" class="tablex" border="0">
+        <tr>
+          <td><strong>{$vtopic}</strong></td>
+        </tr>
+        <tr>
+          <td valign="top">{@recurrence_ida}
+            <table width="100%" cellpadding="0" cellspacing="0" border="0">
+              <tr>
+                <td height="20"><strong>{$topic}</strong></td>
+              </tr>
+            </table>
+            <table width="100%" cellpadding="0" cellspacing="0" border="0">
+              <tr>
+                <td width="40" rowspan="2" align="center"><font color="red">({$count})</font></td>
+                <td>{$per}%</td>
+              </tr>
+              <tr>
+                <td><hr size="5" color="#FF0000" width="{$per}%" align="left"></td>
+              </tr>
+            </table>
+            <table width="100%" cellpadding="0" cellspacing="0" border="0">
+              <tr>
+                <td height="10"></td>
+              </tr>
+            </table>{@recurrence_ida}
+          </td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+  <tr>
+    <td height="10"></td>
+  </tr>
+</table>
+{$=mm_web_foot($GLOBALS['nfoot'])}]]></tpl_default>
+    </item>
+  </item_list>
+</xml>

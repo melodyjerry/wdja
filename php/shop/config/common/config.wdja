@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xml mode="wdjafg" author="wdja">
+  <configure>
+    <item varstr="npagesize" strvalue="20" />
+    <item varstr="nhead" strvalue="default_head" />
+    <item varstr="nfoot" strvalue="default_foot" />
+    <item varstr="ndatabase" strvalue="wdja_shop_config" />
+    <item varstr="nidfield" strvalue="cid" />
+    <item varstr="nfpre" strvalue="c_" />
+    <item varstr="ndatabase_data" strvalue="wdja_shop_config_data" />
+    <item varstr="nidfield_data" strvalue="cdid" />
+    <item varstr="nfpre_data" strvalue="cd_" />
+    <item varstr="ndatabase_shopid" strvalue="wdja_shop_config_shopid" />
+    <item varstr="nidfield_shopid" strvalue="csid" />
+    <item varstr="nfpre_shopid" strvalue="cs_" />
+    <item varstr="nuninstall" strvalue="1|0|0" />
+  </configure>
+</xml>

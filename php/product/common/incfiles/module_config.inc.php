@@ -82,6 +82,30 @@ function wdja_cms_module_detail()
     mm_cntitle(ii_htmlencode($trs[ii_cfname('topic')]));
     mm_cnkeywords(ii_htmlencode($trs[ii_cfname('keywords')]));
     mm_cndescription(ii_htmlencode($trs[ii_cfname('description')]));
+    
+    $tmpastr = ii_ctemplate_infos($tmpstr, '{@recurrence_ida}');
+    $tmprstr = '';
+    $tinfos = $trs[ii_cfname('infos')];
+    if (!ii_isnull($tinfos))
+    {
+      $tinfosary = explode('{|||}', $tinfos);
+      $tinfoscount = count($tinfosary);
+      for ($i = 1; $i <= $tinfoscount; $i ++)
+      {
+        $tinfostr = $tinfosary[$i - 1];
+        if (!ii_isnull($tinfostr))
+        {
+          $tinfostrary = explode('{:::}', $tinfostr);
+          if (count(array_filter($tinfostrary)) == 2)
+          {
+            $tmptstr = str_replace('{$infos_topic}', $tinfostrary[0], $tmpastr);
+            $tmptstr = str_replace('{$infos_link}', $tinfostrary[1], $tmptstr);
+            $tmprstr .= $tmptstr;
+          }
+        }
+      }
+    }
+    $tmpstr = str_replace(WDJA_CINFO_INFOS, $tmprstr, $tmpstr);
     foreach ($trs as $key => $val)
     {
       $tkey = ii_get_lrstr($key, '_', 'rightr');

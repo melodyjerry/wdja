@@ -3,52 +3,52 @@
 .table tr:nth-of-type(1){background-color:#888;}
 .red{color:#f00;}
 input{
-    border: 1px solid #f1f1f1;
-    display: block;
-    box-sizing: border-box;
-    -webkit-box-sizing: border-box;
-    resize: none;
-    font-size: 16px;
+  border: 1px solid #f1f1f1;
+  display: block;
+  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  resize: none;
+  font-size: 16px;
 }
 input.text,select.select{
-height:24px;
-line-height:24px;
-    border: 1px solid #f1f1f1;
-    display: inline-block;
-    box-sizing: border-box;
-    padding:2px 3px;
+  height:24px;
+  line-height:24px;
+  border: 1px solid #f1f1f1;
+  display: inline-block;
+  box-sizing: border-box;
+  padding:2px 3px;
 }
 input.radio{
-    display: inline-block;
+  display: inline-block;
 }
 
 .btn,.button {
-    line-height: 1;
-    border: 1px solid #f1f1f1;
-    display: inline-block;
-    box-sizing: border-box;
-    border-radius: 5px;
-    padding: 10px 15px;
-    margin: 5px;
-    font-size: 14px;
-    background: #fff;
-    color:#000000;
+  line-height: 1;
+  border: 1px solid #f1f1f1;
+  display: inline-block;
+  box-sizing: border-box;
+  border-radius: 5px;
+  padding: 10px 15px;
+  margin: 5px;
+  font-size: 14px;
+  background: #fff;
+  color:#000000;
 }
-
+.del{text-decoration:line-through}
 #buynum{
-display:inline;
-text-align:center;
-vertical-align:middle;
+  display:inline;
+  text-align:center;
+  vertical-align:middle;
 }
 #buyimg{
-display:inline;
-vertical-align:middle;
+  display:inline;
+  vertical-align:middle;
 }
 .star-img{
-display: inline-flex;
-width: 90px !important;
-height:17px;
-vertical-align:middle;
+  display: inline-flex;
+  width: 90px !important;
+  height:17px;
+  vertical-align:middle;
 }
 #top {
   WIDTH: 100%;
@@ -59,33 +59,33 @@ vertical-align:middle;
   margin:0 auto;
 }
 #topContent H2 {
-width:145px;
-float:left;
+  width:145px;
+  float:left;
   MARGIN: 0px; 
- COLOR: #666666; FONT-SIZE: 24px; FONT-WEIGHT: bold
+  COLOR: #666666; FONT-SIZE: 24px; FONT-WEIGHT: bold
 }
 #topContent H2 A {
-position: relative;
-width:145px;
-height:80px;
-    display: block;
+  position: relative;
+  width:145px;
+  height:80px;
+  display: block;
   COLOR: #666666; TEXT-DECORATION: none
 }
 #topContent H2 A img{
-    display: block;
-    position: absolute;
-    width:145px;
-    height:50px;
-    top: 50%;
-    margin-top: -25px;
+  display: block;
+  position: absolute;
+  width:145px;
+  height:50px;
+  top: 50%;
+  margin-top: -25px;
 }
 #topContent H2 A:hover {
   COLOR: #333333; TEXT-DECORATION: none
 }
 #topContent .desc {
-width:388px;
-float:left;
-margin-left:20px;
+  width:388px;
+  float:left;
+  margin-left:20px;
 
 }
 #panel {
@@ -386,6 +386,23 @@ margin-left:20px;
   transition: all 0.5s ease-in-out;
   z-index: -1;
 }
+.list_config{
+  width:auto;
+  margin-top:5px;
+  padding-left: 10px;
+}
+.list_config li{
+  display: inline-block;
+  margin-right:5px;
+  font-size: 14px;
+}
+.list_config li a{
+  height:20px;
+  line-height:20px;
+  padding:0 4px;
+}
+.list_config li a:hover,.list_config .in,.in a{background: #FA8D00;color: #fff;border-radius: 4px;}
+.list_config .in a:hover{color: #fff}
 
 #middle .nav{
   margin-bottom:10px;
@@ -526,8 +543,8 @@ margin-left:20px;
   -webkit-border-vertical-spacing: 1px;
 }
 .tables TD {
-    display: table-cell;
-    vertical-align: inherit;
+  display: table-cell;
+  vertical-align: inherit;
   BACKGROUND: #FFFFFF;
   /*vertical-align: middle;*/
 }
@@ -536,9 +553,9 @@ margin-left:20px;
 }
 .tables TD.tbt {
   BACKGROUND: #F9F9F9;
-    height: 28px;
-    line-height: 28px;
-      padding: 2px 5px;
+  height: 28px;
+  line-height: 28px;
+  padding: 2px 5px;
 }
 .topic {
   HEIGHT: 50px

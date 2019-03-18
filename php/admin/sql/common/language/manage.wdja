@@ -20,7 +20,16 @@
     </item>
     <item>
       <disinfo><![CDATA[noticeb]]></disinfo>
-      <chinese><![CDATA[执行SQL语句的操作是有一定危险性的，请在对自己的语句有一定把握了以后再进行操作]]></chinese>
+      <chinese><![CDATA[执行SQL语句的操作是有一定危险性的，请在对自己的语句有一定把握了以后再进行操作</br>
+常用语句</br>
+ 添加字段 ALTER TABLE  `wdja_product` ADD  `p_infos` TEXT NULL DEFAULT NULL AFTER  `p_cttype`</br>
+同时执行多条语句:</br>
+alter table `wdja_product`  add `p_top` int(1) default '0';</br>
+alter table `wdja_download`  add `d_top` int(1) default '0'</br>
+
+
+
+]]></chinese>
     </item>
     <item>
       <disinfo><![CDATA[succeed]]></disinfo>

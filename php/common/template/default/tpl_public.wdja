@@ -23,10 +23,10 @@
 <meta name="keywords" content="{$=mm_web_keywords($GLOBALS['nkeywords'])}" />
 <meta name="description" content="{$=mm_web_description($GLOBALS['ndescription'])}" />
 <link type="text/css" rel="stylesheet" href="{$=#global_images_route}theme/{$=#nskin}/swiper/swiper-4.2.2.min.css" />
-<link type="text/css" rel="stylesheet" href="{$=#global_images_route}theme/{$=#nskin}/layout.css" />
-<link type="text/css" rel="stylesheet" href="{$=#global_images_route}theme/{$=#nskin}/global.css" />
+<link type="text/css" rel="stylesheet" href="{$=#global_images_route}theme/{$=#nskin}/layout.css?{$=ii_random(3)}" />
+<link type="text/css" rel="stylesheet" href="{$=#global_images_route}theme/{$=#nskin}/global.css?{$=ii_random(3)}" />
 <script language="javascript" src="{$=#global_images_route}js/jquery-1.7.min.js"></script>
-<script type="text/javascript" src="{$=#global_images_route}js/main.js"></script>
+<script type="text/javascript" src="{$=#global_images_route}js/main.js?{$=ii_random(3)}"></script>
 <script type="text/javascript" src="{$=#global_images_route}js/shorturl.js"></script>
 <script type="text/javascript" src="{$=#global_images_route}js/writeflashhtml2.js"></script>
 <script type="text/javascript" src="{$=#global_images_route}theme/{$=#nskin}/swiper/swiper-4.2.2.min.js"></script>

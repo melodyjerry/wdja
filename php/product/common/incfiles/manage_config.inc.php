@@ -21,6 +21,17 @@ function pp_manage_batch_menu()
   return ii_ireplace('manage.batch_menu', 'tpl');
 }
 
+function pp_get_post_infos($count)
+{
+  $tmpstr = '';
+  for ($i = 1; $i <= $count; $i ++)
+  {
+    $tmpstr .= ii_cstr($_POST['infos_topic' . $i]) . '{:::}' . ii_cstr($_POST['infos_link' . $i]) . '{|||}';
+  }
+  if (!ii_isnull($tmpstr)) $tmpstr = ii_left($tmpstr, mb_strlen($tmpstr, CHARSET) - 5);
+  return $tmpstr;
+}
+
 function wdja_cms_admin_manage_adddisp()
 {
   global $ngenre;
@@ -30,6 +41,8 @@ function wdja_cms_admin_manage_adddisp()
   $tclass = ii_get_num($_POST['sort'], 0);
   $tbackurl = ii_replace_querystring('classid', $tclass, $tbackurl);
   $timage = ii_left(ii_cstr($_POST['image']), 255);
+  $tsnum = ii_left(ii_cstr($_POST['snum']), 50);
+  if(ii_isnull($tsnum)) $tsnum = mm_get_shopnum();
   if($nsaveimages == '1' ) $tcontent = ii_left(ii_cstr(saveimages($_POST['content'])), 100000);
   else $tcontent =ii_left(ii_cstr($_POST['content']), 100000);
   $tcontent_images_list = ii_left(ii_cstr($_POST['content_images_list']), 10000);
@@ -38,9 +51,10 @@ function wdja_cms_admin_manage_adddisp()
     $tsqlstr = "insert into $ndatabase (
     " . ii_cfname('snum') . ",
     " . ii_cfname('topic') . ",
-  " . ii_cfname('keywords') . ",
-  " . ii_cfname('description') . ",
+    " . ii_cfname('keywords') . ",
+    " . ii_cfname('description') . ",
     " . ii_cfname('image') . ",
+    " . ii_cfname('infos') . ",
     " . ii_cfname('content') . ",
     " . ii_cfname('cttype') . ",
     " . ii_cfname('content_images_list') . ",
@@ -50,11 +64,12 @@ function wdja_cms_admin_manage_adddisp()
     " . ii_cfname('hidden') . ",
     " . ii_cfname('good') . "
     ) values (
-    '" . ii_left(ii_cstr($_POST['snum']), 50) . "',
+    '$tsnum',
     '" . ii_left(ii_cstr($_POST['topic']), 50) . "',
-  '" . ii_left(ii_cstr($_POST['keywords']), 150) . "',
-  '" . ii_left(ii_cstr($_POST['description']), 250) . "',
+    '" . ii_left(ii_cstr($_POST['keywords']), 150) . "',
+    '" . ii_left(ii_cstr($_POST['description']), 250) . "',
     '$timage',
+    '" . ii_left(pp_get_post_infos(ii_get_num($_POST['infos_date_option'])), 1200) . "',
     '$tcontent',
     " . ii_get_num($_POST['cttype']) . ",
     '$tcontent_images_list',
@@ -88,6 +103,8 @@ function wdja_cms_admin_manage_editdisp()
   $tbackurl = $_GET['backurl'];
   $tclass = ii_get_num($_POST['sort'], 0);
   $timage = ii_left(ii_cstr($_POST['image']), 255);
+  $tsnum = ii_left(ii_cstr($_POST['snum']), 50);
+  if(ii_isnull($tsnum)) $tsnum = mm_get_shopnum();
   if($nsaveimages == '1' ) $tcontent = ii_left(ii_cstr(saveimages($_POST['content'])), 100000);
   else $tcontent =ii_left(ii_cstr($_POST['content']), 100000);
   $tcontent_images_list = ii_left(ii_cstr($_POST['content_images_list']), 10000);
@@ -95,11 +112,12 @@ function wdja_cms_admin_manage_editdisp()
   if (!($tclass == 0))
   {
     $tsqlstr = "update $ndatabase set
-    " . ii_cfname('snum') . "='" . ii_left(ii_cstr($_POST['snum']), 50) . "',
+    " . ii_cfname('snum') . "='$tsnum',
     " . ii_cfname('topic') . "='" . ii_left(ii_cstr($_POST['topic']), 50) . "',
   " . ii_cfname('keywords') . "='" . ii_left(ii_cstr($_POST['keywords']), 150) . "',
   " . ii_cfname('description') . "='" . ii_left(ii_cstr($_POST['description']), 250) . "',
     " . ii_cfname('image') . "='$timage',
+    " . ii_cfname('infos') . "='" . ii_left(pp_get_post_infos(ii_get_num($_POST['infos_date_option'])), 1200) . "',
     " . ii_cfname('content') . "='$tcontent',
     " . ii_cfname('cttype') . "=" . ii_get_num($_POST['cttype']) . ",
     " . ii_cfname('content_images_list') . "='$tcontent_images_list',
@@ -157,6 +175,19 @@ function wdja_cms_admin_manage_action()
 function wdja_cms_admin_manage_add()
 {
   global $nupsimg, $nupsimgs;
+  date_default_timezone_set('PRC');
+  $snum = mm_get_shopnum();
+  $tmpstr = ii_itake('manage.add', 'tpl');
+  $tmpstr = str_replace('{$snum}', $snum, $tmpstr);
+  $tmpstr = str_replace('{$upsimg}', $nupsimg, $tmpstr);
+  $tmpstr = str_replace('{$upsimgs}', $nupsimgs, $tmpstr);
+  $tmpstr = ii_creplace($tmpstr);
+  return $tmpstr;
+}
+
+function wdja_cms_admin_manage_add2()
+{
+  global $nupsimg, $nupsimgs;
   $tmpstr = ii_itake('manage.add', 'tpl');
   $tmpstr = str_replace('{$upsimg}', $nupsimg, $tmpstr);
   $tmpstr = str_replace('{$upsimgs}', $nupsimgs, $tmpstr);
@@ -175,6 +206,34 @@ function wdja_cms_admin_manage_edit()
   if ($trs)
   {
     $tmpstr = ii_itake('manage.edit', 'tpl');
+    $tmpastr = ii_ctemplate_infos($tmpstr, '{@recurrence_ida}');
+    $tmprstr = '';
+    $tinfos = $trs[ii_cfname('infos')];
+    if (!ii_isnull($tinfos))
+    {
+      $ticount = 1;
+      $tinfosary = explode('{|||}', $tinfos);
+      $tinfoscount = count($tinfosary);
+      for ($i = 1; $i <= $tinfoscount; $i ++)
+      {
+        $tinfostr = $tinfosary[$i - 1];
+        if (!ii_isnull($tinfostr))
+        {
+          $tinfostrary = explode('{:::}', $tinfostr);
+          if (count($tinfostrary) == 2)
+          {
+            $tmptstr = str_replace('{$infos_topic}', $tinfostrary[0], $tmpastr);
+            $tmptstr = str_replace('{$infos_link}', $tinfostrary[1], $tmptstr);
+            $tmptstr = str_replace('{$inop_i}', $ticount, $tmptstr);
+            $ticount += 1;
+            $tmprstr .= $tmptstr;
+          }
+        }
+      }
+    }
+    else $tinfoscount = 0;
+    $tmpstr = str_replace(WDJA_CINFO_INFOS, $tmprstr, $tmpstr);
+    $tmpstr = str_replace('{$inop_count}', $tinfoscount, $tmpstr);
     foreach ($trs as $key => $val)
     {
       $tkey = ii_get_lrstr($key, '_', 'rightr');

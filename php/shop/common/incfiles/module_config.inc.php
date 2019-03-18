@@ -6,7 +6,7 @@
 //****************************************************
 function wdja_cms_module_list()
 {
-  global $conn, $nlng, $ngenre;
+  global $conn, $nlng, $ngenre, $nurs;
   $tclassid = ii_get_num($_GET['classid']);
   $toffset = ii_get_num($_GET['offset']);
   global $nclstype, $nlisttopx, $npagesize, $nkeywords, $ndescription;
@@ -34,6 +34,10 @@ elseif(ii_isnull($tclassid)){
   {
     if (!ii_isnull($tclassids)) $tsqlstr .= " and " . ii_cfname('class') . " in ($tclassids)";
   }
+//拼接筛选条件  获取sid
+$tsid = api_get_sid($nurs);
+if (!ii_isnull($tsid) && !ii_isnull($_GET['type'])) $tsqlstr .= " and $nidfield in ($tsid)";
+//拼接筛选条件
   $tsqlstr .= " order by " . ii_cfname('time') . " desc";
   $tcp = new cc_cutepage;
   $tcp -> id = $nidfield;
@@ -83,6 +87,29 @@ function wdja_cms_module_detail()
     mm_cntitle(ii_htmlencode($trs[ii_cfname('topic')]));
     mm_cnkeywords(ii_htmlencode($trs[ii_cfname('keywords')]));
     mm_cndescription(ii_htmlencode($trs[ii_cfname('description')]));
+    $tmpastr = ii_ctemplate_infos($tmpstr, '{@recurrence_ida}');
+    $tmprstr = '';
+    $tinfos = $trs[ii_cfname('infos')];
+    if (!ii_isnull($tinfos))
+    {
+      $tinfosary = explode('{|||}', $tinfos);
+      $tinfoscount = count($tinfosary);
+      for ($i = 1; $i <= $tinfoscount; $i ++)
+      {
+        $tinfostr = $tinfosary[$i - 1];
+        if (!ii_isnull($tinfostr))
+        {
+          $tinfostrary = explode('{:::}', $tinfostr);
+          if (count(array_filter($tinfostrary)) == 2)
+          {
+            $tmptstr = str_replace('{$infos_topic}', $tinfostrary[0], $tmpastr);
+            $tmptstr = str_replace('{$infos_link}', $tinfostrary[1], $tmptstr);
+            $tmprstr .= $tmptstr;
+          }
+        }
+      }
+    }
+    $tmpstr = str_replace(WDJA_CINFO_INFOS, $tmprstr, $tmpstr);
     foreach ($trs as $key => $val)
     {
       $tkey = ii_get_lrstr($key, '_', 'rightr');

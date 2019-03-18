@@ -1,5 +1,6 @@
 @charset "UTF-8";
 
+.del{text-decoration:line-through}
 #top {
   WIDTH: 100%;
   background-color: #FFFFFF;
