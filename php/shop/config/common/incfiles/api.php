@@ -42,7 +42,7 @@ function api_get_config_sid($cid,$data)
   $nfpre = mm_cnfpre(ii_cvgenre($ngenre), 'shopid');
   $fid = $cid;
   $tmpstr = '';
-  $tsqlstr = 'select * from '. $ndatabase.' where '.ii_cfnames($nfpre,"fid").' = '.$fid.' and ('.ii_cfnames($nfpre,"data").' = ' .$data.' or '.ii_cfnames($nfpre,"data").' like \'%|' .$data.'|%\')';
+  $tsqlstr = 'select '. ii_cfnames($nfpre,"sid") .' from '. $ndatabase.' where '.ii_cfnames($nfpre,"fid").' = '.$fid.' and ('.ii_cfnames($nfpre,"data").' = ' .$data.' or '.ii_cfnames($nfpre,"data").' like \'%|' .$data.'|%\')';
   $trs = ii_conn_query($tsqlstr, $conn);
   while ($trow = ii_conn_fetch_array($trs))
   {
