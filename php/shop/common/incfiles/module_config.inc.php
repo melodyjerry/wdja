@@ -68,6 +68,7 @@ if (!ii_isnull($tsid) && !ii_isnull($_GET['type'])) $tsqlstr .= " and $nidfield 
   $tmpstr = str_replace('{$cpagestr}', $tcp -> get_pagestr(), $tmpstr);
   $tmpstr = str_replace('{$genre}', $ngenre, $tmpstr);
   $tmpstr = str_replace('{$classid}', $tclassid, $tmpstr);
+  $tmpstr = str_replace('{$offset}', $toffset, $tmpstr);
   $tmpstr = ii_creplace($tmpstr);
   return $tmpstr;
 }
