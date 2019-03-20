@@ -109,6 +109,37 @@ function wdja_cms_admin_manage_editdisp()
   }
 }
 
+function wdja_cms_admin_manage_deletedisp()
+{
+  $txml = $_GET['xml'];
+  $trootstr = pp_get_template_root($txml) . XML_SFX;
+  $tbackurl = $_GET['backurl'];
+  $tdelnode = $_GET['node'];
+  $tdoc = new DOMDocument();
+  $tdoc -> load($trootstr);
+  $txpath = new DOMXPath($tdoc);
+  $tquery = '//xml/configure/node';
+  $tnode = $txpath -> query($tquery) -> item(0) -> nodeValue;
+  $tquery = '//xml/configure/field';
+  $tfield = $txpath -> query($tquery) -> item(0) -> nodeValue;
+  $tquery = '//xml/configure/base';
+  $tbase = $txpath -> query($tquery) -> item(0) -> nodeValue;
+  $tdp_node_ary = explode(',', $tfield);
+  $tdp_node = $tdp_node_ary[0];
+  $tquery = '//xml/' . $tbase . '/' . $tnode . '[' . $tdp_node . '=\'' . $tdelnode . '\']';
+  $trests = @$txpath -> query($tquery);
+  if ($trests)
+  {
+    $tremoveNode = $trests -> item(0);
+    $tparentNode = $tremoveNode -> parentNode;
+    $tparentNode -> removeChild($tremoveNode);
+    $tdoc -> save($trootstr);
+    wdja_cms_admin_msg(ii_itake('global.lng_public.succeed', 'lng'), $tbackurl, 1);
+  }
+  else wdja_cms_admin_msg(ii_itake('global.lng_public.failed', 'lng'), $tbackurl, 1);
+}
+
+
 function wdja_cms_admin_manage_action()
 {
   global $ndatabase, $nidfield, $nfpre, $ncontrol;
@@ -116,6 +147,9 @@ function wdja_cms_admin_manage_action()
   {
     case 'edit':
       wdja_cms_admin_manage_editdisp();
+      break;
+    case 'delete':
+      wdja_cms_admin_manage_deletedisp();
       break;
   }
 }
@@ -127,7 +161,6 @@ function wdja_cms_admin_manage_edit()
   if(!ii_isnull($txml)) $trootstr = pp_get_template_root($txml) . XML_SFX;
   elseif($tmodule == 'common') $trootstr = ii_get_actual_route() . '/common/template/' . $GLOBALS['default_skin' ].'/module' . XML_SFX;
   else $trootstr = ii_get_actual_route($tmodule) . '/common/template/' . $GLOBALS['default_skin' ].'/module' . XML_SFX;
-  //echo $trootstr;exit;
   if (file_exists($trootstr))
   {
     $tmpstr = ii_ireplace('manage.template', 'tpl');
