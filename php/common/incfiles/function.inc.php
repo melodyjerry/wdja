@@ -568,7 +568,7 @@ function ii_get_active_things($type)
       $tthings = 'template';
       if(ii_isMobileAgent()) $tthings = $tthings . '/' . $GLOBALS['m_skin' ];
       else $tthings = $tthings . '/' . $GLOBALS['default_skin' ];
-      if(ii_isAdmin()) $tthings = 'template/' . $GLOBALS['default_skin' ];
+      if(ii_isAdmin()) $tthings = 'template/default';
       break;
     case 'skin':
       $tthings = 'skin';
@@ -579,7 +579,7 @@ function ii_get_active_things($type)
     $trthings = ii_get_safecode($_COOKIE[APP_NAME . 'config'][$tthings]);
     if (ii_isnull($trthings)) $trthings = $GLOBALS['default_' . $tthings];
     if (!ii_isnull($trthings) && ii_isMobileAgent() && $tthings == 'skin') $trthings = $GLOBALS['m_' . $tthings];
-    if (ii_isAdmin() && $tthings == 'skin') $trthings = $GLOBALS['default_' . $tthings];
+    if (ii_isAdmin() && $tthings == 'skin') $trthings = 'default';
   }
   return $trthings;
 }
@@ -1069,7 +1069,7 @@ function ii_replace_xinfo_ary($strers, $type)
       $troot = 'common/template';
       if(ii_isMobileAgent()) $troot = $troot . '/' . $GLOBALS['m_skin' ];
       else $troot = $troot . '/' . $GLOBALS['default_skin' ];
-      if(ii_isAdmin()) $troot = 'common/template/' . $GLOBALS['default_skin' ];
+      if(ii_isAdmin()) $troot = 'common/template/default';
       break;
     case 'lng':
       $troot = 'common/language';
