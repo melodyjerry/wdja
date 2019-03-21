@@ -25,6 +25,7 @@ INPUT.checkbox {
 INPUT.radio {
   BORDER-RIGHT: 0px; PADDING-RIGHT: 1px; BORDER-TOP: 0px; PADDING-LEFT: 1px; PADDING-BOTTOM: 1px; BORDER-LEFT: 0px; PADDING-TOP: 1px; BORDER-BOTTOM: 0px
 }
+a.button,
 INPUT.button {
   BORDER-RIGHT: #c0c0c0 1px solid; PADDING-RIGHT: 1px; BORDER-TOP: #c0c0c0 1px solid; PADDING-LEFT: 12px; BACKGROUND: url(bg_button.gif); PADDING-BOTTOM: 1px; BORDER-LEFT: #c0c0c0 1px solid; PADDING-TOP: 2px; BORDER-BOTTOM: #c0c0c0 1px solid; HEIGHT: 20px
 }
