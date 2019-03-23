@@ -1151,6 +1151,8 @@ function wdja_cms_init($route)
   $nurs = $_SERVER['QUERY_STRING'];
   $nport = $_SERVER['SERVER_PORT'];
   $nurl = $nuri;
+  global $nckcode;
+  $nckcode = ii_md5(ii_format_date(ii_now(), 2) . 'wdja');
   if (!(ii_isnull($nurs))) $nurl = $nuri . '?' . $nurs;
   if($nport == '443') $nurlpre = 'https://' . $_SERVER['HTTP_HOST'];
   else $nurlpre = 'http://' . $_SERVER['HTTP_HOST'];

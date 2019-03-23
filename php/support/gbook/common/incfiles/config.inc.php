@@ -11,6 +11,5 @@ $nidfield = $variable[ii_cvgenre($ngenre) . '.nidfield'];
 $nfpre = $variable[ii_cvgenre($ngenre) . '.nfpre'];
 $npagesize = $variable[ii_cvgenre($ngenre) . '.npagesize'];
 $nlisttopx = $variable[ii_cvgenre($ngenre) . '.nlisttopx'];
-$nckcode = ii_md5(ii_format_date(ii_now(), 2) . 'wdja');
 $ntitle = ii_itake('module.channel_title', 'lng');
 ?>
