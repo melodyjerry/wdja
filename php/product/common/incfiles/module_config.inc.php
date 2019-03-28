@@ -33,6 +33,8 @@ function wdja_cms_module_list()
   {
     if (!ii_isnull($tclassids)) $tsqlstr .= " and " . ii_cfname('class') . " in ($tclassids)";
   }
+  $tgid = api_get_gid();
+  if (!ii_isnull($tgid) && !ii_isnull($_GET['type'])) $tsqlstr .= " and $nidfield in ($tgid)";
   $tsqlstr .= " order by " . ii_cfname('time') . " desc";
   $tcp = new cc_cutepage;
   $tcp -> id = $nidfield;
@@ -63,6 +65,7 @@ function wdja_cms_module_list()
   $tmpstr = str_replace('{$cpagestr}', $tcp -> get_pagestr(), $tmpstr);
   $tmpstr = str_replace('{$genre}', $ngenre, $tmpstr);
   $tmpstr = str_replace('{$classid}', $tclassid, $tmpstr);
+  $tmpstr = str_replace('{$offset}', $toffset, $tmpstr);
   $tmpstr = ii_creplace($tmpstr);
   return $tmpstr;
 }

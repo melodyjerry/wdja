@@ -274,7 +274,7 @@ function bfsubmit()
                       <td height="25">{$=ii_itake('config.unit','lng')}</td>
                       <td><input type="text" name="unit" size="10" value="{$=ii_itake('global.lng_unit.ge','lng')}"></td>
                     </tr>
-{$=api_config()}
+{$=api_fields()}
                     <tr>
                     <td colspan="2">
                   <table border="0" width="98%" cellSpacing="0" cellPadding="0">
@@ -458,7 +458,7 @@ function bfsubmit()
                       <td height="25">{$=ii_itake('config.unit','lng')}</td>
                       <td><input type="text" name="unit" size="10" value="{$unit}"></td>
                     </tr>
-{$=api_get_config()}
+{$=api_get_fields()}
                     <tr>
                     <td colspan="2">
                   <table border="0" width="98%" cellSpacing="0" cellPadding="0">

@@ -91,9 +91,7 @@ function wdja_cms_admin_manage_adddisp()
     if ($trs)
     {
       $upfid = ii_conn_insert_id($conn);
-      //保存自定义属性
-      api_save_config($upfid);
-      //保存自定义属性
+      api_save_fields($upfid);
       uu_upload_update_database_note($ngenre, $timage, 'image', $upfid);
       uu_upload_update_database_note($ngenre, $tcontent_images_list, 'content_images', $upfid);
       wdja_cms_admin_msg(ii_itake('global.lng_public.add_succeed', 'lng'), $tbackurl, 1);
@@ -146,7 +144,7 @@ function wdja_cms_admin_manage_editdisp()
     if ($trs)
     {
       $upfid = $tid;
-      api_update_config($tid);
+      api_update_fields($tid);
       uu_upload_update_database_note($ngenre, $timage, 'image', $upfid);
       uu_upload_update_database_note($ngenre, $tcontent_images_list, 'content_images', $upfid);
       wdja_cms_admin_msg(ii_itake('global.lng_public.edit_succeed', 'lng'), $tbackurl, 1);

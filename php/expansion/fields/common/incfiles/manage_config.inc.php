@@ -31,6 +31,7 @@ function wdja_cms_admin_manage_adddisp()
   if (!(ii_isnull($ttopic)))
   {
     $tsqlstr = "insert into $ndatabase (
+    " . ii_cfname('genre') . ",
     " . ii_cfname('topic') . ",
     " . ii_cfname('type') . ",
     " . ii_cfname('count') . ",
@@ -39,6 +40,7 @@ function wdja_cms_admin_manage_adddisp()
     " . ii_cfname('lock') . ",
     " . ii_cfname('time') . "
     ) values (
+    '" . ii_left(ii_cstr($_POST['genre']), 50) . "',
     '" . ii_left($ttopic, 50) . "',
     " . ii_get_num($_POST['type']) . ",
     $tcount,
@@ -59,7 +61,7 @@ function wdja_cms_admin_manage_adddisp()
         $tsqlstr = "insert into $tdatabase (
         " . ii_cfnames($tfpre, 'topic') . ",
         " . ii_cfnames($tfpre, 'fid') . ",
-        " . ii_cfnames($tfpre, 'cid') . "
+        " . ii_cfnames($tfpre, 'oid') . "
         ) values (
         '" . ii_left(ii_cstr($_POST['option' . $i]), 50) . "',
         $upfid,
@@ -95,6 +97,7 @@ function wdja_cms_admin_manage_editdisp()
     {
       $tycount = ii_get_num($trs[ii_cfname('count')]);
       $tsqlstr = "update $ndatabase set
+      " . ii_cfname('genre') . "='" . ii_left(ii_cstr($_POST['genre']), 50) . "',
       " . ii_cfname('topic') . "='" . ii_left($ttopic, 50) . "',
       " . ii_cfname('type') . "=" . ii_get_num($_POST['type']) . ",
       " . ii_cfname('count') . "=$tcount,
@@ -109,11 +112,11 @@ function wdja_cms_admin_manage_editdisp()
         $tfpre = mm_cnfpre(ii_cvgenre($ngenre), 'data');
         for($i = 1; $i <= $tcount; $i ++)
         {
-          $tsqlstr = "select * from $tdatabase where " . ii_cfnames($tfpre, 'fid') . "=$tid and " . ii_cfnames($tfpre, 'cid') . "=$i";
+          $tsqlstr = "select * from $tdatabase where " . ii_cfnames($tfpre, 'fid') . "=$tid and " . ii_cfnames($tfpre, 'oid') . "=$i";
           $trs = ii_conn_query($tsqlstr, $conn);
           $trs = ii_conn_fetch_array($trs);
-          if ($trs) $tsqlstr2 = "update $tdatabase set " . ii_cfnames($tfpre, 'topic') . "='" . ii_left(ii_cstr($_POST['option' . $i]), 50) . "' where " . ii_cfnames($tfpre, 'fid') . "=$tid and " . ii_cfnames($tfpre, 'cid') . "=$i";
-          else $tsqlstr2 = "insert into $tdatabase (" . ii_cfnames($tfpre, 'topic') . "," . ii_cfnames($tfpre, 'fid') . "," . ii_cfnames($tfpre, 'cid') . ") values ('" . ii_left(ii_cstr($_POST['option' . $i]), 50) . "',$tid,$i)";
+          if ($trs) $tsqlstr2 = "update $tdatabase set " . ii_cfnames($tfpre, 'topic') . "='" . ii_left(ii_cstr($_POST['option' . $i]), 50) . "' where " . ii_cfnames($tfpre, 'fid') . "=$tid and " . ii_cfnames($tfpre, 'oid') . "=$i";
+          else $tsqlstr2 = "insert into $tdatabase (" . ii_cfnames($tfpre, 'topic') . "," . ii_cfnames($tfpre, 'fid') . "," . ii_cfnames($tfpre, 'oid') . ") values ('" . ii_left(ii_cstr($_POST['option' . $i]), 50) . "',$tid,$i)";
           ii_conn_query($tsqlstr2, $conn);
         }
         if ($tycount > $tcount)
@@ -126,7 +129,7 @@ function wdja_cms_admin_manage_editdisp()
           if (!ii_isnull($tmyvid))
           {
             $tmyvid = ii_left($tmyvid, strlen($tmyvid) - 1);
-            mm_dbase_delete($tdatabase, ii_cfnames($tfpre, 'cid'), $tmyvid);
+            mm_dbase_delete($tdatabase, ii_cfnames($tfpre, 'oid'), $tmyvid);
           }
         }
         wdja_cms_admin_msg(ii_itake('global.lng_public.edit_succeed', 'lng'), $tbackurl, 1);
@@ -190,13 +193,13 @@ function wdja_cms_admin_manage_edit()
   $tmpstr = ii_itake('manage.edit', 'tpl');
   $tmpastr = ii_ctemplate($tmpstr, '{@recurrence_ida}');
   $tmprstr = '';
-  $tsqlstr = "select * from $tdatabase where " . ii_cfnames($tfpre, 'fid') . "=" . $tid . " order by " . ii_cfnames($tfpre, 'cid') . " asc";
+  $tsqlstr = "select * from $tdatabase where " . ii_cfnames($tfpre, 'fid') . "=" . $tid . " order by " . ii_cfnames($tfpre, 'oid') . " asc";
   $trs = ii_conn_query($tsqlstr, $conn);
   while ($trow = ii_conn_fetch_array($trs))
   {
     $tmptstr = str_replace('{$topic}', ii_htmlencode($trow[ii_cfnames($tfpre, 'topic')]), $tmpastr);
     $tmptstr = str_replace('{$count}', ii_get_num($trow[ii_cfnames($tfpre, 'count')], 0), $tmptstr);
-    $tmptstr = str_replace('{$cid}', ii_get_num($trow[ii_cfnames($tfpre, 'cid')], 0), $tmptstr);
+    $tmptstr = str_replace('{$oid}', ii_get_num($trow[ii_cfnames($tfpre, 'oid')], 0), $tmptstr);
     $tmprstr .= $tmptstr;
   }
   $tmpstr = str_replace(WDJA_CINFO, $tmprstr, $tmpstr);

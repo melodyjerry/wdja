@@ -105,7 +105,7 @@
                     <tr>
                       <td height="25"><input type="checkbox" name="sel_id" value="{$id}" class="checkbox"></td>
                       <td><a href="?type=edit&id={$id}&backurl={$=urlencode($GLOBALS['nurl'])}">{$topic}</a></td>
-                      <td>{$=ii_itake('sel_config_type.{$type}', 'sel')}</td>
+                      <td>{$=ii_itake('sel_fields_type.{$type}', 'sel')}</td>
                       <td>{$time}</td>
                       <td align="center"><a href="?type=edit&id={$id}&backurl={$=urlencode($GLOBALS['nurl'])}"><img src="{$=#global_images_route}public/small/edit.gif" border="0"></a></td>
                       <td align="center"><a href="?action=delete&id={$id}&backurl={$=urlencode($GLOBALS['nurl'])}" onclick="return click_return('{$=ii_itake('global.lng_admin.admin_confirm2','lng')}[{$topicstr}]')"><img src="{$=#global_images_route}public/small/delete.gif" border="0"></a></td>
@@ -148,7 +148,7 @@
     <item>
       <name><![CDATA[add]]></name>
       <tpl_default><![CDATA[
-{$=ii_ireplace('manage.js_config_set_date', 'tpl')}
+{$=ii_ireplace('manage.js_fields_set_date', 'tpl')}
 <script language="javascript" src="{$=#global_images_route}js/calendar.js"></script>
 <table border="0" width="100%" cellSpacing="0" cellPadding="0">
   <tr>
@@ -179,7 +179,7 @@
               </tr>
             </table>
                   <form name="form" method="post" action="?action=add&backurl={$=urlencode($GLOBALS['nurl'])}">
-                  <input type="hidden" id="config_date_option" name="config_date_option" value="2">
+                  <input type="hidden" id="fields_date_option" name="fields_date_option" value="2">
             <table border="0" width="100%" cellSpacing="0" cellPadding="0" class="lrbtline">
               <tr>
                 <td width="100%" height="25" class="tbtop">{$=ii_itake('manage.nav_add','lng')}</td>
@@ -192,6 +192,10 @@
                     </tr>
                   </table>
                   <table border="0" width="98%" cellSpacing="0" cellPadding="0">
+                    <tr>
+                      <td width="80" height="25">{$=ii_itake('manage.genre','lng')}</td>
+                      <td width="*"><select name="genre">{$=pp_get_genre_select('')}</select></td>
+                    </tr>
                     <tr>
                       <td width="80" height="25">{$=ii_itake('manage.topic','lng')}</td>
                       <td width="*"><input type="text" name="topic" size="20"></td>
@@ -206,19 +210,19 @@
                     </tr>
                     <tr>
                       <td height="25">{$=ii_itake('manage.count','lng')}</td>
-                      <td><input type="text" id="count" name="count" value="2" size="4" maxlength="3"> <input type="button" class="button" onclick="config_set_date()" value="{$=ii_itake('global.lng_config.set', 'lng')}"></td>
+                      <td><input type="text" id="count" name="count" value="2" size="4" maxlength="3"> <input type="button" class="button" onclick="fields_set_date()" value="{$=ii_itake('global.lng_config.set', 'lng')}"></td>
                     </tr>
                   </table>
                   <table border="0" width="98%" cellSpacing="0" cellPadding="0">
                     <tr>
-                      <td width="100%" id="config_date">
-                      <table id="config_date_option1" border="0" width="100%" cellSpacing="0" cellPadding="0">
+                      <td width="100%" id="fields_date">
+                      <table id="fields_date_option1" border="0" width="100%" cellSpacing="0" cellPadding="0">
                         <tr>
                           <td width="80" height="25">{$=ii_itake('manage.option','lng')}[1]</td>
                           <td width="*"><input type="text" name="option1" size="20"></td>
                         </tr>
                       </table>
-                      <table id="config_date_option2" border="0" width="100%" cellSpacing="0" cellPadding="0">
+                      <table id="fields_date_option2" border="0" width="100%" cellSpacing="0" cellPadding="0">
                         <tr>
                           <td width="80" height="25">{$=ii_itake('manage.option','lng')}[2]</td>
                           <td width="*"><input type="text" name="option2" size="20"></td>
@@ -256,7 +260,7 @@
     <item>
       <name><![CDATA[edit]]></name>
       <tpl_default><![CDATA[
-{$=ii_ireplace('manage.js_config_set_date', 'tpl')}
+{$=ii_ireplace('manage.js_fields_set_date', 'tpl')}
 <script language="javascript" src="{$=#global_images_route}js/calendar.js"></script>
 <table border="0" width="100%" cellSpacing="0" cellPadding="0">
   <tr>
@@ -287,7 +291,7 @@
               </tr>
             </table>
                   <form name="form" method="post" action="?action=edit&backurl={$=urlencode($GLOBALS['nurl'])}&id={$id}">
-                  <input type="hidden" id="config_date_option" name="config_date_option" value="{$count}">
+                  <input type="hidden" id="fields_date_option" name="fields_date_option" value="{$count}">
             <table border="0" width="100%" cellSpacing="0" cellPadding="0" class="lrbtline">
               <tr>
                 <td width="100%" height="25" class="tbtop">{$=ii_itake('manage.edit','lng')}</td>
@@ -300,6 +304,10 @@
                     </tr>
                   </table>
                   <table border="0" width="98%" cellSpacing="0" cellPadding="0">
+                    <tr>
+                      <td width="80" height="25">{$=ii_itake('manage.genre','lng')}</td>
+                      <td width="*"><select name="genre">{$=pp_get_genre_select({$genre})}</select></td>
+                    </tr>
                     <tr>
                       <td width="80" height="25">{$=ii_itake('manage.topic','lng')}</td>
                       <td width="*"><input type="text" name="topic" size="20" value="{$topic}"></td>
@@ -318,16 +326,16 @@
                     </tr>
                     <tr>
                       <td height="25">{$=ii_itake('manage.count','lng')}</td>
-                      <td><input type="text" id="count" name="count" size="4" maxlength="3" value="{$count}"> <input type="button" class="button" onclick="config_set_date()" value="{$=ii_itake('global.lng_config.set', 'lng')}"></td>
+                      <td><input type="text" id="count" name="count" size="4" maxlength="3" value="{$count}"> <input type="button" class="button" onclick="fields_set_date()" value="{$=ii_itake('global.lng_config.set', 'lng')}"></td>
                     </tr>
                   </table>
                   <table border="0" width="98%" cellSpacing="0" cellPadding="0">
                     <tr>
-                      <td width="100%" id="config_date">{@recurrence_ida}
-                      <table id="config_date_option{$cid}" border="0" width="100%" cellSpacing="0" cellPadding="0">
+                      <td width="100%" id="fields_date">{@recurrence_ida}
+                      <table id="fields_date_option{$oid}" border="0" width="100%" cellSpacing="0" cellPadding="0">
                         <tr>
-                          <td width="80" height="25">{$=ii_itake('manage.option','lng')}[{$cid}]</td>
-                          <td width="*"><input type="text" name="option{$cid}" value="{$topic}" size="20"></td>
+                          <td width="80" height="25">{$=ii_itake('manage.option','lng')}[{$oid}]</td>
+                          <td width="*"><input type="text" name="option{$oid}" value="{$topic}" size="20"></td>
                         </tr>
                       </table>{@recurrence_ida}
                       </td>
@@ -365,16 +373,16 @@
 ]]></tpl_default>
     </item>
     <item>
-      <name><![CDATA[js_config_set_date]]></name>
+      <name><![CDATA[js_fields_set_date]]></name>
       <tpl_default><![CDATA[<script type="text/javascript">
-function config_set_date()
+function fields_set_date()
 {
   var tobj, tvalue;
   tobj = get_id("count");
   tvalue = get_num(tobj.value);
   if (tvalue < 0) tvalue = 0;
   var tdobj, tdvalue;
-  tdobj = get_id("config_date_option");
+  tdobj = get_id("fields_date_option");
   tdvalue = get_num(tdobj.value);
   if (tdvalue < 0) tdvalue = 0;
   if (tvalue && tdvalue)
@@ -384,27 +392,27 @@ function config_set_date()
     {
       for (i = tdvalue; i > tvalue; i--)
       {
-        if (get_id("config_date_option" + i))
+        if (get_id("fields_date_option" + i))
         {
-          get_id("config_date_option" + i).style.display = "none";
+          get_id("fields_date_option" + i).style.display = "none";
         }
       }
     }
     else
     {
-      var tobjdate, tobjstr, tstrconfig;
-      tobjdate = get_id("config_date");
-      tstrconfig = "{$=ii_itake('manage.option','lng')}";
+      var tobjdate, tobjstr, tstrfields;
+      tobjdate = get_id("fields_date");
+      tstrfields = "{$=ii_itake('manage.option','lng')}";
       tobjstr = ""
       for (i = tdvalue; i <= tvalue; i++)
       {
-        if (get_id("config_date_option" + i))
+        if (get_id("fields_date_option" + i))
         {
-          get_id("config_date_option" + i).style.display = "";
+          get_id("fields_date_option" + i).style.display = "";
         }
         else
         {
-          tobjstr += "<table id=\"config_date_option" + i + "\" border=\"0\" width=\"100%\" cellSpacing=\"0\" cellPadding=\"0\"><tr><td width=\"80\" height=\"25\">" + tstrconfig + "[" + i + "]</td><td width=\"*\"><input type=\"text\" name=\"option" + i + "\" size=\"20\"></td></tr></table>"
+          tobjstr += "<table id=\"fields_date_option" + i + "\" border=\"0\" width=\"100%\" cellSpacing=\"0\" cellPadding=\"0\"><tr><td width=\"80\" height=\"25\">" + tstrfields + "[" + i + "]</td><td width=\"*\"><input type=\"text\" name=\"option" + i + "\" size=\"20\"></td></tr></table>"
         }
       }
       tobjdate.innerHTML += tobjstr;

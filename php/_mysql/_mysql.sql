@@ -104,6 +104,37 @@ CREATE TABLE `wdja_expansion_js` (
   PRIMARY KEY (`jid`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
+CREATE TABLE `wdja_expansion_fields` (
+  `fid` int(9) NOT NULL AUTO_INCREMENT,
+  `f_genre` varchar(50) DEFAULT NULL,
+  `f_topic` varchar(50) DEFAULT NULL,
+  `f_type` int(1) DEFAULT '0',
+  `f_count` varchar(9) DEFAULT '0',
+  `f_starttime` datetime DEFAULT NULL,
+  `f_endtime` datetime DEFAULT NULL,
+  `f_lock` int(1) DEFAULT '0',
+  `f_time` datetime DEFAULT NULL,
+  PRIMARY KEY (`fid`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+CREATE TABLE `wdja_expansion_fields_data` (
+  `fdid` int(9) NOT NULL AUTO_INCREMENT,
+  `fd_topic` varchar(50) DEFAULT NULL,
+  `fd_fid` int(9) DEFAULT '0',
+  `fd_oid` int(9) DEFAULT '0',
+  `fd_count` int(9) DEFAULT '0',
+  PRIMARY KEY (`fdid`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+CREATE TABLE `wdja_expansion_fields_gid` (
+  `fgid` int(9) NOT NULL AUTO_INCREMENT,
+  `fg_fid` int(9) DEFAULT '0',
+  `fg_gid` varchar(50) DEFAULT NULL,
+  `fg_data` varchar(255) DEFAULT NULL,
+  `fg_time` datetime DEFAULT NULL,
+  PRIMARY KEY (`fgid`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
 CREATE TABLE `wdja_forum_blacklist` (
   `bid` int(9) NOT NULL AUTO_INCREMENT,
   `b_username` varchar(50) DEFAULT NULL,
@@ -354,36 +385,6 @@ CREATE TABLE `wdja_shop` (
   `s_good` int(1) DEFAULT '0',
   `s_count` int(9) DEFAULT '0',
   PRIMARY KEY (`sid`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
-
-CREATE TABLE `wdja_shop_config` (
-  `cid` int(9) NOT NULL AUTO_INCREMENT,
-  `c_topic` varchar(50) DEFAULT NULL,
-  `c_type` int(1) DEFAULT '0',
-  `c_count` varchar(9) DEFAULT '0',
-  `c_starttime` datetime DEFAULT NULL,
-  `c_endtime` datetime DEFAULT NULL,
-  `c_lock` int(1) DEFAULT '0',
-  `c_time` datetime DEFAULT NULL,
-  PRIMARY KEY (`cid`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
-
-CREATE TABLE `wdja_shop_config_data` (
-  `cdid` int(9) NOT NULL AUTO_INCREMENT,
-  `cd_topic` varchar(50) DEFAULT NULL,
-  `cd_fid` int(9) DEFAULT '0',
-  `cd_cid` int(9) DEFAULT '0',
-  `cd_count` int(9) DEFAULT '0',
-  PRIMARY KEY (`cdid`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
-
-CREATE TABLE `wdja_shop_config_shopid` (
-  `csid` int(9) NOT NULL AUTO_INCREMENT,
-  `cs_fid` int(9) DEFAULT '0',
-  `cs_sid` varchar(50) DEFAULT NULL,
-  `cs_data` varchar(255) DEFAULT NULL,
-  `cs_time` datetime DEFAULT NULL,
-  PRIMARY KEY (`csid`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 CREATE TABLE `wdja_shopcart` (

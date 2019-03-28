@@ -21,8 +21,8 @@
 <input id="type" type="hidden" value="list" name="type" to="filter">
 <input id="classid" type="hidden" value="{$classid}" name="classid" to="filter">
 <input id="offset" type="hidden" value="{$offset}" name="offset" to="filter">
-{$=api_list_config_input()}
-{$=api_list_config()}
+{$=api_list_fields_input()}
+{$=api_list_fields()}
 </form>
 
       <div class="list_con">
@@ -69,7 +69,7 @@
                         <td></td>
                         <td>{$topic}</td>
                       </tr>
-                    {$=api_view_config()}
+                    {$=api_view_fields()}
                     {@recurrence_ida}
                       <tr>
                         <td width="80" height="25" align="right">{$infos_topic}</td>

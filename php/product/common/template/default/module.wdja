@@ -16,6 +16,13 @@
       <div id="list_menu">
         <ul>{$=vv_isort('{$genre}', 'tpl=sort')}</ul>
       </div>
+<form id="filterForm" name="form1" method="get" action="{$=#nurl}">
+<input id="type" type="hidden" value="list" name="type" to="filter">
+<input id="classid" type="hidden" value="{$classid}" name="classid" to="filter">
+<input id="offset" type="hidden" value="{$offset}" name="offset" to="filter">
+{$=api_list_fields_input()}
+{$=api_list_fields()}
+</form>
       <div class="list_con">
       <ol>
         {@recurrence_ida}
@@ -47,6 +54,7 @@
         <div class="con_text">
         <p>{$=ii_itake('global.lng_config.time','lng')}:{$time},{$=ii_itake('global.lng_config.count','lng')}:<span id="count">0</span></p>
         <table width="100%" cellspacing="0" cellpadding="0" border="0">
+        {$=api_view_fields()}
 		{@recurrence_ida}
           <tr>
             <td width="80" height="25" align="right">{$infos_topic}</td>

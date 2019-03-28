@@ -6,7 +6,7 @@
 //****************************************************
 function wdja_cms_module_list()
 {
-  global $conn, $nlng, $ngenre, $nurs;
+  global $conn, $nlng, $ngenre;
   $tclassid = ii_get_num($_GET['classid']);
   $toffset = ii_get_num($_GET['offset']);
   global $nclstype, $nlisttopx, $npagesize, $nkeywords, $ndescription;
@@ -34,10 +34,8 @@ elseif(ii_isnull($tclassid)){
   {
     if (!ii_isnull($tclassids)) $tsqlstr .= " and " . ii_cfname('class') . " in ($tclassids)";
   }
-//拼接筛选条件  获取sid
-$tsid = api_get_sid($nurs);
-if (!ii_isnull($tsid) && !ii_isnull($_GET['type'])) $tsqlstr .= " and $nidfield in ($tsid)";
-//拼接筛选条件
+  $tgid = api_get_gid();
+  if (!ii_isnull($tgid) && !ii_isnull($_GET['type'])) $tsqlstr .= " and $nidfield in ($tgid)";
   $tsqlstr .= " order by " . ii_cfname('time') . " desc";
   $tcp = new cc_cutepage;
   $tcp -> id = $nidfield;

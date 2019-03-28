@@ -23,6 +23,10 @@
       <chinese><![CDATA[编辑属性属性]]></chinese>
     </item>
     <item>
+      <disinfo><![CDATA[genre]]></disinfo>
+      <chinese><![CDATA[所属模块]]></chinese>
+    </item>
+    <item>
       <disinfo><![CDATA[topic]]></disinfo>
       <chinese><![CDATA[属性标题]]></chinese>
     </item>
