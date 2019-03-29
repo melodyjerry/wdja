@@ -878,8 +878,10 @@ function ii_itake($strers, $type, $all = 0)
 
 function ii_ireplace($strers, $type)
 {
+  global $nvalidate;
   $tstrers = ii_itake($strers, $type);
   $tstrers = ii_creplace($tstrers);
+  $tstrers = mm_cvalhtml($tstrers, $nvalidate, '{@recurrence_valcode}');
   return $tstrers;
 }
 
