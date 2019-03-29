@@ -142,7 +142,7 @@ function api_list_input($oid)
 
 
 function api_list_fields(){
-  //前台列表页筛选调用
+  //前台列表页显示调用
   global $conn, $ngenre;
   $fgenre = 'expansion/fields';
   $fdatabase = mm_cndatabase(ii_cvgenre($fgenre));
@@ -256,14 +256,14 @@ function api_list_fields_select($oid)
 
 function api_view_fields(){
   //前台详情页显示调用
-  global $conn;
+  global $conn, $ngenre;
   $fgenre = 'expansion/fields';
   $fdatabase = mm_cndatabase(ii_cvgenre($fgenre));
   $fidfield = mm_cnidfield(ii_cvgenre($fgenre));
   $ffpre = mm_cnfpre(ii_cvgenre($fgenre));
   $gid = $_GET['id'];
   $tmpstr = '';
-  $tsqlstr = 'select * from '. $fdatabase.' where '.ii_cfnames($ffpre,"lock").'=1';
+  $tsqlstr = 'select * from '. $fdatabase.' where '.ii_cfnames($ffpre,"lock").'=1 and '.ii_cfnames($ffpre,"genre").'="'.$ngenre.'"';
   $trs = ii_conn_query($tsqlstr, $conn);
   while ($trow = ii_conn_fetch_array($trs))
   {

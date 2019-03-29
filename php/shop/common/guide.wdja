@@ -31,10 +31,6 @@
       <chinese><![CDATA[商品模板]]></chinese>
     </item>
     <item>
-      <disinfo><![CDATA[{$folder}:{$path}/config/manage.php]]></disinfo>
-      <chinese><![CDATA[属性管理]]></chinese>
-    </item>
-    <item>
       <disinfo><![CDATA[{$=ADMIN_FOLDER}/configure:configure/manage.php?type=edit&module={$folder}&modules={$folder}]]></disinfo>
       <chinese><![CDATA[配置管理]]></chinese>
     </item>
