@@ -176,7 +176,11 @@ function wdja_cms_admin_manage_deletedisp()
   $tdatabase = mm_cndatabase(ii_cvgenre($ngenre), 'data');
   $tidfield = mm_cnidfield(ii_cvgenre($ngenre), 'data');
   $tfpre = mm_cnfpre(ii_cvgenre($ngenre), 'data');
+  $gdatabase = mm_cndatabase(ii_cvgenre($ngenre), 'gid');
+  $gidfield = mm_cnidfield(ii_cvgenre($ngenre), 'gid');
+  $gfpre = mm_cnfpre(ii_cvgenre($ngenre), 'gid');
   mm_dbase_delete($tdatabase, ii_cfnames($tfpre, 'fid'), $tid);
+  mm_dbase_delete($gdatabase, ii_cfnames($gfpre, 'fid'), $tid);
   mm_client_redirect($tbackurl);
 }
 
