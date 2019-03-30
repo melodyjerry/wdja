@@ -110,6 +110,9 @@ function wdja_cms_admin_manage_editdisp()
         $tdatabase = mm_cndatabase(ii_cvgenre($ngenre), 'data');
         $tidfield = mm_cnidfield(ii_cvgenre($ngenre), 'data');
         $tfpre = mm_cnfpre(ii_cvgenre($ngenre), 'data');
+        $gdatabase = mm_cndatabase(ii_cvgenre($ngenre), 'gid');
+        $gidfield = mm_cnidfield(ii_cvgenre($ngenre), 'gid');
+        $gfpre = mm_cnfpre(ii_cvgenre($ngenre), 'gid');
         for($i = 1; $i <= $tcount; $i ++)
         {
           $tsqlstr = "select * from $tdatabase where " . ii_cfnames($tfpre, 'fid') . "=$tid and " . ii_cfnames($tfpre, 'oid') . "=$i";
@@ -129,7 +132,29 @@ function wdja_cms_admin_manage_editdisp()
           if (!ii_isnull($tmyvid))
           {
             $tmyvid = ii_left($tmyvid, strlen($tmyvid) - 1);
-            mm_dbase_delete($tdatabase, ii_cfnames($tfpre, 'oid'), $tmyvid);
+            $tsqlstr3 = 'delete from '.$tdatabase.' where '.ii_cfnames($tfpre, 'fid').' = '.$tid.' and '.ii_cfnames($tfpre, 'oid').' in ('.$tmyvid.')';
+            ii_conn_query($tsqlstr3, $conn);
+            $tmyvid2 = str_replace(',','|,',$tmyvid).'|';
+            $tsqlstr4 = "select * from $gdatabase where " . ii_cfnames($gfpre, 'fid') . "=$tid";
+            $trs = ii_conn_query($tsqlstr4, $conn);
+            while ($trow = ii_conn_fetch_array($trs))
+            {
+              $gid = $trow[$gidfield];
+              if(strpos($trow[ii_cfnames($gfpre, 'data')],'|') !==false)
+              {
+                $tmyvid2_array = explode(',', $tmyvid2);
+                foreach($tmyvid2_array as $kk => $vv){
+                  $vv = str_replace($vv,'',$trow[ii_cfnames($gfpre, 'data')]);
+                  $tsqlstr5 = 'update '.$gdatabase.' set '.ii_cfnames($gfpre, 'data').' = "'.$vv.'" where '.$gidfield.' = '.$gid.' and '.ii_cfnames($gfpre, 'fid').' = '.$trow[ii_cfnames($gfpre, 'fid')];
+                  ii_conn_query($tsqlstr5, $conn);
+                }
+              }
+              else
+              {
+                $tsqlstr6 = 'delete from '.$gdatabase.' where '.ii_cfnames($gfpre, 'fid').' = '.$tid.' and '.ii_cfnames($gfpre, 'data').' in ('.$tmyvid.')';
+                ii_conn_query($tsqlstr6, $conn);
+              }
+            }
           }
         }
         wdja_cms_admin_msg(ii_itake('global.lng_public.edit_succeed', 'lng'), $tbackurl, 1);
@@ -260,6 +285,7 @@ function wdja_cms_admin_manage_list()
       $tmptstr = str_replace('{$topicstr}', ii_encode_scripts(ii_htmlencode($trs[ii_cfname('topic')])), $tmptstr);
       $tmptstr = str_replace('{$time}', ii_get_date($trs[ii_cfname('time')]), $tmptstr);
       $tmptstr = str_replace('{$type}', ii_get_num($trs[ii_cfname('type')]), $tmptstr);
+      $tmptstr = str_replace('{$genre}',ii_itake('global.'.$trs[ii_cfname('genre')].':module.channel_title', 'lng'), $tmptstr);
       $tmptstr = str_replace('{$id}', ii_get_num($trs[$nidfield]), $tmptstr);
       $tmprstr .= $tmptstr;
     }
