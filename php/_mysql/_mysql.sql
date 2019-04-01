@@ -274,6 +274,24 @@ CREATE TABLE `wdja_news` (
   PRIMARY KEY (`nid`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
+CREATE TABLE `wdja_message` (
+  `mid` int(9) NOT NULL AUTO_INCREMENT,
+  `m_name` varchar(50) DEFAULT NULL,
+  `m_ip` varchar(50) DEFAULT NULL,
+  `m_sex` int(1) DEFAULT '0',
+  `m_mobile` varchar(50) DEFAULT '0',
+  `m_email` varchar(50) DEFAULT NULL,
+  `m_address` varchar(255) DEFAULT NULL,
+  `m_title` varchar(50) DEFAULT NULL,
+  `m_content` text,
+  `m_time` datetime DEFAULT NULL,
+  `m_reply` text,
+  `m_replytime` datetime DEFAULT NULL,
+  `m_hidden` int(1) DEFAULT '0',
+  `m_lng` varchar(50) DEFAULT NULL,
+  PRIMARY KEY (`mid`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
 CREATE TABLE `wdja_passport` (
   `pid` int(9) NOT NULL AUTO_INCREMENT,
   `p_username` varchar(50) DEFAULT NULL,
@@ -411,25 +429,6 @@ CREATE TABLE `wdja_shopcart` (
   `sc_dtime` datetime DEFAULT NULL,
   `sc_username` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`scid`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
-
-CREATE TABLE `wdja_support_gbook` (
-  `gid` int(9) NOT NULL AUTO_INCREMENT,
-  `g_author` varchar(50) DEFAULT NULL,
-  `g_authorip` varchar(50) DEFAULT NULL,
-  `g_sex` int(1) DEFAULT '0',
-  `g_qq` int(12) DEFAULT '0',
-  `g_face` int(9) DEFAULT '0',
-  `g_email` varchar(50) DEFAULT NULL,
-  `g_homepage` varchar(255) DEFAULT NULL,
-  `g_topic` varchar(50) DEFAULT NULL,
-  `g_content` text,
-  `g_time` datetime DEFAULT NULL,
-  `g_reply` text,
-  `g_replytime` datetime DEFAULT NULL,
-  `g_hidden` int(1) DEFAULT '0',
-  `g_lng` varchar(50) DEFAULT NULL,
-  PRIMARY KEY (`gid`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 CREATE TABLE `wdja_support_linktext` (

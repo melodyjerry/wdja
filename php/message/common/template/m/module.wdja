@@ -90,7 +90,6 @@
     <item>
       <name><![CDATA[list]]></name>
       <tpl_default><![CDATA[{$=mm_web_head($GLOBALS['nhead'])}
-
 <section id="middle">
   <div id="middleContent">
     <div class="content">

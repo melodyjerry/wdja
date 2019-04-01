@@ -5,7 +5,7 @@
 // Web: http://www.wdja.cn/
 //****************************************************
 wdja_cms_admin_init();
-$nsearch = 'topic,id';
+$nsearch = 'title,id';
 $ncontrol = 'select,hidden,delete';
 
 function pp_manage_navigation()
@@ -19,31 +19,29 @@ function wdja_cms_admin_manage_adddisp()
   global $ndatabase, $nidfield, $nfpre;
   global $ngenre, $nlng, $slng;
   $tbackurl = $_GET['backurl'];
-  $ttopic = ii_cstr($_POST['topic']);
-  if (!(ii_isnull($ttopic)))
+  $ttitle = ii_cstr($_POST['title']);
+  if (!(ii_isnull($ttitle)))
   {
     $tsqlstr = "insert into $ndatabase (
-    " . ii_cfname('author') . ",
-    " . ii_cfname('authorip') . ",
+    " . ii_cfname('name') . ",
+    " . ii_cfname('ip') . ",
     " . ii_cfname('sex') . ",
-    " . ii_cfname('qq') . ",
-    " . ii_cfname('face') . ",
+    " . ii_cfname('mobile') . ",
     " . ii_cfname('email') . ",
-    " . ii_cfname('homepage') . ",
-    " . ii_cfname('topic') . ",
+    " . ii_cfname('address') . ",
+    " . ii_cfname('title') . ",
     " . ii_cfname('content') . ",
     " . ii_cfname('hidden') . ",
     " . ii_cfname('time') . ",
     " . ii_cfname('lng') . "
     ) values (
-    '" . ii_left(ii_cstr($_POST['author']), 255) . "',
+    '" . ii_left(ii_cstr($_POST['name']), 255) . "',
     '" . ii_get_client_ip() . "',
     " . ii_get_num($_POST['sex']) . ",
-    " . ii_get_num($_POST['qq']) . ",
-    " . ii_get_num($_POST['face']) . ",
+    '" . ii_left(ii_cstr($_POST['mobile']), 50) . "',
     '" . ii_left(ii_cstr($_POST['email']), 50) . "',
-    '" . ii_left(ii_cstr($_POST['homepage']), 255) . "',
-    '" . ii_left($ttopic, 50) . "',
+    '" . ii_left(ii_cstr($_POST['address']), 255) . "',
+    '" . ii_left($ttitle, 50) . "',
     '" . ii_left(ii_cstr($_POST['content']), 10000) . "',
     " . ii_get_num($_POST['hidden']) . ",
     '" . ii_now() . "',
@@ -64,18 +62,17 @@ function wdja_cms_admin_manage_editdisp()
   global $conn;
   global $ndatabase, $nidfield, $nfpre;
   $tbackurl = $_GET['backurl'];
-  $ttopic = ii_cstr($_POST['topic']);
+  $ttitle = ii_cstr($_POST['title']);
   $tid = ii_get_num($_GET['id']);
-  if (!(ii_isnull($ttopic)))
+  if (!(ii_isnull($ttitle)))
   {
     $tsqlstr = "update $ndatabase set
-    " . ii_cfname('author') . "='" . ii_left(ii_cstr($_POST['author']), 50) . "',
+    " . ii_cfname('name') . "='" . ii_left(ii_cstr($_POST['name']), 50) . "',
     " . ii_cfname('sex') . "=" . ii_get_num($_POST['sex']) . ",
-    " . ii_cfname('qq') . "=" . ii_get_num($_POST['qq']) . ",
-    " . ii_cfname('face') . "=" . ii_get_num($_POST['face']) . ",
+    " . ii_cfname('mobile') . "=" . ii_left(ii_cstr($_POST['mobile']), 50) . ",
     " . ii_cfname('email') . "='" . ii_left(ii_cstr($_POST['email']), 50) . "',
-    " . ii_cfname('homepage') . "='" . ii_left(ii_cstr($_POST['homepage']), 255) . "',
-    " . ii_cfname('topic') . "='" . ii_left($ttopic, 50) . "',
+    " . ii_cfname('address') . "='" . ii_left(ii_cstr($_POST['address']), 255) . "',
+    " . ii_cfname('title') . "='" . ii_left($ttitle, 50) . "',
     " . ii_cfname('content') . "='" . ii_left(ii_cstr($_POST['content']), 10000) . "',
     " . ii_cfname('hidden') . "=" . ii_get_num($_POST['hidden']) . ",
     " . ii_cfname('time') . "='" . ii_get_date(ii_cstr($_POST['time'])) . "',
@@ -157,7 +154,7 @@ function wdja_cms_admin_manage_list()
   $tmpastr = ii_ctemplate($tmpstr, '{@recurrence_ida}');
   $tmprstr = '';
   $tsqlstr = "select * from $ndatabase where " . ii_cfname('lng') . "='$slng'";
-  if ($search_field == 'topic') $tsqlstr .= " and " . ii_cfname('topic') . " like '%" . $search_keyword . "%'";
+  if ($search_field == 'title') $tsqlstr .= " and " . ii_cfname('title') . " like '%" . $search_keyword . "%'";
   if ($search_field == 'hidden') $tsqlstr .= " and " . ii_cfname('hidden') . "=" . ii_get_num($search_keyword);
   if ($search_field == 'id') $tsqlstr .= " and $nidfield=" . ii_get_num($search_keyword);
   $tsqlstr .= " order by $ndatabase." . ii_cfname('time') . " desc";
@@ -170,21 +167,21 @@ function wdja_cms_admin_manage_list()
   $tcp -> init();
   $trsary = $tcp -> get_rs_array();
   $font_disabled = ii_itake('global.tpl_config.font_disabled', 'tpl');
-  if (!(ii_isnull($search_keyword)) && $search_field == 'topic') $font_red = ii_itake('global.tpl_config.font_red', 'tpl');
+  if (!(ii_isnull($search_keyword)) && $search_field == 'title') $font_red = ii_itake('global.tpl_config.font_red', 'tpl');
   if (is_array($trsary))
   {
     foreach($trsary as $trs)
     {
-      $ttopic = ii_htmlencode($trs[ii_cfname('topic')]);
+      $ttitle = ii_htmlencode($trs[ii_cfname('title')]);
       if (isset($font_red))
       {
         $font_red = str_replace('{$explain}', $search_keyword, $font_red);
-        $ttopic = str_replace($search_keyword, $font_red, $ttopic);
+        $ttitle = str_replace($search_keyword, $font_red, $ttitle);
       }
-      if ($trs[ii_cfname('hidden')] == 1) $ttopic = str_replace('{$explain}', $ttopic, $font_disabled);
-      $tmptstr = str_replace('{$topic}', $ttopic, $tmpastr);
-      $tmptstr = str_replace('{$topicstr}', ii_encode_scripts(ii_htmlencode($trs[ii_cfname('topic')])), $tmptstr);
-      $tmptstr = str_replace('{$author}', ii_htmlencode($trs[ii_cfname('author')]), $tmptstr);
+      if ($trs[ii_cfname('hidden')] == 1) $ttitle = str_replace('{$explain}', $ttitle, $font_disabled);
+      $tmptstr = str_replace('{$title}', $ttitle, $tmpastr);
+      $tmptstr = str_replace('{$titlestr}', ii_encode_scripts(ii_htmlencode($trs[ii_cfname('title')])), $tmptstr);
+      $tmptstr = str_replace('{$name}', ii_htmlencode($trs[ii_cfname('name')]), $tmptstr);
       $tmptstr = str_replace('{$time}', ii_get_date($trs[ii_cfname('time')]), $tmptstr);
       $tmptstr = str_replace('{$id}', ii_get_num($trs[$nidfield]), $tmptstr);
       $tmprstr .= $tmptstr;

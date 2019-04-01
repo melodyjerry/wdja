@@ -5,9 +5,9 @@
     <item varstr="nfoot" strvalue="default_foot" />
     <item varstr="npagesize" strvalue="20" />
     <item varstr="nlisttopx" strvalue="2000" />
-    <item varstr="ndatabase" strvalue="wdja_support_gbook" />
-    <item varstr="nidfield" strvalue="gid" />
-    <item varstr="nfpre" strvalue="g_" />
+    <item varstr="ndatabase" strvalue="wdja_message" />
+    <item varstr="nidfield" strvalue="mid" />
+    <item varstr="nfpre" strvalue="m_" />
     <item varstr="thumbnail.switch" strvalue="1" />
     <item varstr="nuninstall" strvalue="1|0|0" />
   </configure>

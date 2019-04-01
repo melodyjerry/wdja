@@ -1,5 +1,5 @@
 <?php
-$nroute = 'child';
+$nroute = 'node';
 $ngenre = ii_get_actual_genre(__FILE__, $nroute);
 wdja_cms_init($nroute);
 $nhead = $variable[$ngenre . '.nhead'];

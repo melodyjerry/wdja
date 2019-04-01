@@ -13,7 +13,7 @@ function wdja_cms_module_adddisp()
   global $ndatabase, $nidfield, $nfpre;
   if ($nckcode != $_POST['nckcode']) $Err[count($Err)] = ii_itake('config.nckcode_error', 'lng');
   if (!mm_ck_valcode()) $Err[count($Err)] = ii_itake('global.lng_error.valcode', 'lng');
-  $tckstr = 'author:' . ii_itake('config.author', 'lng') . ',topic:' . ii_itake('config.topic', 'lng') . ',content:' . ii_itake('config.content', 'lng');
+  $tckstr = 'name:' . ii_itake('config.name', 'lng') . ',title:' . ii_itake('config.title', 'lng') . ',content:' . ii_itake('config.content', 'lng');
   $tary = explode(',', $tckstr);
   foreach ($tary as $key => $val)
   {
@@ -23,27 +23,25 @@ function wdja_cms_module_adddisp()
   if (!is_array($Err))
   {
     $tsqlstr = "insert into $ndatabase (
-    " . ii_cfname('author') . ",
-    " . ii_cfname('authorip') . ",
+    " . ii_cfname('name') . ",
+    " . ii_cfname('ip') . ",
     " . ii_cfname('sex') . ",
-    " . ii_cfname('qq') . ",
-    " . ii_cfname('face') . ",
+    " . ii_cfname('mobile') . ",
     " . ii_cfname('email') . ",
-    " . ii_cfname('homepage') . ",
-    " . ii_cfname('topic') . ",
+    " . ii_cfname('address') . ",
+    " . ii_cfname('title') . ",
     " . ii_cfname('content') . ",
     " . ii_cfname('hidden') . ",
     " . ii_cfname('lng') . ",
     " . ii_cfname('time') . "
     ) values (
-    '" . ii_left(ii_cstr($_POST['author']), 50) . "',
+    '" . ii_left(ii_cstr($_POST['name']), 50) . "',
     '" . ii_get_client_ip() . "',
     " . ii_get_num($_POST['sex']) . ",
-    " . ii_get_num($_POST['qq']) . ",
-    " . ii_get_num($_POST['face']) . ",
+    '" . ii_left(ii_cstr($_POST['mobile']), 50) . "',
     '" . ii_left(ii_cstr($_POST['email']), 50) . "',
-    '" . ii_left(ii_cstr($_POST['homepage']), 255) . "',
-    '" . ii_left(ii_cstr($_POST['topic']), 50) . "',
+    '" . ii_left(ii_cstr($_POST['address']), 255) . "',
+    '" . ii_left(ii_cstr($_POST['title']), 50) . "',
     '" . ii_left(ii_cstr($_POST['content']), 10000) . "',
     " . ii_get_num($_POST['hidden']) . ",
     '$nlng',
@@ -51,9 +49,9 @@ function wdja_cms_module_adddisp()
     )";
     $trs = ii_conn_query($tsqlstr, $conn);
     if ($trs){
-        $gmail = ii_itake('global.' . ADMIN_FOLDER . '/global:other.gbook_mail','lng');
-        $gtitle = ii_itake('global.' . ADMIN_FOLDER . '/global:other.gbook_title','lng');
-        $gbody = ii_itake('global.' . ADMIN_FOLDER . '/global:other.gbook_body','lng');
+        $gmail = ii_itake('global.' . ADMIN_FOLDER . '/global:other.message_mail','lng');
+        $gtitle = ii_itake('global.' . ADMIN_FOLDER . '/global:other.message_title','lng');
+        $gbody = ii_itake('global.' . ADMIN_FOLDER . '/global:other.message_body','lng');
       	mm_sendemail($gmail, $gtitle, $gbody);
    		mm_imessage(ii_itake('global.lng_public.succeed', 'lng'), $nuri);
     } else {

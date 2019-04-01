@@ -7,6 +7,10 @@
   </configure>
   <sel_list>
     <item>
+      <value><![CDATA[title]]></value>
+      <chinese><![CDATA[按主题]]></chinese>
+    </item>
+    <item>
       <value><![CDATA[topic]]></value>
       <chinese><![CDATA[按标题]]></chinese>
     </item>
