@@ -24,8 +24,8 @@
     <item varstr="mail.smtpcharset" strvalue="utf8" />
     <item varstr="mail.smtpserver" strvalue="smtp.qq.com" />
     <item varstr="mail.smtpport" strvalue="465" />
-    <item varstr="mail.smtpusername" strvalue="shadoweb&#64;qq.com" />
-    <item varstr="mail.smtppassword" strvalue="rphowngyzrexbejh" />
-    <item varstr="mail.smtpfromname" strvalue="shadoweb&#64;qq.com" />
+    <item varstr="mail.smtpusername" strvalue="" />
+    <item varstr="mail.smtppassword" strvalue="" />
+    <item varstr="mail.smtpfromname" strvalue="" />
   </configure>
 </xml>
