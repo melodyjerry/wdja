@@ -88,6 +88,10 @@ function bfsubmit()
                       <td><a href="{$sitemap}" target="_blank" >{$sitemap}</a></td>
                     </tr>
                     <tr>
+                      <td  width="80" height="25">{$=ii_itake('manage.sitemap_html','lng')}</td>
+                      <td><a href="{$sitemap_html}" target="_blank" >{$sitemap_html}</a></td>
+                    </tr>
+                    <tr>
                       <td height="25"><input type="submit" name="submit" value="{$=ii_itake('manage.create','lng')}" class="button"></td>
                       <td></td>
                     </tr>

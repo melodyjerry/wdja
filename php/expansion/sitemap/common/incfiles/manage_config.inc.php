@@ -34,6 +34,21 @@ function pp_get_home()
 return $tmpstr;
 }
 
+
+//输出网站首页
+function pp_get_home_html()
+{
+    global $conn,$variable,$nurlpre;
+    $turl = ii_itake('global.expansion/sitemap:config.url', 'lng');
+    if(ii_isnull($turl)) $turl = $nurlpre;
+    $tmpstr = '';
+      $tmpstr .= '   <div id="nav">' . CRLF;
+      $tmpstr .= '      <a href="' . $turl .'" target="_blank">'.ii_itake('global.module.web_title','lng').'</a>»<a href="' . $turl .'/sitemap.html">站点地图</a>' . CRLF;
+      $tmpstr .= '    </div>' . CRLF;
+return $tmpstr;
+}
+
+
 //输出所有单页模块
 function pp_get_singlepage()
 {
@@ -58,6 +73,27 @@ function pp_get_singlepage()
     }
 return $tmpstr;
 }
+
+//输出所有单页模块
+function pp_get_singlepage_html()
+{
+    global $conn,$variable,$nurlpre;
+    $tgenre = ii_itake('config.singlepage','lng');
+    if(ii_isnull($tgenre)) return;
+    $turl = ii_itake('global.expansion/sitemap:config.url', 'lng');
+    if(ii_isnull($turl)) $turl = $nurlpre;
+    $tmpstr = '';
+    $tgenreary = explode(',', $tgenre);
+    $tmpstr .= '   <div id="content"><li>页面<ul>' . CRLF;
+      foreach($tgenreary as $key => $val)
+      {
+        $npage = $val;
+        $tmpstr .= '      <li><a href="' . $turl . '/' . $npage .'" target="_blank">'.ii_itake('global.' . $npage .':module.topic','lng').'</a></li>' . CRLF;
+      }
+    $tmpstr .= '    </ul></li></div>' . CRLF;
+return $tmpstr;
+}
+
 
 //输出所有模块内容列表
 function pp_get_list()
@@ -91,6 +127,33 @@ function pp_get_list()
 return $tmpstr;
 }
 
+//输出所有模块内容列表
+function pp_get_list_html()
+{
+    global $conn,$variable,$nurlpre;
+    $tgenre = ii_itake('config.module','lng');
+    $turl = ii_itake('global.expansion/sitemap:config.url', 'lng');
+    if(ii_isnull($turl)) $turl = $nurlpre;
+    $tmpstr = '';
+    $tgenreary = explode(',', $tgenre);
+    $tmpstr .= '    <div id="content"><h3>最新文章</h3><ul>' . CRLF;
+    foreach($tgenreary as $key => $val)
+    {
+      $ngenre = $val;
+      $ndatabase = $variable[ii_cvgenre($ngenre) . '.ndatabase'];//$variable[$ngenre . '.ndatabase'];
+      $nidfield = $variable[ii_cvgenre($ngenre) . '.nidfield'];
+      $nfpre = $variable[ii_cvgenre($ngenre) . '.nfpre'];
+        $tsqlstr = "select * from $ndatabase where " . ii_cfnames($nfpre, 'hidden') . "=0";
+        $trs = ii_conn_query($tsqlstr, $conn);
+          while ($trow = ii_conn_fetch_array($trs))
+          {
+            $tmpstr .= '      <li><a href="' . $turl . '/' . $ngenre .'/?type=detail&amp;id='. $trow[$nidfield] .'" target="_blank">'.$trow[ii_cfnames($nfpre, 'topic')].'</a></li>' . CRLF;
+          }
+    }
+    $tmpstr .= '    </ul></div>' . CRLF;
+return $tmpstr;
+}
+
 
 //输出所有分类
 function pp_get_sort()
@@ -118,6 +181,28 @@ function pp_get_sort()
 return $tmpstr;
 }
 
+//输出所有分类
+function pp_get_sort_html()
+{
+  global $conn,$nlng,$nurlpre;
+  global $sort_database, $sort_idfield, $sort_fpre;
+  $turl = ii_itake('global.expansion/sitemap:config.url', 'lng');
+  if(ii_isnull($turl)) $turl = $nurlpre;
+  $tfield = 'loc,lastmod,changefreq,priority';
+  $tfieldary = explode(',', $tfield);
+  $tmpstr = '';
+  $tarys = Array();
+  $tlng = ii_get_safecode($nlng);
+  $tsqlstr = "select * from $sort_database where " . ii_cfnames($sort_fpre, 'lng') . "='$tlng' and " . ii_cfnames($sort_fpre, 'hidden') . "=0";
+  $trs = ii_conn_query($tsqlstr, $conn);
+      $tmpstr .= '    <div id="content"><li>分类目录<ul>' . CRLF;
+  while ($trow = ii_conn_fetch_array($trs))
+  {
+      $tmpstr .= '      <li><a href="' . $turl . '/' . $trow[ii_cfnames($sort_fpre, 'genre')] . '/?type=list&amp;classid='. $trow[$sort_idfield] .'" target="_blank">'.$trow[ii_cfnames($sort_fpre, 'sort')].'</a></li>' . CRLF;
+  }
+      $tmpstr .= '    </ul></div>' . CRLF;
+return $tmpstr;
+}
 
 function wdja_cms_admin_manage_createdisp()
 {
@@ -138,7 +223,7 @@ function wdja_cms_admin_manage_createdisp()
     $torderary = explode(',', $torder);
     $tub = count($tfieldary);
     $tmpstr .= '<?xml version="1.0" encoding="' . CHARSET . '"?>' . CRLF;
-    $tmpstr .= '<urlset>' . CRLF;
+    $tmpstr .= '<urlset  xmlns="http://www.google.com/schemas/sitemap/0.84">' . CRLF;
     //开始输出首页
     if(!ii_isnull($turl)) $tmpstr .= pp_get_home();
     //开始输出分类
@@ -149,12 +234,44 @@ function wdja_cms_admin_manage_createdisp()
     $tmpstr .= pp_get_singlepage();
     //
     $tmpstr .= '</urlset>' . CRLF;
+    wdja_cms_admin_manage_createdisp_html();
     if (file_put_contents($tburl, $tmpstr)) wdja_cms_admin_msg(ii_itake('global.lng_public.succeed', 'lng'), $tbackurl, 1);
     else wdja_cms_admin_msg(ii_itake('global.lng_public.failed', 'lng'), $tbackurl, 1);
   }
 }
 
 
+function wdja_cms_admin_manage_createdisp_html()
+{
+  global $nsaveimages,$nurlpre;
+  $sort = ii_itake('config.sort','lng');
+  $save = ii_itake('config.save','lng');
+  $tbackurl = $_GET['backurl'];
+  $turl = ii_itake('global.expansion/sitemap:config.url', 'lng');
+  if(ii_isnull($turl)) $turl = $nurlpre;
+  if($save == 1) $tburl = ii_get_actual_route('./') . 'sitemap.html';//保存在根目录
+  else $tburl = pp_get_xml_root() . 'sitemap.html';//保存在插件语言文件夹
+  if (!file_exists($tburl)) fopen($tburl,'w');
+  if (file_exists($tburl))
+  {
+    $tmpstr = '';
+    $tfieldary = explode(',', $tfield);
+    $torderary = explode(',', $torder);
+    $tub = count($tfieldary);
+    $tmpstr .= ii_ireplace('module.header' , 'tpl') . CRLF;
+    //开始输出首页
+    if(!ii_isnull($turl)) $tmpstr .= pp_get_home_html();
+    //开始输出分类
+    if($sort == 1) $tmpstr .= pp_get_sort_html();
+    //开始输出模块内容列表
+    $tmpstr .= pp_get_list_html();
+    //开始输出单页
+    $tmpstr .= pp_get_singlepage_html();
+    //
+    $tmpstr .= ii_ireplace('module.footer' , 'tpl');
+    file_put_contents($tburl, $tmpstr);
+  }
+}
 
 function wdja_cms_admin_manage_configdisp()
 {
@@ -252,10 +369,17 @@ function wdja_cms_admin_manage_config()
         }
       }
     }
-    if($save == 1) $sitemap = $turl . '/sitemap.xml';
-    else $sitemap = $turl .'/'.ii_get_actual_route($ngenre). '/common/language/sitemap.xml';
+    if($save == 1) {
+      $sitemap = $turl . '/sitemap.xml';
+      $sitemap_html = $turl . '/sitemap.html';
+    }else{
+      $sitemap = $turl .'/'.ii_get_actual_route($ngenre). '/common/language/sitemap.xml';
+      $sitemap_html = $turl .'/'.ii_get_actual_route($ngenre). '/common/language/sitemap.html';
+    }
     $sitemap = str_replace('../', '', $sitemap);
+    $sitemap_html = str_replace('../', '', $sitemap_html);
     $tmpstr = str_replace('{$sitemap}', $sitemap, $tmpstr);
+    $tmpstr = str_replace('{$sitemap_html}', $sitemap_html, $tmpstr);
     $tmpstr = ii_creplace($tmpstr);
     return $tmpstr;
   }
