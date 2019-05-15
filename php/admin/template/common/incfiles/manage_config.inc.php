@@ -111,8 +111,7 @@ function wdja_cms_admin_manage_editdisp()
 
 function wdja_cms_admin_manage_deletedisp()
 {
-  $txml = $_GET['xml'];
-  $trootstr = pp_get_template_root($txml) . XML_SFX;
+  $trootstr = $_GET['xml'];
   $tbackurl = $_GET['backurl'];
   $tdelnode = $_GET['node'];
   $tdoc = new DOMDocument();

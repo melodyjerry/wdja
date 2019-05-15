@@ -104,7 +104,7 @@
                   </table>
                   <table border="0" width="98%" cellSpacing="0" cellPadding="0">{@xml_recurrence_ida}
                     <tr>
-                      <td width="20"><span style="display:{$display};"><a href="?action=delete&node={$namestr}&backurl={$=urlencode($GLOBALS['nurl'])}&xml={$=urlencode($_GET['xml'])}" onclick="return click_return('{$delete_notice}')"><img src="{$=#global_images_route}public/small/delete.gif" border="0"></a></span></td>
+                      <td width="20"><span style="display:{$display};"><a href="?action=delete&node={$namestr}&backurl={$=urlencode($GLOBALS['nurl'])}&xml={$burl}" onclick="return click_return('{$delete_notice}')"><img src="{$=#global_images_route}public/small/delete.gif" border="0"></a></span></td>
                       <td width="100" class="green">{$disinfo}</td>
                       <td width="*"><textarea rows="{$rows}" name="{$name}[]" cols="50" ondblclick='this.rows+=3;'>{$value}</textarea></td>
                     </tr>{@xml_recurrence_ida}
