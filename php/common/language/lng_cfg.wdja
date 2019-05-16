@@ -95,6 +95,14 @@
       <chinese><![CDATA[索引文件]]></chinese>
     </item>
     <item>
+      <disinfo><![CDATA[nglobal]]></disinfo>
+      <chinese><![CDATA[启用全站配置中调用]]></chinese>
+    </item>
+    <item>
+      <disinfo><![CDATA[nfields]]></disinfo>
+      <chinese><![CDATA[启用自定义字段]]></chinese>
+    </item>
+    <item>
       <disinfo><![CDATA[ncontentcutepage]]></disinfo>
       <chinese><![CDATA[是否存在内容分页功能]]></chinese>
     </item>
