@@ -271,13 +271,10 @@ function ii_cvgenre($strers)
 
 function ii_csize($size)
 {
-  /*
   if ($size >= 1073741824) return (intval(($size / 1073741824) * 1000) / 1000) . 'GB';
   elseif ($size >= 1048576) return (intval(($size / 1048576) * 1000) / 1000) . 'MB';
   elseif ($size >= 1024) return (intval(($size / 1024) * 1000) / 1000) . 'KB';
   else return $size . 'B';
-  */
-  return $size . 'M';
 }
 
 function ii_deldir($dir)

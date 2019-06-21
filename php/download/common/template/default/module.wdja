@@ -54,7 +54,7 @@
                       <tr>
                         <td width="80" height="25" align="right">{$=ii_itake('config.size','lng')}</td>
                         <td width="5"></td>
-                        <td>{$=ii_csize($GLOBALS['RS_size'])}</td>
+                        <td>{$size}M</td>
                       </tr>
                       <tr>
                         <td height="25" align="right">{$=ii_itake('config.star','lng')}</td>
