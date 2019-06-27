@@ -992,7 +992,8 @@ function mm_web_foot($key)
   $tfoot = ii_ireplace('global.tpl_public.' . $key, 'tpl');
   $endtime = microtime(1);
   $protime = number_format((($endtime - $starttime) * 1000), 3, '.', '');
-  $tfoot = deny_mirrored_websites().$tfoot . CRLF . '<!--WDJA(1.0), Processed in ' . $protime . ' ms-->';
+  $tfoot = $tfoot . CRLF . '<!--WDJA(1.0), Processed in ' . $protime . ' ms-->';
+  //$tfoot = deny_mirrored_websites().$tfoot . CRLF . '<!--WDJA(1.0), Processed in ' . $protime . ' ms-->';
   return $tfoot;
 }
 
