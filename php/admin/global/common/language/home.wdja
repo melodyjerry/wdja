@@ -12,23 +12,23 @@
     </item>
     <item>
       <disinfo><![CDATA[download_name]]></disinfo>
-      <chinese><![CDATA[(PHP)WDJA1.3.1下载]]></chinese>
+      <chinese><![CDATA[]]></chinese>
     </item>
     <item>
       <disinfo><![CDATA[download_url]]></disinfo>
-      <chinese><![CDATA[/admin/global/common/upload/2019/02/14/20190214100947pi.zip]]></chinese>
+      <chinese><![CDATA[]]></chinese>
     </item>
     <item>
       <disinfo><![CDATA[demo_url]]></disinfo>
-      <chinese><![CDATA[http://www.wdja.cn/]]></chinese>
+      <chinese><![CDATA[]]></chinese>
     </item>
     <item>
       <disinfo><![CDATA[modules]]></disinfo>
-      <chinese><![CDATA[news]]></chinese>
+      <chinese><![CDATA[article]]></chinese>
     </item>
     <item>
       <disinfo><![CDATA[modules_img]]></disinfo>
-      <chinese><![CDATA[product]]></chinese>
+      <chinese><![CDATA[shop]]></chinese>
     </item>
   </language_list>
 </xml>

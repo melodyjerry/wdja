@@ -117,6 +117,8 @@ function wdja_cms_ckulogin()
     $tidfield =  $variable['common.adminlog.nidfield'];
     $tfpre =  $variable['common.adminlog.nfpre'];
     $tsqlstr = "insert into $tdatabase (" . ii_cfnames($tfpre, 'name') . "," . ii_cfnames($tfpre, 'time') . "," . ii_cfnames($tfpre, 'ip') . "," . ii_cfnames($tfpre, 'islogin') . ") values ('$tuname','" . ii_now() . "','" . ii_get_client_ip() . "','$tislogin')";
+    if(!mm_search_field('expansion/iplock',ii_get_client_ip(),'ip')) ip_insert(ii_get_client_ip(),'admin');
+    if(ip_get_field(ii_get_client_ip(),'out') == 0) ip_update_field(ii_get_client_ip(),'out');
     if (ii_conn_query($tsqlstr, $conn))
     {
       if ($tislogin == 1)

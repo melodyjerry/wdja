@@ -41,6 +41,18 @@
     <item>
       <disinfo><![CDATA[batch_child_sort]]></disinfo>
       <chinese><![CDATA[包括子类别]]></chinese>
+    </item>       
+    <item>
+      <disinfo><![CDATA[ucode]]></disinfo>
+      <chinese><![CDATA[自定义url]]></chinese>
+    </item>
+    <item>
+      <disinfo><![CDATA[ucode_tips]]></disinfo>
+      <chinese><![CDATA[访问格式 : http://www.xxxx.cn/genre/ucode.html 其中ucode为自定义url填写的内容]]></chinese>
+    </item>
+    <item>
+      <disinfo><![CDATA[ucode_failed]]></disinfo>
+      <chinese><![CDATA[自定义url重复]]></chinese>
     </item>
   </language_list>
 </xml>

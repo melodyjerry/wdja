@@ -24,7 +24,7 @@
     </item>
     <item>
       <disinfo><![CDATA[register_newuser]]></disinfo>
-      <chinese><![CDATA[注册新用户]]></chinese>
+      <chinese><![CDATA[注册]]></chinese>
     </item>
     <item>
       <disinfo><![CDATA[lost_password]]></disinfo>
@@ -32,7 +32,7 @@
     </item>
     <item>
       <disinfo><![CDATA[logout]]></disinfo>
-      <chinese><![CDATA[安全退出]]></chinese>
+      <chinese><![CDATA[退出]]></chinese>
     </item>
     <item>
       <disinfo><![CDATA[close]]></disinfo>

@@ -7,7 +7,6 @@
 wdja_cms_admin_init();
 $nsearch = 'topic,keyword';
 $ncontrol = 'select,delete';
-$njspath = 'common/js/';
 
 function pp_manage_navigation()
 {
@@ -28,12 +27,14 @@ function wdja_cms_admin_manage_adddisp()
     " . ii_cfname('url') . ",
     " . ii_cfname('keyword') . ",
     " . ii_cfname('intro') . ",
+    " . ii_cfname('hidden') . ",
     " . ii_cfname('time') . "
     ) values (
     '" . ii_left($ttopic, 50) . "',
     '" . ii_left(ii_cstr($_POST['url']), 255) . "',
     '" . ii_left(ii_cstr($_POST['keyword']), 50) . "',
     '" . ii_left(ii_cstr($_POST['intro']), 255) . "',
+    " . ii_get_num($_POST['hidden']) . ",
     '" . ii_get_date(ii_cstr($_POST['time'])) . "'
     )";
     $trs = ii_conn_query($tsqlstr, $conn);
@@ -60,6 +61,7 @@ function wdja_cms_admin_manage_editdisp()
     " . ii_cfname('url') . "='" . ii_left(ii_cstr($_POST['url']), 255) . "',
     " . ii_cfname('keyword') . "='" . ii_left(ii_cstr($_POST['keyword']), 50) . "',
     " . ii_cfname('intro') . "='" . ii_left(ii_cstr($_POST['intro']), 255) . "',
+    " . ii_cfname('hidden') . "=" . ii_get_num($_POST['hidden']) . ",
     " . ii_cfname('time') . "='" . ii_get_date(ii_cstr($_POST['time'])) . "'
     where $nidfield=$tid";
     $trs = ii_conn_query($tsqlstr, $conn);
@@ -72,54 +74,6 @@ function wdja_cms_admin_manage_editdisp()
   }
 }
 
-function wdja_cms_admin_manage_createjsdisp()
-{
-  global $conn;
-  global $ndatabase, $nidfield, $nfpre;
-  global $njspath;
-  $tjsname = stripslashes(ii_cstr($_POST['jsname']));
-  if (ii_isnull($tjsname)) $tjsname = 'noname';
-  $tjstpl = ii_cstr($_POST['jstpl']);
-  $tbackurl = $_GET['backurl'];
-  $search_field = ii_get_safecode($_GET['field']);
-  $search_keyword = ii_get_safecode($_GET['keyword']);
-  $tsqlstr = "select * from $ndatabase where $nidfield>0";
-  if ($search_field == 'topic') $tsqlstr .= " and " . ii_cfname('topic') . " like '%" . $search_keyword . "%'";
-  if ($search_field == 'keyword') $tsqlstr .= " and " . ii_cfname('keyword') . " like '%" . $search_keyword . "%'";
-  $tsqlstr .= " order by $ndatabase." . ii_cfname('time') . " desc";
-  $tmpstr = ii_itake('linktext.' . $tjstpl, 'tpl');
-  if (!ii_isnull($tmpstr))
-  {
-    $tmpastr = ii_ctemplate($tmpstr, '{@}');
-    $tmprstr = '';
-    $trs = ii_conn_query($tsqlstr, $conn);
-    while ($trow = ii_conn_fetch_array($trs))
-    {
-      $tmptstr = $tmpastr;
-      foreach ($trow as $key => $val)
-      {
-        $tkey = ii_get_lrstr($key, '_', 'rightr');
-        $GLOBALS['RS_' . $tkey] = $val;
-        $tmptstr = str_replace('{$' . $tkey . '}', ii_htmlencode($val), $tmptstr);
-      }
-      $tmptstr = str_replace('{$id}', $trow[$nidfield], $tmptstr);
-      $tmprstr .= $tmptstr;
-    }
-    $tmpstr = str_replace(WDJA_CINFO, $tmprstr, $tmpstr);
-    $tmpstr = ii_creplace($tmpstr);
-    $tmpstr = ii_encode_newline($tmpstr);
-    $toutstr = '';
-    $tary = explode(CRLF, $tmpstr);
-    foreach($tary as $key => $val)
-    {
-      if (!ii_isnull($val)) $toutstr .= 'document.write(\'' . addslashes($val) . '\');' . CRLF;
-    }
-    if (file_put_contents($njspath . $tjsname . '.js', $toutstr)) wdja_cms_admin_msg(ii_itake('global.lng_public.succeed', 'lng'), $tbackurl, 1);
-    else wdja_cms_admin_msg(ii_itake('global.lng_public.failed', 'lng'), $tbackurl, 1);
-  }
-  else wdja_cms_admin_msg(ii_itake('global.lng_public.sudd', 'lng'), $tbackurl, 1);
-}
-
 function wdja_cms_admin_manage_action()
 {
   global $ndatabase, $nidfield, $nfpre, $ncontrol;
@@ -130,9 +84,6 @@ function wdja_cms_admin_manage_action()
       break;
     case 'edit':
       wdja_cms_admin_manage_editdisp();
-      break;
-    case 'createjs':
-      wdja_cms_admin_manage_createjsdisp();
       break;
     case 'delete':
       wdja_cms_admin_deletedisp($ndatabase, $nidfield);
@@ -208,6 +159,9 @@ function wdja_cms_admin_manage_list()
       $tmptstr = str_replace('{$topic}', $ttopic, $tmpastr);
       $tmptstr = str_replace('{$topicstr}', ii_encode_scripts(ii_htmlencode($trs[ii_cfname('topic')])), $tmptstr);
       $tmptstr = str_replace('{$keyword}', ii_htmlencode($trs[ii_cfname('keyword')]), $tmptstr);
+      $tmptstr = str_replace('{$url}', ii_htmlencode($trs[ii_cfname('url')]), $tmptstr);
+      $tmptstr = str_replace('{$intro}', ii_htmlencode($trs[ii_cfname('intro')]), $tmptstr);
+      $tmptstr = str_replace('{$hidden}',ii_itake('global.sel_yesno.'.ii_get_num($trs[ii_cfname('hidden')]), 'lng'), $tmptstr);
       $tmptstr = str_replace('{$time}', ii_get_date($trs[ii_cfname('time')]), $tmptstr);
       $tmptstr = str_replace('{$id}', ii_get_num($trs[$nidfield]), $tmptstr);
       $tmprstr .= $tmptstr;

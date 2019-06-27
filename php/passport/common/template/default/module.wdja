@@ -891,6 +891,12 @@ function check_face_height(strheight)
             <tr>
               <td width="100%" align="center" height="25"><a class="btn" href="/passport/?type=shopcart_detail&id={$id}">{$=ii_itake('global.shopcart:module.back', 'lng')}</a></td>
             </tr>
+            <tr>
+              <td height="25"></td>
+            </tr>
+            <tr>
+              <td width="100%" align="center" height="25">{$=ii_itake('module.pay_tips','lng')}</td>
+            </tr>
           </table>
         </td>
       </tr>

@@ -96,19 +96,27 @@
                   <table border="0" width="98%" cellSpacing="0" cellPadding="0">
                     <tr>
                       <td height="25" width="30"><input type="checkbox" name="sel_all" class="checkbox" onClick="select_all()"></td>
-                      <td width="*">{$=ii_itake('manage.topic','lng')}</td>
-                      <td width="*">{$=ii_itake('manage.images','lng')}</td>
+                      <td width="80">{$=ii_itake('manage.topic','lng')}</td>
+                      <td width="180">{$=ii_itake('manage.images','lng')}</td>
+                      <td width="200">{$=ii_itake('manage.url','lng')}</td>
+                      <td width="*">{$=ii_itake('global.lng_config.intro','lng')}</td>
+                      <td width="50">{$=ii_itake('global.lng_config.hidden','lng')}</td>
                       <td width="120">{$=ii_itake('global.lng_config.time','lng')}</td>
                       <td align="center" width="50">{$=ii_itake('global.lng_config.edit','lng')}</td>
                       <td align="center" width="50">{$=ii_itake('global.lng_config.delete','lng')}</td>
+                      <td align="center" width="50"><a href="?action=reset&id={$id}&backurl={$=urlencode($GLOBALS['nurl'])}" onclick="return click_return('{$=ii_itake('global.admin/sort:manage.reset_sure', 'lng')}')">{$=ii_itake('global.lng_config.order','lng')}</a></td>
                     </tr>{@recurrence_ida}
                     <tr>
                       <td height="25"><input type="checkbox" name="sel_id" value="{$id}" class="checkbox"></td>
                       <td><a href="?type=edit&id={$id}&backurl={$=urlencode($GLOBALS['nurl'])}">{$topic}</a></td>
                       <td><a href="{$image}" target="_blank"><img src="{$image}" border="0" onload="iresize(this,1,150)"></a></td>
+                      <td>{$url}</td>
+                      <td>{$intro}</td>
+                      <td>{$hidden}</td>
                       <td>{$time}</td>
                       <td align="center"><a href="?type=edit&id={$id}&backurl={$=urlencode($GLOBALS['nurl'])}"><img src="{$=#global_images_route}public/small/edit.gif" border="0"></a></td>
                       <td align="center"><a href="?action=delete&id={$id}&backurl={$=urlencode($GLOBALS['nurl'])}" onclick="return click_return('{$=ii_itake('global.lng_admin.admin_confirm2','lng')}[{$topicstr}]')"><img src="{$=#global_images_route}public/small/delete.gif" border="0"></a></td>
+                      <td align="center"><a href="?action=order&at=up&id={$id}&backurl={$=urlencode($GLOBALS['nurl'])}"><img src="{$=#global_images_route}public/small/up.gif" border="0"></a>&nbsp;<a href="?action=order&at=down&id={$id}&backurl={$=urlencode($GLOBALS['nurl'])}"><img src="{$=#global_images_route}public/small/down.gif" border="0"></a></td>
                     </tr>{@recurrence_ida}
                   </table>
                   <table border="0" width="98%" cellSpacing="0" cellPadding="0">
@@ -197,7 +205,7 @@
                     </tr>
                     <tr>
                       <td height="25">{$=ii_itake('global.lng_config.image','lng')}</td>
-                      <td><input type="text" id="image" name="image" size="40" ondblclick="preview_images(this.value, event)"></td>
+                      <td><input type="text" id="image" name="image" size="40" ondblclick="preview_images(this.value, event)">&nbsp;{$=ii_itake('manage.image-tips','lng')}</td>
                     </tr>
                     <tr>
                       <td height="25">{$=ii_itake('global.lng_config.upload','lng')}</td>
@@ -210,6 +218,10 @@
                     <tr>
                       <td height="25">{$=ii_itake('global.lng_config.intro','lng')}</td>
                       <td><input type="text" name="intro" size="60"></td>
+                    </tr>
+                    <tr>
+                      <td height="25">{$=ii_itake('global.lng_config.hidden','lng')}</td>
+                      <td>{$=mm_sel_yesno('hidden',0)}</td>
                     </tr>
                     <tr>
                       <td height="25">{$=ii_itake('global.lng_config.time','lng')}</td>
@@ -292,7 +304,7 @@
                     </tr>
                     <tr>
                       <td height="25">{$=ii_itake('global.lng_config.image','lng')}</td>
-                      <td><input type="text" id="image" name="image" size="40" value="{$image}" ondblclick="preview_images(this.value, event)"></td>
+                      <td><input type="text" id="image" name="image" size="40" value="{$image}" ondblclick="preview_images(this.value, event)">&nbsp;{$=ii_itake('manage.image-tips','lng')}</td>
                     </tr>
                     <tr>
                       <td height="25">{$=ii_itake('global.lng_config.upload','lng')}</td>
@@ -305,6 +317,10 @@
                     <tr>
                       <td height="25">{$=ii_itake('global.lng_config.intro','lng')}</td>
                       <td><input type="text" name="intro" size="60" value="{$intro}"></td>
+                    </tr>
+                    <tr>
+                      <td height="25">{$=ii_itake('global.lng_config.hidden','lng')}</td>
+                      <td>{$=mm_sel_yesno('hidden',{$hidden})}</td>
                     </tr>
                     <tr>
                       <td height="25">{$=ii_itake('global.lng_config.time','lng')}</td>

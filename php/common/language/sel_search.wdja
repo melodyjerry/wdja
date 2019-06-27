@@ -66,5 +66,9 @@
       <value><![CDATA[id]]></value>
       <chinese><![CDATA[按编号]]></chinese>
     </item>
+    <item>
+      <value><![CDATA[ip]]></value>
+      <chinese><![CDATA[按IP]]></chinese>
+    </item>
   </sel_list>
 </xml>

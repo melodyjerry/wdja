@@ -1,0 +1,223 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta content="width=device-width,initial-scale=1.0" name="viewport" />
+        <title>WDJA支付宝收银台</title>
+        <script src="https://gw.alipayobjects.com/as/g/h5-lib/alipayjsapi/3.1.1/alipayjsapi.min.js"></script>
+        <!-- 主文件 -->
+        <link href="https://gw.alipayobjects.com/as/g/antui/antui/10.1.32/dpl/antui.css" rel="stylesheet" />
+        <!-- 组件 -->
+        <link href="https://gw.alipayobjects.com/as/g/antui/antui/10.1.32/??dpl/widget/message.css,dpl/icon/message.css,dpl/widget/search.css" rel="stylesheet" />
+        <link href="https://gw.alipayobjects.com/as/g/antui/antui/10.1.32/dpl/widget/notice.css" rel="stylesheet" />
+        <link href="https://gw.alipayobjects.com/as/g/antui/antui/10.1.32/dpl/widget/tips.css" rel="stylesheet" />
+        <link href="https://gw.alipayobjects.com/as/g/antui/antui/10.1.32/dpl/widget/dialog.css" rel="stylesheet" />
+        <!-- js -->
+        <script src="https://gw.alipayobjects.com/as/g/antui/antui/10.1.32/antui.js"></script>
+    </head>
+    <style>
+        .am-notice .am-notice-content {
+            -webkit-flex: 1;
+            overflow: hidden;
+            margin-left: 15px;
+            margin-right: 5px;
+            padding-left: 25px;
+        }
+    </style>
+
+    <body>
+        <div class="am-notice" id="alert" role="alert">
+            <div class="am-notice-content">由于客户端版本问题，部分设备可能无法跳转支付</div>
+            <div class="am-notice-operation">
+                <a class="am-notice-close" onclick="closeAlert()" role="button"></a>
+            </div>
+        </div>
+        <div class="am-message result">
+            <i class="am-icon result wait" id="icon-wait"></i>
+            <i class="am-icon result warn" id="icon-fail" style="display: none"></i>
+            <div class="am-message-main" id="waiting">等待跳转支付...</div>
+            <div class="am-message-sub">若无法自动跳转支付请点击下方立即支付按钮</div>
+        </div>
+        <div class="am-button-wrap">
+            <!--<button class="am-button blue" onclick="showDialog()">扫码支付</button>-->
+            <button class="am-button blue" onclick="showAction()">立即支付</button>
+            <button class="am-button white" onclick="returnApp()">取消支付</button>
+        </div>
+        <div class="am-tips am-tips-block am-tips-favorite" id="tip">
+            <div class="am-tips-wrap">
+                <div class="am-tips-close" onclick="closeTip()">关闭</div>
+                <div class="am-tips-icon">
+                    <img src="zfb.png" />
+                </div>
+                <div class="am-tips-content am-ft-ellipsis">
+                    若无法跳转请点击“立即支付”
+                </div>
+                <div class="am-tips-action" onclick="closeTip()" role="button">
+                    知道了
+                </div>
+            </div>
+        </div>
+
+        <div class="am-dialog-mask show" id="dialog-mask" style="display: none"></div>
+        <div class="am-dialog image show" id="dialog" role="dialog" style="display: none">
+            <div class="am-dialog-wrap">
+                <div class="am-dialog-img fill">
+                    <img height="150" src="alireamrk.png" width="85%" />
+                </div>
+                <div class="am-dialog-header">
+                    <h3 id="title">订单标识号：<span id="num1"></span></h3>
+                </div>
+                <div class="am-dialog-body">
+                    <p class="am-dialog-brief" id="content">支付时请输入金额：<span id="money"></span>，备注中输入标识号：<span id="num2"></span></p>
+                </div>
+                <div class="am-dialog-footer">
+                    <a class="am-dialog-button" id="btn2" onclick="customPay()" style="display: block;" type="button">知道了，立即支付</a>
+                </div>
+                <a class="am-dialog-close" onclick="closeDialog()"></a>
+            </div>
+        </div>
+  
+    <script>
+
+        // 判断是否支付宝内打开
+		//生成二维码格式alipays://platformapi/startapp?appId=20000067&url=http%3A%2F%2Fdemo.wdja.cn%2FopenAlipay.html%3Fmoney%3D10.00%26num%3D123
+		//url= 后面为本页代码所在位置,本页为在支付宝内打开的页面,本页URL本传递两个参数 money 为支付的金额,num 为 数量或订单号或备注数字
+		//%3D为= ;%2F为 / ;%3A为 : ;
+        var ua = window.navigator.userAgent.toLowerCase();
+        if (ua.indexOf("alipay")<0) {
+            var domain = document.domain;
+            var port = window.location.port;
+            location.href = '//'+domain+':'+port;
+        }
+
+        function GetRequest() {
+            var url = window.location.search; //获取url中"?"符后的字串
+            var theRequest = new Object();
+            if (url.indexOf("?") != -1) {
+                var str = url.substr(1);
+                strs = str.split("&");
+                for(var i = 0; i < strs.length; i ++) {
+                    theRequest[strs[i].split("=")[0]] = decodeURIComponent(strs[i].split("=")[1]);
+                }
+            }
+            return theRequest;
+        }
+
+        var params = GetRequest();
+        var money = params['money']
+        var num = params['num']
+
+        // 替换你的支付宝userId
+        var userId = "2088202216609811";
+
+        // 替换你的自定义金额收款码
+        var customUrl = "https://qr.alipay.com/fkx05222n7jysldmxtsl9ba";
+
+
+        // 如需银行卡转账模式请填写如下信息（正规个人收款没必要使用）
+        var bankAccount = "孟雷"; // 持卡人姓名
+        var cardNo = "6217214000016176386"; // 银行卡卡号
+        var bankMark = "ICBC"; // 银行缩写简写 其他例如CCB中国建设银行 其他自行百度
+        var bankName = "工商银行"; // 银行完整名称
+
+        var url = 'alipays://platformapi/startapp?appId=20000123&actionType=scan&biz_data=' +
+            '{"s": "money","u": "'+userId+'","a": "'+money+'","m": "'+encodeURIComponent(num)+'"}';
+
+        var bankUrl = "https://ds.alipay.com/?from=pc&appId=09999988&actionType=toCard&sourceId=bill&" +
+            "cardNo="+cardNo+"&bankAccount="+encodeURIComponent(bankAccount)
+            +"&money="+money+"&amount="+money+"&bankMark="+bankMark+"&bankName="+encodeURIComponent(bankName)+"&tdsourcetag=s_pctim_aiomsg";
+
+        function customPay() {
+            location.href = customUrl;
+        }
+
+        document.getElementById("money").innerText = money;
+        document.getElementById("num1").innerText = num;
+        document.getElementById("num2").innerText = num;
+
+        function returnApp() {
+            AlipayJSBridge.call("exitApp")
+        }
+
+        function closeAlert() {
+            document.getElementById("alert").style.display = "none";
+        }
+
+        function closeTip() {
+            document.getElementById("tip").style.display = "none";
+        }
+
+        function closeDialog() {
+            document.getElementById("dialog-mask").style.display = "none";
+            document.getElementById("dialog").style.display = "none";
+        }
+
+        function showDialog() {
+            document.getElementById("dialog-mask").style.display = "block";
+            document.getElementById("dialog").style.display = "block";
+        }
+
+        function ready(a) {
+            window.AlipayJSBridge ? a && a() : document.addEventListener("AlipayJSBridgeReady", a, !1)
+        }
+
+        function showAction() {
+            AlipayJSBridge.call('actionSheet',{
+                'title': '选择支付方式',
+                'btns': ['立即支付', '收款码支付(推荐)','银行卡转账'],
+                'cancelBtn': '取消',
+            }, function(data) {
+                switch (data.index) { // index标示用户点击的按钮，在actionSheet中的位置，从0开始
+                    case 0:
+                        // 无法修改金额
+                        location.href = 'alipays://platformapi/startapp?appId=20000123&actionType=scan&biz_data=' +
+                            decodeURIComponent('{"s": "money","u": "'+userId+'","a": "'+money+'","m": "'+num+'"}');
+                        break;
+                    case 1:
+                        // 转账码
+                        // location.href = 'alipays://platformapi/startapp?appId=09999988&actionType=toAccount&goBack=NO' +
+                        //     '&userId='+userId+'&amount='+money+'&memo='+num;
+                        // break;
+                        showDialog();
+                        break;
+                    case 2:
+                        // 银行卡转账
+                        location.href = bankUrl;
+                        break;
+                }
+            });
+        }
+
+        ready(function() {
+            AlipayJSBridge.call('setTitle', {
+                title: 'WDJA支付宝收银台'
+            });
+
+            var a = {
+                actionType: "scan",
+                u: userId,
+                a: money,
+                m: num,
+                biz_data: {
+                    s: "money",
+                    u: userId,
+                    a: money,
+                    m: num,
+                }
+            }
+            AlipayJSBridge.call("startApp", {
+                appId: "20000123",
+                param: a
+            }, function (a) {
+                if (a.errorCode == 4) {
+                    document.getElementById("icon-wait").style.display = "none";
+                    document.getElementById("icon-fail").style.display = "block";
+                    document.getElementById("waiting").innerText = "自动跳转支付失败";
+                    alert("跳转支付失败，请点击立即支付")
+                }
+            });
+        });
+
+    </script>
+
+</body></html>

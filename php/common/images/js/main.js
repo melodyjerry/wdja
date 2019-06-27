@@ -326,6 +326,8 @@ function createXMLHttpRequest() {
         }            
         return xmlHttp;
     }
+
+
 //获取URL参数
 function GetRequest() {
    var url = location.search; //获取url中"?"符后的字串  

@@ -22,7 +22,7 @@
     <item varstr="thumbnail.height" strvalue="424" />
     <item varstr="mail.type" strvalue="1" />
     <item varstr="mail.smtpcharset" strvalue="utf8" />
-    <item varstr="mail.smtpserver" strvalue="smtp.qq.com" />
+    <item varstr="mail.smtpserver" strvalue="" />
     <item varstr="mail.smtpport" strvalue="465" />
     <item varstr="mail.smtpusername" strvalue="" />
     <item varstr="mail.smtppassword" strvalue="" />

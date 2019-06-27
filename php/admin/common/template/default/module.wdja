@@ -61,9 +61,7 @@
     </item>
     <item>
       <name><![CDATA[frame]]></name>
-      <tpl_default><![CDATA[
-
-<html>
+      <tpl_default><![CDATA[<html>
 <head>
 <meta http-equiv="x-ua-compatible" content="IE=EmulateIE7" />
 <meta http-equiv="Content-Type" content="text/html; charset={$=CHARSET}" />
@@ -152,7 +150,6 @@ function switch_menu()
 </table>
 </body>
 </html>
-
 ]]></tpl_default>
     </item>
     <item>

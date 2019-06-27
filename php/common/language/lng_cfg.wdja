@@ -131,6 +131,10 @@
       <chinese><![CDATA[可被搜索的模块名]]></chinese>
     </item>
     <item>
+      <disinfo><![CDATA[nhotwords_genre]]></disinfo>
+      <chinese><![CDATA[可被调用的模块名]]></chinese>
+    </item>
+    <item>
       <disinfo><![CDATA[nsearch_field]]></disinfo>
       <chinese><![CDATA[可被搜索的字段名]]></chinese>
     </item>

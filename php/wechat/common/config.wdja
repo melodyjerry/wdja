@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<xml mode="wdjafgf" author="wdja">
-  <configure>
-    <item varstr="norder" strvalue="config,slide,aboutus,news,product,contact" />
-  </configure>
-</xml>

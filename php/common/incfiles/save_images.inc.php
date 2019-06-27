@@ -48,8 +48,8 @@
 function saveimages($content){
   global $upbasefolder,$nuppath,$ngenre;
   $iport = $_SERVER["SERVER_PORT"];
-  if($iport == '443') $basehost = "https://".$_SERVER["HTTP_HOST"]; 
-  else  $basehost = "http://".$_SERVER["HTTP_HOST"]; 
+  if($iport == '443') $basehost = "https://".$_SERVER["HTTP_HOST"];
+  else  $basehost = "http://".$_SERVER["HTTP_HOST"];
   $img_array = array();
   $content = str_replace('&amp;', '&', $content);
   $content = stripslashes($content);

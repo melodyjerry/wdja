@@ -15,15 +15,24 @@ function cklimitnum(strid, strnum, strnmax)
 {
   var tstrnum = get_num(strnum);
   var tstrnmax = get_num(strnmax);
+  if (tstrnum <=0){
+get_id(strid).value = 0;
+}else{
   if (tstrnmax != -1)
   {
     if (tstrnum > tstrnmax)
     {
-      if (tstrnmax != 0) alert('{$=ii_itake('module.limitnumerror', 'lng')}');
+      if (tstrnmax != 0) alert('订购数量不能超过货存数量');
       get_id(strid).value = tstrnmax;
     };
   };
+doform();
 };
+};
+function doform(){
+  document.getElementById("form_submit").click()
+}
+
 </script>
 <section id="middle">
   <div id="middleContent">
@@ -53,7 +62,7 @@ function cklimitnum(strid, strnum, strnmax)
                 <td height="25" class="red">{$=ii_itake('module.merchandiseprice','lng')} {$merchandiseprice}({$=ii_itake('global.lng_unit.money','lng')})</td>
               </tr>
               <tr>
-                <td height="25"><input type="submit" value="{$=ii_itake('module.submit','lng')}" class="button" /> <input type="button" value="{$=ii_itake('module.continue','lng')}" class="button" onclick="location.href='{$continue}'" /> <input type="button" value="{$=ii_itake('module.clear','lng')}" class="button" onclick="location.href='?action=delete'" /> <input type="button" value="{$=ii_itake('module.pay','lng')}" class="button" onclick="switch_display('buying')" /></td>
+                <td height="25"><input id="form_submit" type="submit" value="{$=ii_itake('module.submit','lng')}" class="button" /> <input type="button" value="{$=ii_itake('module.continue','lng')}" class="button" onclick="location.href='{$continue}'" /> <input type="button" value="{$=ii_itake('module.clear','lng')}" class="button" onclick="location.href='?action=delete'" /> <input type="button" value="{$=ii_itake('module.pay','lng')}" class="button" onclick="switch_display('buying')" /></td>
               </tr>
               <tr>
                 <td height="25"></td>

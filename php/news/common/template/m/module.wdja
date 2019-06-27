@@ -41,7 +41,7 @@
         <nav class="nav">{$=vv_inavigation('{$genre}', 'classid={$class};strers=module;strurl={$genre}')}</nav>
         <h1>{$topic}</h1>
         <div class="con_text">
-        <p>{$=ii_itake('global.lng_config.time','lng')}:{$time},{$=ii_itake('global.lng_config.count','lng')}:<span id="count">0</span></p>
+        <p>{$=ii_itake('global.lng_config.time','lng')}:{$time},{$=ii_itake('global.lng_config.count','lng')}:<span>{$count}</span></p>
         <mip-showmore maxheight='screen:0.3' bottomshadow='1' animatetime='.3' id="showmore">
             {$=mm_encode_content(mm_cutepage_content(mm_content_mip($GLOBALS['RS_content']), 'cp_note={$cp_note};cp_mode={$cp_mode};cp_type={$cp_type};cp_num={$cp_num};cp_page={$page}'), '{$cttype}')}
         </mip-showmore>

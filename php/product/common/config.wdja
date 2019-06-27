@@ -13,7 +13,7 @@
     <item varstr="nidfield" strvalue="pid" />
     <item varstr="nfpre" strvalue="p_" />
     <item varstr="nurltype" strvalue="0" />
-    <item varstr="nclstype" strvalue="0" />
+    <item varstr="nclstype" strvalue="1" />
     <item varstr="nbasehref" strvalue="1" />
     <item varstr="nsaveimages" strvalue="1" />
     <item varstr="thumbnail.upsimg" strvalue="0" />

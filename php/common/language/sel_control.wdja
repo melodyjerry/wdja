@@ -31,6 +31,10 @@
       <chinese><![CDATA[锁定]]></chinese>
     </item>
     <item>
+      <value><![CDATA[out]]></value>
+      <chinese><![CDATA[白名单]]></chinese>
+    </item>
+    <item>
       <value><![CDATA[hidden]]></value>
       <chinese><![CDATA[隐藏]]></chinese>
     </item>

@@ -42,6 +42,8 @@
             </form>
         </div>
     </div>
+    </section>
+  <section id="menuContent">
     <div id="menu">
       <ul>
         <li id="m"><a href="{$=#nurlpre}">{$=ii_itake('global.module.channel_title', 'lng')}</a></li>
@@ -68,7 +70,7 @@
   <section id="bottomContent">
     <p style="height:88px;"><img src="/weixin.jpg" style="width:88px;height:88px;"></p>
     <p>Copyright 2004-{$=date('Y', ii_mktime(ii_now()))} WDJA(<a href="http://www.wdja.cn/" target="_blank">CMS</a>) <a href="http://www.wdja.cn/" target="_blank">wdja.cn</a> All Rights Reserved.<a href="https://www.wdja.cn/sitemap.xml" target="_blank">Sitemap</a><a href="http://tongji.baidu.com/web/welcome/ico?s=fd1ac6bf0387f7abbf81212243d6333f" target="_blank">百度统计</a></p>
-    <div id="bottomMenu">{$=vv_itransfer('new', 'm1', 'topx=10;tnum=30;genre=aboutus;osql= and ab_lng=\'' . $GLOBALS['nlng'] . '\'')}<a href="{$=ii_get_actual_route('support')}/gbook/" target="_self">{$=ii_itake('global.lng_menu.gbook', 'lng')}</a></div>
+    <div id="bottomMenu">{$=vv_itransfer('new', 'm1', 'topx=10;tnum=30;genre=aboutus;osql= and ab_lng=\'' . $GLOBALS['nlng'] . '\'')}<a href="{$=ii_get_actual_route('message')}" target="_self">{$=ii_itake('global.message:module.channel_title', 'lng')}</a></div>
   </section>
 </footer>
 <script>        
@@ -117,7 +119,6 @@ var _hmt = _hmt || [];
 <meta http-equiv="Content-Type" content="text/html; charset={$=CHARSET}">
 <link type="text/css" rel="stylesheet" href="{$=#global_images_route}theme/{$=#nskin}/layout.css" />
 <title>{$=mm_web_title($GLOBALS['ntitle'])}</title>
-<script language="javascript" src="{$=#global_images_route}js/main.js"></script>
 </head>
 <body>]]></tpl_default>
     </item>
@@ -159,8 +160,7 @@ h1 {padding-left: 5px;color:red;}
 <link href="{$=ii_get_actual_route(ADMIN_FOLDER . '/common/images/default.css')}" type="text/css" rel="stylesheet" />
 <title>{$=mm_web_title($GLOBALS['ntitle'])}</title>
 <script language="javascript" src="{$=#global_images_route}js/jquery-1.7.min.js"></script>
-<script language="javascript" src="{$=#global_images_route}js/main.js"></script>
-<script language="javascript" src="{$=#global_images_route}js/shorturl.js"></script>
+<script type="text/javascript" src="{$=#global_images_route}js/main.js?{$=ii_random(3)}"></script>
 <script language="javascript" src="{$=#global_images_route}js/selects.js"></script>
 <script language="javascript" src="{$=#global_images_route}js/manage.js"></script>
 </head>

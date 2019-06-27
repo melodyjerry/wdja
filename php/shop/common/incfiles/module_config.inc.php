@@ -6,7 +6,7 @@
 //****************************************************
 function wdja_cms_module_list()
 {
-  global $conn, $nlng, $ngenre;
+  global $conn, $nlng, $ngenre, $nurs;
   $tclassid = ii_get_num($_GET['classid']);
   $toffset = ii_get_num($_GET['offset']);
   global $nclstype, $nlisttopx, $npagesize, $nkeywords, $ndescription;
@@ -75,13 +75,17 @@ function wdja_cms_module_detail()
 {
   global $conn, $ngenre;
   $tid = ii_get_num($_GET['id']);
+  $tucode = ii_cstr($_GET['ucode']);
   $tpage = ii_get_num($_GET['page']);
   global $ndatabase, $nidfield, $nfpre;
-  $tsqlstr = "select * from $ndatabase where " . ii_cfname('hidden') . "=0 and $nidfield=$tid";
+  if(!ii_isnull($tucode)) $tsqlstr = "select * from $ndatabase where " . ii_cfname('hidden') . "=0 and " . ii_cfname('ucode') . "='$tucode'";
+  else $tsqlstr = "select * from $ndatabase where " . ii_cfname('hidden') . "=0 and $nidfield=$tid";
   $trs = ii_conn_query($tsqlstr, $conn);
   $trs = ii_conn_fetch_array($trs);
   if ($trs)
   {
+    $tcount = $trs[ii_cfname('count')] + 1;
+    mm_update_field($ngenre,$trs[$nidfield],'count',$tcount);
     $tmpstr = ii_itake('module.detail', 'tpl');
     mm_cntitle(ii_htmlencode($trs[ii_cfname('topic')]));
     mm_cnkeywords(ii_htmlencode($trs[ii_cfname('keywords')]));
@@ -135,21 +139,21 @@ function wdja_cms_module_index()
 
 function wdja_cms_module()
 {
-  switch($_GET['type'])
-  {
-    case 'list':
-      return wdja_cms_module_list();
-      break;
-    case 'detail':
-      return wdja_cms_module_detail();
-      break;
-    case 'index':
-      return wdja_cms_module_index();
-      break;
-    default:
-      return wdja_cms_module_index();
-      break;
-  }
+      switch($_GET['type'])
+      {
+        case 'list':
+          return wdja_cms_module_list();
+          break;
+        case 'detail':
+          return wdja_cms_module_detail();
+          break;
+        case 'index':
+          return wdja_cms_module_index();
+          break;
+        default:
+          return wdja_cms_module_index();
+          break;
+      }
 }
 //****************************************************
 // WDJA CMS Power by wdja.cn

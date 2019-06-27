@@ -3,17 +3,11 @@
 // WDJA CMS Power by wdja.cn
 // Email: admin@wdja.cn
 // Web: http://www.wdja.cn/
-//必须通过根目录下的api.php调用以下所有函数
-//调用方式
-//单页模块 wdja_cms_singlepage_api(模块文件夹名)
-//关于我们模块等无分类的模块 wdja_cms_page_api(模块文件夹名)
-//列表页wdja_cms_list_api($module)(模块文件夹名)
-//详情页wdja_cms_detail_api($module)(模块文件夹名)调用的页面URL请传递内容?id=
 //****************************************************
 
 function getAccessToken(){
-  $appid = ii_itake('global.wechat/config:config.appid','lng');
-  $secret = ii_itake('global.wechat/config:config.secret','lng');
+  $appid = ii_itake('global.' . ADMIN_FOLDER . '/global:wechat.appid','lng');
+  $secret = ii_itake('global.' . ADMIN_FOLDER . '/global:wechat.secret','lng');
   $url='https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid='.$appid.'&secret='.$secret;
   $html = file_get_contents($url);
   $output = json_decode($html, true);
@@ -22,8 +16,8 @@ function getAccessToken(){
 }
 
 function getOpenid($code){
-    $appid = ii_itake('global.wechat/config:config.appid','lng');
-    $secret = ii_itake('global.wechat/config:config.secret','lng');
+    $appid = ii_itake('global.' . ADMIN_FOLDER . '/global:wechat.appid','lng');
+    $secret = ii_itake('global.' . ADMIN_FOLDER . '/global:wechat.secret','lng');
     $curl = curl_init();
     $url='https://api.weixin.qq.com/sns/jscode2session?appid='.$appid.'&secret='.$secret.'&js_code='.$code.'&grant_type=authorization_code';
     curl_setopt($curl, CURLOPT_URL, $url);
@@ -37,22 +31,21 @@ function getOpenid($code){
     return $data['openid'];
 }
 
-function send_template_message($code,$formid,$time,$name,$mobile,$email,$info){
+function send_template_message($id,$openid,$formid,$name,$mobile,$idnum,$date,$info){
  $color = '#e3e3e3';
- $templateid = ii_itake('global.wechat/config:config.templateid','lng');
- $templateurl = ii_itake('global.wechat/config:config.templateurl','lng');
- $openid = getOpenid($code);
+ $templateid = ii_itake('global.' . ADMIN_FOLDER . '/global:wechat.templateid','lng');
+ $templateurl = ii_itake('global.' . ADMIN_FOLDER . '/global:wechat.templateurl','lng');
  $data_arr = array(
-  'keyword1' => array( "value" => $time, "color" => $color),
-  'keyword2' => array( "value" => $name, "color" => $color),
-  'keyword3' => array( "value" => $mobile, "color" => $color),
-  'keyword4' => array( "value" => $email, "color" => $color),
-  'keyword5' => array( "value" => $info, "color" => $color)
+  'keyword1' => array( "value" => $name, "color" => $color),//联系人
+  'keyword2' => array( "value" => $mobile, "color" => $color),//联系方式
+  'keyword3' => array( "value" => $idnum, "color" => $color),//身份证号
+  'keyword4' => array( "value" => $date, "color" => $color),//报名时间
+  'keyword5' => array( "value" => $info, "color" => $color)//备注
   );
   $post_data = array (
     "touser"           => $openid,
     "template_id"      => $templateid,
-    "page"             => $templateurl, // 点击模板消息后跳转到的页面，可以传递参数
+    "page"             => $templateurl.'?id='.$id.'&name='.$name, // 点击模板消息后跳转到的页面，可以传递参数
     "form_id"          => $formid,
     "data"             => $data_arr,
     "emphasis_keyword" => "" // 需要强调的关键字，会加大居中显示
@@ -105,15 +98,17 @@ function wdja_cms_sort_api($module)
       $tmpstr .= '},';
     }
       $tmpstr = substr($tmpstr,0,-1); 
-      $tmpstr = str_replace(array("　","\t","\n","\r"), '', $tmpstr);
+      $dstr = '"/'.$module;
+      $tmpstr = str_replace("$dstr", '"'.$nurl.'/'.$module, $tmpstr);
+      $tmpstr = str_replace(array("　","\t","\n\r","\n","\r"), '', $tmpstr);
       return '['.$tmpstr.']';
 }
 
 function wdja_cms_wxlogin_api(){
-    $sessionid = $_GET['sessionid'];
+    $sessionid = $_GET['loginid'];//
     $code = $_GET['code'];
-    $appid = ii_itake('global.wechat/config:config.appid','lng');
-    $secret = ii_itake('global.wechat/config:config.secret','lng');
+    $appid = ii_itake('global.' . ADMIN_FOLDER . '/global:wechat.appid','lng');
+    $secret = ii_itake('global.' . ADMIN_FOLDER . '/global:wechat.secret','lng');
     $curl = curl_init();
     $url='https://api.weixin.qq.com/sns/jscode2session?appid='.$appid.'&secret='.$secret.'&js_code='.$code.'&grant_type=authorization_code';
     curl_setopt($curl, CURLOPT_URL, $url);
@@ -124,7 +119,8 @@ function wdja_cms_wxlogin_api(){
     curl_close($curl);
     $data = json_decode($data);
     $data = get_object_vars($data);
-    $data['appid']=$appid;
+    //从这里开始判断sessionid是否为空,不为空则判断登录是否失效,判断对应的sessionid值是否正确.
+    //$data['appid']=$appid;
     //生成第三方3rd_session
       $session3rd  = null;
       $strPol = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
@@ -133,15 +129,18 @@ function wdja_cms_wxlogin_api(){
           $session3rd .=$strPol[rand(0,$max)];
       }
       $session3rd = $session3rd;
-//
+//生成的字符串作为session值的ID,把用户的信息存储在此session里
     session_start();
     $_SESSION[$session3rd]=$data['openid'].$data['session_key'];
 //
-     $data['sessionid']=session_id();
-     $data['code'] = "1";
-     $data['value'] = $_SESSION[$session3rd];
-    $data = json_encode($data);
-    return $data;
+     //$data['sessionid']=session_id();
+     //$data['code'] = "1";
+  //传给小程序session的ID,判断是否已登录,只需查询session是否存在,且值是否为用户信息
+    $res['loginid'] = $session3rd;//sessionid
+    $res['value'] = $_SESSION[$session3rd];
+    $res['openid'] = $data['openid'];
+    $res = json_encode($res);
+    return $res;
 }
 
 function wdja_cms_wxlogin_code_api(){
@@ -159,14 +158,49 @@ session_start();
     return $data;
 }
 
-
-
-function wdja_cms_search_api($module)
+function wdja_cms_search_detail_api($module,$array)
 {
   global $conn, $nlng, $variable;
   ii_conn_init();
   ii_get_variable_init();
   $ngenre = $module;
+  $nurl = ii_itake('global.' . ADMIN_FOLDER . '/global:wechat.url','lng');
+  $ndatabase = $variable[ii_cvgenre($ngenre) . '.ndatabase'];
+  $nidfield = $variable[ii_cvgenre($ngenre) . '.nidfield'];
+  $nfpre = $variable[ii_cvgenre($ngenre) . '.nfpre'];
+  $tid = ii_get_num($id);
+  $tmobile = $array['mobile'];
+  $tidnum = $array['idnum'];
+  $tsqlstr = "select * from $ndatabase where ".ii_cfnames($nfpre,'mobile')."=$tmobile and ".ii_cfnames($nfpre,'idnum')."=$tidnum";
+  $trs = ii_conn_query($tsqlstr, $conn);
+  $trs = ii_conn_fetch_array($trs);
+  if ($trs)
+  {
+    $tmpstr .= '{';
+    foreach ($trs as $key => $val)
+    {
+      $tkey = ii_get_lrstr($key, '_', 'rightr');
+      $GLOBALS['RS_' . $tkey] = $val;
+      if($tkey == 'date') $val = ii_format_date($val, 1);
+      $tmpstr .= "\"".$tkey."\":\"".addslashes($val)."\",";
+    }
+      $tmpstr = substr($tmpstr,0,-1); 
+      $tmpstr .= '},';
+      $tmpstr = substr($tmpstr,0,-1); 
+      $dstr = '"/'.$module;
+      $tmpstr = str_replace("$dstr", '"'.$nurl.'/'.$module, $tmpstr);
+      $tmpstr = str_replace(array("　","\t","\n\r","\n","\r"), '', $tmpstr);
+      return '['.$tmpstr.']';
+  }
+}
+
+function wdja_cms_search_list_api($module)
+{
+  global $conn, $nlng, $variable;
+  ii_conn_init();
+  ii_get_variable_init();
+  $ngenre = $module;
+  $nurl = ii_itake('global.' . ADMIN_FOLDER . '/global:wechat.url','lng');
   $tkeywords = $_GET['keywords'];
   $tpage =  ii_get_num($_GET['page'])==0?1:ii_get_num($_GET['page']);
   $tpage_size =  ii_get_num($_GET['page_size']);
@@ -207,7 +241,9 @@ function wdja_cms_search_api($module)
     }
   }
       $tmpstr = substr($tmpstr,0,-1); 
-      $tmpstr = str_replace(array("　","\t","\n","\r"), '', $tmpstr);
+      $dstr = '"/'.$module;
+      $tmpstr = str_replace("$dstr", '"'.$nurl.'/'.$module, $tmpstr);
+      $tmpstr = str_replace(array("　","\t","\n\r","\n","\r"), '', $tmpstr);
       return '['.$tmpstr.']';
 }
 
@@ -216,61 +252,60 @@ function wdja_cms_form_api()
   global $conn, $variable;
   ii_conn_init();
   ii_get_variable_init();
-  $mail = ii_itake('global.wechat/config:config.mail','lng');
-  $mail_topic = ii_itake('global.wechat/config:config.mail_topic','lng');
-  $mail_body = ii_itake('global.wechat/config:config.mail_body','lng');
-  $ngenre = 'wechat/gbook';
+  $mail = ii_itake('global.' . ADMIN_FOLDER . '/global:wechat.mail','lng');
+  $mail_topic = ii_itake('global.' . ADMIN_FOLDER . '/global:wechat.mail_topic','lng');
+  $mail_body = ii_itake('global.' . ADMIN_FOLDER . '/global:wechat.mail_body','lng');
+  $ngenre = 'register';
   $nlng = 'chinese';
   $ndatabase = $variable[ii_cvgenre($ngenre) . '.ndatabase'];
   $nidfield = $variable[ii_cvgenre($ngenre) . '.nidfield'];
   $nfpre = $variable[ii_cvgenre($ngenre) . '.nfpre'];
-  $topenid = $_GET['openid'];
-  $tnickName = $_GET['nickName'];
-  $tavatarUrl = $_GET['avatarUrl'];
-  $tgender = $_GET['gender'];
-  $tcity = $_GET['city'];
   $tname = $_GET['name'];
   $tmobile = $_GET['mobile'];
-  $temail = $_GET['email'];
+  $tidnum = $_GET['idnum'];
+  $tdate = ii_get_date(ii_cstr($_GET['date']), 50);
+  $tarea = $_GET['area'];
   $tinfo = $_GET['info'];
   $tcode = $_GET['code'];
   $tformid = $_GET['formid'];
+  $topenid = getOpenid($tcode);
   $ttime = ii_now();
     $tsqlstr = "insert into $ndatabase (
     " . ii_cfnames($nfpre,'openid') . ",
-    " . ii_cfnames($nfpre,'nickName') . ",
-    " . ii_cfnames($nfpre,'avatarUrl') . ",
-    " . ii_cfnames($nfpre,'gender') . ",
-    " . ii_cfnames($nfpre,'city') . ",
+    " . ii_cfnames($nfpre,'formid') . ",
     " . ii_cfnames($nfpre,'name') . ",
     " . ii_cfnames($nfpre,'mobile') . ",
-    " . ii_cfnames($nfpre,'email') . ",
-    " . ii_cfnames($nfpre,'info') . ",
+    " . ii_cfnames($nfpre,'idnum') . ",
+    " . ii_cfnames($nfpre,'date') . ",
+    " . ii_cfnames($nfpre,'area') . ",
+    " . ii_cfnames($nfpre,'content') . ",
+    " . ii_cfnames($nfpre,'hidden') . ",
     " . ii_cfnames($nfpre,'lng') . ",
     " . ii_cfnames($nfpre,'time') . "
     ) values (
-    '" . ii_left(ii_cstr($topenid), 50) . "',
-    '" . ii_left(ii_cstr($tnickName), 50) . "',
-    '" . ii_left(ii_cstr($tavatarUrl), 255) . "',
-    '" . ii_get_num($tgender) . "',
-    '" . ii_left(ii_cstr($tcity), 50) . "',
-    '" . ii_left(ii_cstr($tname), 50) . "',
-    '" . ii_get_num($tmobile) . "',
-    '" . ii_left(ii_cstr($temail), 50) . "',
+    '" . ii_left($topenid, 50) . "',
+    '" . ii_left($tformid, 50) . "',
+    '" . ii_left($tname, 50) . "',
+    '" . ii_left($tmobile, 50) . "',
+    '" . ii_left($tidnum, 50) . "',
+    '" . ii_get_date($tdate, 50) . "',
+    " . ii_get_num($tarea,0) . ",
     '" . ii_left(ii_cstr($tinfo), 10000) . "',
+    " . ii_get_num($_POST['hidden'],0) . ",
     '$nlng',
-    '$ttime'
+    '" . $ttime . "'
     )";
     $trs = ii_conn_query($tsqlstr, $conn);
     if ($trs)
     {
+      $tid = ii_conn_insert_id($conn);//当前报名信息ID
       $status = '1';
-      $title ='留言成功';
-      mm_sendemail($mail, $mail_topic, $mail_body);
-      send_template_message($tcode,$tformid,$ttime,$tname,$tmobile,$temail,$tinfo);
+      $title = '留言成功';
+      //send_template_message($tid,$topenid,$tformid,$tname,$tmobile,$tidnum,$tdate,$tinfo);//($id,$openid,$formid,$name,$mobile,$idnum,$date,$info)
+      if(!ii_isnull($tidnum)) mm_sendemail($mail, $mail_topic, $mail_body);
     }else{
       $status = '0';
-      $title ='留言失败';
+      $title = '留言失败';
     }
   $status = '{"status":"'.$status.'","title":"'.$title.'"}';
   return $status;
@@ -282,6 +317,7 @@ function wdja_cms_detail_api($module,$id)
   ii_conn_init();
   ii_get_variable_init();
   $ngenre = $module;
+  $nurl = ii_itake('global.' . ADMIN_FOLDER . '/global:wechat.url','lng');
   $ndatabase = $variable[ii_cvgenre($ngenre) . '.ndatabase'];
   $nidfield = $variable[ii_cvgenre($ngenre) . '.nidfield'];
   $nfpre = $variable[ii_cvgenre($ngenre) . '.nfpre'];
@@ -296,12 +332,15 @@ function wdja_cms_detail_api($module,$id)
     {
       $tkey = ii_get_lrstr($key, '_', 'rightr');
       $GLOBALS['RS_' . $tkey] = $val;
+      if($tkey == 'date') $val = ii_format_date($val, 1);
       $tmpstr .= "\"".$tkey."\":\"".addslashes($val)."\",";
     }
       $tmpstr = substr($tmpstr,0,-1); 
       $tmpstr .= '},';
       $tmpstr = substr($tmpstr,0,-1); 
-      $tmpstr = str_replace(array("　","\t","\n","\r"), '', $tmpstr);
+      $dstr = '"/'.$module;
+      $tmpstr = str_replace("$dstr", '"'.$nurl.'/'.$module, $tmpstr);
+      $tmpstr = str_replace(array("　","\t","\n\r","\n","\r"), '', $tmpstr);
       return '['.$tmpstr.']';
   }
 }
@@ -312,6 +351,7 @@ function wdja_cms_list_api($module,$num='')
   ii_conn_init();
   ii_get_variable_init();
   $ngenre = $module;
+  $nurl = ii_itake('global.' . ADMIN_FOLDER . '/global:wechat.url','lng');
   $toffset =  ii_get_num($_GET['offset']);
   $tpage =  ii_get_num($_GET['page'],'');
   $tpage_size =  ii_get_num($_GET['page_size'],'');
@@ -361,7 +401,9 @@ function wdja_cms_list_api($module,$num='')
     }
   }
       $tmpstr = substr($tmpstr,0,-1); 
-      $tmpstr = str_replace(array("　","\t","\n","\r"), '', $tmpstr);
+      $dstr = '"/'.$module;
+      $tmpstr = str_replace("$dstr", '"'.$nurl.'/'.$module, $tmpstr);
+      $tmpstr = str_replace(array("　","\t","\n\r","\n","\r"), '', $tmpstr);
       return '['.$tmpstr.']';
 }
 
@@ -371,14 +413,15 @@ function wdja_cms_page_api($module)
   ii_conn_init();
   ii_get_variable_init();
   $ngenre = $module;
+  $nurl = ii_itake('global.' . ADMIN_FOLDER . '/global:wechat.url','lng');
   $toffset = '0';
   $tid =  ii_get_num($_GET['id'],'');
   $ndatabase = $variable[ii_cvgenre($ngenre) . '.ndatabase'];
   $nidfield = $variable[ii_cvgenre($ngenre) . '.nidfield'];
   $nfpre = $variable[ii_cvgenre($ngenre) . '.nfpre'];;
   $npagesize = $variable[ii_cvgenre($ngenre) . '.npagesize'];
-  $tsqlstr = "select * from $ndatabase";
-  if(!ii_isnull($tid)) $tsqlstr .= "where " . $nidfield . " = ".$tid;
+  $tsqlstr = "select * from $ndatabase where ".ii_cfnames($nfpre,'hidden')." = '0' ";
+  if(!ii_isnull($tid)) $tsqlstr .= " and " . $nidfield . " = ".$tid;
   $tsqlstr .= " order by " . ii_cfnames($nfpre,'time') . " desc";
   $tcp = new cc_cutepage;
   $tcp -> id = $nidfield;
@@ -403,13 +446,16 @@ function wdja_cms_page_api($module)
     }
   }
       $tmpstr = substr($tmpstr,0,-1); 
-      $tmpstr = str_replace(array("　","\t","\n","\r"), '', $tmpstr);
+      $dstr = '"/'.$module;
+      $tmpstr = str_replace("$dstr", '"'.$nurl.'/'.$module, $tmpstr);
+      $tmpstr = str_replace(array("　","\t","\n\r","\n","\r"), '', $tmpstr);
       return '['.$tmpstr.']';
 }
 
 function wdja_cms_singlepage_api($module)
 {
   $ngenre = $module;
+  $nurl = ii_itake('global.' . ADMIN_FOLDER . '/global:wechat.url','lng');
   $trootstr = ii_get_actual_route($ngenre).'/common/language/module.wdja';
   if (file_exists($trootstr))
   {
@@ -447,7 +493,9 @@ function wdja_cms_singlepage_api($module)
       $tmpstr = substr($tmpstr,0,-1); 
       $tmpstr .= '},';
       $tmpstr = substr($tmpstr,0,-1);
-      $tmpstr = str_replace(array("　","\t","\n","\r"), '', $tmpstr);
+      $dstr = '"/'.$module;
+      $tmpstr = str_replace("$dstr", '"'.$nurl.'/'.$module, $tmpstr);
+      $tmpstr = str_replace(array("　","\t","\n\r","\n","\r"), '', $tmpstr);
       return '['.$tmpstr.']';
   }
 }

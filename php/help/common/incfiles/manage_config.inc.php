@@ -114,6 +114,7 @@ function wdja_cms_admin_manage_editdisp()
     " . ii_cfname('time') . "='" . ii_get_date(ii_cstr($_POST['time'])) . "',
     " . ii_cfname('cls') . "='" . mm_get_sort_cls($tclass) . "',
     " . ii_cfname('class') . "=$tclass,
+    " . ii_cfname('count') . "=" . ii_get_num($_POST['count']) . ",
     " . ii_cfname('hidden') . "=" . ii_get_num($_POST['hidden']) . ",
     " . ii_cfname('good') . "=" . ii_get_num($_POST['good']) . "
     where $nidfield=$tid";

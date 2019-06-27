@@ -41,6 +41,7 @@ function wdja_cms_admin_manage_adddisp()
   $tclass = ii_get_num($_POST['sort'], 0);
   $tbackurl = ii_replace_querystring('classid', $tclass, $tbackurl);
   $timage = ii_left(ii_cstr($_POST['image']), 250);
+  if(mm_search_field($ngenre,ii_cstr($_POST['ucode']),'ucode') && !ii_isnull($_POST['ucode'])) wdja_cms_admin_msg(ii_itake('manage.ucode_failed', 'lng'), $tbackurl, 1);
   if($nsaveimages == '1' ) $tcontent = ii_left(ii_cstr(saveimages($_POST['content'])), 100000);
   else $tcontent =ii_left(ii_cstr($_POST['content']), 100000);
   $tcontent_images_list = ii_left(ii_cstr($_POST['content_images_list']), 10000);
@@ -57,6 +58,7 @@ function wdja_cms_admin_manage_adddisp()
     " . ii_cfname('content') . ",
     " . ii_cfname('cttype') . ",
     " . ii_cfname('content_images_list') . ",
+    " . ii_cfname('ucode') . ",
     " . ii_cfname('size') . ",
     " . ii_cfname('runco') . ",
     " . ii_cfname('star') . ",
@@ -79,6 +81,7 @@ function wdja_cms_admin_manage_adddisp()
     '$tcontent',
     " . ii_get_num($_POST['cttype']) . ",
     '$tcontent_images_list',
+    '" . ii_left(ii_cstr($_POST['ucode']), 50) . "',
     " . ii_get_num($_POST['size']) . ",
     '" . ii_left(mm_get_postarystr($_POST['runco']), 255) . "',
     " . ii_get_num($_POST['star']) . ",
@@ -114,11 +117,12 @@ function wdja_cms_admin_manage_editdisp()
   global $ndatabase, $nidfield, $nfpre, $nsaveimages;
   $tbackurl = $_GET['backurl'];
   $tclass = ii_get_num($_POST['sort'], 0);
+  $tid = ii_get_num($_GET['id']);
   $timage = ii_left(ii_cstr($_POST['image']), 250);
+  if(mm_search_field($ngenre,ii_cstr($_POST['ucode']),'ucode',$tid) && !ii_isnull($_POST['ucode'])) wdja_cms_admin_msg(ii_itake('manage.ucode_failed', 'lng'), $tbackurl, 1);
   if($nsaveimages == '1' ) $tcontent = ii_left(ii_cstr(saveimages($_POST['content'])), 100000);
   else $tcontent =ii_left(ii_cstr($_POST['content']), 100000);
   $tcontent_images_list = ii_left(ii_cstr($_POST['content_images_list']), 10000);
-  $tid = ii_get_num($_GET['id']);
   if (!($tclass == 0))
   {
     $tsqlstr = "update $ndatabase set
@@ -132,6 +136,7 @@ function wdja_cms_admin_manage_editdisp()
     " . ii_cfname('content') . "='$tcontent',
     " . ii_cfname('cttype') . "=" . ii_get_num($_POST['cttype']) . ",
     " . ii_cfname('content_images_list') . "='$tcontent_images_list',
+    " . ii_cfname('ucode') . "='" . ii_left(ii_cstr($_POST['ucode']), 50) . "',
     " . ii_cfname('size') . "=" . $_POST['size'] . ",
     " . ii_cfname('runco') . "='" . ii_left(mm_get_postarystr($_POST['runco']), 255) . "',
     " . ii_cfname('star') . "=" . ii_get_num($_POST['star']) . ",
@@ -140,6 +145,7 @@ function wdja_cms_admin_manage_editdisp()
     " . ii_cfname('link') . "='" . ii_left(ii_cstr($_POST['link']), 255) . "',
     " . ii_cfname('author') . "='" . ii_left(ii_cstr($_POST['author']), 255) . "',
     " . ii_cfname('urls') . "='" . ii_left(pp_get_post_urls(ii_get_num($_POST['urls_date_option'])), 10000) . "',
+    " . ii_cfname('count') . "=" . ii_get_num($_POST['count']) . ",
     " . ii_cfname('hidden') . "=" . ii_get_num($_POST['hidden']) . ",
     " . ii_cfname('good') . "=" . ii_get_num($_POST['good']) . ",
     " . ii_cfname('time') . "='" . ii_get_date(ii_cstr($_POST['time'])) . "'

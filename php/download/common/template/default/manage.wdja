@@ -349,6 +349,10 @@ function bfsubmit()
                   </table>
                   <table border="0" width="98%" cellSpacing="0" cellPadding="0">
                     <tr>
+                      <td height="25">{$=ii_itake('manage.ucode','lng')}</td>
+                      <td><input type="text" name="ucode" size="20">&nbsp;{$=ii_itake('manage.ucode_tips','lng')}</td>
+                    </tr>
+                    <tr>
                       <td width="80" height="25">{$=ii_itake('global.lng_config.hidden','lng')}</td>
                       <td width="*">{$=mm_sel_yesno('hidden', 0)}</td>
                     </tr>
@@ -541,6 +545,10 @@ function bfsubmit()
                     </tr>
                   </table>
                   <table border="0" width="98%" cellSpacing="0" cellPadding="0">
+                    <tr>
+                      <td height="25">{$=ii_itake('manage.ucode','lng')}</td>
+                      <td><input type="text" name="ucode" size="20" value="{$ucode}">&nbsp;{$=ii_itake('manage.ucode_tips','lng')}</td>
+                    </tr>
                     <tr>
                       <td width="80" height="25">{$=ii_itake('global.lng_config.hidden','lng')}</td>
                       <td width="*">{$=mm_sel_yesno('hidden', {$hidden})}</td>

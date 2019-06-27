@@ -68,7 +68,7 @@
     </item>
     <item>
       <disinfo><![CDATA[orderid]]></disinfo>
-      <chinese><![CDATA[定单号：]]></chinese>
+      <chinese><![CDATA[订单号：]]></chinese>
     </item>
     <item>
       <disinfo><![CDATA[payol]]></disinfo>

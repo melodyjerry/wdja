@@ -78,6 +78,8 @@ function wdja_cms_module_detail()
   $trs = ii_conn_fetch_array($trs);
   if ($trs)
   {
+    $tcount = $trs[ii_cfname('count')] + 1;
+    mm_update_field($ngenre,$trs[$nidfield],'count',$tcount);
     $tmpstr = ii_itake('module.detail', 'tpl');
     mm_cntitle(ii_htmlencode($trs[ii_cfname('topic')])); 
     foreach ($trs as $key => $val)

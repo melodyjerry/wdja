@@ -55,7 +55,7 @@
         <nav class="nav">{$=vv_inavigation('{$genre}', 'classid={$class};strers=module;strurl={$genre}')}</nav>
         <h1>{$topic}</h1>
         <div class="con_text">
-        <p>{$=ii_itake('global.lng_config.time','lng')}:{$time},{$=ii_itake('global.lng_config.count','lng')}:<span id="count">0</span></p>
+        <p>{$=ii_itake('global.lng_config.time','lng')}:{$time},{$=ii_itake('global.lng_config.count','lng')}:<span>{$count}</span></p>
                     <div style="float: left;display:inline-block;text-align: right;"><img src="{$image}" alt="{$image}" width="300" height="246" /></div>
                     <div style="float: left;display:inline-block;">
                     <table width="100%" cellspacing="0" cellpadding="0" border="0">
@@ -157,12 +157,6 @@ ACBuy = {
 
 ACBuy.tinit();
 
-function innerCOUNT(strers)
-{
-  if (strers != "$error$" && strers.length <= 10) get_id("count").innerHTML = strers;
-};
-
-igets("{$=ii_get_actual_route('expansion')}/count/?genre={$=urlencode($GLOBALS['ngenre'])}&id={$id}", innerCOUNT);
 </script>
 {$=mm_web_foot($GLOBALS['nfoot'])}]]></tpl_default>
     </item>

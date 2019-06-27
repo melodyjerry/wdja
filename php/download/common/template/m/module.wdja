@@ -47,6 +47,7 @@
         <nav class="nav">{$=vv_inavigation('{$genre}', 'classid={$class};strers=module;strurl={$genre}')}</nav>
         <h1>{$topic}</h1>
         <div class="con_text">
+        <p>{$=ii_itake('global.lng_config.time','lng')}:{$time},{$=ii_itake('global.lng_config.count','lng')}:<span>{$count}</span></p>
           <p><mip-img src="{$image}" /></mip-img></p>
             <ul>
               <li id="container">

@@ -20,27 +20,27 @@
     </item>
     <item>
       <disinfo><![CDATA[alipay_uid]]></disinfo>
-      <chinese><![CDATA[2088202216609811]]></chinese>
+      <chinese><![CDATA[]]></chinese>
     </item>
     <item>
-      <disinfo><![CDATA[gbook_mail]]></disinfo>
-      <chinese><![CDATA[111111@qq.com]]></chinese>
+      <disinfo><![CDATA[message_mail]]></disinfo>
+      <chinese><![CDATA[xxxxx@qq.com]]></chinese>
     </item>
     <item>
-      <disinfo><![CDATA[gbook_title]]></disinfo>
-      <chinese><![CDATA[WDJA网站新留言提醒]]></chinese>
+      <disinfo><![CDATA[message_title]]></disinfo>
+      <chinese><![CDATA[WDJA演示站新留言提醒]]></chinese>
     </item>
     <item>
-      <disinfo><![CDATA[gbook_body]]></disinfo>
+      <disinfo><![CDATA[message_body]]></disinfo>
       <chinese><![CDATA[WDJA网站有新留言啦!]]></chinese>
     </item>
     <item>
       <disinfo><![CDATA[order_mail]]></disinfo>
-      <chinese><![CDATA[111111@qq.com]]></chinese>
+      <chinese><![CDATA[xxxxxx@qq.com]]></chinese>
     </item>
     <item>
       <disinfo><![CDATA[order_title]]></disinfo>
-      <chinese><![CDATA[WDJA网站新订单提醒]]></chinese>
+      <chinese><![CDATA[WDJA演示站新订单提醒]]></chinese>
     </item>
     <item>
       <disinfo><![CDATA[order_body]]></disinfo>

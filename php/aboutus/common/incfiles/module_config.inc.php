@@ -9,13 +9,21 @@ function wdja_cms_module_detail()
   global $conn, $ngenre;
   $tid = ii_get_num($_GET['id'],0);
   $tpage = ii_get_num($_GET['page']);
+  $tucode = ii_cstr($_GET['ucode']);
   global $ndatabase, $nidfield, $nfpre;
-  if($tid==0) $tsqlstr = "select * from $ndatabase where " . ii_cfname('hidden') . "=0 order by ".$nidfield." asc limit 0,1";
-  else $tsqlstr = "select * from $ndatabase where " . ii_cfname('hidden') . "=0 and $nidfield=$tid";
+  if(!ii_isnull($tucode)){
+    $tsqlstr = "select * from $ndatabase where " . ii_cfname('hidden') . "=0 and " . ii_cfname('ucode') . "='$tucode'";
+  }elseif($tid==0){
+    $tsqlstr = "select * from $ndatabase where " . ii_cfname('hidden') . "=0 order by ".$nidfield." asc limit 0,1";
+  } else{
+    $tsqlstr = "select * from $ndatabase where " . ii_cfname('hidden') . "=0 and $nidfield=$tid";
+  }
   $trs = ii_conn_query($tsqlstr, $conn);
   $trs = ii_conn_fetch_array($trs);
   if ($trs)
   {
+    $tcount = $trs[ii_cfname('count')] + 1;
+    mm_update_field($ngenre,$trs[$nidfield],'count',$tcount);//访问一次,更新一次访问次数+1;
     $tmpstr = ii_itake('module.detail', 'tpl');
     mm_cntitle(ii_htmlencode($trs[ii_cfname('topic')]));
     mm_cnkeywords(ii_htmlencode($trs[ii_cfname('keywords')]));

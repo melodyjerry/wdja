@@ -96,8 +96,11 @@
                   <input type="hidden" name="sel_ids">
                     <tr>
                       <td height="25" width="30"><input type="checkbox" name="sel_all" class="checkbox" onClick="select_all()"></td>
-                      <td width="*">{$=ii_itake('manage.topic','lng')}</td>
+                      <td width="120">{$=ii_itake('manage.topic','lng')}</td>
                       <td width="100">{$=ii_itake('manage.keyword','lng')}</td>
+                      <td width="100">{$=ii_itake('manage.url','lng')}</td>
+                      <td width="*">{$=ii_itake('manage.intro','lng')}</td>
+                      <td width="*">{$=ii_itake('global.lng_config.hidden','lng')}</td>
                       <td width="120">{$=ii_itake('global.lng_config.time','lng')}</td>
                       <td align="center" width="50">{$=ii_itake('global.lng_config.edit','lng')}</td>
                       <td align="center" width="50">{$=ii_itake('global.lng_config.delete','lng')}</td>
@@ -106,6 +109,9 @@
                       <td height="25"><input type="checkbox" name="sel_id" value="{$id}" class="checkbox"></td>
                       <td><a href="?type=edit&id={$id}&backurl={$=urlencode($GLOBALS['nurl'])}">{$topic}</a></td>
                       <td>{$keyword}</td>
+                      <td>{$url}</td>
+                      <td>{$intro}</td>
+                      <td>{$hidden}</td>
                       <td>{$time}</td>
                       <td align="center"><a href="?type=edit&id={$id}&backurl={$=urlencode($GLOBALS['nurl'])}"><img src="{$=#global_images_route}public/small/edit.gif" border="0"></a></td>
                       <td align="center"><a href="?action=delete&id={$id}&backurl={$=urlencode($GLOBALS['nurl'])}" onclick="return click_return('{$=ii_itake('global.lng_admin.admin_confirm2','lng')}[{$topicstr}]')"><img src="{$=#global_images_route}public/small/delete.gif" border="0"></a></td>
@@ -206,6 +212,10 @@
                       <td><input type="text" name="intro" size="60"></td>
                     </tr>
                     <tr>
+                      <td height="25">{$=ii_itake('global.lng_config.hidden','lng')}</td>
+                      <td>{$=mm_sel_yesno('hidden',0)}</td>
+                    </tr>
+                    <tr>
                       <td height="25">{$=ii_itake('global.lng_config.time','lng')}</td>
                       <td><input type="text" name="time" size="20" value="{$=ii_now()}"></td>
                     </tr>
@@ -293,6 +303,10 @@
                     <tr>
                       <td height="25">{$=ii_itake('global.lng_config.intro','lng')}</td>
                       <td><input type="text" name="intro" size="60" value="{$intro}"></td>
+                    </tr>
+                    <tr>
+                      <td height="25">{$=ii_itake('global.lng_config.hidden','lng')}</td>
+                      <td>{$=mm_sel_yesno('hidden',{$hidden})}</td>
                     </tr>
                     <tr>
                       <td height="25">{$=ii_itake('global.lng_config.time','lng')}</td>

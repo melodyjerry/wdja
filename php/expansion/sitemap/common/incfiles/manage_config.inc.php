@@ -16,6 +16,24 @@ function pp_get_xml_root()
   return $tmpstr;
 }
 
+//输出html地图地址
+function pp_get_htmlmap()
+{
+    global $conn,$variable,$nurlpre;
+    $tfield = 'loc,lastmod,changefreq,priority';
+    $turl = ii_itake('global.expansion/sitemap:config.url', 'lng').'/sitemap.html';
+    if(ii_isnull($turl)) $turl = $nurlpre;
+    $tmpstr = '';
+    $tfieldary = explode(',', $tfield);
+      $tmpstr .= '    <url>' . CRLF;
+      $tmpstr .= '      <' . $tfieldary[0] . '>' . $turl . '</' . $tfieldary[0] . '>' . CRLF;
+      $tmpstr .= '      <' . $tfieldary[1] . '>' . ii_format_date(ii_now(),1) . '</' . $tfieldary[1] . '>' . CRLF;
+      $tmpstr .= '      <' . $tfieldary[2] . '>daily</' . $tfieldary[2] . '>' . CRLF;
+      $tmpstr .= '      <' . $tfieldary[3] . '>1.0</' . $tfieldary[3] . '>' . CRLF;
+      $tmpstr .= '    </url>' . CRLF;
+return $tmpstr;
+}
+
 //输出网站首页
 function pp_get_home()
 {
@@ -27,6 +45,7 @@ function pp_get_home()
     $tfieldary = explode(',', $tfield);
       $tmpstr .= '    <url>' . CRLF;
       $tmpstr .= '      <' . $tfieldary[0] . '>' . $turl . '/</' . $tfieldary[0] . '>' . CRLF;
+      $tmpstr .= '      <mobile:mobile type="htmladapt"/>' . CRLF;
       $tmpstr .= '      <' . $tfieldary[1] . '>' . ii_format_date(ii_now(),1) . '</' . $tfieldary[1] . '>' . CRLF;
       $tmpstr .= '      <' . $tfieldary[2] . '>daily</' . $tfieldary[2] . '>' . CRLF;
       $tmpstr .= '      <' . $tfieldary[3] . '>1.0</' . $tfieldary[3] . '>' . CRLF;
@@ -66,6 +85,7 @@ function pp_get_singlepage()
       $npage = $val;
       $tmpstr .= '    <url>' . CRLF;
       $tmpstr .= '      <' . $tfieldary[0] . '>' . $turl . '/' . $npage .'</' . $tfieldary[0] . '>' . CRLF;
+      $tmpstr .= '      <mobile:mobile type="htmladapt"/>' . CRLF;
       $tmpstr .= '      <' . $tfieldary[1] . '>' . ii_format_date(ii_now(),1) . '</' . $tfieldary[1] . '>' . CRLF;
       $tmpstr .= '      <' . $tfieldary[2] . '>weekly</' . $tfieldary[2] . '>' . CRLF;
       $tmpstr .= '      <' . $tfieldary[3] . '>0.8</' . $tfieldary[3] . '>' . CRLF;
@@ -118,6 +138,7 @@ function pp_get_list()
         {
           $tmpstr .= '    <url>' . CRLF;
           $tmpstr .= '      <' . $tfieldary[0] . '>' . $turl . '/' . $ngenre .'/?type=detail&amp;id='. $trow[$nidfield] .'</' . $tfieldary[0] . '>' . CRLF;
+          $tmpstr .= '      <mobile:mobile type="htmladapt"/>' . CRLF;
           $tmpstr .= '      <' . $tfieldary[1] . '>' . ii_format_date($trow[ii_cfnames($nfpre, 'time')],1) . '</' . $tfieldary[1] . '>' . CRLF;
           $tmpstr .= '      <' . $tfieldary[2] . '>weekly</' . $tfieldary[2] . '>' . CRLF;
           $tmpstr .= '      <' . $tfieldary[3] . '>0.6</' . $tfieldary[3] . '>' . CRLF;
@@ -173,6 +194,7 @@ function pp_get_sort()
   {
       $tmpstr .= '    <url>' . CRLF;
       $tmpstr .= '      <' . $tfieldary[0] . '>' . $turl . '/' . $trow[ii_cfnames($sort_fpre, 'genre')] . '/?type=list&amp;classid='. $trow[$sort_idfield] .'</' . $tfieldary[0] . '>' . CRLF;
+      $tmpstr .= '      <mobile:mobile type="htmladapt"/>' . CRLF;
       $tmpstr .= '      <' . $tfieldary[1] . '>' . ii_format_date($trow[ii_cfnames($sort_fpre, 'time')],1) . '</' . $tfieldary[1] . '>' . CRLF;
       $tmpstr .= '      <' . $tfieldary[2] . '>daily</' . $tfieldary[2] . '>' . CRLF;
       $tmpstr .= '      <' . $tfieldary[3] . '>1.0</' . $tfieldary[3] . '>' . CRLF;
@@ -223,7 +245,9 @@ function wdja_cms_admin_manage_createdisp()
     $torderary = explode(',', $torder);
     $tub = count($tfieldary);
     $tmpstr .= '<?xml version="1.0" encoding="' . CHARSET . '"?>' . CRLF;
-    $tmpstr .= '<urlset  xmlns="http://www.google.com/schemas/sitemap/0.84">' . CRLF;
+    $tmpstr .= '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"' . CRLF . ' xmlns:mobile="http://www.baidu.com/schemas/sitemap-mobile/1/">' . CRLF;
+    //开始输出html地图地址
+    $tmpstr .= pp_get_htmlmap();
     //开始输出首页
     if(!ii_isnull($turl)) $tmpstr .= pp_get_home();
     //开始输出分类
@@ -233,7 +257,7 @@ function wdja_cms_admin_manage_createdisp()
     //开始输出单页
     $tmpstr .= pp_get_singlepage();
     //
-    $tmpstr .= '</urlset>' . CRLF;
+    $tmpstr .= '</urlset>';
     wdja_cms_admin_manage_createdisp_html();
     if (file_put_contents($tburl, $tmpstr)) wdja_cms_admin_msg(ii_itake('global.lng_public.succeed', 'lng'), $tbackurl, 1);
     else wdja_cms_admin_msg(ii_itake('global.lng_public.failed', 'lng'), $tbackurl, 1);

@@ -32,7 +32,7 @@ function mm_get_genre_title($genre)
 }
 
 
-function pp_get_module_select($module)
+function pp_get_module_select($module='')
 {
   global $variable;
   $tary = ii_get_valid_module();
@@ -114,7 +114,47 @@ function wdja_cms_admin_manage_seo_editdisp()
   $tnode = 'item';
   $tfield = 'disinfo,chinese';
   $tbase = 'language_list';
-  $torder = 'title,topic,keywords,description,';
+  $torder = 'title,topic,keywords,description,baidupush,baidupush_url,baidupush_token,';
+  if (ii_right($torder, 1) == ',') $torder = ii_left($torder, (strlen($torder) - 1));
+  if (file_exists($tburl) && (!ii_isnull($tnode)) && (!ii_isnull($tfield)) && (!ii_isnull($tbase)))
+  {
+    $tmpstr = '';
+    $tmode = ii_get_xrootatt($tburl, 'mode');
+    $tfieldary = explode(',', $tfield);
+    $torderary = explode(',', $torder);
+    $tub = count($tfieldary);
+    $tmpstr .= '<?xml version="1.0" encoding="' . CHARSET . '"?>' . CRLF;
+    $tmpstr .= '<xml mode="' . $tmode . '" author="wdja">' . CRLF;
+    $tmpstr .= '  <configure>' . CRLF;
+    $tmpstr .= '    <node>' . $tnode . '</node>' . CRLF;
+    $tmpstr .= '    <field>' . $tfield . '</field>' . CRLF;
+    $tmpstr .= '    <base>' . $tbase . '</base>' . CRLF;
+    $tmpstr .= '  </configure>' . CRLF;
+    $tmpstr .= '  <' . $tbase . '>' . CRLF;
+    foreach($torderary as $key => $val)
+    {
+      $tmpstr .= '    <' . $tnode . '>' . CRLF;
+      $tmpstr .= '      <' . $tfieldary[0] . '><![CDATA[' . $val . ']]></' . $tfieldary[0] . '>' . CRLF;
+      if($nsaveimages == '1' && $val == 'content') $tmpstr .= '      <' . $tfieldary[1] . '><![CDATA[' . saveimages($_POST[$val]) . ']]></' . $tfieldary[1] . '>' . CRLF;
+      else $tmpstr .= '      <' . $tfieldary[1] . '><![CDATA[' . $_POST[$val] . ']]></' . $tfieldary[1] . '>' . CRLF;
+      $tmpstr .= '    </' . $tnode . '>' . CRLF;
+    }
+    $tmpstr .= '  </' . $tbase . '>' . CRLF;
+    $tmpstr .= '</xml>' . CRLF;
+    if (file_put_contents($tburl, $tmpstr)) wdja_cms_admin_msg(ii_itake('global.lng_public.succeed', 'lng'), $tbackurl, 1);
+    else wdja_cms_admin_msg(ii_itake('global.lng_public.failed', 'lng'), $tbackurl, 1);
+  }
+}
+
+function wdja_cms_admin_manage_wechat_editdisp()
+{
+  global $nsaveimages;
+  $tbackurl = $_GET['backurl'];
+  $tburl = pp_get_xml_root('wechat') . XML_SFX;
+  $tnode = 'item';
+  $tfield = 'disinfo,chinese';
+  $tbase = 'language_list';
+  $torder = 'logo,url,appid,secret,templateid,templateurl,mail,mail_topic,mail_body,content,att,';
   if (ii_right($torder, 1) == ',') $torder = ii_left($torder, (strlen($torder) - 1));
   if (file_exists($tburl) && (!ii_isnull($tnode)) && (!ii_isnull($tfield)) && (!ii_isnull($tbase)))
   {
@@ -154,7 +194,7 @@ function wdja_cms_admin_manage_other_editdisp()
   $tnode = 'item';
   $tfield = 'disinfo,chinese';
   $tbase = 'language_list';
-  $torder = 'alipay_code,wechat_add,wechat_code,alipay_uid,gbook_mail,gbook_title,gbook_body,order_mail,order_title,order_body,topic,keywords,description,content,att,';
+  $torder = 'alipay_code,wechat_add,wechat_code,alipay_uid,message_mail,message_title,message_body,order_mail,order_title,order_body,topic,keywords,description,content,att,';
   if (ii_right($torder, 1) == ',') $torder = ii_left($torder, (strlen($torder) - 1));
   if (file_exists($tburl) && (!ii_isnull($tnode)) && (!ii_isnull($tfield)) && (!ii_isnull($tbase)))
   {
@@ -197,6 +237,9 @@ function wdja_cms_admin_manage_action()
       break;
     case 'seo':
       wdja_cms_admin_manage_seo_editdisp();
+      break;
+    case 'wechat':
+      wdja_cms_admin_manage_wechat_editdisp();
       break;
     case 'other':
       wdja_cms_admin_manage_other_editdisp();
@@ -298,6 +341,50 @@ function wdja_cms_admin_manage_seo_edit()
   }
   else mm_client_alert(ii_itake('manage.notexists', 'lng'), -1);
 }
+ 
+function wdja_cms_admin_manage_wechat_edit()
+{
+  $trootstr = pp_get_xml_root('wechat') . XML_SFX;
+  if (file_exists($trootstr))
+  {
+    $tmpstr = ii_itake('manage.wechat' , 'tpl');
+    $tdoc = new DOMDocument();
+    $tdoc -> load($trootstr);
+    $txpath = new DOMXPath($tdoc);
+    $tquery = '//xml/configure/node';
+    $tnode = $txpath -> query($tquery) -> item(0) -> nodeValue;
+    $tquery = '//xml/configure/field';
+    $tfield = $txpath -> query($tquery) -> item(0) -> nodeValue;
+    $tquery = '//xml/configure/base';
+    $tbase = $txpath -> query($tquery) -> item(0) -> nodeValue;
+    $tfieldary = explode(',', $tfield);
+    $tlength = count($tfieldary) - 1;
+    $tquery = '//xml/' . $tbase . '/' . $tnode;
+    $trests = $txpath -> query($tquery);
+    foreach ($trests as $trest)
+    {
+      $tnodelength = $trest -> childNodes -> length;
+      for ($i = 0; $i <= $tlength; $i += 1)
+      {
+        $ti = $i * 2 + 1;
+        if ($ti < $tnodelength)
+        {
+          $nodeValue = $trest -> childNodes -> item($ti) -> nodeValue;
+        }
+        if($i < $tlength) $k = ii_htmlencode($nodeValue);
+        if($i == $tlength) {
+          if(ii_isnull($GLOBALS['RS_' . $k])) $GLOBALS['RS_' . $k] = $nodeValue;
+          $tmpstr = str_replace('{$'.$k.'}', ii_htmlencode($nodeValue), $tmpstr);
+        }
+      }
+    }
+  	$tmpstr = str_replace('{$cttype}', $ncttype, $tmpstr);
+    $tmpstr = str_replace('{$genre}', $ngenre, $tmpstr);
+    $tmpstr = ii_creplace($tmpstr);
+    return $tmpstr;
+  }
+  else mm_client_alert(ii_itake('manage.notexists', 'lng'), -1);
+}
 
 function wdja_cms_admin_manage_other_edit()
 {
@@ -354,6 +441,9 @@ function wdja_cms_admin_manage()
       break;
     case 'seo':
       return wdja_cms_admin_manage_seo_edit();
+      break;
+    case 'wechat':
+      return wdja_cms_admin_manage_wechat_edit();
       break;
     case 'other':
       return wdja_cms_admin_manage_other_edit();

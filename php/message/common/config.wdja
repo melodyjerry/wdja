@@ -8,7 +8,6 @@
     <item varstr="ndatabase" strvalue="wdja_message" />
     <item varstr="nidfield" strvalue="mid" />
     <item varstr="nfpre" strvalue="m_" />
-    <item varstr="thumbnail.switch" strvalue="1" />
     <item varstr="nuninstall" strvalue="1|0|0" />
   </configure>
 </xml>

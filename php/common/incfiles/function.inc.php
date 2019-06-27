@@ -917,6 +917,8 @@ function ii_isvalidemail($email)
 
 function ii_iurl($type, $key, $set, $strers)
 {
+  global $ngenre;
+  $ucode = mm_get_field($ngenre,$key,'ucode');
   $tset = ii_get_num($set);
   switch($tset)
   {
@@ -927,7 +929,9 @@ function ii_iurl($type, $key, $set, $strers)
           return '?type=list&amp;classid=' . $key;
           break;
         case 'detail':
-          return '?type=detail&amp;id=' . $key;
+          if(!ii_isnull($ucode)) $durl = $ucode.'.html';
+          else $durl = '?type=detail&amp;id=' . $key;
+          return $durl;
           break;
         case 'listpage':
           return '?' . ii_htmlencode(ii_replace_querystring('offset', $key));

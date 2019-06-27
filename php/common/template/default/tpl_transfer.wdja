@@ -28,7 +28,7 @@
     <item>
       <name><![CDATA[slide]]></name>
       <tpl_default><![CDATA[{@}
-        <div class="swiper-slide"><img src="{$image}" /></div>
+        <div class="swiper-slide"><a href="{$url}" target="_blank"><img src="{$image}" /></a></div>
 {@}]]></tpl_default>
     </item>
     <item>
@@ -48,7 +48,7 @@
       <name><![CDATA[news-list]]></name>
       <tpl_default><![CDATA[<dl class="news">
 {@}
-   <dt>
+   <dt><i class="pre_dot"></i>
        <span>{$=ii_format_date('{$time}',1)}</span>
        <a href="{$=ii_curl('{$baseurl}', ii_iurl('detail', {$id}, {$urltype}, 'folder={$createfolder};filetype={$createfiletype};time={$time}'))}">{$topic}</a>
     </dt>
@@ -57,11 +57,27 @@
     </item>
     <item>
       <name><![CDATA[link]]></name>
-      <tpl_default><![CDATA[{@}<li><a href="{$url}"><strong>{$topic}</strong></a></li>{@}]]></tpl_default>
+      <tpl_default><![CDATA[{@}<li><a href="{$url}" title="{$intro}"><strong>{$topic}</strong></a></li>{@}]]></tpl_default>
     </item>
     <item>
       <name><![CDATA[updown]]></name>
       <tpl_default><![CDATA[{@}<a href="{$=ii_curl('{$baseurl}', ii_iurl('detail', {$id}, {$urltype}, 'folder={$createfolder};filetype={$createfiletype};time={$time}'))}"><strong>{$topic}</strong></a>{@}]]></tpl_default>
+    </item>
+    <item>
+      <name><![CDATA[search_li]]></name>
+      <tpl_default><![CDATA[{@}
+   <li>
+       <a href="{$=ii_curl('{$baseurl}', ii_iurl('detail', {$id}, {$urltype}, 'folder={$createfolder};filetype={$createfiletype};time={$time}'))}">{$topic}</a>
+    </li>
+{@}]]></tpl_default>
+    </item>
+    <item>
+      <name><![CDATA[keywords_li]]></name>
+      <tpl_default><![CDATA[{@}
+   <li style="float:left;margin-left:15px;">
+       <a style="width:auto;" href="{$=ii_curl('{$baseurl}', ii_iurl('detail', {$id}, {$urltype}, 'folder={$createfolder};filetype={$createfiletype};time={$time}'))}">{$topic}</a>
+    </li>
+{@}]]></tpl_default>
     </item>
   </item_list>
 </xml>

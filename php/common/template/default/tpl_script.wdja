@@ -58,5 +58,28 @@ function cutepage_label_show(strers)
 }
 </script>]]></tpl_default>
     </item>
+    <item>
+      <name><![CDATA[timing_type]]></name>
+      <tpl_default><![CDATA[<script language="javascript">
+function timing_type_display(strers)
+{
+  if (strers == 0)
+  {
+    get_id("timing_start").style.display = "";
+    get_id("timing_end").style.display = "none";
+  }
+  else if (strers == 1)
+  {
+    get_id("timing_start").style.display = "";
+    get_id("timing_end").style.display = "";
+  }
+  else
+  {
+    get_id("timing_start").style.display = "none";
+    get_id("timing_end").style.display = "none";
+  }
+}
+</script>]]></tpl_default>
+    </item>
   </item_list>
 </xml>

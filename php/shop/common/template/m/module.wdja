@@ -16,6 +16,8 @@
       <div id="list_menu">
         <ul id="container">{$=vv_isort('{$genre}', 'tpl=sort')}</ul>
       </div>
+
+<script language="javascript" src="{$=#global_images_route}js/jquery-1.7.min.js"></script>
 <script type="text/javascript" src="{$=#global_images_route}js/main.js?{$=ii_random(3)}"></script>
 <form id="filterForm" name="form1" method="get" action="{$=#nurl}">
 <input id="type" type="hidden" value="list" name="type" to="filter">
@@ -24,6 +26,7 @@
 {$=api_list_fields_input()}
 {$=api_list_fields()}
 </form>
+
       <div class="list_con">
       <ul class="product">
         {@recurrence_ida}
@@ -54,9 +57,8 @@
         <nav class="nav">{$=vv_inavigation('{$genre}', 'classid={$class};strers=module;strurl={$genre}')}</nav>
         <h1>{$topic}</h1>
         <div class="con_text">
-        <p>{$=ii_itake('global.lng_config.time','lng')}:{$time}</p>
+        <p>{$=ii_itake('global.lng_config.time','lng')}:{$time},{$=ii_itake('global.lng_config.count','lng')}:<span>{$count}</span></p>
                     <p><mip-img src="{$image}" alt="{$image}" /></mip-img></p>
-        {$=api_view_fields()}
               <ul>
               <li id="container">
                 <span layout="flex-item">{$=ii_itake('config.snum', 'lng')}</span>

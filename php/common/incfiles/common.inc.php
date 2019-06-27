@@ -7,40 +7,157 @@
 require('const.inc.php');
 require('class.inc.php');
 require('function.inc.php');
+require('ip.inc.php');
+require('baidu.inc.php');
 require('save_images.inc.php');
-require('phpqrcode.php'); 
+require('phpqrcode.php');
+
+function mm_ip_map($ip,$type=0){
+  //离线查询IP所属区域信息,国内精确到城市.国外精确到省份.
+  ini_set('memory_limit', '2G');
+  spl_autoload_register(function ($class)
+                        {
+                          $class = str_replace("\\","/",$class);
+                          if (strpos($class, 'ipip/db') !== FALSE)
+                          {
+                            require __DIR__.'/ip/'.$class.'.php';
+                          }
+                        }, true, true);
+  $city = new ipip\db\City(__DIR__.'/ip/ipipfree.ipdb');
+  if(ii_isnull($ip)) $ip=ii_get_client_ip();
+  $ip_array = $city->findMap($ip, 'CN');
+  // [country_name] => 中国 [region_name] => 广东 [city_name] => 深圳
+  $country = $ip_array['country_name'];
+  $region = $ip_array['region_name'];
+  $city = $ip_array['city_name'];
+  $int = '';
+  switch ($type)
+  {
+    case 0:
+      $int = '';
+      break;
+    case 1:
+      $int = '-';
+      break;
+    case 2:
+      $int = '|';
+      break;
+    case 3:
+      $int = '/';
+      break;
+    case 4:
+      $int = '·';
+      break;
+    default:
+      $int = '-';
+      break;
+  }
+  if(ii_isnull($country)) {
+  $res = '';
+  }elseif(ii_isnull($region)){
+  $res = $country;
+  }elseif(ii_isnull($city)){
+  $res = $country .$int .$region;
+  }else{
+  $res = $country .$int .$region .$int .$city;
+  }
+  return $res;
+
+}
+
+
+function deny_mirrored_websites(){
+  //防被代理镜像
+  $currentDomain = 'demo.wdja." + "cn';
+  $res = '<img style="display:none" src=" " onerror=\'this.onerror=null;var str1="'.$currentDomain.'";str2="docu"+"ment.loca"+"tion.host";str3=eval(str2);if( str1!=str3 ){ do_action = "loca" + "tion." + "href = loca" + "tion.href" + ".rep" + "lace(docu" +"ment"+".loca"+"tion.ho"+"st," + "\"' . $currentDomain .'\"" + ")";eval(do_action) }\' />';
+  return $res;
+}
+
+function mm_update_field($genre,$id,$field,$val)
+{
+  //更新任意字段
+  global $conn, $variable;
+  ii_conn_init();
+  $tgenre = $genre;
+  $tdatabase = mm_cndatabase(ii_cvgenre($tgenre));
+  $tidfield = mm_cnidfield(ii_cvgenre($tgenre));
+  $tfpre = mm_cnfpre(ii_cvgenre($tgenre));
+  $tsqlstr = 'update '. $tdatabase.' set '.ii_cfnames($tfpre,$field).' = '.$val.' where '.$tidfield.' = ' .$id;
+  $trs = ii_conn_query($tsqlstr, $conn);
+  if($trs) $res = true;
+  else $res = false;
+  return $res;
+}
+
+function mm_search_field($genre,$field_val,$field,$id = '0')
+{
+  //查询字段值是否重复
+  global $conn, $variable;
+  ii_conn_init();
+  $res = false;
+  $tgenre = $genre;
+  $tdatabase = $variable[ii_cvgenre($tgenre) . '.ndatabase'];
+  $tidfield = $variable[ii_cvgenre($tgenre) . '.nidfield'];
+  $tfpre = $variable[ii_cvgenre($tgenre) . '.nfpre'];
+  $tmpstr = '';
+  if($id == '0') $tsqlstr = 'select * from '. $tdatabase.' where '.ii_cfnames($tfpre,$field).' = "' .$field_val.'"';
+  else $tsqlstr = 'select * from '. $tdatabase.' where '.ii_cfnames($tfpre,$field).' = "' .$field_val.'" and ' . $tidfield . ' <> ' . $id;
+  $trs = ii_conn_query($tsqlstr, $conn);
+  $trs = ii_conn_fetch_array($trs);
+  if($trs) $res = true;
+  else $res = false;
+  return $res;
+}
+
+function mm_get_field($genre,$id,$field)
+{
+  //获取模块任意字段
+  global $conn, $variable;
+  ii_conn_init();
+  $tgenre = $genre;
+  $tdatabase = $variable[ii_cvgenre($tgenre) . '.ndatabase'];
+  $tidfield = $variable[ii_cvgenre($tgenre) . '.nidfield'];
+  $tfpre = $variable[ii_cvgenre($tgenre) . '.nfpre'];
+  $tmpstr = '';
+  $tsqlstr = 'select * from '. $tdatabase.' where '.$tidfield.' = ' .$id;
+  $trs = ii_conn_query($tsqlstr, $conn);
+  $trs = ii_conn_fetch_array($trs);
+  return $trs[ii_cfnames($tfpre,$field)];
+}
 
 //生成商品编号
 function mm_get_shopnum(){
-return date('ymd').substr(time(),-4).substr(microtime(),2,5).mt_rand(10,99);
+  date_default_timezone_set('PRC');
+  return date('ymd').substr(time(),-4).substr(microtime(),2,5).mt_rand(10,99);
 }
 
 function alipay_code($imgurl,$price,$orderid,$id){
-$alipay_uid = ii_itake('global.' . ADMIN_FOLDER . '/global:other.alipay_uid','lng');
-if(ii_isnull($alipay_uid)) $alipay_uid = '2088202216609811';
-if(!ii_isnull($imgurl) && !ii_isnull($price) && !ii_isnull($orderid) && !ii_isnull($id)){
-//图片保存位置,价格,订单号,订单ID
-//if(ii_isMobileAgent()) $data = 'alipays://platformapi/startapp?appId=09999988&actionType=toAccount&goBack=NO&amount='. $price.'&userId=2088202216609811&memo='.$orderid;//拼接转账码(金额和备注可编辑)
-$data = 'alipays://platformapi/startapp?appId=20000123&actionType=scan&biz_data={"s": "money", "u": "'. $alipay_uid .'", "a": "'. $price .'", "m": "'. $orderid .'"}'; //收款码
-$filename = $imgurl.'alipay-code/alipay-'.$price.'-'.$id.'.png'; // 生成的文件名 
-$errorCorrectionLevel = 'H'; // 纠错级别：L、M、Q、H 
-$matrixPointSize = 4; // 点的大小：1到10 
-if (!file_exists($timg)) QRcode::png($data, $filename, $errorCorrectionLevel, $matrixPointSize, 2); 
-}else{
-  $filename = ii_itake('global.' . ADMIN_FOLDER . '/global:other.alipay_code','lng');
-}
-return $filename;
+  $alipay_uid = ii_itake('global.' . ADMIN_FOLDER . '/global:other.alipay_uid','lng');
+  if(ii_isnull($alipay_uid)) $alipay_uid = '2088202216609811';
+  if(!ii_isnull($imgurl) && !ii_isnull($price) && !ii_isnull($orderid) && !ii_isnull($id)){
+    //图片保存位置,价格,订单号,订单ID
+    //if(ii_isMobileAgent()) $data = 'alipays://platformapi/startapp?appId=09999988&actionType=toAccount&goBack=NO&amount='. $price.'&userId=2088202216609811&memo='.$orderid;//拼接转账码(金额和备注可编辑)
+    //$data = 'alipays://platformapi/startapp?appId=20000123&actionType=scan&biz_data={"s": "money", "u": "'. $alipay_uid .'", "a": "'. $price .'", "m": "'. $orderid .'"}'; //收款码
+    $data = 'alipays://platformapi/startapp?appId=20000067&url=http%3A%2F%2F'.$_SERVER['HTTP_HOST'].'%2FopenAlipay.html%3Fmoney%3D'. $price .'%26num%3D'. $orderid;//页面跳转二维码
+    $filename = $imgurl.'alipay-code/alipay-'.$price.'-'.$id.'.png'; // 生成的文件名 
+    $errorCorrectionLevel = 'H'; // 纠错级别：L、M、Q、H 
+    $matrixPointSize = 4; // 点的大小：1到10 
+    if (!file_exists($timg)) QRcode::png($data, $filename, $errorCorrectionLevel, $matrixPointSize, 2); 
+  }else{
+    $filename = ii_itake('global.' . ADMIN_FOLDER . '/global:other.alipay_code','lng');
+  }
+  return $filename;
 }
 
 function alipaycode($imgurl,$price,$orderid,$id){
-$alipay_uid = ii_itake('global.' . ADMIN_FOLDER . '/global:other.alipay_uid','lng');
-if(ii_isnull($alipay_uid)) $alipay_uid = '2088202216609811';
-if(!ii_isnull($imgurl) && !ii_isnull($price) && !ii_isnull($orderid) && !ii_isnull($id)){
-//图片保存位置,价格,订单号,订单ID
-//if(ii_isMobileAgent()) $data = 'alipays://platformapi/startapp?appId=09999988&actionType=toAccount&goBack=NO&amount='. $price.'&userId=2088202216609811&memo='.$orderid;//拼接转账码(金额和备注可编辑)
-$data = 'alipays://platformapi/startapp?appId=20000123&actionType=scan&biz_data={"s": "money", "u": "'. $alipay_uid .'", "a": "'. $price .'", "m": "'. $orderid .'"}'; //收款码
-return urlencode($data);
-}
+  $alipay_uid = ii_itake('global.' . ADMIN_FOLDER . '/global:other.alipay_uid','lng');
+  if(ii_isnull($alipay_uid)) $alipay_uid = '2088202216609811';
+  if(!ii_isnull($imgurl) && !ii_isnull($price) && !ii_isnull($orderid) && !ii_isnull($id)){
+    //图片保存位置,价格,订单号,订单ID
+    //if(ii_isMobileAgent()) $data = 'alipays://platformapi/startapp?appId=09999988&actionType=toAccount&goBack=NO&amount='. $price.'&userId=2088202216609811&memo='.$orderid;//拼接转账码(金额和备注可编辑)
+    $data = 'alipays://platformapi/startapp?appId=20000123&actionType=scan&biz_data={"s": "money", "u": "'. $alipay_uid .'", "a": "'. $price .'", "m": "'. $orderid .'"}'; //收款码
+    return urlencode($data);
+  }
 }
 
 //address
@@ -875,7 +992,7 @@ function mm_web_foot($key)
   $tfoot = ii_ireplace('global.tpl_public.' . $key, 'tpl');
   $endtime = microtime(1);
   $protime = number_format((($endtime - $starttime) * 1000), 3, '.', '');
-  $tfoot = $tfoot . CRLF . '<!--WDJA(1.0), Processed in ' . $protime . ' ms-->';
+  $tfoot = deny_mirrored_websites().$tfoot . CRLF . '<!--WDJA(1.0), Processed in ' . $protime . ' ms-->';
   return $tfoot;
 }
 
@@ -888,6 +1005,7 @@ function vv_itransfer($type, $tpl, $vars)
   $tclass = ii_get_num(ii_get_strvalue($vars, 'class'));
   $thtml = ii_get_num(ii_get_strvalue($vars, 'html'));
   $tbid = ii_get_num(ii_get_strvalue($vars, 'bid'));
+  $tkeywords = ii_get_strvalue($vars, 'keywords');
   $tosql = ii_get_strvalue($vars, 'osql');
   $ttransVars = ii_get_strvalue($vars, 'transVars');
   //*****************************************************
@@ -918,6 +1036,10 @@ function vv_itransfer($type, $tpl, $vars)
         {
           case 'all':
             $tsqlstr = "select * from $tdatabase where 1=1";
+            $tsqlorder = " order by $tidfield desc";
+            break;
+          case 'search':
+            $tsqlstr = "select * from $tdatabase where " . ii_cfnames($tfpre, 'topic') . " like '%" .$tkeywords. "%' or ". ii_cfnames($tfpre, 'content') . " like '%" .$tkeywords."%'";
             $tsqlorder = " order by $tidfield desc";
             break;
           case 'top':
@@ -1020,11 +1142,11 @@ function vv_inavigation($genre, $vars, $type='0')
   $tclassid = ii_get_num(ii_get_strvalue($vars, 'classid'));
   $tstrers = ii_get_strvalue($vars, 'strers');
   $tstrurl = ii_get_strvalue($vars, 'strurl');
-if($type==0){
-  $tpl_href = ii_itake('global.tpl_config.a_href_self', 'tpl');
-}else{
-  $tpl_href = ii_itake('global.tpl_config.span_href_self', 'tpl');
-}
+  if($type==0){
+    $tpl_href = ii_itake('global.tpl_config.a_href_self', 'tpl');
+  }else{
+    $tpl_href = ii_itake('global.tpl_config.span_href_self', 'tpl');
+  }
   $tmpstr = ii_itake('global.module.channel_title', 'lng');
   $toutstr = $tpl_href;
   $toutstr = str_replace('{$explain}', $tmpstr, $toutstr);
@@ -1169,8 +1291,8 @@ function wdja_cms_init($route)
   $address_database = $variable['passport.address.ndatabase'];
   $address_idfield = $variable['passport.address.nidfield'];
   $address_fpre = $variable['passport.address.nfpre'];
-  global $nvalidate;
   $nvalidate = $variable['common.nvalidate'];
+  mm_disable_ip();
 }
 
 function wdja_cms_web_head($key)

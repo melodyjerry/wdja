@@ -52,7 +52,7 @@
         <nav class="nav">{$=vv_inavigation('{$genre}', 'classid={$class};strers=module;strurl={$genre}')}</nav>
         <h1>{$topic}</h1>
         <div class="con_text">
-        <p>{$=ii_itake('global.lng_config.time','lng')}:{$time},{$=ii_itake('global.lng_config.count','lng')}:<span id="count">0</span></p>
+        <p>{$=ii_itake('global.lng_config.time','lng')}:{$time},{$=ii_itake('global.lng_config.count','lng')}:<span>{$count}</span></p>
         <table width="100%" cellspacing="0" cellpadding="0" border="0">
         {$=api_view_fields()}
 		{@recurrence_ida}
@@ -73,7 +73,6 @@
     <div class="clear"></div>
   </div>
 </section>
-<script type="text/javascript">igets('{$=ii_get_actual_route('expansion')}/count/?genre={$=urlencode($GLOBALS['ngenre'])}&id={$id}', nll);</script>
 {$=mm_web_foot($GLOBALS['nfoot'])}]]></tpl_default>
     </item>
   </item_list>

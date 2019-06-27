@@ -222,6 +222,25 @@ margin:10px auto;
     color:#fff;
     font-size: 15px;
 }
+
+.list_fields{
+  width:auto;
+  margin-top:5px;
+  padding-left: 10px;
+}
+.list_fields li{
+  display: inline-block;
+  margin-right:5px;
+  font-size: 14px;
+}
+.list_fields li a{
+  height:20px;
+  line-height:20px;
+  padding:0 4px;
+}
+.list_fields li a:hover,.list_config .in,.in a{background: #FA8D00;color: #fff;border-radius: 4px;}
+.list_fields .in a:hover{color: #fff}
+
 .before-img{
 display: inline-flex;
 width:20px;
@@ -332,8 +351,6 @@ vertical-align:middle;
     <item>
       <name><![CDATA[default_foot]]></name>
       <tpl_default><![CDATA[
-
-
     <mip-sidebar id="right-sidebar" layout="nodisplay" class="mip-hidden" side="right">
       <div class="right-sidebar-nav">
         <ul class="mobile-nav-list">
@@ -359,7 +376,7 @@ vertical-align:middle;
                 <a data-type="mip" href="{$=ii_get_actual_route('page')}">{$=ii_itake('global.page:manage.channel_title', 'lng')}</a>
               </li>
               <li>
-                <a data-type="mip" href="{$=ii_get_actual_route('support/gbook')}">{$=ii_itake('global.support/gbook:module.channel_title', 'lng')}</a>
+                <a data-type="mip" href="{$=ii_get_actual_route('message')}">{$=ii_itake('global.message:module.channel_title', 'lng')}</a>
               </li>
         </ul>
       </div>
@@ -376,9 +393,7 @@ vertical-align:middle;
     </mip-fixed>
     <mip-stats-baidu token="fd1ac6bf0387f7abbf81212243d6333f"></mip-stats-baidu>
   </body>
-
 </html>
-
 ]]></tpl_default>
     </item>
   </item_list>

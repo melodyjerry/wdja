@@ -355,6 +355,9 @@ function wdja_cms_admin_controldisp($database, $idfield, $fpre, $control)
     case 'lock':
       if (ii_cinstr($control, $tcontrol, ',')) $texec = mm_dbase_switch($database, $fpre . 'lock', $idfield, $tsid);
       break;
+    case 'out':
+      if (ii_cinstr($control, $tcontrol, ',')) $texec = mm_dbase_switch($database, $fpre . 'out', $idfield, $tsid);
+      break;
     case 'good':
       if (ii_cinstr($control, $tcontrol, ',')) $texec = mm_dbase_switch($database, $fpre . 'good', $idfield, $tsid);
       break;
@@ -408,6 +411,7 @@ function wdja_cms_admin_orderdisp($genre, $strers, $osql)
   if (!(ii_isnull($tdatabase)))
   {
     $tsqlstr = "select * from $tdatabase where $tidfield=$tid";
+    echo $tsqlstr;exit;
     $trs = ii_conn_query($tsqlstr, $conn);
     $trs = ii_conn_fetch_array($trs);
     if ($trs)

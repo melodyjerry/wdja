@@ -31,6 +31,10 @@
       <chinese><![CDATA[幻灯图片]]></chinese>
     </item>
     <item>
+      <disinfo><![CDATA[image-tips]]></disinfo>
+      <chinese><![CDATA[图片尺寸1920px*420px]]></chinese>
+    </item>
+    <item>
       <disinfo><![CDATA[url]]></disinfo>
       <chinese><![CDATA[幻灯链接]]></chinese>
     </item>

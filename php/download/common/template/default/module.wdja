@@ -20,7 +20,7 @@
       <ul>
         {@recurrence_ida}
             <li>
-              <img src="{$=#global_images_route}public/small/sico.gif" alt="ICO" /><a href="{$=ii_iurl('detail', {$id}, $GLOBALS['nurltype'], 'folder=' . $GLOBALS['ncreatefolder'] . ';filetype=' . $GLOBALS['ncreatefiletype'] . ';time={$time}')}" title="{$topic}"><strong>{$topic}</strong></a>
+              <i class="pre_dot"></i><a href="{$=ii_iurl('detail', {$id}, $GLOBALS['nurltype'], 'folder=' . $GLOBALS['ncreatefolder'] . ';filetype=' . $GLOBALS['ncreatefiletype'] . ';time={$time}')}" title="{$topic}"><strong>{$topic}</strong></a>
               <span>
                 {$=ii_itake('config.star','lng')}:<img src="{$=#images_route}star/{$star}.gif" alt="{$star}" />
                 {$=ii_itake('config.count','lng')}:{$count}
@@ -48,6 +48,7 @@
         <nav class="nav">{$=vv_inavigation('{$genre}', 'classid={$class};strers=module;strurl={$genre}')}</nav>
         <h1>{$topic}</h1>
         <div class="con_text">
+        <p>{$=ii_itake('global.lng_config.time','lng')}:{$time},{$=ii_itake('global.lng_config.count','lng')}:<span>{$count}</span></p>
                     <div style="float: left;display:inline-block;text-align: right;"><img src="{$image}" alt="{$image}" width="300" height="246" /></div>
                     <div style="float: left;display:inline-block;">
                     <table border="0" cellspacing="0" cellpadding="0" width="100%">
@@ -102,7 +103,6 @@
     <div class="clear"></div>
   </div>
 </section>
-<script type="text/javascript">igets('{$=ii_get_actual_route('expansion')}/count/?genre={$=urlencode($GLOBALS['ngenre'])}&id={$id}', nll);</script>
 {$=mm_web_foot($GLOBALS['nfoot'])}]]></tpl_default>
     </item>
   </item_list>

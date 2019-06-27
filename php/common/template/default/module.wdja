@@ -10,12 +10,10 @@
       <name><![CDATA[index]]></name>
       <tpl_default><![CDATA[{$=mm_web_head($GLOBALS['nhead'])}
 {$=ii_ireplace('global.module.swiper-slide','tpl')}
-<section id="middle">
-    <div id="middleContent" style="height:40px;line-height:40px;">
-        <ul>
-        <li style="float:left;overflow: hidden;width:800px;">{$=ii_ireplace('global.passport:api.login2', 'tpl')}</li>
-        <li style="float:right;overflow: hidden;width:200px;text-align: right;"><a download href="{$=ii_itake('global.' . ADMIN_FOLDER . '/global:home.download_url','lng')}" style="background:#3eb4fa;border-radius:5px;height: 26px;line-height: 26px;margin-right:10px;padding: 2px 5px;display: inline-block;text-align: center;color: #ffffff;">{$=ii_itake('global.admin/global:home.download_name','lng')}</a><a href="{$=ii_itake('global.admin/global:home.demo_url','lng')}" style="background:#3eb4fa;border-radius:5px;height: 26px;line-height: 26px;margin-right:10px;padding: 2px 5px;display: inline-block;text-align: center;color: #ffffff;" target="_blank">演示站</a></li>
-        </ul>
+<section class="login">
+    <div class="login_con">
+        <div class="login_con_left">{$=ii_ireplace('global.passport:api.login2', 'tpl')}</div>
+        <div class="login_con_right"><a download href="{$=ii_itake('global.' . ADMIN_FOLDER . '/global:home.download_url','lng')}">{$=ii_itake('global.admin/global:home.download_name','lng')}</a><a href="{$=ii_itake('global.admin/global:home.demo_url','lng')}" target="_blank">演示站</a></div>
     </div>
 </section>
 <section id="middle">
@@ -38,7 +36,7 @@
       <tpl_default><![CDATA[<section class="swiper">
 <div class="swiper-container">
     <div class="swiper-wrapper">
-       {$=vv_itransfer('all', 'slide', 'topx=5;tnum=30;genre=support/slide')}
+       {$=vv_itransfer('new', 'slide', 'topx=5;tnum=30;genre=support/slide')}
     </div>
     <!-- 如果需要分页器 -->
     <div class="swiper-pagination"></div>
@@ -52,14 +50,16 @@
     <item>
       <name><![CDATA[links]]></name>
       <tpl_default><![CDATA[<section class="links">
+<div class="links_con">
                 <div class="title">
                     <strong>
                         {$=ii_itake('global.support/linktext:manage.channel_title', 'lng')}(交换QQ:858512104)
               </strong>
                 </div>
                 <ul>
-                   {$=vv_itransfer('all', 'link', 'topx=20;tnum=30;genre=support/linktext')}
+                   {$=vv_itransfer('new', 'link', 'topx=20;tnum=30;genre=support/linktext')}
                 </ul>
+</div>
    </section>
 ]]></tpl_default>
     </item>

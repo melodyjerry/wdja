@@ -83,7 +83,7 @@
     </item>
     <item>
       <disinfo><![CDATA[new]]></disinfo>
-      <chinese><![CDATA[注册新用户]]></chinese>
+      <chinese><![CDATA[注册]]></chinese>
     </item>
     <item>
       <disinfo><![CDATA[need]]></disinfo>
@@ -156,6 +156,12 @@
     <item>
       <disinfo><![CDATA[lostpassword_close]]></disinfo>
       <chinese><![CDATA[当前忘记密码功能已经被关闭]]></chinese>
+    </item>
+    <item>
+      <disinfo><![CDATA[pay_tips]]></disinfo>
+      <chinese><![CDATA[
+支付宝请扫码支付,微信请添加好友或直接扫码支付.<br/>
+如有问题请联系在线客服:QQ 925474725 微信: shadoweb]]></chinese>
     </item>
   </language_list>
 </xml>

@@ -15,6 +15,7 @@
         <nav class="nav">{$=vv_inavigation('{$genre}', '')}{$=NAV_SP_STR}{$topic}</nav>
         <h1>{$topic}</h1>
         <div class="con_text">
+        <p>{$=ii_itake('global.lng_config.time','lng')}:{$time},{$=ii_itake('global.lng_config.count','lng')}:<span>{$count}</span></p>
         {$=mm_encode_content(mm_cutepage_content(mm_content_mip($GLOBALS['RS_content']), 'cp_note={$cp_note};cp_mode={$cp_mode};cp_type={$cp_type};cp_num={$cp_num};cp_page={$page}'), '{$cttype}')}
         </div>
         <div id="ct-cutepage" class="cutepage">{$=mm_cutepage_content_page_sel($GLOBALS['RS_content'], 'cp_note={$cp_note};cp_mode={$cp_mode};cp_type={$cp_type};cp_num={$cp_num}', 'folder=' . $GLOBALS['ncreatefolder'] . ';filetype=' . $GLOBALS['ncreatefiletype'] . ';cutekey={$id};time={$time}')}</div>
