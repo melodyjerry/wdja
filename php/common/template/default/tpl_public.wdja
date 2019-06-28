@@ -99,15 +99,6 @@
   })        
   </script>
 <script type="text/javascript">get_id('m{$=#ngenre}').className = 'on';</script>
-<script>
-var _hmt = _hmt || [];
-(function() {
-  var hm = document.createElement("script");
-  hm.src = "https://hm.baidu.com/hm.js?fd1ac6bf0387f7abbf81212243d6333f";
-  var s = document.getElementsByTagName("script")[0]; 
-  s.parentNode.insertBefore(hm, s);
-})();
-</script>
 </body>
 </html>]]></tpl_default>
     </item>
