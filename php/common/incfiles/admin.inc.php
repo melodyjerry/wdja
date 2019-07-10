@@ -411,7 +411,6 @@ function wdja_cms_admin_orderdisp($genre, $strers, $osql)
   if (!(ii_isnull($tdatabase)))
   {
     $tsqlstr = "select * from $tdatabase where $tidfield=$tid";
-    echo $tsqlstr;exit;
     $trs = ii_conn_query($tsqlstr, $conn);
     $trs = ii_conn_fetch_array($trs);
     if ($trs)
