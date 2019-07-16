@@ -217,6 +217,35 @@ function wdja_cms_admin_manage_list()
   if ($search_field == 'lock') $tsqlstr .= " and " . ii_cfname('lock') . " = '" . $search_keyword . "' and " . ii_cfname('out') . " <> '1'";
   if ($search_field == 'out') $tsqlstr .= " and " . ii_cfname('out') . " = '" . $search_keyword . "'";
   if ($search_field == 'content') $tsqlstr .= " and " . ii_cfname('content') . " like '%" . $search_keyword . "%'";
+  if ($search_field == 'robots'){
+    switch($search_keyword)
+    {
+    case '百度':
+      $tsqlstr .= " and " . ii_cfname('robots') . " = 'Baiduspider'";
+      break;
+    case '360':
+      $tsqlstr .= " and " . ii_cfname('robots') . " = '360Spider'";
+      break;
+    case '谷歌':
+      $tsqlstr .= " and " . ii_cfname('robots') . " = 'Googlebot'";
+      break;
+    case '神马':
+      $tsqlstr .= " and " . ii_cfname('robots') . " = 'YisouSpider'";
+      break;
+    case '必应':
+      $tsqlstr .= " and " . ii_cfname('robots') . " = 'bingbot'";
+      break;
+    case '搜狗':
+      $tsqlstr .= " and " . ii_cfname('robots') . " = 'Sogou'";
+      break;
+    case '管理员':
+      $tsqlstr .= " and " . ii_cfname('robots') . " = 'admin'";
+      break;
+    default:
+      $tsqlstr .= " and 1 = 1 ";
+      break;
+  }
+  }
   $tsqlstr .= " order by " . ii_cfname('update') . " desc";
   $tcp = new cc_cutepage;
   $tcp -> id = $nidfield;
