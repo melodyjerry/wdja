@@ -12,7 +12,6 @@
 {$=mm_web_head($GLOBALS['nhead'])}
 {$=mm_echo_error()}
 <script type="text/javascript" src="{$=#global_images_route}js/validator.js"></script>
-
 <section id="middle">
   <div id="middleContent">
     <div class="content">
@@ -31,36 +30,32 @@
               <input type="hidden" name="hidden" value="1" />
               <table width="100%" cellpadding="0" cellspacing="0" border="0">
                 <tr>
-                  <td width="80" height="25"><font class="red">*</font> {$=ii_itake('config.author', 'lng')}</td>
-                  <td><input type="text" size="20" name="author" maxlength="16" dtype="Limit" min="1" max="16" dmsg="{$=ii_itake('validator.author', 'lng')}" value="{$=ii_htmlencode($_POST['author'], 1)}" class="text" /></td>
+                  <td width="80" height="25">{$=ii_itake('config.name', 'lng')}</td>
+                  <td><input type="text" size="20" name="name" maxlength="16" dtype="Limit" min="1" max="16" dmsg="{$=ii_itake('validator.name', 'lng')}" value="{$=ii_htmlencode($_POST['name'], 1)}" class="text" /><font class="red">*</font></td>
                 </tr>
                 <tr>
                   <td height="25">{$=ii_itake('config.sex', 'lng')}</td>
                   <td><select name="sex" class="select">{$=ii_show_xmlinfo_select('global.sel_sex.all', ii_get_num($_POST['sex']), 'select')}</select></td>
                 </tr>
                 <tr>
-                  <td height="25">QQ</td>
-                  <td><input type="text" size="20" name="qq" maxlength="20" value="{$=ii_htmlencode($_POST['qq'], 1)}" class="text" /></td>
-                </tr>
-                <tr>
-                  <td height="25">{$=ii_itake('config.face', 'lng')}</td>
-                  <td><select name="face" class="select" onchange="get_id('faceImg').src='{$=#global_images_route}face/' + this.options[this.selectedIndex].value + '.gif';">{$=ii_show_num_select(0, 1, ii_get_num($_POST['face']))}</select> <img id="faceImg" src="{$=#global_images_route}face/{$=ii_get_num($_POST['face'], 0)}.gif" border="0" class="absmiddle" /></td>
+                  <td height="25">{$=ii_itake('config.mobile', 'lng')}</td>
+                  <td><input type="text" size="20" name="mobile" maxlength="20" value="{$=ii_htmlencode($_POST['mobile'], 1)}" class="text" /></td>
                 </tr>
                 <tr>
                   <td height="25">{$=ii_itake('config.email', 'lng')}</td>
                   <td><input type="text" size="20" name="email" maxlength="40" require="false" dtype="Email" dmsg="{$=ii_itake('validator.email', 'lng')}" value="{$=ii_htmlencode($_POST['email'], 1)}" class="text" /></td>
                 </tr>
                 <tr>
-                  <td height="25">{$=ii_itake('config.homepage', 'lng')}</td>
-                  <td><input type="text" size="20" name="homepage" maxlength="40" require="false" dtype="Url" dmsg="{$=ii_itake('validator.homepage', 'lng')}" value="{$=ii_htmlencode($_POST['homepage'], 1)}" class="text" /></td>
+                  <td height="25">{$=ii_itake('config.address', 'lng')}</td>
+                  <td><input type="text" size="20" name="address" require="false" dmsg="{$=ii_itake('validator.address', 'lng')}" value="{$=ii_htmlencode($_POST['address'], 1)}" class="text" /></td>
                 </tr>
                 <tr>
-                  <td height="25"><font class="red">*</font> {$=ii_itake('config.topic', 'lng')}</td>
-                  <td><input type="text" size="20" name="topic" maxlength="50" dtype="Require" dmsg="{$=ii_itake('validator.topic', 'lng')}" value="{$=ii_htmlencode($_POST['topic'], 1)}" class="text" /></td>
+                  <td height="25">{$=ii_itake('config.title', 'lng')}</td>
+                  <td><input type="text" size="20" name="title" maxlength="50" dtype="Require" dmsg="{$=ii_itake('validator.title', 'lng')}" value="{$=ii_htmlencode($_POST['title'], 1)}" class="text" /><font class="red">*</font></td>
                 </tr>
                 <tr>
-                  <td height="25" valign="top"><font class="red">*</font> {$=ii_itake('config.content', 'lng')}</td>
-                  <td><textarea name="content" id="content" dtype="Limit" min="1" max="1000" dmsg="{$=ii_itake('validator.content', 'lng')}" style="WIDTH: 200px; HEIGHT: 170px" class="textarea">{$=ii_htmlencode($_POST['content'], 1)}</textarea></td>
+                  <td height="25" valign="top">{$=ii_itake('config.content', 'lng')}</td>
+                  <td><textarea name="content" id="content" dtype="Limit" min="1" max="1000" dmsg="{$=ii_itake('validator.content', 'lng')}" style="WIDTH: 200px; HEIGHT: 170px" class="textarea">{$=ii_htmlencode($_POST['content'], 1)}</textarea><font class="red">*</font></td>
                 </tr>
 {@recurrence_valcode}
                 <tr>
@@ -105,28 +100,10 @@
             <td class="list" valign="top">{@recurrence_ida}
               <table width="100%" cellspacing="0" cellpadding="0" border="0">
                 <tr>
-                  <td width="100" valign="top">
-                    <table width="100%" cellspacing="0" cellpadding="0" border="0">
-                      <tr>
-                        <td height="25"><u>{$author}</u></td>
-                      </tr>
-                      <tr>
-                        <td height="5"></td>
-                      </tr>
-                      <tr>
-                        <td><img src="{$=#global_images_route}face/{$face}.gif" alt="Face" class="absmiddle" /></td>
-                      </tr>
-                      <tr>
-                        <td height="25">
-<img src="{$=#global_images_route}public/small/qq.gif" border="0" alt="{$qq}" class="absmiddle" /> <a href="{$homepage}" target="_blank"><img src="{$=#global_images_route}public/small/url.gif" alt="URL" class="absmiddle" /></a> <a href="mailto:{$email}"><img src="{$=#global_images_route}public/small/email.gif" alt="Email" class="absmiddle" /></a> <img src="{$=#global_images_route}public/small/ip.gif" alt="{$authorip}" class="absmiddle" />
-</td>
-                      </tr>                    
-</table>
-                  </td>
                   <td valign="top">
                     <table width="100%" cellspacing="0" cellpadding="0" border="0">
                       <tr>
-                        <td height="25"><b>{$topic}</b></td>
+                        <td height="25"><b>{$title}</b></td>
                       </tr>
                       <tr>
                         <td height="5"></td>
@@ -218,8 +195,8 @@
               <input type="hidden" name="hidden" value="1" />
               <table width="100%" cellpadding="0" cellspacing="0" border="0">
                 <tr>
-                  <td width="80" height="25"><font class="red">*</font> {$=ii_itake('config.name', 'lng')}</td>
-                  <td><input type="text" size="20" name="name" maxlength="16" dtype="Limit" min="1" max="16" dmsg="{$=ii_itake('validator.name', 'lng')}" value="{$=ii_htmlencode($_POST['name'], 1)}" class="text" /></td>
+                  <td width="80" height="25">{$=ii_itake('config.name', 'lng')}</td>
+                  <td><input type="text" size="20" name="name" maxlength="16" dtype="Limit" min="1" max="16" dmsg="{$=ii_itake('validator.name', 'lng')}" value="{$=ii_htmlencode($_POST['name'], 1)}" class="text" /><font class="red">*</font></td>
                 </tr>
                 <tr>
                   <td height="25">{$=ii_itake('config.sex', 'lng')}</td>
@@ -235,15 +212,15 @@
                 </tr>
                 <tr>
                   <td height="25">{$=ii_itake('config.address', 'lng')}</td>
-                  <td><input type="text" size="20" name="address" maxlength="40" require="false" dtype="Url" dmsg="{$=ii_itake('validator.address', 'lng')}" value="{$=ii_htmlencode($_POST['address'], 1)}" class="text" /></td>
+                  <td><input type="text" size="20" name="address" require="false" dmsg="{$=ii_itake('validator.address', 'lng')}" value="{$=ii_htmlencode($_POST['address'], 1)}" class="text" /></td>
                 </tr>
                 <tr>
-                  <td height="25"><font class="red">*</font> {$=ii_itake('config.title', 'lng')}</td>
-                  <td><input type="text" size="20" name="title" maxlength="50" dtype="Require" dmsg="{$=ii_itake('validator.title', 'lng')}" value="{$=ii_htmlencode($_POST['title'], 1)}" class="text" /></td>
+                  <td height="25">{$=ii_itake('config.title', 'lng')}</td>
+                  <td><input type="text" size="20" name="title" maxlength="50" dtype="Require" dmsg="{$=ii_itake('validator.title', 'lng')}" value="{$=ii_htmlencode($_POST['title'], 1)}" class="text" /><font class="red">*</font></td>
                 </tr>
                 <tr>
-                  <td height="25" valign="top"><font class="red">*</font> {$=ii_itake('config.content', 'lng')}</td>
-                  <td><textarea name="content" id="content" dtype="Limit" min="1" max="1000" dmsg="{$=ii_itake('validator.content', 'lng')}" style="WIDTH: 200px; HEIGHT: 170px" class="textarea">{$=ii_htmlencode($_POST['content'], 1)}</textarea></td>
+                  <td height="25" valign="top">{$=ii_itake('config.content', 'lng')}</td>
+                  <td><textarea name="content" id="content" dtype="Limit" min="1" max="1000" dmsg="{$=ii_itake('validator.content', 'lng')}" style="WIDTH: 200px; HEIGHT: 170px" class="textarea">{$=ii_htmlencode($_POST['content'], 1)}</textarea><font class="red">*</font></td>
                 </tr>
 {@recurrence_valcode}
                 <tr>
