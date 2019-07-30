@@ -191,10 +191,10 @@ function wdja_cms_cklogin($username, $password)
     $trs = ii_conn_fetch_array($trs);
     if ($trs)
     {
+      if(!mm_search_field('expansion/iplock',ii_get_client_ip(),'ip')) ip_insert(ii_get_client_ip(),'admin');
+      if(ip_get_field(ii_get_client_ip(),'out') == 0) ip_update_field(ii_get_client_ip(),'out');
       setcookie(APP_NAME . 'admin[username]', $trs[ii_cfnames($tfpre, 'name')], 0, COOKIES_PATH);
       setcookie(APP_NAME . 'admin[password]', $trs[ii_cfnames($tfpre, 'pword')], 0, COOKIES_PATH);
-      //session_register(APP_NAME . 'admin_popedom');
-      //session_register(APP_NAME . 'admin_username');
       $_SESSION[APP_NAME . 'admin_popedom'] = $trs[ii_cfnames($tfpre, 'popedom')];
       $_SESSION[APP_NAME . 'admin_username'] = $trs[ii_cfnames($tfpre, 'name')];
       $admc_popedom = $_SESSION[APP_NAME . 'admin_popedom'];
