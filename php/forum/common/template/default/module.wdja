@@ -239,7 +239,6 @@ function nloadreply(strers)
       <tpl_default><![CDATA[{$=mm_web_head($GLOBALS['nhead'])}
 <script type="text/javascript">
 var mystrarea;
-
 function forum_quote(strsid, strtid, strarea)
 {
   mystrarea = strarea;
@@ -250,7 +249,7 @@ function forum_quotes(strers)
 {
   var tstr = strers;
   if (!(tstr == "$error$"))
-  {itextner(mystrarea, tstr);}
+  {editor_insert(mystrarea, tstr);}
 };
 </script>
 <div id="middle">
@@ -338,7 +337,7 @@ function forum_quotes(strers)
               <td width="40"><a href="{$=ii_get_actual_route(USER_FOLDER)}/message/?type=send&amp;username={$=urlencode('{$username}')}"><img src="{$=#images_route}icon/mail.gif" /></a></td>
               <td width="40"><a href="mailto:{$email}"><img src="{$=#images_route}icon/email.gif" / ></a></td>
               <td width="40"><a href="./?type=edit&amp;tid={$tid}&amp;sid={$sid}&amp;backurl={$=urlencode($GLOBALS['nurl'])}"><img src="{$=#images_route}icon/edit.gif" border="0" /></a></td>
-              <td><a href="javascript:forum_quote('{$sid}','{$tid}','content');"><img src="{$=#images_route}icon/quote.gif" border="0" /></a></td>
+              <td><a onclick="forum_quote('{$sid}','{$tid}','content');"><img src="{$=#images_route}icon/quote.gif" border="0" /></a></td>
             </tr>
           </table>
           <table width="100%" cellpadding="0" cellspacing="0" border="0" style="table-layout:fixed">
@@ -349,7 +348,7 @@ function forum_quotes(strers)
               <td height="10"></td>
             </tr>
             <tr>
-              <td><div class="contents">{$content}</div></td>
+              <td><div class="contents">{$content}{$edit_info}</div></td>
             </tr>
           </table>
         </td>
@@ -375,25 +374,17 @@ function forum_quotes(strers)
               <td><input type="text" name="topic" size="40" maxlength="50" /></td>
             </tr>
             <tr>
-              <td height="25"{$=ii_itake('config.mood', 'lng')}</td>
-              <td>{$=ii_show_xmlinfo_select('sel_mood.all', 0, 'icon:radio')}</td>
+              <td height="25" valgin="top"><font class="red">*</font> {$=ii_itake('config.replycontent', 'lng')}</td>
+              <td>{$=mm_html_content('content','','')}</td>
+            </tr>{@recurrence_user_upload}
+            <tr>
+              <td height="25">{$=ii_itake('global.forum:config.files','lng')}</td>
+              <td><input type="hidden" name="content_files_list" id="content_files_list"><select name="content_files" id="content_files" class="select" onkeydown="selects.displace(this, this.selectedIndex, event.keyCode)">{$=pp_get_forum_files_list(ii_get_hstr(ii_htmlencode($_POST['content_files_list'], 1), ii_htmlencode($GLOBALS['RS_content_files_list'])))}</select> <input type="button" class="button" value="{$=ii_itake('global.lng_config.delete','lng')}" onclick="selects.remove(get_id('content_files'))"> <input type="button" class="button" value="{$=ii_itake('global.forum:config.insert_url','lng')}" onclick="insert_images2('content', get_id('content_files').value, 0,-1, '{$=ii_get_lrstr($GLOBALS['nuri'], "/", "leftr")}')"></td>
             </tr>
             <tr>
-              <td height="35">{$=ii_itake('global.lng_config.ubb', 'lng')}</td>
-              <td>{$=mm_ubb_bar('content')}</td>
-            </tr>
-            <tr>
-              <td height="25"><font class="red">*</font> {$=ii_itake('config.replycontent', 'lng')}</td>
-              <td><textarea rows="8" name="content" id="content" cols="75" ondblclick='this.rows+=3;' onblur='this.rows=8;' class="textarea"></textarea></td>
-            </tr>
-            <tr>
-              <td height="35">{$=ii_itake('global.lng_config.em', 'lng')}</td>
-              <td>{$=mm_em_bar('content')}</td>
-            </tr>
-            <tr>
-              <td height="25">{$=ii_itake('config.topicmode', 'lng')}</td>
-              <td>{$=ii_show_xmlinfo_select('sel_topicmode.all', 1, 'ubb:radio')}</td>
-            </tr>{@recurrence_valcode}
+              <td height="25">{$=ii_itake('global.lng_config.upload','lng')}</td>
+              <td><iframe src="?type=upload&upform=form&uptext=content_files&upftype=1" width="100%" height="25" scrolling="no" marginwidth="0" marginheight="0" align="middle" name="upload" frameborder="0"></iframe></td>
+            </tr>{@recurrence_user_upload}{@recurrence_valcode}
             <tr>
               <td height="25">{$=ii_itake('global.lng_config.valcode', 'lng')}</td>
               <td><input type="text" name="valcode" size="4" /> {$=mm_valcode()}</td>
@@ -464,29 +455,16 @@ function bfsubmit()
               <td>{$=ii_show_xmlinfo_select('sel_mood.all', ii_get_num($_POST['icon'], 0), 'icon:radio')}</td>
             </tr>
             <tr>
-              <td height="35">{$=ii_itake('global.lng_config.ubb', 'lng')}</td>
-              <td>{$=mm_ubb_bar('content')}</td>
-            </tr>
-            <tr>
               <td height="25"><font class="red">*</font> {$=ii_itake('config.content', 'lng')}</td>
-              <td><textarea rows="8" name="content" id="content" cols="75" ondblclick='this.rows+=3;' class="textarea">{$=ii_htmlencode($_POST['content'], 1)}</textarea></td>
-            </tr>
-            <tr>
-              <td height="35">{$=ii_itake('global.lng_config.em', 'lng')}</td>
-              <td>{$=mm_em_bar('content')}</td>
-            </tr>
-            <tr>{@recurrence_user_upload}
+              <td>{$=mm_html_content('content','','')}</td>
+            </tr>{@recurrence_user_upload}
               <td height="25">{$=ii_itake('config.files','lng')}</td>
-              <td><input type="hidden" name="content_files_list" id="content_files_list" /><select name="content_files" id="content_files" class="select" onkeydown="selects.displace(this, this.selectedIndex, event.keyCode)">{$=pp_get_forum_files_list(ii_htmlencode($_POST['content_files_list'], 1))}</select> <input type="button" class="button" value="{$=ii_itake('global.lng_config.delete','lng')}" onclick="selects.remove(get_id('content_files'))" /> <input type="button" class="button" value="{$=ii_itake('config.insert_url','lng')}" onclick="itextner('content', get_id('content_files').value)" /></td>
+              <td><input type="hidden" name="content_files_list" id="content_files_list" /><select name="content_files" id="content_files" class="select" onkeydown="selects.displace(this, this.selectedIndex, event.keyCode)">{$=pp_get_forum_files_list(ii_htmlencode($_POST['content_files_list'], 1))}</select> <input type="button" class="button" value="{$=ii_itake('global.lng_config.delete','lng')}" onclick="selects.remove(get_id('content_files'))" /> <input type="button" class="button" value="{$=ii_itake('config.insert_url','lng')}" onclick="insert_images2('content', get_id('content_files').value, 0,-1, '')" /></td>
             </tr>
             <tr>
               <td height="25">{$=ii_itake('global.lng_config.upload','lng')}</td>
               <td><iframe src="?type=upload&upform=form&uptext=content_files&upftype=1" width="100%" height="25" scrolling="no" marginwidth="0" marginheight="0" align="middle" name="upload" frameborder="0"></iframe></td>
-            </tr>{@recurrence_user_upload}
-            <tr>
-              <td height="25">{$=ii_itake('config.topicmode', 'lng')}</td>
-              <td>{$=ii_show_xmlinfo_select('sel_topicmode.all', ii_get_num($_POST['ubb'], 1), 'ubb:radio')}</td>
-            </tr>{@recurrence_valcode}
+            </tr>{@recurrence_user_upload}{@recurrence_valcode}
             <tr>
               <td height="25">{$=ii_itake('global.lng_config.valcode', 'lng')}</td>
               <td><input type="text" name="valcode" size="4" value="{$=ii_htmlencode($_POST['valcode'], 1)}" /> {$=mm_valcode()}</td>
@@ -528,20 +506,8 @@ function bfsubmit()
               <td>{$=ii_show_xmlinfo_select('sel_mood.all', ii_get_num($_POST['icon']), 'icon:radio')}</td>
             </tr>
             <tr>
-              <td height="35">{$=ii_itake('global.lng_config.ubb', 'lng')}</td>
-              <td>{$=mm_ubb_bar('content')}</td>
-            </tr>
-            <tr>
               <td height="25"><font class="red">*</font> {$=ii_itake('config.replycontent', 'lng')}</td>
-              <td><textarea rows="8" name="content" id="content" cols="75" ondblclick='this.rows+=3;' onblur='this.rows=8;' class="textarea">{$=ii_htmlencode($_POST['content'], 1)}</textarea></td>
-            </tr>
-            <tr>
-              <td height="35">{$=ii_itake('global.lng_config.em', 'lng')}</td>
-              <td>{$=mm_em_bar('content')}</td>
-            </tr>
-            <tr>
-              <td height="25">{$=ii_itake('config.topicmode', 'lng')}</td>
-              <td>{$=ii_show_xmlinfo_select('sel_topicmode.all', ii_get_num($_POST['ubb'], 1), 'ubb:radio')}</td>
+              <td>{$=mm_html_content('content',ii_htmlencode($_POST['content']),'')}</td>
             </tr>{@recurrence_valcode}
             <tr>
               <td height="25">{$=ii_itake('global.lng_config.valcode', 'lng')}</td>
@@ -596,29 +562,16 @@ function bfsubmit()
               <td>{$=ii_show_xmlinfo_select('sel_mood.all', ii_get_num(ii_get_hstr(ii_htmlencode($_POST['icon'], 1), ii_htmlencode($GLOBALS['RS_icon']))), 'icon:radio')}</td>
             </tr>
             <tr>
-              <td height="35">{$=ii_itake('global.lng_config.ubb', 'lng')}</td>
-              <td>{$=mm_ubb_bar('content')}</td>
-            </tr>
-            <tr>
               <td height="25"><font class="red">*</font> {$=ii_itake('config.content', 'lng')}</td>
-              <td><textarea rows="8" name="content" id="content" cols="75" ondblclick='this.rows+=3;' class="textarea">{$=ii_get_hstr(ii_htmlencode($_POST['content'], 1), ii_htmlencode($GLOBALS['RS_content']))}</textarea></td>
-            </tr>
-            <tr>
-              <td height="35">{$=ii_itake('global.lng_config.em', 'lng')}</td>
-              <td>{$=mm_em_bar('content')}</td>
-            </tr>
-            <tr>{@recurrence_user_upload}
+              <td>{$=mm_html_content('content',ii_htmlencode($GLOBALS['RS_content']),'')}</td>
+            </tr>{@recurrence_user_upload}
               <td height="25">{$=ii_itake('config.files','lng')}</td>
-              <td><input type="hidden" name="content_files_list" id="content_files_list"><select name="content_files" id="content_files" class="select" onkeydown="selects.displace(this, this.selectedIndex, event.keyCode)">{$=pp_get_forum_files_list(ii_get_hstr(ii_htmlencode($_POST['content_files_list'], 1), ii_htmlencode($GLOBALS['RS_content_files_list'])))}</select> <input type="button" class="button" value="{$=ii_itake('global.lng_config.delete','lng')}" onclick="selects.remove(get_id('content_files'))"> <input type="button" class="button" value="{$=ii_itake('config.insert_url','lng')}" onclick="itextner('content', get_id('content_files').value)"></td>
+              <td><input type="hidden" name="content_files_list" id="content_files_list"><select name="content_files" id="content_files" class="select" onkeydown="selects.displace(this, this.selectedIndex, event.keyCode)">{$=pp_get_forum_files_list(ii_get_hstr(ii_htmlencode($_POST['content_files_list'], 1), ii_htmlencode($GLOBALS['RS_content_files_list'])))}</select> <input type="button" class="button" value="{$=ii_itake('global.lng_config.delete','lng')}" onclick="selects.remove(get_id('content_files'))"> <input type="button" class="button" value="{$=ii_itake('config.insert_url','lng')}" onclick="insert_images2('content', get_id('content_files').value, 0,-1, '')"></td>
             </tr>
             <tr>
               <td height="25">{$=ii_itake('global.lng_config.upload','lng')}</td>
               <td><iframe src="?type=upload&upform=form&uptext=content_files&upftype=1" width="100%" height="25" scrolling="no" marginwidth="0" marginheight="0" align="middle" name="upload" frameborder="0"></iframe></td>
-            </tr>{@recurrence_user_upload}
-            <tr>
-              <td height="25">{$=ii_itake('config.topicmode', 'lng')}</td>
-              <td>{$=ii_show_xmlinfo_select('sel_topicmode.all', ii_get_num(ii_get_hstr(ii_htmlencode($_POST['ubb'], 1), ii_htmlencode($GLOBALS['RS_ubb'])), 1), 'ubb:radio')}</td>
-            </tr>{@recurrence_valcode}
+            </tr>{@recurrence_user_upload}{@recurrence_valcode}
             <tr>
               <td height="25">{$=ii_itake('global.lng_config.valcode', 'lng')}</td>
               <td><input type="text" name="valcode" size="4" value="{$=ii_htmlencode($_POST['valcode'])}" class="text" /> {$=mm_valcode()}</td>

@@ -13,7 +13,7 @@ function wdja_cms_interface_quote()
 {
   global $conn;
   global $ndatabase, $nidfield, $nfpre;
-  $tmpstr = '[quote]';
+  $tmpstr = '<blockquote style="border: 1px dashed #999999;padding: 5px;background-color:#f3f3f3;">';
   $tsid = ii_get_num($_GET['sid'], 0);
   $ttid = ii_get_num($_GET['tid'], 0);
   if (pp_check_forum_popedom($tsid, 0) == 0)
@@ -23,11 +23,11 @@ function wdja_cms_interface_quote()
     $trs = ii_conn_fetch_array($trs);
     if ($trs)
     {
-      $tmpstr .= '[b]' . ii_itake('config.topic_author', 'lng') . ' ' . ii_htmlencode($trs[ii_cfname('author')]) . ' ' . ii_itake('config.releases', 'lng') . ' ' . ii_get_date($trs[ii_cfname('time')]) . '[/b]' . CRLF;
+      $tmpstr .= '<b>' . ii_itake('config.topic_author', 'lng') . ' ' . ii_htmlencode($trs[ii_cfname('author')]) . ' ' . ii_itake('config.releases', 'lng') . ' ' . ii_get_date($trs[ii_cfname('time')]) . '</b>' . '<br/>';
       $tmpstr .= $trs[ii_cfname('content')];
     }
   }
-  $tmpstr .= '[/quote]';
+  $tmpstr .= '</blockquote><p>&nbsp;</p>';
   echo $tmpstr;
 }
 

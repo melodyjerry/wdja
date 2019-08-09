@@ -426,8 +426,9 @@ function wdja_cms_module_topic_editdisp()
     $tsqlstr = "update $ndatabase set
     " . ii_cfname('icon') . "=" . ii_get_num($_POST['icon']) . ",
     " . ii_cfname('topic') . "='" . ii_left(ii_cstr($_POST['topic']), 50) . "',
-    " . ii_cfname('content') . "='" . ii_left(ii_cstr($_POST['content']), 20000) . CRLF . CRLF . ii_ireplace('module.topicedit_info', 'lng') . "',
+    " . ii_cfname('content') . "='" . ii_left(ii_cstr($_POST['content']), 20000) . "' ,
     " . ii_cfname('content_files_list') . "='$tcontent_files_list',
+    " . ii_cfname('edit_info') . "='" . CRLF . CRLF . ii_ireplace('global.forum:module.topicedit_info', 'lng') . "',
     " . ii_cfname('ubb') . "=" . ii_get_num($_POST['ubb']) . "
     where $nidfield=$ttid";
     $trs = ii_conn_query($tsqlstr, $conn);
@@ -665,7 +666,8 @@ function wdja_cms_module_manage_detail()
       $tmptstr = str_replace('{$icon}', ii_get_num($trs[ii_cfname('icon')]), $tmptstr);
       $tmptstr = str_replace('{$topic}', ii_htmlencode($trs[ii_cfname('topic')]), $tmptstr);
       $tmptstr = str_replace('{$time}', ii_get_date($trs[ii_cfname('time')]), $tmptstr);
-      $tmptstr = str_replace('{$content}', pp_encode_forum_content($trs[ii_cfname('content')], ii_get_num($trs[ii_cfname('ubb')])), $tmptstr);
+      $tmptstr = str_replace('{$content}', $trs[ii_cfname('content')], $tmptstr);
+      $tmptstr = str_replace('{$edit_info}', ii_htmlencode($trs[ii_cfname('edit_info')]), $tmptstr);
       $tmptstr = str_replace('{$floor}', $toffset + $ti, $tmptstr);
       $tmptstr = str_replace('{$tid}', ii_get_num($trs[$nidfield]), $tmptstr);
       if (ii_get_num($trs[ii_cfname('hidden')]) == 1) $tmptstr = str_replace('{$topicpic}', $tpichidden, $tmptstr);
@@ -902,6 +904,7 @@ function wdja_cms_module_topic_detail()
   global $conn, $ngenre;
   global $ndatabase, $nidfield, $nfpre;
   global $nvalidate, $nlisttopx, $npagesize_reply;
+  global $nuser_upload;
   $tsid = ii_get_num($_GET['sid']);
   $ttid = ii_get_num($_GET['tid']);
   $toffset = ii_get_num($_GET['offset'], 0);
@@ -1006,7 +1009,8 @@ function wdja_cms_module_topic_detail()
       $tmptstr = str_replace('{$icon}', ii_get_num($trs[ii_cfname('icon')]), $tmptstr);
       $tmptstr = str_replace('{$topic}', ii_htmlencode($trs[ii_cfname('topic')]), $tmptstr);
       $tmptstr = str_replace('{$time}', ii_get_date($trs[ii_cfname('time')]), $tmptstr);
-      $tmptstr = str_replace('{$content}', pp_encode_forum_content($trs[ii_cfname('content')], ii_get_num($trs[ii_cfname('ubb')])), $tmptstr);
+      $tmptstr = str_replace('{$content}',mm_encode_content($trs[ii_cfname('content')], ''), $tmptstr);
+      $tmptstr = str_replace('{$edit_info}', ii_htmlencode($trs[ii_cfname('edit_info')]), $tmptstr);
       $tmptstr = str_replace('{$floor}', $toffset + $ti, $tmptstr);
       $tmptstr = str_replace('{$tid}', ii_get_num($trs[$nidfield]), $tmptstr);
       $tmprstr .= $tmptstr;
@@ -1024,6 +1028,8 @@ function wdja_cms_module_topic_detail()
   $tmpstr = str_replace('{$sid}', $tsid, $tmpstr);
   $tmpstr = str_replace('{$tid}', $ttid, $tmpstr);
   $tmpstr = mm_cvalhtml($tmpstr, $nvalidate, '{@recurrence_valcode}');
+    $tmpstr = mm_cvalhtml($tmpstr, $nuser_upload, '{@recurrence_user_upload}');
+    $tmpstr = mm_cvalhtml($tmpstr, $nuser_upload, '{@recurrence_user_upload_script}');
   $tmpstr = ii_creplace($tmpstr);
   return $tmpstr;
 }
@@ -1198,6 +1204,25 @@ function wdja_cms_module()
       break;
   }
 }
+
+function mm_html_content($name, $value, $htype)
+{
+  $thtype = ii_get_num($htype,0);
+  switch($thtype)
+  {
+    case 0:
+      $tmpstr = ii_itake('global.tpl_admin.content_htmledit', 'tpl');
+      break;
+    default:
+      $tmpstr = ii_itake('global.tpl_admin.content_htmledit', 'tpl');
+      break;
+  }
+  $tmpstr = str_replace('{$name}', $name, $tmpstr);
+  $tmpstr = str_replace('{$value}', $value, $tmpstr);
+  $tmpstr = ii_creplace($tmpstr);
+  return $tmpstr;
+}
+
 //****************************************************
 // WDJA CMS Power by wdja.cn
 // Email: admin@wdja.cn
