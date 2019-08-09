@@ -240,6 +240,7 @@ CREATE TABLE `wdja_forum_topic` (
   `t_author` varchar(50) DEFAULT NULL,
   `t_authorip` varchar(50) DEFAULT NULL,
   `t_content` text,
+  `t_edit_info` varchar(255) DEFAULT NULL,
   `t_content_files_list` text,
   `t_voteid` int(9) DEFAULT '0',
   `t_ubb` int(1) DEFAULT '0',
