@@ -136,9 +136,7 @@ function alipay_code($imgurl,$price,$orderid,$id){
   if(ii_isnull($alipay_uid)) $alipay_uid = '2088202216609811';
   if(!ii_isnull($imgurl) && !ii_isnull($price) && !ii_isnull($orderid) && !ii_isnull($id)){
     //图片保存位置,价格,订单号,订单ID
-    //if(ii_isMobileAgent()) $data = 'alipays://platformapi/startapp?appId=09999988&actionType=toAccount&goBack=NO&amount='. $price.'&userId=2088202216609811&memo='.$orderid;//拼接转账码(金额和备注可编辑)
-    //$data = 'alipays://platformapi/startapp?appId=20000123&actionType=scan&biz_data={"s": "money", "u": "'. $alipay_uid .'", "a": "'. $price .'", "m": "'. $orderid .'"}'; //收款码
-    $data = 'alipays://platformapi/startapp?appId=20000067&url=http%3A%2F%2F'.$_SERVER['HTTP_HOST'].'%2FopenAlipay.html%3Fmoney%3D'. $price .'%26num%3D'. $orderid;//页面跳转二维码
+    $data = 'alipays://platformapi/startapp?appId=20000067&url=http%3A%2F%2F'.$_SERVER['HTTP_HOST'].'%2FopenAlipay.html%3Fmoney%3D'. $price .'%26num%3D'. $orderid .'%26uid%3D'. $alipay_uid;//页面跳转二维码
     $filename = $imgurl.'alipay-code/alipay-'.$price.'-'.$id.'.png'; // 生成的文件名 
     $errorCorrectionLevel = 'H'; // 纠错级别：L、M、Q、H 
     $matrixPointSize = 4; // 点的大小：1到10 
@@ -154,7 +152,6 @@ function alipaycode($imgurl,$price,$orderid,$id){
   if(ii_isnull($alipay_uid)) $alipay_uid = '2088202216609811';
   if(!ii_isnull($imgurl) && !ii_isnull($price) && !ii_isnull($orderid) && !ii_isnull($id)){
     //图片保存位置,价格,订单号,订单ID
-    //if(ii_isMobileAgent()) $data = 'alipays://platformapi/startapp?appId=09999988&actionType=toAccount&goBack=NO&amount='. $price.'&userId=2088202216609811&memo='.$orderid;//拼接转账码(金额和备注可编辑)
     $data = 'alipays://platformapi/startapp?appId=20000123&actionType=scan&biz_data={"s": "money", "u": "'. $alipay_uid .'", "a": "'. $price .'", "m": "'. $orderid .'"}'; //收款码
     return urlencode($data);
   }

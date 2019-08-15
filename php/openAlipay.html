@@ -106,18 +106,15 @@
         var params = GetRequest();
         var money = params['money']
         var num = params['num']
-
-        // 替换你的支付宝userId
-        var userId = "2088202216609811";
+        var userId = params['uid']
 
         // 替换你的自定义金额收款码
         var customUrl = "https://qr.alipay.com/fkx05222n7jysldmxtsl9ba";
 
-
         // 如需银行卡转账模式请填写如下信息（正规个人收款没必要使用）
         var bankAccount = "孟雷"; // 持卡人姓名
         var cardNo = "6217214000016176386"; // 银行卡卡号
-        var bankMark = "ICBC"; // 银行缩写简写 其他例如CCB中国建设银行 其他自行百度
+        var bankMark = "ICBC"; // 银行缩写简写 其他例如CCB中国建设银行 ICBC工商银行,其他自行百度
         var bankName = "工商银行"; // 银行完整名称
 
         var url = 'alipays://platformapi/startapp?appId=20000123&actionType=scan&biz_data=' +
