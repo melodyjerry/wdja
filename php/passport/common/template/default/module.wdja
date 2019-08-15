@@ -778,9 +778,6 @@ function check_face_height(strheight)
   <div id="middleContent">
     <main class="list">
     <nav class="nav">{$=vv_inavigation($GLOBALS['ngenre'], 'classid=-1;strers=module;strurl=' . $GLOBALS['ngenre'])}{$=NAV_SP_STR}{$=ii_itake('global.' . USER_FOLDER . ':api.lost_password', 'lng')}</nav>
-      <div id="list_menu">
-        {$=ap_user_data_member_side()}
-      </div>
       <div class="list_con">
               <table width="100%" cellspacing="0" cellpadding="0" border="0">
                 <tr>
@@ -833,9 +830,6 @@ function check_face_height(strheight)
   <div id="middleContent">
     <main class="list">
     <nav class="nav">{$=vv_inavigation($GLOBALS['ngenre'], 'classid=-1;strers=module;strurl=' . $GLOBALS['ngenre'])}{$=NAV_SP_STR}{$=ii_itake('global.' . USER_FOLDER . ':api.userlogin', 'lng')}</nav>
-      <div id="list_menu">
-        {$=ap_user_data_member_side()}
-      </div>
       <div class="list_con">
               <form action="{$=#nuri}?action=login&backurl={$=urlencode($_GET['backurl'])}" method="post">
               <table width="100%" cellspacing="0" cellpadding="0" border="0">

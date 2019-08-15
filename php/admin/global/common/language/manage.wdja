@@ -8,7 +8,7 @@
   <language_list>
     <item>
       <disinfo><![CDATA[global]]></disinfo>
-      <chinese><![CDATA[全局配置]]></chinese>
+      <chinese><![CDATA[全站配置]]></chinese>
     </item>
     <item>
       <disinfo><![CDATA[home]]></disinfo>
@@ -28,7 +28,7 @@
     </item>
     <item>
       <disinfo><![CDATA[mgtitle]]></disinfo>
-      <chinese><![CDATA[全局配置]]></chinese>
+      <chinese><![CDATA[全站配置]]></chinese>
     </item>
     <item>
       <disinfo><![CDATA[edit]]></disinfo>
@@ -36,7 +36,7 @@
     </item>
     <item>
       <disinfo><![CDATA[channel_title]]></disinfo>
-      <chinese><![CDATA[全局配置]]></chinese>
+      <chinese><![CDATA[全站配置]]></chinese>
     </item>
     <item>
       <disinfo><![CDATA[modules]]></disinfo>
