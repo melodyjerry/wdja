@@ -19,7 +19,7 @@
     <item>
       <name><![CDATA[sort]]></name>
       <tpl_default><![CDATA[{@}
-  <li id="lm{$id}"><a href="{$=ii_curl('{$baseurl}', ii_iurl('list', {$id}, {$urltype}, 'folder={$createfolder};filetype={$createfiletype}'))}"><strong>{$sort}</strong></a></li>{@}]]></tpl_default>
+  <li id="lm{$id}"><a href="/{$genre}/{$=ii_curl('{$baseurl}', ii_iurl('list', {$id}, {$urltype}, 'folder={$createfolder};filetype={$createfiletype}'))}"><strong>{$sort}</strong></a></li>{@}]]></tpl_default>
     </item>
     <item>
       <name><![CDATA[m1]]></name>

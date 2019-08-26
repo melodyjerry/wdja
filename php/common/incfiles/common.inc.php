@@ -1221,6 +1221,7 @@ function vv_isort($genre, $vars, $sortAry = '')
         if ($val['fsid'] == $tclassid)
         {
           $tmptstr = str_replace('{$id}', $key, $tmpastr);
+          $tmptstr = str_replace('{$genre}', $genre, $tmptstr);
           $tmptstr = str_replace('{$sort}', $val['sort'], $tmptstr);
           $tmptstr = str_replace('{$baseurl}', $tbaseurl, $tmptstr);
           $tmptstr = str_replace('{$urltype}', $turltype, $tmptstr);
