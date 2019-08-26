@@ -9,21 +9,22 @@ require('common/incfiles/api.inc.php');
 wdja_cms_module();
 
 function wdja_cms_api(){
-  $appid = ii_itake('global.' . ADMIN_FOLDER . '/global:wechat.appid','lng');//"wx0a9e41cd4c4f4502";
+  $appid = ii_itake('global.' . ADMIN_FOLDER . '/global:wechat.appid','lng');
   if($appid != $_GET['appid']){
   echo "404";
   exit();
   }
 }
+
 function wdja_cms_module_api(){
-    $tmpstr .= '{';
-    $tmpstr .= '"slide":'.wdja_cms_page_api('support/slide').',';
-    $tmpstr .= '"product":'.wdja_cms_list_api('product',4).',';
-    $tmpstr .= '"news":'.wdja_cms_list_api('news',6).',';
-    //$tmpstr .= '"aboutus":'.wdja_cms_singlepage_api('aboutus').',';
-    $tmpstr .= '"page":'.wdja_cms_singlepage_api('page');
-    $tmpstr .= '}';
-    echo $tmpstr;
+    $tmpstr = array();
+    $res = array();
+    $tmpstr["slide"] = json_decode(wdja_cms_page_api('support/slide'), JSON_UNESCAPED_UNICODE);
+    $tmpstr["product"] = json_decode(wdja_cms_list_api('product',4), JSON_UNESCAPED_UNICODE);
+    $tmpstr["news"] = json_decode(wdja_cms_list_api('news',6), JSON_UNESCAPED_UNICODE);
+    array_push($res, $tmpstr);
+    $res = json_encode($res,JSON_UNESCAPED_UNICODE);
+    echo $res;
 }
 
 function wdja_cms_module(){

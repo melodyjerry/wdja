@@ -72,38 +72,6 @@ function send_template_message($id,$openid,$formid,$name,$mobile,$idnum,$date,$i
   return $res;
 }
 
-function wdja_cms_sort_api($module)
-{
-  global $conn, $nlng, $variable;
-  ii_conn_init();
-  ii_get_variable_init();
-  $ngenre = $module;
-  $ndatabase = $variable['common.sort.ndatabase'];
-  $nidfield = $variable['common.sort.nidfield'];
-  $nfpre = $variable['common.sort.nfpre'];
-  $tsqlstr = "select * from $ndatabase";
-  $tsqlstr .= " where " . ii_cfnames($nfpre,'genre') . " = '".$ngenre."'";
-  $tsqlstr .= " order by " . ii_cfnames($nfpre,'order') . " desc";
-  $trs = ii_conn_query($tsqlstr, $conn);
-   while ($trow = ii_conn_fetch_array($trs))
-    {
-      $tmpstr .= '{';
-      foreach ($trow as $key => $val)
-      {
-        $tkey = ii_get_lrstr($key, '_', 'rightr');
-        $GLOBALS['RS_' . $tkey] = $val;
-        $tmpstr .= "\"".$tkey."\":\"".addslashes($val)."\",";
-      }
-      $tmpstr = substr($tmpstr,0,-1); 
-      $tmpstr .= '},';
-    }
-      $tmpstr = substr($tmpstr,0,-1); 
-      $dstr = '"/'.$module;
-      $tmpstr = str_replace("$dstr", '"'.$nurl.'/'.$module, $tmpstr);
-      $tmpstr = str_replace(array("　","\t","\n\r","\n","\r"), '', $tmpstr);
-      return '['.$tmpstr.']';
-}
-
 function wdja_cms_wxlogin_api(){
     $sessionid = $_GET['loginid'];//
     $code = $_GET['code'];
@@ -156,95 +124,6 @@ session_start();
     }
     $data = json_encode($data);
     return $data;
-}
-
-function wdja_cms_search_detail_api($module,$array)
-{
-  global $conn, $nlng, $variable;
-  ii_conn_init();
-  ii_get_variable_init();
-  $ngenre = $module;
-  $nurl = ii_itake('global.' . ADMIN_FOLDER . '/global:wechat.url','lng');
-  $ndatabase = $variable[ii_cvgenre($ngenre) . '.ndatabase'];
-  $nidfield = $variable[ii_cvgenre($ngenre) . '.nidfield'];
-  $nfpre = $variable[ii_cvgenre($ngenre) . '.nfpre'];
-  $tid = ii_get_num($id);
-  $tmobile = $array['mobile'];
-  $tidnum = $array['idnum'];
-  $tsqlstr = "select * from $ndatabase where ".ii_cfnames($nfpre,'mobile')."=$tmobile and ".ii_cfnames($nfpre,'idnum')."=$tidnum";
-  $trs = ii_conn_query($tsqlstr, $conn);
-  $trs = ii_conn_fetch_array($trs);
-  if ($trs)
-  {
-    $tmpstr .= '{';
-    foreach ($trs as $key => $val)
-    {
-      $tkey = ii_get_lrstr($key, '_', 'rightr');
-      $GLOBALS['RS_' . $tkey] = $val;
-      if($tkey == 'date') $val = ii_format_date($val, 1);
-      $tmpstr .= "\"".$tkey."\":\"".addslashes($val)."\",";
-    }
-      $tmpstr = substr($tmpstr,0,-1); 
-      $tmpstr .= '},';
-      $tmpstr = substr($tmpstr,0,-1); 
-      $dstr = '"/'.$module;
-      $tmpstr = str_replace("$dstr", '"'.$nurl.'/'.$module, $tmpstr);
-      $tmpstr = str_replace(array("　","\t","\n\r","\n","\r"), '', $tmpstr);
-      return '['.$tmpstr.']';
-  }
-}
-
-function wdja_cms_search_list_api($module)
-{
-  global $conn, $nlng, $variable;
-  ii_conn_init();
-  ii_get_variable_init();
-  $ngenre = $module;
-  $nurl = ii_itake('global.' . ADMIN_FOLDER . '/global:wechat.url','lng');
-  $tkeywords = $_GET['keywords'];
-  $tpage =  ii_get_num($_GET['page'])==0?1:ii_get_num($_GET['page']);
-  $tpage_size =  ii_get_num($_GET['page_size']);
-  $tclassid =  ii_get_num($_GET['classid']);
-  $ndatabase = $variable[ii_cvgenre($ngenre) . '.ndatabase'];
-  $nidfield = $variable[ii_cvgenre($ngenre) . '.nidfield'];
-  $nfpre = $variable[ii_cvgenre($ngenre) . '.nfpre'];
-  $nclstype =$variable[ii_cvgenre($ngenre) . '.nclstype'];
-  $nlisttopx = $variable[ii_cvgenre($ngenre) . '.nlisttopx'];
-  $npagesize = $variable[ii_cvgenre($ngenre) . '.npagesize'];
-  if($tpage_size !=0 ) $npagesize = $tpage_size;
-  $toffset = ($tpage - 1)*$npagesize;
-  $tsqlstr = "select * from $ndatabase where " . ii_cfnames($nfpre,'hidden') . "=0";
-  if(!ii_isnull($tkeywords)) $tsqlstr .= " and " . ii_cfnames($nfpre,'topic') . " like '%" . $tkeywords . "%'";
-  $tsqlstr .= " order by " . ii_cfnames($nfpre,'time') . " desc";
-  $tcp = new cc_cutepage;
-  $tcp -> id = $nidfield;
-  $tcp -> pagesize = $npagesize;
-  $tcp -> rslimit = $nlisttopx;
-  $tcp -> sqlstr = $tsqlstr;
-  $tcp -> offset = $toffset;
-  $tcp -> listkey = $tclassid;
-  $tcp -> init();
-  $trsary = $tcp -> get_rs_array();
-  if (is_array($trsary))
-  {
-    foreach($trsary as $trs)
-    {
-      $tmpstr .= '{';
-      foreach ($trs as $key => $val)
-      {
-        $tkey = ii_get_lrstr($key, '_', 'rightr');
-        $GLOBALS['RS_' . $tkey] = $val;
-        $tmpstr .= "\"".$tkey."\":\"".addslashes($val)."\",";
-      }
-      $tmpstr = substr($tmpstr,0,-1); 
-      $tmpstr .= '},';
-    }
-  }
-      $tmpstr = substr($tmpstr,0,-1); 
-      $dstr = '"/'.$module;
-      $tmpstr = str_replace("$dstr", '"'.$nurl.'/'.$module, $tmpstr);
-      $tmpstr = str_replace(array("　","\t","\n\r","\n","\r"), '', $tmpstr);
-      return '['.$tmpstr.']';
 }
 
 function wdja_cms_form_api()
@@ -307,8 +186,131 @@ function wdja_cms_form_api()
       $status = '0';
       $title = '留言失败';
     }
-  $status = '{"status":"'.$status.'","title":"'.$title.'"}';
-  return $status;
+    $status = array();
+    $res = array();
+    $status["status"] = $status;
+    $status["title"] = $title;
+    array_push($res, $tmpstr);
+    $res = json_encode($res,JSON_UNESCAPED_UNICODE);
+    return $res;
+}
+
+function wdja_cms_sort_api($module)
+{
+  global $conn, $nlng, $variable;
+  ii_conn_init();
+  ii_get_variable_init();
+  $ngenre = $module;
+  $ndatabase = $variable['common.sort.ndatabase'];
+  $nidfield = $variable['common.sort.nidfield'];
+  $nfpre = $variable['common.sort.nfpre'];
+  $tsqlstr = "select * from $ndatabase";
+  $tsqlstr .= " where " . ii_cfnames($nfpre,'genre') . " = '".$ngenre."'";
+  $tsqlstr .= " order by " . ii_cfnames($nfpre,'order') . " desc";
+  $trs = ii_conn_query($tsqlstr, $conn);
+  $tmpstr = array();
+  $res = array();
+   while ($trow = ii_conn_fetch_array($trs))
+    {
+      foreach ($trow as $key => $val)
+      {
+        $tkey = ii_get_lrstr($key, '_', 'rightr');
+        $GLOBALS['RS_' . $tkey] = $val;
+        $val = str_replace('/'.$module.'/', $nurl.'/'.$module.'/', $val);
+        $val = str_replace(array("　","\t","\n\r","\n","\r"), '', $val);
+        $tmpstr[$tkey] = $val;
+      }
+        array_push($res, $tmpstr);
+    }
+      $res = json_encode($res,JSON_UNESCAPED_UNICODE);
+      return $res;
+}
+
+function wdja_cms_search_detail_api($module,$array)
+{
+  global $conn, $nlng, $variable;
+  ii_conn_init();
+  ii_get_variable_init();
+  $ngenre = $module;
+  $nurl = ii_itake('global.' . ADMIN_FOLDER . '/global:wechat.url','lng');
+  $ndatabase = $variable[ii_cvgenre($ngenre) . '.ndatabase'];
+  $nidfield = $variable[ii_cvgenre($ngenre) . '.nidfield'];
+  $nfpre = $variable[ii_cvgenre($ngenre) . '.nfpre'];
+  $tid = ii_get_num($id);
+  $tmobile = $array['mobile'];
+  $tidnum = $array['idnum'];
+  $tsqlstr = "select * from $ndatabase where ".ii_cfnames($nfpre,'mobile')."=$tmobile and ".ii_cfnames($nfpre,'idnum')."=$tidnum";
+  $trs = ii_conn_query($tsqlstr, $conn);
+  $trs = ii_conn_fetch_array($trs);
+  $tmpstr = array();
+  $res = array();
+  if ($trs)
+  {
+    foreach ($trs as $key => $val)
+    {
+      $tkey = ii_get_lrstr($key, '_', 'rightr');
+      $GLOBALS['RS_' . $tkey] = $val;
+      if($tkey == 'date') $val = ii_format_date($val, 1);
+      $val = str_replace('/'.$module.'/', $nurl.'/'.$module.'/', $val);
+      $val = str_replace(array("　","\t","\n\r","\n","\r"), '', $val);
+      $tmpstr[$tkey] = $val;
+    }
+      array_push($res, $tmpstr);
+      $res = json_encode($res,JSON_UNESCAPED_UNICODE);
+      return $res;
+  }
+}
+
+function wdja_cms_search_list_api($module)
+{
+  global $conn, $nlng, $variable;
+  ii_conn_init();
+  ii_get_variable_init();
+  $ngenre = $module;
+  $nurl = ii_itake('global.' . ADMIN_FOLDER . '/global:wechat.url','lng');
+  $tkeywords = $_GET['keywords'];
+  $tpage =  ii_get_num($_GET['page'])==0?1:ii_get_num($_GET['page']);
+  $tpage_size =  ii_get_num($_GET['page_size']);
+  $tclassid =  ii_get_num($_GET['classid']);
+  $ndatabase = $variable[ii_cvgenre($ngenre) . '.ndatabase'];
+  $nidfield = $variable[ii_cvgenre($ngenre) . '.nidfield'];
+  $nfpre = $variable[ii_cvgenre($ngenre) . '.nfpre'];
+  $nclstype =$variable[ii_cvgenre($ngenre) . '.nclstype'];
+  $nlisttopx = $variable[ii_cvgenre($ngenre) . '.nlisttopx'];
+  $npagesize = $variable[ii_cvgenre($ngenre) . '.npagesize'];
+  if($tpage_size !=0 ) $npagesize = $tpage_size;
+  $toffset = ($tpage - 1)*$npagesize;
+  $tsqlstr = "select * from $ndatabase where " . ii_cfnames($nfpre,'hidden') . "=0";
+  if(!ii_isnull($tkeywords)) $tsqlstr .= " and " . ii_cfnames($nfpre,'topic') . " like '%" . $tkeywords . "%'";
+  $tsqlstr .= " order by " . ii_cfnames($nfpre,'time') . " desc";
+  $tcp = new cc_cutepage;
+  $tcp -> id = $nidfield;
+  $tcp -> pagesize = $npagesize;
+  $tcp -> rslimit = $nlisttopx;
+  $tcp -> sqlstr = $tsqlstr;
+  $tcp -> offset = $toffset;
+  $tcp -> listkey = $tclassid;
+  $tcp -> init();
+  $trsary = $tcp -> get_rs_array();
+  $tmpstr = array();
+  $res = array();
+  if (is_array($trsary))
+  {
+    foreach($trsary as $trs)
+    {
+      foreach ($trs as $key => $val)
+      {
+        $tkey = ii_get_lrstr($key, '_', 'rightr');
+        $GLOBALS['RS_' . $tkey] = $val;
+        $val = str_replace('/'.$module.'/', $nurl.'/'.$module.'/', $val);
+        $val = str_replace(array("　","\t","\n\r","\n","\r"), '', $val);
+        $tmpstr[$tkey] = $val;
+      }
+        array_push($res, $tmpstr);
+    }
+  }
+      $res = json_encode($res,JSON_UNESCAPED_UNICODE);
+      return $res;
 }
 
 function wdja_cms_detail_api($module,$id)
@@ -325,23 +327,22 @@ function wdja_cms_detail_api($module,$id)
   $tsqlstr = "select * from $ndatabase where $nidfield=$tid";
   $trs = ii_conn_query($tsqlstr, $conn);
   $trs = ii_conn_fetch_array($trs);
+  $tmpstr = array();
+  $res = array();
   if ($trs)
   {
-    $tmpstr .= '{';
     foreach ($trs as $key => $val)
     {
       $tkey = ii_get_lrstr($key, '_', 'rightr');
       $GLOBALS['RS_' . $tkey] = $val;
       if($tkey == 'date') $val = ii_format_date($val, 1);
-      $tmpstr .= "\"".$tkey."\":\"".addslashes($val)."\",";
+      $val = str_replace('/'.$module.'/', $nurl.'/'.$module.'/', $val);
+      $val = str_replace(array("　","\t","\n\r","\n","\r"), '', $val);
+      $tmpstr[$tkey] = $val;
     }
-      $tmpstr = substr($tmpstr,0,-1); 
-      $tmpstr .= '},';
-      $tmpstr = substr($tmpstr,0,-1); 
-      $dstr = '"/'.$module;
-      $tmpstr = str_replace("$dstr", '"'.$nurl.'/'.$module, $tmpstr);
-      $tmpstr = str_replace(array("　","\t","\n\r","\n","\r"), '', $tmpstr);
-      return '['.$tmpstr.']';
+      array_push($res, $tmpstr);
+      $res = json_encode($res,JSON_UNESCAPED_UNICODE);
+      return $res;
   }
 }
 
@@ -385,26 +386,25 @@ function wdja_cms_list_api($module,$num='')
   $tcp -> listkey = $tclassid;
   $tcp -> init();
   $trsary = $tcp -> get_rs_array();
+  $tmpstr = array();
+  $res = array();
   if (is_array($trsary))
   {
     foreach($trsary as $trs)
     {
-      $tmpstr .= '{';
       foreach ($trs as $key => $val)
       {
         $tkey = ii_get_lrstr($key, '_', 'rightr');
         $GLOBALS['RS_' . $tkey] = $val;
-        $tmpstr .= "\"".$tkey."\":\"".addslashes($val)."\",";
+        $val = str_replace('/'.$module.'/', $nurl.'/'.$module.'/', $val);
+        $val = str_replace(array("　","\t","\n\r","\n","\r"), '', $val);
+        $tmpstr[$tkey] = $val;
       }
-      $tmpstr = substr($tmpstr,0,-1); 
-      $tmpstr .= '},';
+      array_push($res, $tmpstr);
     }
   }
-      $tmpstr = substr($tmpstr,0,-1); 
-      $dstr = '"/'.$module;
-      $tmpstr = str_replace("$dstr", '"'.$nurl.'/'.$module, $tmpstr);
-      $tmpstr = str_replace(array("　","\t","\n\r","\n","\r"), '', $tmpstr);
-      return '['.$tmpstr.']';
+      $res = json_encode($res,JSON_UNESCAPED_UNICODE);
+      return $res;
 }
 
 function wdja_cms_page_api($module)
@@ -430,26 +430,24 @@ function wdja_cms_page_api($module)
   $tcp -> pagesize = $npagesize;
   $tcp -> init();
   $trsary = $tcp -> get_rs_array();
+  $tmpstr = array();
+  $res = array();
   if (is_array($trsary))
   {
     foreach($trsary as $trs)
     {
-      $tmpstr .= '{';
       foreach ($trs as $key => $val)
       {
         $tkey = ii_get_lrstr($key, '_', 'rightr');
-        $GLOBALS['RS_' . $tkey] = $val;
-        $tmpstr .= "\"".$tkey."\":\"".addslashes($val)."\",";
+        $val = str_replace('/'.$module.'/', $nurl.'/'.$module.'/', $val);
+        $val = str_replace(array("　","\t","\n\r","\n","\r"), '', $val);
+        $tmpstr[$tkey] = $val;
       }
-      $tmpstr = substr($tmpstr,0,-1); 
-      $tmpstr .= '},';
+      array_push($res, $tmpstr);
     }
   }
-      $tmpstr = substr($tmpstr,0,-1); 
-      $dstr = '"/'.$module;
-      $tmpstr = str_replace("$dstr", '"'.$nurl.'/'.$module, $tmpstr);
-      $tmpstr = str_replace(array("　","\t","\n\r","\n","\r"), '', $tmpstr);
-      return '['.$tmpstr.']';
+      $res = json_encode($res,JSON_UNESCAPED_UNICODE);
+      return $res;
 }
 
 function wdja_cms_singlepage_api($module)
@@ -472,7 +470,8 @@ function wdja_cms_singlepage_api($module)
     $tlength = count($tfieldary) - 1;
     $tquery = '//xml/' . $tbase . '/' . $tnode;
     $trests = $txpath -> query($tquery);
-    $tmpstr .= '{';
+    $tmpstr = array();
+    $res = array();
     foreach ($trests as $trest)
     {
       $tnodelength = $trest -> childNodes -> length;
@@ -486,17 +485,15 @@ function wdja_cms_singlepage_api($module)
         if($i < $tlength) $k = ii_htmlencode($nodeValue);
         if($i == $tlength) {
           if(ii_isnull($GLOBALS['RS_' . $k])) $GLOBALS['RS_' . $k] = $nodeValue;
-          $tmpstr .= "\"".$k."\":\"".addslashes($nodeValue).$tclass."\",";
+          $nodeValue = str_replace('/'.$module.'/', $nurl.'/'.$module.'/', $nodeValue);
+          $nodeValue = str_replace(array("　","\t","\n\r","\n","\r"), '', $nodeValue);
+          $tmpstr[$k] = $nodeValue;
         }
       }
     }
-      $tmpstr = substr($tmpstr,0,-1); 
-      $tmpstr .= '},';
-      $tmpstr = substr($tmpstr,0,-1);
-      $dstr = '"/'.$module;
-      $tmpstr = str_replace("$dstr", '"'.$nurl.'/'.$module, $tmpstr);
-      $tmpstr = str_replace(array("　","\t","\n\r","\n","\r"), '', $tmpstr);
-      return '['.$tmpstr.']';
+      array_push($res, $tmpstr);
+      $res = json_encode($res,JSON_UNESCAPED_UNICODE);
+      return $res;
   }
 }
 
