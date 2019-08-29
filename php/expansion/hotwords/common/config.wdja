@@ -5,7 +5,7 @@
     <item varstr="nfoot" strvalue="default_foot" />
     <item varstr="nkeywords" strvalue="关键词" />
     <item varstr="ndescription" strvalue="描述" />
-    <item varstr="nhotwords_genre" strvalue="article,news,shop" />
+    <item varstr="nhotwords_genre" strvalue="news,shop" />
     <item varstr="npagesize" strvalue="20" />
     <item varstr="nlisttopx" strvalue="2000" />
     <item varstr="ndatabase" strvalue="wdja_expansion_hotwords" />

@@ -43,30 +43,6 @@ CREATE TABLE `wdja_admin_log` (
   PRIMARY KEY (`lid`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
-CREATE TABLE `wdja_article` (
-  `aid` int(9) NOT NULL AUTO_INCREMENT,
-  `a_topic` varchar(50) DEFAULT NULL,
-  `a_keywords` varchar(152) DEFAULT NULL,
-  `a_description` varchar(252) DEFAULT NULL,
-  `a_image` varchar(255) DEFAULT NULL,
-  `a_content` text,
-  `a_content_images_list` text,
-  `a_cttype` int(1) DEFAULT '0',
-  `a_cp_note` int(1) DEFAULT '0',
-  `a_cp_mode` int(1) DEFAULT '0',
-  `a_cp_type` int(1) DEFAULT '0',
-  `a_cp_num` int(9) DEFAULT '0',
-  `a_time` datetime DEFAULT NULL,
-  `a_cls` text,
-  `a_class` int(9) DEFAULT '0',
-  `a_ucode` varchar(50) DEFAULT NULL,
-  `a_hidden` int(1) DEFAULT '0',
-  `a_update` int(1) DEFAULT '0',
-  `a_good` int(1) DEFAULT '0',
-  `a_count` int(9) DEFAULT '0',
-  PRIMARY KEY (`aid`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
-
 CREATE TABLE `wdja_download` (
   `did` int(9) NOT NULL AUTO_INCREMENT,
   `d_topic` varchar(50) DEFAULT NULL,
