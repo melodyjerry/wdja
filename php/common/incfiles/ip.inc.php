@@ -21,7 +21,8 @@ function mm_disable_ip(){
 function mm_disable_ua()
 {
   $res = false;
-  $ua = getallheaders()['User-Agent'];
+  $ua = getallheaders();
+  $ua = $ua['User-Agent'];
   $forbid = 'Bytespider,Dotbot,Rogerbot,Crawler,Barkrowler,CakePHP,GarlikCrawler,Go-http-client,ias_crawler,ICC-Crawler,PotPlayer,Riddler,Scrapy,WINAMP,viz/viz,ZXing,Castro,Jakarta Commons,ltx71,NativeHost,SalesIntelligent,Xenu Link Sleuth,Y!J-ASR,BUbiNG,CRAZYWEBCRAWLER,http Cnrdn,Lavf,NSPlayer,spray-can,stagefright,voltron,LibVLC,A6-Indexer,crawler4j,wsr-agent,DigitalPebble Crawler,MBCrawler,AhrefsBot,GrapeshotCrawler,proximic,SemrushBot,ahoy!,alkaline,ananzi,anthill,arachnophilia,arale,araneo,aretha,ariadne,arks,askjeeves,atn worldwide,auresys,backrub,big brother,bjaaland,blackwidow,bloodhound,calif,cassandra,christcrawler.com,churl,cienciaficcion.net,cmc/0.01,collective,combine system,computingsite robi/1.0,crawler.feedback,cusco,cyberspyder link test,katalog/index,die blinde kuh,digger,direct hit grabber,download express,dwcp,ebiness,e-collector,emacs-w3 search engine,esculapio,esther,evliya celebi,fastcrawler,felix ide,fetchrover,fido,fish search,fouineur,freecrawl,funnelweb,gazz,gcreep,getterroboplus puu,geturl,golem,grapnel/0.01 experiment,griffon,gromit,Gluten,hämähäkki,harvest,havindex,hi (html index) search,hku www octopus,ht://dig,html_analyzer,htmlgobble,hyper-decontextualizer,ia_archiver,ibm_planetwide,image.kapsi.net,imagelock,incywincy,informant,infoseek sidewinder,ingrid,inktomi slurp,inspector web,intelliagent,internet shinchakubin,iron33,israeli-search,javabee,jcrawler,jumpstation,katipo,kdd-explorer,kilroy,kit-fireball,labelgrabber,larbin,legs,link validator,linkscan,linkwalker,lockon,logo.gif crawler,lycos,mac wwwworm,magpie,marvin/infoseek,mattie,mediafox,merzscope,mindcrawler,mnogosearch search engine software,moget,monster,motor,muncher,muninn,muscat ferret,mwd.search,nec-meshexplorer,nederland.zoek,netcarta webmap engine,netmechanic,netscoop,newscan-online,nhse web forager,nomad,northern light gulliver,nzexplorer,objectssearch,occam,OOZBOT,openfind data gatherer,orb search,pack rat,pageboy,parasite,patric,pegasus,perlcrawler 1.0,pgp key agent,phpdig,piltdownman,pioneer,plumtreewebaccessor,poppi,popular iconoclast,raven search,roadhouse crawling system,robofox,robozilla,rules,scooter,search.aus-au.com,searchprocess,senrigan,sg-scout,shagseeker,sift,site searcher,site valet,sitetech-rover,skymob.com,slcrawler,sleek,snooper,suke,suntek search engine,sven,sygol,tach black widow,tarantula,templeton,the peregrinator,the web moose,the web wombat,the world wide web wanderer,the world wide web worm,titan,titin,ucsd crawl,udmsearch,unnamed,url check,valkyrie,verticrawl,victoria,vision-search,voyager,w3m2,w3mir,walhello appie,wallpaper (alias crawlpaper),web core / roots,webcatcher,webcopy,webfetcher,webinator,weblayers,weblinker,weblog monitor,webmirror,webquest,webreaper,websnarf,webstolperer,webvac,webwalk,webwalker,webwatch,webzinger,wget,whatuseek winona,wild ferret web hopper,wired digital,wwwc ver,xget,daumoa,jobo,echo!,linkchecker,bloglines,twiceler,appie,sun4u,httrack,sisi,robi,webster pro,webster,zeus,scirus,picosearch,plucker,disco pump,gulliver,emailsiphon,teleport pro,fetch,pamuk,webcopier,webcapture,mass downloader,awv0.8dcrescent internet toolpak,webstripper,sitesucker,webdup,python-urllib,python,franklin locator,ck-sillydog,pockethttp,java,kototoi.org,teragramwebcrawler,vagabondo,nogoop-httpclient,myoperatb,myoperatb,accoona-ai-agent,arachmo,b-l-i-t-z-b-o-t,boitho.com-dc,cerberian drtrs,charlotte,converacrawler,cosmos,covario ids,dataparksearch,earthcom.info,fast enterprise crawler,fast-webcrawler,findlinks,g2crawler,holmes,htdig,iccrawler,ichiro,igdespyder,issuecrawler,l.webis,lwp-trivial,mabontland,magpie-crawler,mnogosearch,mogimogi,morning paper,mvaclient,netresearchserver,netseer crawler,newsgator,ng-search,nutchcvs,nymesis,oegp,orbiter,peew,pompos,postpost,pycurl,qseero,radian6,sandcrawler,sbider,scoutjet,scrubby,searchsight,seekbot,semanticdiscovery,sensis web crawler,shim-crawler,shopwiki,snappy,sqworm,stackrambler,teoma,tineye,truwogps,updated,vortex,vyu2,webcollage,websquash.com,wf84,womlpefactory,yacy,yahooseeker,yahooseeker-testing,yandeximages,yandexmetrika,yeti,yooglifetchagent,zyborg,wordpress,a6-indexer,wsr-agent,Microsoft Office,JDatabaseDriver,facebookexternalhit,The Knowledge AI,Twitterbot,VenusCrawler,aria2,GetCode,CCBot,NetTrack,Go-http-client,IAS crawler,POE-Component,VelenPublicWebCrawler,www.ru,Nutch Master Test,Wotbox,orion-semantics.com,lwp-request,ShortLinkTranslate,mj12bot,WinHttpRequest,Exabot,Auto Spider,Applebot,DuckDuckGo,SeznamBot,moatbot,DotBot,SurdotlyBot,28logsSpider,zgrab,Windows-Media-Player,spbot,Mail.RU_Bot,Backlink,SiteExplorer,SEOkicks,linkdexbot,Qwantify,DataXu,ExtLinksBot,gvfs/,evc-batch,Cliqzbot,YandexBot,YandexMobileBot,newspaper,Clickagy,Chicken laser,coccocbot,Microsoft Windows Network Diagnostics,spuhex.com,smtbot,Dataprovider,HybridBot,Sky-Wapproxy,SafeDNSBot,HatenaBookmark,Meta_Bot,ToutiaoSpider,HttpComponents,ips-agent,yandex.com/bots,(ziva),Jersey,Auto Shell Spider,User-Agent,curl/,MPlayer,internal request,Grammarly,package,TrendsmapResolver,PaperLiBot,startmebot,WebFuck,GStreamer,httpsrc,AntennaPod,panscient.com,webscan,Screaming Frog,WFilter Live,trendictionbot,nsrbot,PlurkBot,Mojolicious,AlphaBot,tracemyfile,VCTestClient,heritrix,MiniRedir,Iframely,rest-client,Cappuccino,FirmsBot,BOT for JCE,Nimbostratus-Bot,Emacs-w3m,WordupinfoSearch,Dispatch,Paracrawl,Mr.4x3,axios,Typhoeus,tools.random,WhatCMSBot,InetURL,NetpeakCheckerBot,Goose,lua-resty,WhatWeb,special_archiver,XoviBot,Wappalyzer,OK-Search-Bot,abot,Mechanize,uipbot,GnowitNewsbot,PostmanRuntime,HoneyBee,gobuster,Bidtellect,Sonos,RankingBot,Uptimebot,Synapse,Re-re Studio,Mappy,Statastico,Linguee Bot,PocketImageCache,colly,YunSecurityBot,archive.org_bot,CheckMarkNetwork';
   if(ii_string($ua,$forbid)) $res = true;
   return $res;
@@ -30,7 +31,8 @@ function mm_disable_ua()
 function mm_enable_ua()
 {
   $res = false;
-  $ua = getallheaders()['User-Agent'];
+  $ua = getallheaders();
+  $ua = $ua['User-Agent'];
   $spider = 'baidu,google,360,sogou,soso,bing,msn,yahoo,yandex,360Spider,Sosospider,MSNBot,YoudaoBot,YodaoBot,bingbot,ia_archiver,Baiduspider,BaiduSpider,baiduspider,Baiduspider,Baiduspider-image,Baiduspider-mobile,Baiduspider-image,Baiduspider-video,Baiduspider-news,Baiduspider,Baiduspider-image,Googlebot,GoogleBot,Googlebot-Mobile,Yahoo! Slurp China,Yahoo,Sogou News Spider,Sogou web spider,Sogou inst spider,Sogou spider2,Sogou blog,Sogou Orion spider,msnbot，msnbot-media,bingbot,YisouSpider,ia_archiver,EasouSpider,JikeSpider,EtaoSpider,YandexBot,BingPreview';
   if(ii_string($ua,$spider)) $res = true;
   return $res;
@@ -53,7 +55,8 @@ function ip_get_area_taobao($ip){
   $opts = array('http'=>array('method'=>"GET",'timeout'=>10,));
   $context = stream_context_create($opts);
   $html =file_get_contents('http://ip.taobao.com/service/getIpInfo.php?ip='.$ip, false, $context);
-  $res = json_decode($html,true)['data'];
+  $res = json_decode($html,true);
+  $res = $res['data'];
   $tres = '';
   if (is_array($res))
   {
@@ -99,7 +102,8 @@ function ip_insert($ip,$admin = '')
   $tout = 0 ;
   $tlock = 0 ;
   $tarea = ip_get_area($tip);
-  $tua = getallheaders()['User-Agent'];
+  $tua = getallheaders();
+  $tua = $tua['User-Agent'];
   if(mm_enable_ua()){
     if(ii_string($tua,'bot') || ii_string($tua,'Spider') || ii_string($tua,'spider')) $trobots = 'robots';
     if(ii_string($tua,'Baiduspider')) $trobots = 'Baiduspider';
