@@ -220,7 +220,7 @@ function bfsubmit()
                     </tr>
                     <tr>
                       <td height="25" valign="top">{$=ii_itake('manage.baidupush_url','lng')}</td>
-                      <td><input type="text" name="baidupush_url" size="40" value="{$baidupush_url}"></td>
+                      <td><input type="text" name="baidupush_url" size="40" value="{$baidupush_url}">&nbsp;{$=ii_itake('manage.baidupush_url_tips','lng')}</td>
                     </tr>
                     <tr>
                       <td height="25" valign="top">{$=ii_itake('manage.baidupush_token','lng')}</td>

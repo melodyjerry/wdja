@@ -115,6 +115,10 @@
       <chinese><![CDATA[百度推送网址]]></chinese>
     </item>
     <item>
+      <disinfo><![CDATA[baidupush_url_tips]]></disinfo>
+      <chinese><![CDATA[http只填写网址即可(www.wdja.cn),https需要填写完整(https://www.wdja.cn)]]></chinese>
+    </item>
+    <item>
       <disinfo><![CDATA[baidupush_token]]></disinfo>
       <chinese><![CDATA[百度推送token]]></chinese>
     </item>
