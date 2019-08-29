@@ -12,60 +12,6 @@ require('baidu.inc.php');
 require('save_images.inc.php');
 require('phpqrcode.php');
 
-function mm_ip_map($ip,$type=0){
-  //离线查询IP所属区域信息,国内精确到城市.国外精确到省份.
-  ini_set('memory_limit', '2G');
-  spl_autoload_register(function ($class)
-                        {
-                          $class = str_replace("\\","/",$class);
-                          if (strpos($class, 'ipip/db') !== FALSE)
-                          {
-                            require __DIR__.'/ip/'.$class.'.php';
-                          }
-                        }, true, true);
-  $city = new ipip\db\City(__DIR__.'/ip/ipipfree.ipdb');
-  if(ii_isnull($ip)) $ip=ii_get_client_ip();
-  $ip_array = $city->findMap($ip, 'CN');
-  // [country_name] => 中国 [region_name] => 广东 [city_name] => 深圳
-  $country = $ip_array['country_name'];
-  $region = $ip_array['region_name'];
-  $city = $ip_array['city_name'];
-  $int = '';
-  switch ($type)
-  {
-    case 0:
-      $int = '';
-      break;
-    case 1:
-      $int = '-';
-      break;
-    case 2:
-      $int = '|';
-      break;
-    case 3:
-      $int = '/';
-      break;
-    case 4:
-      $int = '·';
-      break;
-    default:
-      $int = '-';
-      break;
-  }
-  if(ii_isnull($country)) {
-  $res = '';
-  }elseif(ii_isnull($region)){
-  $res = $country;
-  }elseif(ii_isnull($city)){
-  $res = $country .$int .$region;
-  }else{
-  $res = $country .$int .$region .$int .$city;
-  }
-  return $res;
-
-}
-
-
 function deny_mirrored_websites(){
   //防被代理镜像
   $currentDomain = 'demo.wdja." + "cn';
