@@ -84,7 +84,7 @@ function wdja_cms_admin_manage_editdisp()
         if ($trs)
         {
           //判断上级分类是否包含当前分类.
-          $afid = split( ',',$trs[ii_cfname('fid')]);
+          $afid = preg_split( ',',$trs[ii_cfname('fid')]);
           foreach($afid as $aid){
             if($tid == $aid) return;
           }
@@ -251,7 +251,7 @@ function wdja_cms_admin_manage_list()
   if ($trs)
   {
     $tfid = $trs[ii_cfname('fid')];
-    $tarys = split(',', $tfid);
+    $tarys = preg_split(',', $tfid);
     $tsid = $tarys[count($tarys) - 1];
     $tmptstr = str_replace('{$topic}', $trs[ii_cfname('sort')], $tmpastr);
     $tmptstr = str_replace('{$href}', '?sgenre=' . $sgenre . '&id=' . $tsid, $tmptstr);
