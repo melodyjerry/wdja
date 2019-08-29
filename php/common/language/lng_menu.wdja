@@ -11,10 +11,6 @@
       <chinese><![CDATA[首页]]></chinese>
     </item>
     <item>
-      <disinfo><![CDATA[article]]></disinfo>
-      <chinese><![CDATA[技术文章]]></chinese>
-    </item>
-    <item>
       <disinfo><![CDATA[product]]></disinfo>
       <chinese><![CDATA[产品展示]]></chinese>
     </item>

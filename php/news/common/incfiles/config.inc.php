@@ -7,7 +7,7 @@ if(ii_strlen(dirname($_SERVER['PHP_SELF']))>1){
   $ngenre = ii_get_actual_genre(__FILE__, $nroute);
 }else{
   $nroute = '';
-  $ngenre = 'article';
+  $ngenre = 'news';
 }
 wdja_cms_init($nroute);
 $nhead = $variable[$ngenre . '.nhead'];
