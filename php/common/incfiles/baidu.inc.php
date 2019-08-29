@@ -1,4 +1,4 @@
-<?
+<?php
 function mm_baidu_push($type,$genre,$topic,$gid){
   global $conn, $variable;
   ii_conn_init();
