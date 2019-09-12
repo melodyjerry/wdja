@@ -72,12 +72,6 @@
   </div>
 </section>
 <script type="text/javascript">get_id('lm{$id}').className = 'on';</script>
-<script type="text/javascript">
-function innerCOUNT(strers)
-{
-  if (strers != "$error$") get_id("count").innerHTML = strers;
-};
-igets("{$=ii_get_actual_route('expansion')}/count/?genre={$=urlencode($GLOBALS['ngenre'])}&id={$id}", innerCOUNT);</script>
 {$=mm_web_foot($GLOBALS['nfoot'])}]]></tpl_default>
     </item>
     <item>
@@ -100,33 +94,45 @@ igets("{$=ii_get_actual_route('expansion')}/count/?genre={$=urlencode($GLOBALS['
 <meta name="description" content="{$topic},{$=mm_web_description($GLOBALS['ndescription'])}" />
   <script language="javascript">
 document.write("<frameset rows='100%,*' frameborder='NO' border='0' framespacing='0'>");
-document.write("<frame name='main' src='{$=#nurlpre}/{$genre}/?type=frame' scrolling=yes>");
+document.write("<frame name='main' src='{$=#nurlpre}' scrolling=yes>");
 document.write("</frameset>");
 </script>
 </head>
 <body>
-
-</body>
-</html>]]></tpl_default>
-    </item>
-    <item>
-      <name><![CDATA[frame]]></name>
-      <tpl_default><![CDATA[{$=mm_web_head($GLOBALS['nhead'])}
-{$=ii_ireplace('global.module.swiper-slide','tpl')}
 <section id="middle">
-    <div id="middleContent">
-        <div class="title"><h3>{$=ii_itake('global.'.ii_itake('global.' . ADMIN_FOLDER . '/global:home.modules_img','lng').':module.channel_title', 'lng')}</h3></div>
-	{$=vv_itransfer('new', '3', 'topx=4;tnum=30;genre=' . ii_itake('global.' . ADMIN_FOLDER . '/global:home.modules_img','lng') . '')}
+  <div id="middleContent">
+      <div class="list_con">
+    <div class="content">
+        <nav class="nav">{$=vv_inavigation('{$genre}', 'classid={$class};strers=module;strurl={$genre}')}</nav>
+        <h1>{$topic}</h1>
+        <div class="con_text">
+        <p>{$=ii_itake('global.lng_config.time','lng')}:{$time},{$=ii_itake('global.lng_config.count','lng')}:<span id="count">0</span></p>
+        {$=mm_encode_content(mm_cutepage_content($GLOBALS['RS_content'], 'cp_note={$cp_note};cp_mode={$cp_mode};cp_type={$cp_type};cp_num={$cp_num};cp_page={$page}'), '{$cttype}')}
+        </div>
+        <div id="ct-cutepage" class="cutepage">{$=mm_cutepage_content_page_sel($GLOBALS['RS_content'], 'cp_note={$cp_note};cp_mode={$cp_mode};cp_type={$cp_type};cp_num={$cp_num}', 'folder=' . $GLOBALS['ncreatefolder'] . ';filetype=' . $GLOBALS['ncreatefiletype'] . ';cutekey={$id};time={$time}')}</div>
+		<div class="search_list">
+{$nhotwords_genre}
+		<div class="article" style="width:100%;">
+			<div class="art_con">
+			<div class="art_title"><b>与'{$topic}'相关的关键词</b><a href="{$=ii_get_actual_route('expansion/hotwords')}/?type=list&classid={$class}">更多</a></div>
+		  <ul class="keywords">
+		 {$=vv_itransfer('new', 'keywords_li', 'topx=15;tnum=30;genre=expansion/hotwords;osql= and eh_class=\'{$class}\' and ehid <> \'{$id}\'')}
+		  </ul>
+		</div>
+        </div>
+    <div class="clear"></div>
+        <div class="updown">
+            <div class="up">{$=vv_itransfer('up', 'updown', 'topx=1;genre={$genre};class={$class};bid={$id}')} </div>
+            <div class="down">{$=vv_itransfer('down', 'updown', 'topx=1;genre={$genre};class={$class};bid={$id}')}</div>
+        </div>
     </div>
-</section>
-<section id="middle">
-    <div id="middleContent">
-        <div class="title"><h3>{$=ii_itake('global.'.ii_itake('global.' . ADMIN_FOLDER . '/global:home.modules','lng').':module.channel_title', 'lng')}</h3></div>
-        {$=vv_itransfer('top', 'news-list', 'topx=10;tnum=30;genre=' . ii_itake('global.' . ADMIN_FOLDER . '/global:home.modules','lng') . '')}
     </div>
     <div class="clear"></div>
+  </div>
 </section>
-{$=mm_web_foot($GLOBALS['nfoot'])}]]></tpl_default>
+<script type="text/javascript">get_id('lm{$id}').className = 'on';</script>
+</body>
+</html>]]></tpl_default>
     </item>
   </item_list>
 </xml>

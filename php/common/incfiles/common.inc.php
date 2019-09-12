@@ -982,8 +982,12 @@ function vv_itransfer($type, $tpl, $vars)
             $tsqlstr = "select * from $tdatabase where 1=1";
             $tsqlorder = " order by $tidfield desc";
             break;
+          case 'order':
+            $tsqlstr = "select * from $tdatabase where " . ii_cfnames($tfpre, 'hidden') . "=0";
+            $tsqlorder = " order by " . ii_cfnames($tfpre, 'order') . " asc";
+            break;
           case 'search':
-            $tsqlstr = "select * from $tdatabase where " . ii_cfnames($tfpre, 'topic') . " like '%" .$tkeywords. "%' or ". ii_cfnames($tfpre, 'content') . " like '%" .$tkeywords."%'";
+            $tsqlstr = "select * from $tdatabase where " . ii_cfnames($tfpre, 'hidden') . "=0 and (" . ii_cfnames($tfpre, 'topic') . " like '%" .$tkeywords. "%' or ". ii_cfnames($tfpre, 'content') . " like '%" .$tkeywords."%')";
             $tsqlorder = " order by $tidfield desc";
             break;
           case 'top':
