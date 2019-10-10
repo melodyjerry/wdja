@@ -32,15 +32,12 @@ function ii_conn_init()
   global $conn, $db_host, $db_username, $db_password, $db_database;
   $conn = new mysqli($db_host, $db_username, $db_password, $db_database);
   if(mysqli_connect_errno()) die('MYSQL.Connect.Error!');
-  //if (!$conn) die('MYSQL.Connect.Error!');
-  //$conn -> query("SET NAMES 'UTF8'");
   mysqli_query($conn,'set names utf8'); 
   mysqli_select_db($db_database, $conn);
 }
 
 function ii_conn_query($sqlstr, $conn)
 {
-  //return $conn -> query($sqlstr);
   return mysqli_query($conn,$sqlstr); 
 }
 
