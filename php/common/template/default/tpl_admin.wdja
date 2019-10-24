@@ -113,19 +113,29 @@ setTimeout("location.href='{$backurl}';",2000);
     </item>
     <item>
       <name><![CDATA[content_htmledit]]></name>
-      <tpl_default><![CDATA[<input type="hidden" name="cttype" value="0">
-<input type="hidden" id="{$name}" name="{$name}" value="{$value}" />
-<iframe src="{$=ii_get_actual_route('common')}/editor/fckeditor/editor/fckeditor.html?InstanceName={$name}&amp;Toolbar=Default" width="100%" height="400" scrolling="no" marginwidth="0" marginheight="0" frameborder="0"></iframe>
+      <tpl_default><![CDATA[<script src="{$=ii_get_actual_route('common')}/editor/tinymce/js/tinymce/tinymce.min.js"></script>
+        <script>
+            tinymce.init({
+                selector: '#content',
+                  height: 300,
+                  plugins: [
+                    "advlist autolink autosave link image lists charmap preview hr anchor pagebreak",
+                    "searchreplace wordcount code fullscreen insertdatetime media nonbreaking",
+                    "table contextmenu directionality textcolor paste textcolor colorpicker textpattern"
+                  ],
+                  toolbar1: "undo redo | bold italic underline strikethrough removeformat | subscript superscript | alignleft aligncenter alignright alignjustify | forecolor backcolor formatselect fontselect",
+                  toolbar2: "table searchreplace | ltr rtl | bullist numlist | outdent indent | link unlink anchor image media | insertdatetime charmap hr nonbreaking pagebreak | preview fullscreen code",
+                  menubar: false,
+                  toolbar_items_size: 'small',
+                  language_url: '{$=ii_get_actual_route('common')}/editor/tinymce/js/tinymce/langs/zh_CN.js',
+                  language:'zh_CN'
+            });
+        </script>
+<textarea id="{$name}" name="{$name}">{$value}</textarea>
 <script type="text/javascript">
 function editor_insert(strid, strers)
 {
-  var tname = strid;
-  var tstrers = strers;
-  if (typeof(FCKeditorAPI) == 'object')
-  {
-    var tEditor = FCKeditorAPI.GetInstance(tname);
-    if (tEditor.EditMode == 0) tEditor.InsertHtml(tstrers);
-  };
+  tinyMCE.execCommand("mceInsertContent", false, strers);
 };
 </script>]]></tpl_default>
     </item>
