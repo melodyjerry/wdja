@@ -58,9 +58,9 @@ function ap_check_username($username, $password)
   $trs = ii_conn_fetch_array($trs);
   if ($trs)
   {
-    setcookie(APP_NAME . 'user[userid]', $trs[$tidfield], 0, COOKIES_PATH);
-    setcookie(APP_NAME . 'user[username]', $tusername, 0, COOKIES_PATH);
-    setcookie(APP_NAME . 'user[password]', $tpassword, 0, COOKIES_PATH);
+    setcookie(APP_NAME . 'user[userid]', $trs[$tidfield], 0, COOKIES_PATH, NULL, NULL, TRUE); 
+    setcookie(APP_NAME . 'user[username]', $tusername, 0, COOKIES_PATH, NULL, NULL, TRUE); 
+    setcookie(APP_NAME . 'user[password]', $tpassword, 0, COOKIES_PATH, NULL, NULL, TRUE); 
     $tsqlstr = "update $tdatabase set " . ii_cfnames($tfpre, 'pretime') . "=" . ii_cfnames($tfpre, 'lasttime') . "," . ii_cfnames($tfpre, 'lasttime') . "='" . ii_now() . "' where " . ii_cfnames($tfpre, 'username') . "='$tusername'";
     $trs = ii_conn_query($tsqlstr, $conn);
     $_SESSION[APP_NAME . 'username'] = $tusername;

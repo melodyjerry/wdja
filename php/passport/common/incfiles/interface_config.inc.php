@@ -27,8 +27,8 @@ function wdja_cms_interface_nlogin()
   {
     $tusername = ii_unescape(ii_get_safecode($_GET['username']));
     $tpassword = md5(ii_unescape(ii_get_safecode($_GET['password'])));
-    setcookie(APP_NAME . 'user[username]', $tusername, 0, COOKIES_PATH);
-    setcookie(APP_NAME . 'user[password]', $tpassword, 0, COOKIES_PATH);
+    setcookie(APP_NAME . 'user[username]', $tusername, 0, COOKIES_PATH, NULL, NULL, TRUE); 
+    setcookie(APP_NAME . 'user[password]', $tpassword, 0, COOKIES_PATH, NULL, NULL, TRUE); 
     if (ap_check_username($tusername, $tpassword)) echo 'ok';
     else echo 'error2';
   }

@@ -193,8 +193,8 @@ function wdja_cms_cklogin($username, $password)
     {
       if(!mm_search_field('expansion/iplock',ii_get_client_ip(),'ip')) ip_insert(ii_get_client_ip(),'admin');
       if(ip_get_field(ii_get_client_ip(),'out') == 0) ip_update_field(ii_get_client_ip(),'out');
-      setcookie(APP_NAME . 'admin[username]', $trs[ii_cfnames($tfpre, 'name')], 0, COOKIES_PATH);
-      setcookie(APP_NAME . 'admin[password]', $trs[ii_cfnames($tfpre, 'pword')], 0, COOKIES_PATH);
+      setcookie(APP_NAME . 'admin[username]', $trs[ii_cfnames($tfpre, 'name')], 0, COOKIES_PATH, NULL, NULL, TRUE); 
+      setcookie(APP_NAME . 'admin[password]', $trs[ii_cfnames($tfpre, 'pword')], 0, COOKIES_PATH, NULL, NULL, TRUE); 
       $_SESSION[APP_NAME . 'admin_popedom'] = $trs[ii_cfnames($tfpre, 'popedom')];
       $_SESSION[APP_NAME . 'admin_username'] = $trs[ii_cfnames($tfpre, 'name')];
       $admc_popedom = $_SESSION[APP_NAME . 'admin_popedom'];
@@ -227,7 +227,7 @@ function wdja_cms_admin_init()
   $slng = ii_get_safecode($_GET['slng']);
   if (!(ii_isnull($slng)))
   {
-    setcookie(APP_NAME . 'admin[slng]', $slng, time() + 31536000);
+    setcookie(APP_NAME . 'admin[slng]', $slng, time() + 31536000, NULL, NULL, NULL, TRUE); 
   }
   else
   {

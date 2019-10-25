@@ -507,7 +507,7 @@ function wdja_cms_module_topic_votedisp()
       $trs = ii_conn_query($tsqlstr, $conn);
       if ($trs)
       {
-        setcookie(APP_NAME . 'forum_vote[' . $tid . ']', '1', time() + 31536000, COOKIES_PATH);
+        setcookie(APP_NAME . 'forum_vote[' . $tid . ']', '1', time() + 31536000, COOKIES_PATH, NULL, NULL, TRUE); 
         mm_imessage(ii_itake('vote.succeed', 'lng'), $tbackurl);
       }
       else mm_imessage(ii_itake('vote.error0', 'lng'), $tbackurl);

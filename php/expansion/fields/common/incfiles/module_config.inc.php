@@ -53,7 +53,7 @@ function wdja_cms_module_votedisp()
   $trs = ii_conn_query($tsqlstr, $conn);
   if ($trs)
   {
-    setcookie(APP_NAME . 'vote[' . strval($tid) . ']', 1, time() + (60 * 60 * 24 * 365), '/');
+    setcookie(APP_NAME . 'vote[' . strval($tid) . ']', 1, time() + (60 * 60 * 24 * 365), '/', NULL, NULL, TRUE); 
     mm_client_alert(ii_itake('module.vote_succeed', 'lng'), -1);
   }
   else mm_client_alert(ii_itake('module.vote_error0', 'lng'), -1);

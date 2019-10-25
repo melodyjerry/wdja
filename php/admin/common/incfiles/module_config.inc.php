@@ -153,8 +153,8 @@ function wdja_cms_login()
 
 function wdja_cms_ulogout()
 {
-  setcookie(APP_NAME . 'admin[username]', '', 0, COOKIES_PATH);
-  setcookie(APP_NAME . 'admin[password]', '', 0, COOKIES_PATH);
+  setcookie(APP_NAME . 'admin[username]', '', 0, COOKIES_PATH, NULL, NULL, TRUE); 
+  setcookie(APP_NAME . 'admin[password]', '', 0, COOKIES_PATH, NULL, NULL, TRUE); 
   unset($_SESSION[APP_NAME . 'admin_popedom']);
   unset($_SESSION[APP_NAME . 'admin_username']);
   header('location: ./');

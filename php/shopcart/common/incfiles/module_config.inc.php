@@ -14,7 +14,7 @@ function wdja_cms_module_adddisp()
   if ($tid != 0) {
       $tnum = ii_get_num($_COOKIE[APP_NAME . $ngenre][$tid], 0);
       if ($tnum != 0) $tbuynum = $tbuynum + $tnum;
-      setcookie(APP_NAME . $ngenre . '[' . $tid . ']', $tbuynum, 0, COOKIES_PATH);
+      setcookie(APP_NAME . $ngenre . '[' . $tid . ']', $tbuynum, 0, COOKIES_PATH, NULL, NULL, TRUE); 
   }
   mm_client_redirect('./?type=list&backurl' . urlencode($tbackurl));
 }
@@ -28,7 +28,7 @@ function wdja_cms_module_editdisp()
   {
     foreach ($tcookiesAry as $key => $val)
     {
-      setcookie(APP_NAME . $ngenre . '[' . $key . ']', 0, time() - 3600, COOKIES_PATH);
+      setcookie(APP_NAME . $ngenre . '[' . $key . ']', 0, time() - 3600, COOKIES_PATH, NULL, NULL, TRUE); 
     }
   }
   if (ii_cidary($tsid))
@@ -37,7 +37,7 @@ function wdja_cms_module_editdisp()
     foreach ($tary as $key => $val)
     {
       $tnum = ii_get_num($_POST['num_' . $val], 0);
-      if ($tnum != 0) setcookie(APP_NAME . $ngenre . '[' . $val . ']', $tnum, 0, COOKIES_PATH);
+      if ($tnum != 0) setcookie(APP_NAME . $ngenre . '[' . $val . ']', $tnum, 0, COOKIES_PATH, NULL, NULL, TRUE); 
     }
   }
   mm_client_redirect('./?type=list');
@@ -51,7 +51,7 @@ function wdja_cms_module_deletedisp()
   {
     foreach ($tcookiesAry as $key => $val)
     {
-      setcookie(APP_NAME . $ngenre . '[' . $key . ']', 0, time() - 3600, COOKIES_PATH);
+      setcookie(APP_NAME . $ngenre . '[' . $key . ']', 0, time() - 3600, COOKIES_PATH, NULL, NULL, TRUE); 
     }
   }
   mm_client_redirect('./?type=list');
@@ -160,7 +160,7 @@ function wdja_cms_module_buydisp()
         {
           foreach ($tcookiesAry as $key => $val)
           {
-            setcookie(APP_NAME . $ngenre . '[' . $key . ']', 0, time() - 3600, COOKIES_PATH);
+            setcookie(APP_NAME . $ngenre . '[' . $key . ']', 0, time() - 3600, COOKIES_PATH, NULL, NULL, TRUE); 
           }
         }
         mm_client_redirect('./?type=succeed&orderid=' . $torderid.'&orderuser=' . $torderuser);

@@ -242,6 +242,10 @@ function mm_ctype($types, $type = 0)
 function mm_client_alert($alert, $type)
 {
   ob_end_clean();
+  $str = trim($type); 
+  $str = strip_tags($str);
+  $str = htmlspecialchars($str);
+  $type = addslashes($str);
   if (is_numeric($type)) $tdispose = 'history.go(' . $type . ')';
   else $tdispose = 'location.href=\'' . $type . '\'';
   $tstr = ii_ireplace('global.tpl_common.client_alert', 'tpl');
@@ -1195,17 +1199,17 @@ function wdja_cms_setting()
   $tsite_template = $_GET['site_template'];
   if (!(ii_isnull($tsite_skin)))
   {
-    setcookie(APP_NAME . 'config[skin]', $tsite_skin, time() + 31536000, COOKIES_PATH);
+    setcookie(APP_NAME . 'config[skin]', $tsite_skin, time() + 31536000, COOKIES_PATH, NULL, NULL, TRUE); 
     $_COOKIE[APP_NAME . 'config']['skin'] = $tsite_skin;
   }
   if (!(ii_isnull($tsite_language)))
   {
-    setcookie(APP_NAME . 'config[language]', $tsite_language, time() + 31536000, COOKIES_PATH);
+    setcookie(APP_NAME . 'config[language]', $tsite_language, time() + 31536000, COOKIES_PATH, NULL, NULL, TRUE); 
     $_COOKIE[APP_NAME . 'config']['language'] = $tsite_language;
   }
   if (!(ii_isnull($tsite_template)))
   {
-    setcookie(APP_NAME . 'config[template]', $tsite_template, time() + 31536000, COOKIES_PATH);
+    setcookie(APP_NAME . 'config[template]', $tsite_template, time() + 31536000, COOKIES_PATH, NULL, NULL, TRUE); 
     $_COOKIE[APP_NAME . 'config']['template'] = $tsite_template;
   }
 }
