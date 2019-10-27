@@ -13,6 +13,7 @@ define('APP_NAME', 'wdja_');
 define('CACHE_DIR', '_CACHE');
 define('CHARSET', 'utf-8');
 define('COOKIES_PATH', '/');
+define('COOKIES_EXPIRES',gmstrftime("%A, %d-%b-%Y %H:%M:%S GMT",time()+9600));
 define('CRLF', chr(13) . chr(10));
 define('GMT_PLUS', 0);
 define('WDJA_CINFO', '<!--WDJA_CINFO-->');

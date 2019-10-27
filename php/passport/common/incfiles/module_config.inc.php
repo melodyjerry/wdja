@@ -34,8 +34,9 @@ function wdja_cms_module_logoutdisp()
 {
   $tbackurl = $_GET['backurl'];
   if (ii_isnull($tbackurl)) $tbackurl = ii_get_actual_route('./');
-  setcookie(APP_NAME . 'user[username]', '', 0, COOKIES_PATH, NULL, NULL, TRUE); 
-  setcookie(APP_NAME . 'user[password]', '', 0, COOKIES_PATH, NULL, NULL, TRUE); 
+  header("Set-Cookie:".APP_NAME."user[userid]='';path =".COOKIES_PATH.";expires=".gmdate('D, d M Y H:i:s \G\M\T', time()-1).";",false);
+  header("Set-Cookie:".APP_NAME."user[username]='';path =".COOKIES_PATH.";expires=".gmdate('D, d M Y H:i:s \G\M\T', time()-1).";",false);
+  header("Set-Cookie:".APP_NAME."user[password]='';path =".COOKIES_PATH.";expires=".gmdate('D, d M Y H:i:s \G\M\T', time()-1).";",false);
   unset($_SESSION[APP_NAME . 'username']);
   mm_client_redirect($tbackurl);
 }
@@ -111,8 +112,10 @@ function wdja_cms_module_registerdisp()
       $trs = ii_conn_query($tsqlstr, $conn);
       if ($trs)
       {
-        setcookie(APP_NAME . 'user[username]', $tRegUserName, 0, COOKIES_PATH, NULL, NULL, TRUE); 
-        setcookie(APP_NAME . 'user[password]', md5($_POST['password']), 0, COOKIES_PATH, NULL, NULL, TRUE); 
+        $userid = ii_conn_insert_id($conn);
+        header("Set-Cookie:".APP_NAME."user[userid]=".$userid.";path =".COOKIES_PATH.";httpOnly;SameSite=Strict;expires=".COOKIES_EXPIRES.";",false);
+        header("Set-Cookie:".APP_NAME."user[username]=".$tRegUserName.";path =".COOKIES_PATH.";httpOnly;SameSite=Strict;expires=".COOKIES_EXPIRES.";",false);
+        header("Set-Cookie:".APP_NAME."user[password]=".md5($_POST['password']).";path =".COOKIES_PATH.";httpOnly;SameSite=Strict;expires=".COOKIES_EXPIRES.";",false);
         $_SESSION[APP_NAME . 'username'] = $tRegUserName;
         header('location: ' . ii_get_actual_route('./'));
       }
@@ -203,7 +206,7 @@ function wdja_cms_module_manage_passworddisp()
     $trs = ii_conn_query($tsqlstr, $conn);
     if ($trs)
     {
-      setcookie(APP_NAME . 'user[password]', $tnpassword, 0, COOKIES_PATH, NULL, NULL, TRUE); 
+      header("Set-Cookie:".APP_NAME."user[password]=".$tnpassword.";path =".COOKIES_PATH.";httpOnly;SameSite=Strict;expires=".COOKIES_EXPIRES.";",false);
       mm_imessage(ii_itake('global.lng_public.edit_succeed', 'lng'), $tbackurl);
     }
     else mm_imessage(ii_itake('global.lng_public.sudd', 'lng'), $tbackurl);

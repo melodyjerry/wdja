@@ -1199,17 +1199,17 @@ function wdja_cms_setting()
   $tsite_template = $_GET['site_template'];
   if (!(ii_isnull($tsite_skin)))
   {
-    setcookie(APP_NAME . 'config[skin]', $tsite_skin, time() + 31536000, COOKIES_PATH, NULL, NULL, TRUE); 
+    header("Set-Cookie:".APP_NAME."config[skin]=".$tsite_skin.";path =".COOKIES_PATH.";httpOnly;SameSite=Strict;expires=".COOKIES_EXPIRES.";",false);
     $_COOKIE[APP_NAME . 'config']['skin'] = $tsite_skin;
   }
   if (!(ii_isnull($tsite_language)))
   {
-    setcookie(APP_NAME . 'config[language]', $tsite_language, time() + 31536000, COOKIES_PATH, NULL, NULL, TRUE); 
+    header("Set-Cookie:".APP_NAME."config[language]=".$tsite_language.";path =".COOKIES_PATH.";httpOnly;SameSite=Strict;expires=".COOKIES_EXPIRES.";",false);
     $_COOKIE[APP_NAME . 'config']['language'] = $tsite_language;
   }
   if (!(ii_isnull($tsite_template)))
   {
-    setcookie(APP_NAME . 'config[template]', $tsite_template, time() + 31536000, COOKIES_PATH, NULL, NULL, TRUE); 
+    header("Set-Cookie:".APP_NAME."config[template]=".$tsite_template.";path =".COOKIES_PATH.";httpOnly;SameSite=Strict;expires=".COOKIES_EXPIRES.";",false);
     $_COOKIE[APP_NAME . 'config']['template'] = $tsite_template;
   }
 }

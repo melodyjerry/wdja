@@ -58,9 +58,9 @@ function ap_check_username($username, $password)
   $trs = ii_conn_fetch_array($trs);
   if ($trs)
   {
-    setcookie(APP_NAME . 'user[userid]', $trs[$tidfield], 0, COOKIES_PATH, NULL, NULL, TRUE); 
-    setcookie(APP_NAME . 'user[username]', $tusername, 0, COOKIES_PATH, NULL, NULL, TRUE); 
-    setcookie(APP_NAME . 'user[password]', $tpassword, 0, COOKIES_PATH, NULL, NULL, TRUE); 
+    header("Set-Cookie:".APP_NAME."user[userid]=".$trs[$tidfield].";path =".COOKIES_PATH.";httpOnly;SameSite=Strict;expires=".COOKIES_EXPIRES.";",false);
+    header("Set-Cookie:".APP_NAME."user[username]=".$tusername.";path =".COOKIES_PATH.";httpOnly;SameSite=Strict;expires=".COOKIES_EXPIRES.";",false);
+    header("Set-Cookie:".APP_NAME."user[password]=".$tpassword.";path =".COOKIES_PATH.";httpOnly;SameSite=Strict;expires=".COOKIES_EXPIRES.";",false);
     $tsqlstr = "update $tdatabase set " . ii_cfnames($tfpre, 'pretime') . "=" . ii_cfnames($tfpre, 'lasttime') . "," . ii_cfnames($tfpre, 'lasttime') . "='" . ii_now() . "' where " . ii_cfnames($tfpre, 'username') . "='$tusername'";
     $trs = ii_conn_query($tsqlstr, $conn);
     $_SESSION[APP_NAME . 'username'] = $tusername;
