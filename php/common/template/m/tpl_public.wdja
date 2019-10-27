@@ -330,7 +330,7 @@ vertical-align:middle;
                 <a data-type="mip" href="{$=ii_get_actual_route('shop')}">{$=ii_itake('global.shop:module.channel_title', 'lng')}</a>
               </li>
               <li>
-              	<a data-type="mip" href="{$=ii_get_actual_route('page')}">{$=ii_itake('global.page:manage.channel_title', 'lng')}</a>
+              	<a data-type="mip" href="{$=ii_get_actual_route('contactus')}">{$=ii_itake('global.contactus:manage.channel_title', 'lng')}</a>
               </li>
             </ul>
           </div>
@@ -373,7 +373,7 @@ vertical-align:middle;
                 <a data-type="mip" href="{$=ii_get_actual_route('shop')}">{$=ii_itake('global.shop:module.channel_title', 'lng')}</a>
               </li>
               <li>
-                <a data-type="mip" href="{$=ii_get_actual_route('page')}">{$=ii_itake('global.page:manage.channel_title', 'lng')}</a>
+                <a data-type="mip" href="{$=ii_get_actual_route('contactus')}">{$=ii_itake('global.contactus:manage.channel_title', 'lng')}</a>
               </li>
               <li>
                 <a data-type="mip" href="{$=ii_get_actual_route('message')}">{$=ii_itake('global.message:module.channel_title', 'lng')}</a>
