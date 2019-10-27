@@ -81,12 +81,17 @@ function alipay_code($imgurl,$price,$orderid,$id){
   $alipay_uid = ii_itake('global.' . ADMIN_FOLDER . '/global:other.alipay_uid','lng');
   if(ii_isnull($alipay_uid)) $alipay_uid = '2088202216609811';
   if(!ii_isnull($imgurl) && !ii_isnull($price) && !ii_isnull($orderid) && !ii_isnull($id)){
-    //图片保存位置,价格,订单号,订单ID
-    $data = 'alipays://platformapi/startapp?appId=20000067&url=http%3A%2F%2F'.$_SERVER['HTTP_HOST'].'%2FopenAlipay.html%3Fmoney%3D'. $price .'%26num%3D'. $orderid .'%26uid%3D'. $alipay_uid;//页面跳转二维码
-    $filename = $imgurl.'alipay-code/alipay-'.$price.'-'.$id.'.png'; // 生成的文件名 
-    $errorCorrectionLevel = 'H'; // 纠错级别：L、M、Q、H 
-    $matrixPointSize = 4; // 点的大小：1到10 
-    if (!file_exists($timg)) QRcode::png($data, $filename, $errorCorrectionLevel, $matrixPointSize, 2); 
+    $data = 'alipays://platformapi/startapp?appId=20000067&url=http%3A%2F%2F'.$_SERVER['HTTP_HOST'].'%2FopenAlipay.html%3Fmoney%3D'. $price .'%26num%3D'. $orderid .'%26uid%3D'. $alipay_uid;
+    $imgPath = $imgurl.'alipay-code/';
+	if(!is_dir($imgPath))
+	{
+	  mkdir($imgPath, 0777,true);
+	  chmod($imgPath, 0777);
+	}
+    $filename = $imgPath.'alipay-'.$price.'-'.$id.'.png';
+    $errorCorrectionLevel = 'H';
+    $matrixPointSize = 4;
+    if (!file_exists($filename)) QRcode::png($data, $filename, $errorCorrectionLevel, $matrixPointSize, 2); 
   }else{
     $filename = ii_itake('global.' . ADMIN_FOLDER . '/global:other.alipay_code','lng');
   }
@@ -97,7 +102,6 @@ function alipaycode($imgurl,$price,$orderid,$id){
   $alipay_uid = ii_itake('global.' . ADMIN_FOLDER . '/global:other.alipay_uid','lng');
   if(ii_isnull($alipay_uid)) $alipay_uid = '2088202216609811';
   if(!ii_isnull($imgurl) && !ii_isnull($price) && !ii_isnull($orderid) && !ii_isnull($id)){
-    //图片保存位置,价格,订单号,订单ID
     $data = 'alipays://platformapi/startapp?appId=20000123&actionType=scan&biz_data={"s": "money", "u": "'. $alipay_uid .'", "a": "'. $price .'", "m": "'. $orderid .'"}'; //收款码
     return urlencode($data);
   }
