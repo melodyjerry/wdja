@@ -13,7 +13,7 @@
   <div id="middleContent">
     <div class="content">
         <nav class="nav">{$=vv_inavigation('{$genre}', '')}{$=NAV_SP_STR}{$topic}</nav>
-        <h1>{$=ii_itake('global.page:module.topic','lng')}</h1>
+        <h1>{$=ii_itake('global.contactus:module.topic','lng')}</h1>
         <div class="con_text">
         {$=mm_encode_content($GLOBALS['RS_content'], '{$cttype}')}
         </div>

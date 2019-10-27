@@ -31,10 +31,6 @@
       <chinese><![CDATA[留言]]></chinese>
     </item>
     <item>
-      <disinfo><![CDATA[vote]]></disinfo>
-      <chinese><![CDATA[投票]]></chinese>
-    </item>
-    <item>
       <disinfo><![CDATA[adminlog]]></disinfo>
       <chinese><![CDATA[登陆日志]]></chinese>
     </item>

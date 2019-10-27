@@ -8,7 +8,7 @@
   <item_list>
     <item>
       <disinfo><![CDATA[{$folder}:description]]></disinfo>
-      <chinese><![CDATA[单页管理]]></chinese>
+      <chinese><![CDATA[联系我们]]></chinese>
     </item>
     <item>
       <disinfo><![CDATA[{$path}/manage.php?type=edit]]></disinfo>
@@ -16,7 +16,7 @@
     </item>
     <item>
       <disinfo><![CDATA[{$=ADMIN_FOLDER}/xml:xml/manage.php?type=template&xml={$folder}.tpl.module]]></disinfo>
-      <chinese><![CDATA[单页模板]]></chinese>
+      <chinese><![CDATA[页面模板]]></chinese>
     </item>
     <item>
       <disinfo><![CDATA[{$=ADMIN_FOLDER}/configure:configure/manage.php?type=edit&module={$folder}&modules={$folder}]]></disinfo>
