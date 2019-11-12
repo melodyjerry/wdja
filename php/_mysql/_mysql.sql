@@ -23,6 +23,29 @@ CREATE TABLE `wdja_aboutus` (
   PRIMARY KEY (`abid`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
+CREATE TABLE `wdja_question` (
+  `qid` int(9) NOT NULL AUTO_INCREMENT,
+  `q_topic` varchar(50) DEFAULT NULL,
+  `q_keywords` varchar(152) DEFAULT NULL,
+  `q_description` varchar(252) DEFAULT NULL,
+  `q_image` varchar(255) DEFAULT NULL,
+  `q_content` text,
+  `q_content_images_list` text,
+  `q_cttype` int(1) DEFAULT '0',
+  `q_cp_note` int(1) DEFAULT '0',
+  `q_cp_mode` int(1) DEFAULT '0',
+  `q_cp_type` int(1) DEFAULT '0',
+  `q_cp_num` int(9) DEFAULT '0',
+  `q_time` datetime DEFAULT NULL,
+  `q_ucode` varchar(50) DEFAULT NULL,
+  `q_hidden` int(1) DEFAULT '0',
+  `q_update` int(1) DEFAULT '0',
+  `q_good` int(1) DEFAULT '0',
+  `q_count` int(9) DEFAULT '0',
+  `q_lng` varchar(50) DEFAULT NULL,
+  PRIMARY KEY (`qid`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
 CREATE TABLE `wdja_admin` (
   `aid` int(9) NOT NULL AUTO_INCREMENT,
   `a_name` varchar(50) DEFAULT NULL,
