@@ -53,7 +53,7 @@
         <li id="mshop"><a href="{$=ii_get_actual_route('shop')}">{$=ii_itake('global.shop:module.channel_title', 'lng')}</a></li>
         <li id="mforum"><a href="{$=ii_get_actual_route('forum')}">{$=ii_itake('global.forum:module.channel_title', 'lng')}</a></li>
         <li id="mpage"><a href="{$=ii_get_actual_route('contactus')}">{$=ii_itake('global.contactus:manage.channel_title', 'lng')}</a></li>
-        <li id="maboutus"><a href="{$=ii_get_actual_route('question')}">{$=ii_itake('global.question:module.channel_title', 'lng')}</a></li>
+        <li id="mquestion"><a href="{$=ii_get_actual_route('question')}">{$=ii_itake('global.question:module.channel_title', 'lng')}</a></li>
         <li id="mhelp"><a href="{$=ii_get_actual_route('help')}" target="_blank">{$=ii_itake('global.help:module.channel_title', 'lng')}</a></li>
       </ul>
     </div>
