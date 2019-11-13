@@ -897,12 +897,12 @@ function mm_web_title($title)
 {
   global $ngenre;
   $ttitle = $title;
-  $tweb_topic = ii_itake('global.' . ADMIN_FOLDER . '/global:seo.topic', 'lng');//首页title
-  $tweb_title = ii_itake('global.' . ADMIN_FOLDER . '/global:seo.title', 'lng');//网站title
-  if (ii_isnull($ttitle)) $tweb_title = $tweb_topic;//未设置title,则显示首页title
+  $tweb_topic = ii_itake('global.' . ADMIN_FOLDER . '/global:seo.topic', 'lng');
+  $tweb_title = ii_itake('global.' . ADMIN_FOLDER . '/global:seo.title', 'lng');
+  if (ii_isnull($tweb_title)) $tweb_title = ii_itake('global.module.web_title', 'lng');
+  if (ii_isnull($tweb_topic)) $tweb_topic = $tweb_title;
+  if (ii_isnull($ttitle)) $tweb_title = $tweb_topic;
   if (!(ii_isnull($ttitle))) $tweb_title = $ttitle . SP_STR . $tweb_title;
-  if (!(ii_isnull($ttitle)) && ii_isnull($ngenre)) $tweb_title = $ttitle;//首页title
-  if ((ii_isnull($ttitle)) && ii_isnull($ngenre)) $tweb_title = $tweb_topic;//首页title为空
   return $tweb_title;
 }
 

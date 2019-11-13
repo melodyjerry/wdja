@@ -65,7 +65,7 @@
 <head>
 <meta http-equiv="x-ua-compatible" content="IE=EmulateIE7" />
 <meta http-equiv="Content-Type" content="text/html; charset={$=CHARSET}" />
-<title>{$=ii_itake('config.copyright','lng')}</title>
+<title>{$=ii_itake('global.module.web_title', 'lng')}</title>
 <link href="{$=#images_route}frame.css" type="text/css" rel="stylesheet" />
 <script language="javascript" src="{$=#global_images_route}js/main.js"></script>
 <script language="javascript">
