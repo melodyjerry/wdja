@@ -121,7 +121,7 @@ setTimeout("location.href='{$backurl}';",2000);
                   plugins: [
                     "advlist autolink autosave link image lists charmap preview hr anchor pagebreak",
                     "searchreplace wordcount code fullscreen insertdatetime media nonbreaking",
-                    "table contextmenu directionality textcolor powerpaste textcolor colorpicker textpattern"
+                    "table directionality textcolor powerpaste textcolor colorpicker textpattern"
                   ],
                   end_container_on_empty_block:true,
                   paste_data_images:true,
