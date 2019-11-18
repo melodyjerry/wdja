@@ -162,11 +162,11 @@ function switch_menu()
     <td width="100%" align="center">
     <table border="0" width="98%" cellSpacing="0" cellPadding="0" class="lrbtline">
       <tr>
-        <td width="100%" height="25" class="tbtop">{$=ii_itake('global.admin/note:manage.channel_title', 'lng')}</td>
+        <td width="100%" height="25" class="tbtop">{$=ii_itake('global.' . ADMIN_FOLDER . '/note:manage.channel_title', 'lng')}</td>
       </tr>
       <tr>
         <td width="100%" align="center">
-	  {$=ii_ireplace('global.admin/note:manage.api','tpl')}
+	  {$=ii_ireplace('global.' . ADMIN_FOLDER . '/note:manage.api','tpl')}
         </td>
       </tr>
     </table>

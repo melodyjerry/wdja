@@ -13,7 +13,7 @@
 <section class="login">
     <div class="login_con">
         <div class="login_con_left">{$=ii_ireplace('global.passport:api.login2', 'tpl')}</div>
-        <div class="login_con_right"><a download href="{$=ii_itake('global.' . ADMIN_FOLDER . '/global:home.download_url','lng')}">{$=ii_itake('global.admin/global:home.download_name','lng')}</a><a href="{$=ii_itake('global.admin/global:home.demo_url','lng')}" target="_blank">演示站</a></div>
+        <div class="login_con_right"><a download href="{$=ii_itake('global.' . ADMIN_FOLDER . '/global:home.download_url','lng')}">{$=ii_itake('global.' . ADMIN_FOLDER . '/global:home.download_name','lng')}</a><a href="{$=ii_itake('global.' . ADMIN_FOLDER . '/global:home.demo_url','lng')}" target="_blank">演示站</a></div>
     </div>
 </section>
 <section id="middle">

@@ -24,7 +24,7 @@
           <table border="0" width="98%" cellSpacing="0" cellPadding="0">
             <tr>
               <td width="100%" colspan="2">
-				{$=vv_itransfer('new', 'global.admin/note:manage.api_list', 'topx=10;tnum=40;genre=admin/note;')}
+				{$=vv_itransfer('new', 'global.' . ADMIN_FOLDER . '/note:manage.api_list', 'topx=10;tnum=40;genre=admin/note;')}
 			  </td>
             </tr>
           </table>

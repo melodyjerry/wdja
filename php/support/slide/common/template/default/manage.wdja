@@ -104,7 +104,7 @@
                       <td width="120">{$=ii_itake('global.lng_config.time','lng')}</td>
                       <td align="center" width="50">{$=ii_itake('global.lng_config.edit','lng')}</td>
                       <td align="center" width="50">{$=ii_itake('global.lng_config.delete','lng')}</td>
-                      <td align="center" width="50"><a href="?action=reset&id={$id}&backurl={$=urlencode($GLOBALS['nurl'])}" onclick="return click_return('{$=ii_itake('global.admin/sort:manage.reset_sure', 'lng')}')">{$=ii_itake('global.lng_config.order','lng')}</a></td>
+                      <td align="center" width="50"><a href="?action=reset&id={$id}&backurl={$=urlencode($GLOBALS['nurl'])}" onclick="return click_return('{$=ii_itake('global.' . ADMIN_FOLDER . '/sort:manage.reset_sure', 'lng')}')">{$=ii_itake('global.lng_config.order','lng')}</a></td>
                     </tr>{@recurrence_ida}
                     <tr>
                       <td height="25"><input type="checkbox" name="sel_id" value="{$id}" class="checkbox"></td>
