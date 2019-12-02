@@ -14,8 +14,7 @@ function insert_images(strid, strurl, strntype, strtype, strbase)
   switch (tstrtype)
   {
     case 0:
-      editor_insert(strid, "<img src=\"" + strurl + "\" border=\"0\">");
-      //editor_insert(strid, "<img src=\"" + strbase + "/" + strurl + "\" border=\"0\">");
+      editor_insert(strid, "<img src=\"" + strurl + "\" border=\"0\" data-mce-src=\"" + strurl + "\">");
       break;
     case 1:
       itextner(strid, "[img]" + strurl + "[/img]");
