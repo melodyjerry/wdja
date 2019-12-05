@@ -19,6 +19,7 @@
 {$=mm_web_base()}
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"> 
 <meta http-equiv="Content-Type" content="text/html; charset={$=CHARSET}" />
+<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
 <title>{$=mm_web_title($GLOBALS['ntitle'])}</title>
 <meta name="keywords" content="{$=mm_web_keywords($GLOBALS['nkeywords'])}" />
 <meta name="description" content="{$=mm_web_description($GLOBALS['ndescription'])}" />
@@ -146,6 +147,7 @@ h1 {padding-left: 5px;color:red;}
 <meta http-equiv="x-ua-compatible" content="IE=EmulateIE7" />
 <meta http-equiv="Content-Type" content="text/html; charset={$=CHARSET}" />
 <link href="{$=ii_get_actual_route(ADMIN_FOLDER . '/common/images/default.css')}" type="text/css" rel="stylesheet" />
+<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
 <title>{$=mm_web_title($GLOBALS['ntitle'])}</title>
 <script language="javascript" src="{$=#global_images_route}js/jquery-1.7.min.js"></script>
 <script type="text/javascript" src="{$=#global_images_route}js/main.js?{$=ii_random(3)}"></script>
