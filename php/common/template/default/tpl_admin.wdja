@@ -117,6 +117,7 @@ setTimeout("location.href='{$backurl}';",2000);
         <script>
             tinymce.init({
                 selector: '#content',
+                convert_urls: false,
                   height: 300,
                   plugins: [
                     "advlist autolink autosave link image lists charmap preview hr anchor pagebreak",
