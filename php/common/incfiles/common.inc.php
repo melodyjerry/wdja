@@ -1241,7 +1241,6 @@ function wdja_safe_check(){
   $phptag = array('<?', '?>');
   $str = $_SERVER["QUERY_STRING"];
   $str_array = explode('&',$str);
-  print_r($str_array);
   foreach($str_array as $k => $v)
   {
     $tv = ii_get_lrstr($v, '=', 'rightr');
