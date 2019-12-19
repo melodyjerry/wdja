@@ -1218,8 +1218,48 @@ function wdja_cms_setting()
   }
 }
 
+function key_in_str($str,$arr){
+	$bool = false;
+	if(is_array($arr)){
+		foreach($arr as $key){
+		if(strstr($str,$key)){
+			$bool = true;
+			return $bool;
+		  }
+		}
+	}
+	return $bool;
+}
+
+function wdja_safe_check(){
+  $bool = false;
+  $sql = array("select", 'insert', "update", "delete", "\'", "\/\*","\.\.\/", "\.\/", "union", "into", "load_file", "outfile", "char");
+  $js = array("click", 'load', "key", "mouse", "error", "abort", "move", "unload", "change", "dblclick", "move", "reset", "resize", "submit");
+  $html = array("&", '"', "'", "<", ">");
+  $badstr = array("--", ":/", "\0", "%00", "\r", '&', ' ', '"', "'", "<", ">", "   ", "%3C", "%3E");
+  $path = array("'",'#','=','`','$','&',';','(',')');
+  $phptag = array('<?', '?>');
+  $str = $_SERVER["QUERY_STRING"];
+  $str_array = explode('&',$str);
+  print_r($str_array);
+  foreach($str_array as $k => $v)
+  {
+    $tv = ii_get_lrstr($v, '=', 'rightr');
+    if (key_in_str($tv, $sql) || key_in_str($tv, $js) || key_in_str($tv, $html) || key_in_str($tv, $badstr) || key_in_str($tv, $path) || key_in_str($tv, $phptag)){
+    	$bool = true;
+    	return $bool;
+    }
+  }
+ return $bool;
+}
+
 function wdja_cms_init($route)
 {
+  if(wdja_safe_check()) {
+    header("HTTP/1.1 404 Not Found");
+    header("Status: 404 Not Found");
+    exit;
+  }
   wdja_cms_setting();
   global $images_route, $global_images_route;
   global $nroute, $nlng, $nskin, $nuri, $nurs, $nurl, $nurlpre;
