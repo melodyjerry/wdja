@@ -1234,7 +1234,7 @@ function key_in_str($str,$arr){
 function wdja_safe_check(){
   $bool = false;
   $sql = array("select", 'insert', "update", "delete", "\'", "\/\*","\.\.\/", "\.\/", "union", "into", "load_file", "outfile", "char");
-  $js = array("click", 'load', "key", "mouse", "error", "abort", "move", "unload", "change", "dblclick", "move", "reset", "resize", "submit");
+  $js = array("click", 'load', "key", "mouse", "error", "abort", "unload", "change", "dblclick", "reset", "resize", "submit");
   $html = array("&", '"', "'", "<", ">");
   $badstr = array("--", ":/", "\0", "%00", "\r", '&', ' ', '"', "'", "<", ">", "   ", "%3C", "%3E");
   $path = array("'",'#','=','`','$','&',';','(',')');
