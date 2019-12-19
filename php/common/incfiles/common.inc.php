@@ -1241,11 +1241,13 @@ function wdja_safe_check(){
   $phptag = array('<?', '?>');
   $str = $_SERVER["QUERY_STRING"];
   $str_array = explode('&',$str);
+  $urltag = array('action', 'type', 'hspan', 'backurl', 'show_path', 'upform', 'uptext', 'upfname', 'upsimg');
   foreach($str_array as $k => $v)
   {
-    $tv = ii_get_lrstr($v, '=', 'rightr');
-    if($k != 'action' && $k != 'type' && $k !='hspan' && $k !='show_path'){
-    if (key_in_str($tv, $sql) || key_in_str($tv, $js) || key_in_str($tv, $html) || key_in_str($tv, $badstr) || key_in_str($tv, $path) || key_in_str($tv, $phptag)){
+    $vl = ii_get_lrstr($v, '=', 'leftr');
+    if(!in_array($vl, $urltag)){
+    $vr = ii_get_lrstr($v, '=', 'rightr');
+    if (key_in_str($vr, $sql) || key_in_str($vr, $js) || key_in_str($vr, $html) || key_in_str($vr, $badstr) || key_in_str($vr, $path) || key_in_str($vr, $phptag)){
     	$bool = true;
     	return $bool;
     }
