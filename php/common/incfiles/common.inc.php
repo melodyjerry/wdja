@@ -1280,7 +1280,7 @@ function wdja_cms_init($route)
      $nckcode = ii_md5(ii_now() . 'wdja');
 	 header("Set-Cookie:".APP_NAME."admin[nckcode]=".$nckcode.";path =".COOKIES_PATH.";httpOnly;SameSite=Strict;expires=".COOKIES_EXPIRES.";",false);
   }
-  if( (isset($_POST["submit"]) && $nckcode != $_POST['nckcode']) || (isset($_POST["submit"]) && !isset($_POST["nckcode"]))  || !isset($_COOKIE[APP_NAME."admin"]["nckcode"]) )
+  if((IS_POST && ($nckcode != $_POST['nckcode'] || !isset($_POST["nckcode"])))  || !isset($_COOKIE[APP_NAME."admin"]["nckcode"]))
   {
 	echo "<script>history.back()</script>";
 	exit;
