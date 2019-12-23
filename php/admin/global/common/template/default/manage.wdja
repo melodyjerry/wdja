@@ -76,6 +76,7 @@ function bfsubmit()
                     </tr>
                   </table>
                   <form name="form" method="post" action="?action=home&backurl={$=urlencode($GLOBALS['nurl'])}" onsubmit="bfsubmit()">
+                  <input type="hidden" name="nckcode" value="{$=#nckcode}" />
                   <table border="0" width="98%" cellSpacing="0" cellPadding="0">
                     <tr>
                       <td height="25">LOGO</td>
@@ -195,6 +196,7 @@ function bfsubmit()
                     </tr>
                   </table>
                   <form name="form" method="post" action="?action=seo&backurl={$=urlencode($GLOBALS['nurl'])}" onsubmit="bfsubmit()">
+                  <input type="hidden" name="nckcode" value="{$=#nckcode}" />
                   <table border="0" width="98%" cellSpacing="0" cellPadding="0">
                     <tr>
                       <td height="22" colspan="2" align="left"><h3 style="margin:0;padding:5px;background-color:#eeeeee;color:#3eb4fa;">TDK配置</h3></td>
@@ -324,6 +326,7 @@ function bfsubmit()
                     </tr>
                   </table>
                   <form name="form" method="post" action="?action=wechat&backurl={$=urlencode($GLOBALS['nurl'])}" onsubmit="bfsubmit()">
+                  <input type="hidden" name="nckcode" value="{$=#nckcode}" />
                   <table border="0" width="98%" cellSpacing="0" cellPadding="0">
                     <tr>
                       <td height="25">{$=ii_itake('manage.logo','lng')}</td>
@@ -471,6 +474,7 @@ function bfsubmit()
                     </tr>
                   </table>
                   <form name="form" method="post" action="?action=other&backurl={$=urlencode($GLOBALS['nurl'])}" onsubmit="bfsubmit()">
+                  <input type="hidden" name="nckcode" value="{$=#nckcode}" />
                   <table border="0" width="98%" cellSpacing="0" cellPadding="0">
                     <tr>
                       <td height="22" colspan="2" align="left"><h3 style="margin:0;padding:5px;background-color:#eeeeee;color:#3eb4fa;">支付二维码</h3></td>

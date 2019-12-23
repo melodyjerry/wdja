@@ -1274,7 +1274,20 @@ function wdja_cms_init($route)
   $nport = $_SERVER['SERVER_PORT'];
   $nurl = $nuri;
   global $nckcode;
-  $nckcode = ii_md5(ii_format_date(ii_now(), 2) . 'wdja');
+  if(isset($_COOKIE[APP_NAME."admin[nckcode]"])){
+  	 $nckcode = $_COOKIE[APP_NAME."admin[nckcode]"];
+  }else{
+     $nckcode = ii_md5(ii_format_date(ii_now(), 2) . 'wdja');
+	 header("Set-Cookie:".APP_NAME."admin[nckcode]=".$nckcode.";path =".COOKIES_PATH.";httpOnly;SameSite=Strict;expires=".COOKIES_EXPIRES.";",false);
+  }
+  //前提表单提交按钮需添加name="submit"
+  if(isset($_REQUEST["submit"])){
+	if($nckcode != $_REQUEST['nckcode'] || !isset($_REQUEST["nckcode"])) 
+	{
+		echo "<script>history.back()</script>";
+		exit;
+	}
+  }
   if (!(ii_isnull($nurs))) $nurl = $nuri . '?' . $nurs;
   if($nport == '443') $nurlpre = 'https://' . $_SERVER['HTTP_HOST'];
   else $nurlpre = 'http://' . $_SERVER['HTTP_HOST'];

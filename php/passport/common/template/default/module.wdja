@@ -24,6 +24,7 @@
     <nav class="nav">{$=vv_inavigation($GLOBALS['ngenre'], 'classid=-1;strers=module;strurl=' . $GLOBALS['ngenre'])}{$=NAV_SP_STR}{$=ii_itake('module.mread','lng')}</nav>
       <div class="list_con">
               <form method="post" action="?action=register">
+              <input type="hidden" name="nckcode" value="{$=#nckcode}" />
               <table width="100%" cellspacing="0" cellpadding="0" border="0">
                 <tr>
                   <td height="10"></td>
@@ -198,6 +199,7 @@
       </div>
       <div class="list_con">
                   <form method="post" name="sel_form" action="?action=control&backurl={$=urlencode($GLOBALS['nurl'])}" onSubmit="get_sel_id()">
+                  <input type="hidden" name="nckcode" value="{$=#nckcode}" />
                   <input type="hidden" name="sel_ids">
                   <table class="table" border="0" width="98%" cellSpacing="0" cellPadding="0">
                     <tr>
@@ -280,6 +282,7 @@ function jscheck_username(struname)
     <nav class="nav">{$=vv_inavigation($GLOBALS['ngenre'], 'classid=-1;strers=module;strurl=' . $GLOBALS['ngenre'])}{$=NAV_SP_STR}{$=ii_itake('module.new','lng')}</nav>
       <div class="list_con">
               <form action="{$=#nuri}?action=register" method="post" onSubmit="return Validator.Validate(this, 2)">
+              <input type="hidden" name="nckcode" value="{$=#nckcode}" />
               <table width="100%" cellspacing="0" cellpadding="0" border="0">
                 <tr>
                   <td height="25"><strong>{$=ii_itake('module.need','lng')}</strong></td>
@@ -476,6 +479,7 @@ function jscheck_username(struname)
       </div>
       <div class="list_con">
               <form action="{$=#nuri}?action=manage&mtype=information&backurl={$=urlencode($GLOBALS['nurl'])}" method="post">
+              <input type="hidden" name="nckcode" value="{$=#nckcode}" />
               <table width="100%" cellspacing="0" cellpadding="0" border="0">
                 <tr>
                   <td width="70" height="25" align="right">{$=ii_itake('config.username', 'lng')}</td>
@@ -572,6 +576,7 @@ function jscheck_username(struname)
       </div>
       <div class="list_con">
               <form method="post" action="{$=#nuri}?action=manage&mtype=password&backurl={$=urlencode($GLOBALS['nurl'])}">
+              <input type="hidden" name="nckcode" value="{$=#nckcode}" />
               <table width="100%" cellspacing="0" cellpadding="0" border="0">
                 <tr>
                   <td width="70" height="25" align="right">{$=ii_itake('config.username', 'lng')}</td>
@@ -642,6 +647,7 @@ function check_face_height(strheight)
       </div>
       <div class="list_con">
               <form method="post" action="{$=#nuri}?action=manage&mtype=userset&backurl={$=urlencode($GLOBALS['nurl'])}">
+              <input type="hidden" name="nckcode" value="{$=#nckcode}" />
               <table width="100%" cellspacing="0" cellpadding="0" border="0">
                 <tr>
                   <td width="70" height="25" align="right">{$=ii_itake('config.username', 'lng')}</td>
@@ -791,6 +797,7 @@ function check_face_height(strheight)
                 </tr>
               </table>
               <form method="post" action="{$=#nuri}?action=lostpassword&backurl={$=urlencode($GLOBALS['nurl'])}">
+              <input type="hidden" name="nckcode" value="{$=#nckcode}" />
               <table cellspacing="0" cellpadding="0" class="tablem">
                 <tr>
                   <td width="70" height="25" align="right">{$=ii_itake('config.username', 'lng')}</td>
@@ -832,6 +839,7 @@ function check_face_height(strheight)
     <nav class="nav">{$=vv_inavigation($GLOBALS['ngenre'], 'classid=-1;strers=module;strurl=' . $GLOBALS['ngenre'])}{$=NAV_SP_STR}{$=ii_itake('global.' . USER_FOLDER . ':api.userlogin', 'lng')}</nav>
       <div class="list_con">
               <form action="{$=#nuri}?action=login&backurl={$=urlencode($_GET['backurl'])}" method="post">
+              <input type="hidden" name="nckcode" value="{$=#nckcode}" />
               <table width="100%" cellspacing="0" cellpadding="0" border="0">
                 <tr>
                   <td width="100" height="25" align="right">{$=ii_itake('global.lng_config.username', 'lng')}</td>
@@ -851,7 +859,7 @@ function check_face_height(strheight)
                 <tr>
                   <td height="35"></td>
                   <td></td>
-                  <td><input type="submit" value="{$=ii_itake('global.' . USER_FOLDER . ':api.login','lng')}" class="button" /> <img src="{$=#global_images_route}public/small/sico.gif" border="0" class="absmiddle" /> <a href="./?type=register">{$=ii_itake('global.' . USER_FOLDER . ':api.register_newuser', 'lng')}</a> <a href="./?type=lostpassword">{$=ii_itake('global.' . USER_FOLDER . ':api.lost_password', 'lng')}</a></td>
+                  <td><input type="submit" name="submit" value="{$=ii_itake('global.' . USER_FOLDER . ':api.login','lng')}" class="button" /> <img src="{$=#global_images_route}public/small/sico.gif" border="0" class="absmiddle" /> <a href="./?type=register">{$=ii_itake('global.' . USER_FOLDER . ':api.register_newuser', 'lng')}</a> <a href="./?type=lostpassword">{$=ii_itake('global.' . USER_FOLDER . ':api.lost_password', 'lng')}</a></td>
                 </tr>
               </table>
               </form>

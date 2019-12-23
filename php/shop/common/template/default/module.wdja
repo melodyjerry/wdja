@@ -18,6 +18,7 @@
       </div>
 
 <form id="filterForm" name="form1" method="get" action="{$=#nurl}">
+<input type="hidden" name="nckcode" value="{$=#nckcode}" />
 <input id="type" type="hidden" value="list" name="type" to="filter">
 <input id="classid" type="hidden" value="{$classid}" name="classid" to="filter">
 <input id="offset" type="hidden" value="{$offset}" name="offset" to="filter">
@@ -94,6 +95,7 @@
                       </tr>
                     </table>
                     <form method="get" action="{$=ii_get_actual_route($GLOBALS['nshopcart'])}" onSubmit="return ACBuy.tcksubmit();">
+                    <input type="hidden" name="nckcode" value="{$=#nckcode}" />
                     <input type="hidden" name="action" value="add" />
                     <input type="hidden" name="id" value="{$id}" />
                     <input type="hidden" name="backurl" value="{$=urlencode($GLOBALS['nurl'])}" />

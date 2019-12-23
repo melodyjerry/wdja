@@ -113,6 +113,7 @@
       <tr>
         <td width="100%" align="center">
           <form name="eform" method="post" action="?action=add&backurl={$=urlencode($GLOBALS['nurl'])}">
+          <input type="hidden" name="nckcode" value="{$=#nckcode}" />
           <table border="0" width="98%" cellspacing="0" cellPadding="0">
             <tr>
              <td width="50" height="25"></td><td width="*"></td>
@@ -194,6 +195,7 @@
       <tr>
         <td width="100%" align="center">
           <form name="eform" method="post" action="?action=edit&id={$id}&backurl={$=urlencode($GLOBALS['nurl'])}">
+          <input type="hidden" name="nckcode" value="{$=#nckcode}" />
           <table border="0" width="98%" cellspacing="0" cellPadding="0">
             <tr>
              <td width="50" height="25"></td><td width="*"></td>

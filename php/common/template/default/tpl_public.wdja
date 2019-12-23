@@ -38,7 +38,10 @@
         <h2><a href="{$=ii_get_actual_route('./')}"><img src="{$=ii_itake('global.' . ADMIN_FOLDER . '/global:home.logo','lng')}" alt="{$=ii_itake('global.module.web_title', 'lng')}"></a></h2>
         <div class="desc">{$=ii_itake('global.' . ADMIN_FOLDER . '/global:seo.topic','lng')}</div>
         <div id="panel">
-            <form method="get" name="search" action="{$=ii_get_actual_route('search')}"><input type="text" name="keyword" size="15" class="text" placeholder="{$=ii_itake('global.lng_config.keyword', 'lng')}"/> <input type="submit" value="{$=ii_itake('global.lng_config.search','lng')}" class="button" />
+            <form method="get" name="search" action="{$=ii_get_actual_route('search')}">
+                <input type="hidden" name="nckcode" value="{$=#nckcode}" />
+                <input type="text" name="keyword" size="15" class="text" placeholder="{$=ii_itake('global.lng_config.keyword', 'lng')}"/>
+                <input type="submit" name="submit" value="{$=ii_itake('global.lng_config.search','lng')}" class="button" />
             </form>
         </div>
     </div>

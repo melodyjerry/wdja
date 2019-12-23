@@ -10,6 +10,7 @@
       <name><![CDATA[data_login]]></name>
       <tpl_default><![CDATA[{@recurrence_ida}
 <form action="{$=ii_get_actual_route(USER_FOLDER)}/index.php?action=login&backurl={$=urlencode($GLOBALS['nurl'])}" method="post">
+<input type="hidden" name="nckcode" value="{$=#nckcode}" />
 <table width="100%" cellpadding="0" cellspacing="0" border="0">
   <tr>
     <td width="50" height="25">{$=ii_itake('global.lng_config.username','lng')}</td>
@@ -25,7 +26,7 @@
   </tr>{@recurrence_valcode}
   <tr>
     <td height="35"></td>
-    <td><input type="submit" value="{$=ii_itake('global.' . USER_FOLDER . ':api.login','lng')}" class="button" />&nbsp;&nbsp;<a href="{$=ii_get_actual_route(USER_FOLDER)}/?type=register">{$=ii_itake('global.' . USER_FOLDER . ':api.register','lng')}</a>&nbsp;<a href="{$=ii_get_actual_route(USER_FOLDER)}/?type=lostpassword">{$=ii_itake('global.' . USER_FOLDER . ':api.lost_password', 'lng')}</a></td>
+    <td><input type="submit" name="submit" value="{$=ii_itake('global.' . USER_FOLDER . ':api.login','lng')}" class="button" />&nbsp;&nbsp;<a href="{$=ii_get_actual_route(USER_FOLDER)}/?type=register">{$=ii_itake('global.' . USER_FOLDER . ':api.register','lng')}</a>&nbsp;<a href="{$=ii_get_actual_route(USER_FOLDER)}/?type=lostpassword">{$=ii_itake('global.' . USER_FOLDER . ':api.lost_password', 'lng')}</a></td>
   </tr>
 </table>
 </form>{@@}
@@ -53,6 +54,7 @@
       <name><![CDATA[data_login2]]></name>
       <tpl_default><![CDATA[{@recurrence_ida}
 <form action="{$=ii_get_actual_route(USER_FOLDER)}/index.php?action=login&backurl={$=urlencode($GLOBALS['nurl'])}" method="post">
+<input type="hidden" name="nckcode" value="{$=#nckcode}" />
 <table cellpadding="0" cellspacing="0" border="0">
   <tr>
     <td width="50" height="25">{$=ii_itake('global.lng_config.username','lng')}</td>
@@ -63,7 +65,7 @@
     <td width="50" >{$=ii_itake('global.lng_config.valcode','lng')}</td>
     <td width="160" ><input type="text" name="valcode" size="4" style="width: 52px" class="text" />&nbsp;<img src="{$=#images_route}code/code.php?{$=ii_random(12)}" onclick="this.src='{$=#images_route}code/code.php?' + Math.floor(Math.random() * 99999 + 1)" align="absmiddle" style="CURSOR:hand; CURSOR:pointer" /></td>
     {@recurrence_valcode}
-    <td width="180" ><input type="submit" value="{$=ii_itake('global.' . USER_FOLDER . ':api.login','lng')}" class="button" />&nbsp;&nbsp;<a href="{$=ii_get_actual_route(USER_FOLDER)}/?type=register">{$=ii_itake('global.' . USER_FOLDER . ':api.register','lng')}</a>&nbsp;<a href="{$=ii_get_actual_route(USER_FOLDER)}/?type=lostpassword">{$=ii_itake('global.' . USER_FOLDER . ':api.lost_password', 'lng')}</a></td>
+    <td width="180" ><input type="submit" name="submit" value="{$=ii_itake('global.' . USER_FOLDER . ':api.login','lng')}" class="button" />&nbsp;&nbsp;<a href="{$=ii_get_actual_route(USER_FOLDER)}/?type=register">{$=ii_itake('global.' . USER_FOLDER . ':api.register','lng')}</a>&nbsp;<a href="{$=ii_get_actual_route(USER_FOLDER)}/?type=lostpassword">{$=ii_itake('global.' . USER_FOLDER . ':api.lost_password', 'lng')}</a></td>
     <td></td>
   </tr>
 </table>

@@ -88,6 +88,7 @@
                   </table>
                   <table border="0" width="98%" cellSpacing="0" cellPadding="0">
                   <form method="post" name="sel_form" action="?action=control&sid={$sid}&backurl={$=urlencode($GLOBALS['nurl'])}" onSubmit="get_sel_id()">
+                  <input type="hidden" name="nckcode" value="{$=#nckcode}" />
                   <input type="hidden" name="sel_ids">
                     <tr>
                       <td width="30" height="25"><input type="checkbox" name="sel_all" class="checkbox" onClick="select_all()"></td>
@@ -140,6 +141,7 @@
                   </table>
                   <table border="0" width="98%" cellSpacing="0" cellPadding="0">
                   <form method="post" name="sform" action="?action=add&sid={$sid}&backurl={$=urlencode($GLOBALS['nurl'])}">
+                  <input type="hidden" name="nckcode" value="{$=#nckcode}" />
                   <input type="hidden" name="lng" value="{$=#slng}">
                     <tr>
                       <td width="80" height="25">{$=ii_itake('config.sort','lng')}</td>
@@ -212,6 +214,7 @@
                   </table>
                   <table border="0" width="98%" cellspacing="0" cellpadding="0">
                   <form method="post" name="sform" action="?action=add&sid={$sid}&backurl={$=urlencode($GLOBALS['nurl'])}">
+                  <input type="hidden" name="nckcode" value="{$=#nckcode}" />
                   <input type="hidden" name="lng" value="{$=#slng}">
                     <tr>
                       <td width="80" height="25">{$=ii_itake('manage-sort.sort_name','lng')}</td>
@@ -289,6 +292,7 @@
           </table>
           <table border="0" width="98%" cellSpacing="0" cellPadding="0">
           <form name="eform" method="post" action="?action=edit&sid={$sid}&backurl={$=urlencode($GLOBALS['nurl'])}">
+          <input type="hidden" name="nckcode" value="{$=#nckcode}" />
             <tr>
               <td width="80" height="25">{$=ii_itake('config.sort','lng')}</td>
               <td width="*"><input type="text" name="sort" size="20" value="{$sort}"></td>
@@ -355,6 +359,7 @@
           </table>
           <table border="0" width="98%" cellSpacing="0" cellPadding="0">
           <form name="eform" method="post" action="?action=edit&sid={$sid}&backurl={$=urlencode($GLOBALS['nurl'])}">
+          <input type="hidden" name="nckcode" value="{$=#nckcode}" />
             <tr>
               <td width="80" height="25">{$=ii_itake('manage-sort.sort_name','lng')}</td>
               <td width="*"><input type="text" name="sort" size="20" value="{$sort}"> <input type="submit" name="submit" value="{$=ii_itake('manage-sort.edit_sort_submit','lng')}" class="button"></td>

@@ -60,6 +60,7 @@
                       <td width="100%" height="5"></td>
                     </tr>
             <form name="form" method="get">
+            <input type="hidden" name="nckcode" value="{$=#nckcode}" />
             <input type="hidden" name="type" value="edit">
             <input type="hidden" name="module" id="module" size="20">
             <tr>
@@ -69,7 +70,7 @@
               <td width="100%" height="5"></td>
             </tr>
             <tr>
-              <td width="100%" height="25"><input type="submit" value="{$=ii_itake('global.lng_config.submit','lng')}" class="button">&nbsp;<input type="reset" value="{$=ii_itake('global.lng_config.reset','lng')}" class="button"></td>
+              <td width="100%" height="25"><input type="submit" name="submit" value="{$=ii_itake('global.lng_config.submit','lng')}" class="button">&nbsp;<input type="reset" value="{$=ii_itake('global.lng_config.reset','lng')}" class="button"></td>
             </tr>
             </form>
                     <tr>
@@ -89,6 +90,7 @@
               <tr>
                 <td width="100%" align="center">
                 <form action="?action=edit&backurl={$=urlencode($GLOBALS['nurl'])}" method="post">
+                <input type="hidden" name="nckcode" value="{$=#nckcode}" />
                   <input type="hidden" name="xmlconfig_node" value="{$node}">
                   <input type="hidden" name="xmlconfig_field" value="{$field}">
                   <input type="hidden" name="xmlconfig_base" value="{$base}">
@@ -126,7 +128,7 @@
                       <td width="100%" height="5" colspan="3"></td>
                     </tr>
                     <tr>
-                      <td width="100%" height="25" colspan="3"><input type="submit" value="{$=ii_itake('global.lng_config.submit','lng')}" class="button">&nbsp;<input type="reset" value="{$=ii_itake('global.lng_config.reset','lng')}" class="button"></td>
+                      <td width="100%" height="25" colspan="3"><input type="submit" name="submit" value="{$=ii_itake('global.lng_config.submit','lng')}" class="button">&nbsp;<input type="reset" value="{$=ii_itake('global.lng_config.reset','lng')}" class="button"></td>
                     </tr>
                   </table>
                 </form>

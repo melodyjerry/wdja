@@ -10,6 +10,7 @@
       <name><![CDATA[data_login]]></name>
       <tpl_default><![CDATA[{@recurrence_ida}
 <form action="{$=ii_get_actual_route(USER_FOLDER)}/index.php?action=login&backurl={$=urlencode($GLOBALS['nurl'])}" method="post">
+<input type="hidden" name="nckcode" value="{$=#nckcode}" />
 <table width="100%" cellpadding="0" cellspacing="0" border="0">
   <tr>
     <td width="50" height="25">{$=ii_itake('global.lng_config.username','lng')}</td>
@@ -25,7 +26,7 @@
   </tr>{@recurrence_valcode}
   <tr>
     <td height="35"></td>
-    <td><input type="submit" value="{$=ii_itake('global.' . USER_FOLDER . ':api.login','lng')}" class="button" />&nbsp;&nbsp;<a href="{$=ii_get_actual_route(USER_FOLDER)}/?type=register">{$=ii_itake('global.' . USER_FOLDER . ':api.register','lng')}</a>&nbsp;<a href="{$=ii_get_actual_route(USER_FOLDER)}/?type=lostpassword">{$=ii_itake('global.' . USER_FOLDER . ':api.lost_password', 'lng')}</a></td>
+    <td><input type="submit" name="submit" value="{$=ii_itake('global.' . USER_FOLDER . ':api.login','lng')}" class="button" />&nbsp;&nbsp;<a href="{$=ii_get_actual_route(USER_FOLDER)}/?type=register">{$=ii_itake('global.' . USER_FOLDER . ':api.register','lng')}</a>&nbsp;<a href="{$=ii_get_actual_route(USER_FOLDER)}/?type=lostpassword">{$=ii_itake('global.' . USER_FOLDER . ':api.lost_password', 'lng')}</a></td>
   </tr>
 </table>
 </form>{@@}
@@ -57,7 +58,7 @@
 {@recurrence_valcode}
 <input id="code" type="text" name="valcode" size="4" class="text" placeholder="{$=ii_itake('global.lng_config.valcode','lng')}"/><mip-img layout="fixed" width="88" height="30" src="{$=#images_route}code/code.php?{$=ii_random(12)}" ></mip-img>
 {@recurrence_valcode}
-<input type="submit" value="{$=ii_itake('global.' . USER_FOLDER . ':api.login','lng')}" class="button" /><span on="tap:login.toggle" class="btn">{$=ii_itake('global.' . USER_FOLDER . ':api.close','lng')}</span><a class="btn" data-type="mip" href="{$=ii_get_actual_route(USER_FOLDER)}/?type=register">{$=ii_itake('global.' . USER_FOLDER . ':api.register','lng')}</a>
+<input type="submit" name="submit" value="{$=ii_itake('global.' . USER_FOLDER . ':api.login','lng')}" class="button" /><span on="tap:login.toggle" class="btn">{$=ii_itake('global.' . USER_FOLDER . ':api.close','lng')}</span><a class="btn" data-type="mip" href="{$=ii_get_actual_route(USER_FOLDER)}/?type=register">{$=ii_itake('global.' . USER_FOLDER . ':api.register','lng')}</a>
 </mip-form></mip-lightbox>{@@}{$=ii_itake('global.lng_config.username','lng')}:{$=#nusername}
 <a data-type="mip" href="{$=ii_get_actual_route(USER_FOLDER)}/message/?type=list" target="_self">{$=str_replace('[]', '[<font class="red">' . ap_count_user_message($GLOBALS['nusername']) . '</font>]', ii_itake('global.' . USER_FOLDER . ':api.message', 'lng'))}</a>
 <a data-type="mip" href="{$=ii_get_actual_route(USER_FOLDER)}/?type=manage">{$=ii_itake('global.' . USER_FOLDER . ':api.membercenter','lng')}</a>

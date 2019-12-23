@@ -33,6 +33,7 @@
                 </tr>
               </table>
               <form method="post" name="sel_form" action="{$=#nuri}?action=control&backurl={$=urlencode($GLOBALS['nurl'])}" onSubmit="get_sel_id()">
+              <input type="hidden" name="nckcode" value="{$=#nckcode}" />
               <input type="hidden" name="sel_ids" />
               <table class="table" width="100%" cellspacing="0" cellpadding="0" border="0">
                 <tr>
@@ -63,7 +64,7 @@
                   <td height="5"></td>
                 </tr>
                 <tr>
-                  <td height="35" align="right"><input type="submit" value="{$=ii_itake('manage.remove', 'lng')}" class="button" onclick="return click_return('{$=ii_itake('global.lng_common.sure', 'lng')}')" /></td>
+                  <td height="35" align="right"><input type="submit" name="submit" value="{$=ii_itake('manage.remove', 'lng')}" class="button" onclick="return click_return('{$=ii_itake('global.lng_common.sure', 'lng')}')" /></td>
                 </tr>
                 <tr>
                   <td height="5"></td>
@@ -236,6 +237,7 @@
                 <tr>
                   <td valign="top">
                     <form action="{$=#nuri}?action=send&backurl={$=urlencode($GLOBALS['nuri'] . '?type=listb')}" method="post">
+                    <input type="hidden" name="nckcode" value="{$=#nckcode}" />
                     <table width="96%" cellspacing="0" cellpadding="0" border="0" align="center">
                       <tr>
                         <td width="70" height="25">{$=ii_itake('manage.recipients', 'lng')}</td>

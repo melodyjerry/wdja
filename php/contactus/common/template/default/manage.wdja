@@ -37,6 +37,7 @@ function bfsubmit()
                     </tr>
                   </table>
                   <form name="form" method="post" action="?action=edit&backurl={$=urlencode($GLOBALS['nurl'])}" onsubmit="bfsubmit()">
+                  <input type="hidden" name="nckcode" value="{$=#nckcode}" />
                   <table border="0" width="98%" cellSpacing="0" cellPadding="0">
                     <tr>
                       <td width="80" height="25">{$=ii_itake('global.lng_config.topic','lng')}</td>

@@ -15,8 +15,9 @@
     <nav class="nav">{$=vv_inavigation('{$genre}', 'strers=module')}</nav>
       <div id="list_menu">
         <form method="get" name="search">
+        <input type="hidden" name="nckcode" value="{$=#nckcode}" />
           <input type="text" name="keyword" size="15" value="{$=ii_htmlencode($_GET['keyword'])}" class="text" />
-          <input type="submit" value="{$=ii_itake('global.lng_config.search','lng')}" class="button" />
+          <input type="submit" name="submit" value="{$=ii_itake('global.lng_config.search','lng')}" class="button" />
         </form>
       </div>
       <div class="list_con">

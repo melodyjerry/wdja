@@ -68,6 +68,7 @@
                   </table>
                   <table border="0" width="98%" cellSpacing="0" cellPadding="0">
                   <form name="form" method="post" action="?action=transfer&backurl={$=urlencode($GLOBALS['nurl'])}">
+                  <input type="hidden" name="nckcode" value="{$=#nckcode}" />
                     <tr>
                       <td width="80" height="25">{$=ii_itake('global.lng_config.sort','lng')}</td>
                       <td width="*"><select name="sort1" class="select">{$=pp_sel_forum_sort(0, $GLOBALS['slng'])}</select></td>
@@ -186,6 +187,7 @@
                   </table>
                   <table border="0" width="98%" cellSpacing="0" cellPadding="0">
                   <form name="form" method="post" action="?action=delete&backurl={$=urlencode($GLOBALS['nurl'])}">
+                  <input type="hidden" name="nckcode" value="{$=#nckcode}" />
                     <tr>
                       <td width="80" height="25">{$=ii_itake('global.lng_config.sort','lng')}</td>
                       <td width="*"><select name="sort" class="select"><option value="-1">{$=ii_itake('manage-dispose.all', 'lng')}</option>{$=pp_sel_forum_sort(0, $GLOBALS['slng'])}</select></td>
@@ -300,6 +302,7 @@
                   </table>
                   <table border="0" width="98%" cellSpacing="0" cellPadding="0">
                   <form name="form" method="post" action="?action=update&backurl={$=urlencode($GLOBALS['nurl'])}">
+                  <input type="hidden" name="nckcode" value="{$=#nckcode}" />
                     <tr>
                       <td width="80" height="25">{$=ii_itake('global.lng_config.sort','lng')}</td>
                       <td width="*"><select name="sort" class="select"><option value="-1">{$=ii_itake('manage-dispose.all', 'lng')}</option>{$=pp_sel_forum_sort(0, $GLOBALS['slng'])}</select></td>

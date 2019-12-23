@@ -46,6 +46,7 @@
                       <td width="100%" height="5"></td>
                     </tr>
                     <form method="get" name="search">
+                    <input type="hidden" name="nckcode" value="{$=#nckcode}" />
                     <tr>
                       <td width="100%" height="25">&nbsp;<input type="text" name="keyword" size="10" value="{$=mm_get_admin_keyword()}"></td>
                     </tr>
@@ -53,7 +54,7 @@
                       <td width="100%" height="25">&nbsp;<select name="field" class="select">{$=mm_get_admin_search()}</select></td>
                     </tr>
                     <tr>
-                      <td width="100%" height="25">&nbsp;<input type="submit" value="{$=ii_itake('global.lng_config.search','lng')}" class="button"></td>
+                      <td width="100%" height="25">&nbsp;<input type="submit" name="submit" value="{$=ii_itake('global.lng_config.search','lng')}" class="button"></td>
                     </tr>
                     </form>
                     <tr>
@@ -98,6 +99,7 @@
                   </table>
                   <table border="0" width="98%" cellSpacing="0" cellPadding="0">
                   <form method="post" name="sel_form" action="?action=control&backurl={$=urlencode($GLOBALS['nurl'])}" onSubmit="get_sel_id()">
+                  <input type="hidden" name="nckcode" value="{$=#nckcode}" />
                   <input type="hidden" name="sel_ids">
                     <tr>
                       <td height="25" width="30"><input type="checkbox" name="sel_all" class="checkbox" onClick="select_all()"></td>
@@ -209,6 +211,7 @@ function bfsubmit()
                     </tr>
                   </table>
                   <form name="form" method="post" action="?action=add&backurl={$=urlencode($GLOBALS['nurl'])}" onsubmit="bfsubmit()">
+                  <input type="hidden" name="nckcode" value="{$=#nckcode}" />
                   <table border="0" width="98%" cellSpacing="0" cellPadding="0">
                     <tr>
                       <td width="80" height="25">{$=ii_itake('config.genre','lng')}</td>
@@ -319,6 +322,7 @@ function bfsubmit()
                     </tr>
                   </table>
                   <form name="form" method="post" action="?action=edit&backurl={$=urlencode($GLOBALS['nurl'])}&id={$id}" onsubmit="bfsubmit()">
+                  <input type="hidden" name="nckcode" value="{$=#nckcode}" />
                   <input type="hidden" name="genre" value="{$genre}"/>
                   <input type="hidden" name="gid" value="{$gid}"/>
                   <table border="0" width="98%" cellSpacing="0" cellPadding="0">
