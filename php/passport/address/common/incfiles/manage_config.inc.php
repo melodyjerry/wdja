@@ -92,13 +92,13 @@ function wdja_cms_admin_manage_edit()
   {
     $tmpstr = ii_itake('manage.edit', 'tpl');
     $tmpstr = str_replace('{$id}', $trs[$nidfield], $tmpstr);
-    $tmpstr = str_replace('{$name}', $trs[ii_cfname('name')], $tmpstr);
-    $tmpstr = str_replace('{$address}', $trs[ii_cfname('address')], $tmpstr);
-    $tmpstr = str_replace('{$code}', $trs[ii_cfname('code')], $tmpstr);
-    $tmpstr = str_replace('{$phone}', $trs[ii_cfname('phone')], $tmpstr);
-    $tmpstr = str_replace('{$email}', $trs[ii_cfname('email')], $tmpstr);
+    $tmpstr = str_replace('{$name}', ii_htmlencode($trs[ii_cfname('name')]), $tmpstr);
+    $tmpstr = str_replace('{$address}', ii_htmlencode($trs[ii_cfname('address')]), $tmpstr);
+    $tmpstr = str_replace('{$code}', ii_htmlencode($trs[ii_cfname('code')]), $tmpstr);
+    $tmpstr = str_replace('{$phone}', ii_htmlencode($trs[ii_cfname('phone')]), $tmpstr);
+    $tmpstr = str_replace('{$email}', ii_htmlencode($trs[ii_cfname('email')]), $tmpstr);
     $tmpstr = str_replace('{$username}', $trs[ii_cfname('username')], $tmpstr);
-    $tmpstr = str_replace('{$time}', $trs[ii_cfname('time')], $tmpstr);
+    $tmpstr = str_replace('{$time}', ii_get_date($trs[ii_cfname('time')]), $tmpstr);
     $tmpstr = ii_creplace($tmpstr);
     return $tmpstr;
   }
@@ -137,14 +137,15 @@ function wdja_cms_admin_manage_list()
   {
     foreach($trsary as $trs)
     {
-      $tmptstr = str_replace('{$name}', $trs[ii_cfname('name')], $tmpastr);
-      $tmptstr = str_replace('{$address}', $trs[ii_cfname('address')], $tmptstr);
-      $tmptstr = str_replace('{$code}', $trs[ii_cfname('code')], $tmptstr);
-      $tmptstr = str_replace('{$phone}', $trs[ii_cfname('phone')], $tmptstr);
-      $tmptstr = str_replace('{$email}', $trs[ii_cfname('email')], $tmptstr);
+      $tmptstr = str_replace('{$name}', ii_htmlencode($trs[ii_cfname('name')]), $tmpastr);
+      $tmptstr = str_replace('{$address}', ii_htmlencode($trs[ii_cfname('address')]), $tmptstr);
+      $tmptstr = str_replace('{$code}', ii_htmlencode($trs[ii_cfname('code')]), $tmptstr);
+      $tmptstr = str_replace('{$phone}', ii_htmlencode($trs[ii_cfname('phone')]), $tmptstr);
+      $tmptstr = str_replace('{$email}', ii_htmlencode($trs[ii_cfname('email')]), $tmptstr);
       $tmptstr = str_replace('{$username}', $trs[ii_cfname('username')], $tmptstr);
-      $tmptstr = str_replace('{$time}', $trs[ii_cfname('time')], $tmptstr);
+      $tmptstr = str_replace('{$time}', ii_get_date($trs[ii_cfname('time')]), $tmptstr);
       $tmptstr = str_replace('{$id}', $trs[$nidfield], $tmptstr);
+      $tmptstr = ii_creplace($tmptstr);
       $tmprstr .= $tmptstr;
     }
   }

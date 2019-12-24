@@ -220,8 +220,8 @@ function wdja_cms_admin_manage_edit()
     $tmpstr = str_replace('{$id}', $trs[$nidfield], $tmpstr);
     $tmpstr = str_replace('{$fsid}', $trs[ii_cfname('fsid')], $tmpstr);
     $tmpstr = str_replace('{$sort}', $trs[ii_cfname('sort')], $tmpstr);
-    $tmpstr = str_replace('{$keywords}', $trs[ii_cfname('keywords')], $tmpstr);
-    $tmpstr = str_replace('{$description}', $trs[ii_cfname('description')], $tmpstr);
+    $tmpstr = str_replace('{$keywords}', ii_htmlencode($trs[ii_cfname('keywords')]), $tmpstr);
+    $tmpstr = str_replace('{$description}', ii_htmlencode($trs[ii_cfname('description')]), $tmpstr);
     $tmpstr = str_replace('{$image}', $trs[ii_cfname('image')], $tmpstr);
     $tmpstr = str_replace('{$hidden}', $trs[ii_cfname('hidden')], $tmpstr);
     $tmpstr = str_replace('{$sgenre}', $sgenre, $tmpstr);
