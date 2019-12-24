@@ -212,7 +212,7 @@ function wdja_cms_module_edit()
     $tmpstr = str_replace('{$code}', ii_htmlencode($trs[ii_cfname('code')]), $tmpstr);
     $tmpstr = str_replace('{$phone}', ii_htmlencode($trs[ii_cfname('phone')]), $tmpstr);
     $tmpstr = str_replace('{$email}', ii_htmlencode($trs[ii_cfname('email')]), $tmpstr);
-    $tmpstr = str_replace('{$username}', $trs[ii_cfname('username')], $tmpstr);
+    $tmpstr = str_replace('{$username}', ii_htmlencode($trs[ii_cfname('username')]), $tmpstr);
     $tmpstr = str_replace('{$time}', ii_get_date($trs[ii_cfname('time')]), $tmpstr);
     $tmpstr = ii_creplace($tmpstr);
     return $tmpstr;
