@@ -1241,7 +1241,7 @@ function wdja_safe_check(){
   $phptag = array('<?', '?>');
   $str = $_SERVER["QUERY_STRING"];
   $str_array = explode('&',$str);
-  $urltag = array('action', 'type', 'hspan', 'backurl', 'show_path', 'folder_path', 'upform', 'uptext', 'upfname', 'upsimg','upbasefname','upbasefolder');
+  $urltag = array('action', 'type', 'hspan', 'backurl', 'show_path', 'file_path', 'folder_path', 'upform', 'uptext', 'upfname', 'upsimg','upbasefname','upbasefolder');
   foreach($str_array as $k => $v)
   {
     $vl = ii_get_lrstr($v, '=', 'leftr');
