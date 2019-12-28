@@ -1233,24 +1233,25 @@ function key_in_str($str,$arr){
 
 function wdja_safe_check(){
   $bool = false;
-  $sql = array("select", 'insert', "update", "delete", "\'", "\/\*","\.\.\/", "\.\/", "union", "into", "load_file", "outfile", "char");
-  $js = array("click", 'load', "key", "mouse", "error", "abort", "unload", "change", "dblclick", "move", "reset", "resize", "submit");
-  $html = array("&", '"', "'", "<", ">");
-  $badstr = array("--", ":/", "\0", "%00", "\r", '&', ' ', '"', "'", "<", ">", "   ", "%3C", "%3E");
-  $path = array("'",'#','=','`','$','&',';','(',')');
-  $phptag = array('<?', '?>');
+  $keystr = array("select", 'insert', "update", "delete", "union", "into", "load_file", "outfile", "char", "click", 'load', "key", "mouse", "error", "abort", "unload", "change", "dblclick", "move", "reset", "resize", "submit");
+  $badstr = array("<", ">", "--", ":/", "\0", "\'", "\/\*","\.\.\/", "\.\/", "%00", "\r",' ', '"', "'", "   ", "%3C", "%3E", "'",'#','=','`','$','&',';','(',')', '<?', '?>');
   $str = $_SERVER["QUERY_STRING"];
   $str_array = explode('&',$str);
-  $urltag = array('action', 'type', 'hspan', 'backurl', 'show_path', 'file_path', 'folder_path', 'upform', 'uptext', 'upfname', 'upsimg','upbasefname','upbasefolder');
+  $urltag = array('action', 'type', 'hspan', 'backurl', 'path', 'show_path', 'file_path', 'folder_path', 'upform', 'upftype', 'uptext', 'upfname', 'upsimg','upbasefname','upbasefolder');
   foreach($str_array as $k => $v)
   {
     $vl = ii_get_lrstr($v, '=', 'leftr');
     if(!in_array($vl, $urltag)){
-    $vr = ii_get_lrstr($v, '=', 'rightr');
-    if (key_in_str($vr, $sql) || key_in_str($vr, $js) || key_in_str($vr, $html) || key_in_str($vr, $badstr) || key_in_str($vr, $path) || key_in_str($vr, $phptag)){
-    	$bool = true;
-    	return $bool;
-    }
+        $vr = ii_get_lrstr($v, '=', 'rightr');
+        if (key_in_str($vr, $keystr) || key_in_str($vr, $badstr)){
+            $bool = true;
+            return $bool;
+        }
+    }else{
+        if (key_in_str($vr, $badstr)){
+            $bool = true;
+            return $bool;
+        }
     }
   }
  return $bool;
