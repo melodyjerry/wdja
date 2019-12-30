@@ -1237,7 +1237,7 @@ function wdja_safe_check(){
   $badstr = array("<", ">", "--", ":/", "\0", "\'", "\/\*","\.\.\/", "\.\/", "%00", "\r",' ', '"', "'", "   ", "%3C", "%3E", "'",'#','=','`','$','&',';','(',')', '<?', '?>');
   $str = $_SERVER["QUERY_STRING"];
   $str_array = explode('&',$str);
-  $urltag = array('action', 'type', 'hspan', 'backurl', 'path', 'show_path', 'file_path', 'folder_path', 'upform', 'upftype', 'uptext', 'upfname', 'upsimg','upbasefname','upbasefolder');
+  $urltag = array('action', 'type', 'hspan', 'backurl', 'path', 'show_path', 'file_path', 'folder_path', 'upform', 'upftype', 'uptext', 'upfname', 'upsimg','upbasefname','upbasefolder','item','xml');
   foreach($str_array as $k => $v)
   {
     $vl = ii_get_lrstr($v, '=', 'leftr');
