@@ -746,6 +746,7 @@ function mm_sendemail($address, $subject, $message)
     $tmail = new cc_socketmail;
     $tmail -> server = $tsmtpserver;
     $tmail -> port = $tsmtpport;
+    $tmail -> charset = $tsmtpcharset;
     $tmail -> username = $tsmtpusername;
     $tmail -> password = $tsmtppassword;
     $tmail -> from = $tsmtpfromname;
