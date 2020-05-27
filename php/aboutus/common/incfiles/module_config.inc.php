@@ -7,6 +7,7 @@
 function wdja_cms_module_detail()
 {
   global $conn, $ngenre;
+  global $nvalidate;
   $tid = ii_get_num($_GET['id'],0);
   $tpage = ii_get_num($_GET['page']);
   $tucode = ii_cstr($_GET['ucode']);
@@ -22,9 +23,18 @@ function wdja_cms_module_detail()
   $trs = ii_conn_fetch_array($trs);
   if ($trs)
   {
+  	$tid = $trs[$nidfield];
+	$ttpl = mm_get_field($ngenre,$tid,'tpl');
+	$tgourl = mm_get_field($ngenre,$tid,'gourl');
+	if(!ii_isnull($tgourl)){
+		header("HTTP/1.1 301 Moved Permanently");
+		header ("Location:$tgourl");
+		exit;
+	}
     $tcount = $trs[ii_cfname('count')] + 1;
     mm_update_field($ngenre,$trs[$nidfield],'count',$tcount);//访问一次,更新一次访问次数+1;
-    $tmpstr = ii_itake('module.detail', 'tpl');
+    if(!ii_isnull($ttpl)) $tmpstr = ii_itake('module.'.$ttpl, 'tpl');
+    else $tmpstr = ii_itake('module.detail', 'tpl');
     mm_cntitle(ii_htmlencode($trs[ii_cfname('topic')]));
     mm_cnkeywords(ii_htmlencode($trs[ii_cfname('keywords')]));
     mm_cndescription(ii_htmlencode($trs[ii_cfname('description')]));
@@ -37,6 +47,7 @@ function wdja_cms_module_detail()
     $tmpstr = str_replace('{$id}', $trs[$nidfield], $tmpstr);
     $tmpstr = str_replace('{$genre}', $ngenre, $tmpstr);
     $tmpstr = str_replace('{$page}', $tpage, $tmpstr);
+    $tmpstr = mm_cvalhtml($tmpstr, $nvalidate, '{@recurrence_valcode}');
     $tmpstr = ii_creplace($tmpstr);
     return $tmpstr;
   }else{
@@ -47,8 +58,10 @@ function wdja_cms_module_detail()
 function wdja_cms_module_index()
 {
   global $ngenre;
+  global $nvalidate;
   $tmpstr = ii_itake('module.index', 'tpl');
   $tmpstr = str_replace('{$genre}', $ngenre, $tmpstr);
+  $tmpstr = mm_cvalhtml($tmpstr, $nvalidate, '{@recurrence_valcode}');
   $tmpstr = ii_creplace($tmpstr);
   if (!ii_isnull($tmpstr)) return $tmpstr;
   else return wdja_cms_module_detail();
@@ -65,7 +78,7 @@ function wdja_cms_module()
       return wdja_cms_module_index();
       break;
     default:
-      return wdja_cms_module_index();
+      return wdja_cms_module_detail();
       break;
   }
 }

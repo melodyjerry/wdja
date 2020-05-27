@@ -24,6 +24,14 @@ else
 parent.loader_remove()
 </script>
 <style type="text/css">
+html,body,form{
+margin:0;
+padding:0;
+}
+.hide
+{
+display:none !important;
+}
 .fileroute {
 	WIDTH: 144px
 }
@@ -44,16 +52,11 @@ parent.loader_remove()
 }
 </style>
 <form method="post" action="?action=upload&upform={$=#upform}&uptext={$=#uptext}&upftype={$=#upftype}&upsimg={$=#upsimg}&upfname={$=#upfname}&upbasefname={$=#upbasefname}&upbasefolder={$=#upbasefolder}" enctype="multipart/form-data">
-<input type="hidden" name="nckcode" value="{$=#nckcode}" />
-<table width="100%" cellpadding="0" cellspacing="0" border="0">
-  <tr>
-    <td width="144"><input type="text" name="file1-route" id="file1-route" class="text fileroute" readonly="readonly" /></td>
-    <td width="2"></td>
-    <td width="65"><input type="button" class="button filebrowse" value="{$=ii_itake('global.lng_common.browse','lng')}" /></td>
-    <td width="2" valign="top"><div class="filebrowseDiv"><div><span><input type="file" name="file1" class="file" onchange="get_id('file1-route').value = this.value;" /></span></div></div></td>
-    <td><input type="submit" class="button" name="up_button" value="{$=ii_itake('global.lng_config.upload','lng')}" onclick="parent.loader_show('{$=ii_itake('global.lng_upfiles.file_loader', 'lng')}');" /></td>
-  </tr>
-</table>
+<input type="text" name="file1-route" id="file1-route" class="text fileroute hide" readonly="readonly" />
+<input type="button" class="button filebrowse hide" value="{$=ii_itake('global.lng_common.browse','lng')}" />
+<input type="file" name="file1" class="file hide" id="browse" onchange="get_id('file1-route').value = this.value;get_id('up_button').click();" />
+<input type="submit" class="button hide" name="up_button" id="up_button" value="{$=ii_itake('global.lng_config.upload','lng')}" onclick="parent.loader_show('{$=ii_itake('global.lng_upfiles.file_loader', 'lng')}');" />
+<input style="display: inline-block;width: 60px;height: 30px;line-height: 30px;font-size: 14px;background-color: #5cb85c;border: 0;color: #fff;text-align: center;overflow: hidden;cursor: pointer;" onclick="get_id('browse').click();" value="{$=ii_itake('global.lng_config.upload','lng')}" readonly="readonly" />
 </form>
 ]]></tpl_default>
     </item>

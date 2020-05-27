@@ -11,6 +11,59 @@ require('ip.inc.php');
 require('baidu.inc.php');
 require('save_images.inc.php');
 require('phpqrcode.php');
+require('allpay.inc.php');
+
+function mm_ip_map($ip,$type=0){
+  //离线查询IP所属区域信息,国内精确到城市.国外精确到省份.
+  ini_set('memory_limit', '1G');
+  spl_autoload_register(function ($class)
+                        {
+                          $class = str_replace("\\","/",$class);
+                          if (strpos($class, 'ipip/db') !== FALSE)
+                          {
+                            require __DIR__.'/ip/'.$class.'.php';
+                          }
+                        }, true, true);
+  $city = new ipip\db\City(__DIR__.'/ip/ipipfree.ipdb');
+  if(ii_isnull($ip)) $ip = ii_get_client_ip();
+  $ip = ii_get_lrstr($ip, ',', 'leftr');
+  $ip_array = $city->findMap($ip, 'CN');
+  $country = $ip_array['country_name'];
+  $region = $ip_array['region_name'];
+  $city = $ip_array['city_name'];
+  $int = '';
+  switch ($type)
+  {
+    case 0:
+      $int = '';
+      break;
+    case 1:
+      $int = '-';
+      break;
+    case 2:
+      $int = '|';
+      break;
+    case 3:
+      $int = '/';
+      break;
+    case 4:
+      $int = '·';
+      break;
+    default:
+      $int = '-';
+      break;
+  }
+  if(ii_isnull($country)) {
+    $res = '';
+  }elseif(ii_isnull($region)){
+    $res = $country;
+  }elseif(ii_isnull($city)){
+    $res = $country .$int .$region;
+  }else{
+    $res = $country .$int .$region .$int .$city;
+  }
+  return $res;
+}
 
 function deny_mirrored_websites(){
   //防被代理镜像
@@ -71,40 +124,21 @@ function mm_get_field($genre,$id,$field)
   return $trs[ii_cfnames($tfpre,$field)];
 }
 
+function mm_get_sort_field($id,$field)
+{
+  //获取分类任意字段
+  global $conn, $variable, $sort_database, $sort_idfield, $sort_fpre;
+  $tmpstr = '';
+  $tsqlstr = 'select * from '. $sort_database.' where '. $sort_idfield.' = ' .$id;
+  $trs = ii_conn_query($tsqlstr, $conn);
+  $trs = ii_conn_fetch_array($trs);
+  return $trs[ii_cfnames($sort_fpre,$field)];
+}
+
 //生成商品编号
 function mm_get_shopnum(){
   date_default_timezone_set('PRC');
   return date('ymd').substr(time(),-4).substr(microtime(),2,5).mt_rand(10,99);
-}
-
-function alipay_code($imgurl,$price,$orderid,$id){
-  $alipay_uid = ii_itake('global.' . ADMIN_FOLDER . '/global:other.alipay_uid','lng');
-  if(ii_isnull($alipay_uid)) $alipay_uid = '2088202216609811';
-  if(!ii_isnull($imgurl) && !ii_isnull($price) && !ii_isnull($orderid) && !ii_isnull($id)){
-    $data = 'alipays://platformapi/startapp?appId=20000067&url=http%3A%2F%2F'.$_SERVER['HTTP_HOST'].'%2FopenAlipay.html%3Fmoney%3D'. $price .'%26num%3D'. $orderid .'%26uid%3D'. $alipay_uid;
-    $imgPath = $imgurl.'alipay-code/';
-	if(!is_dir($imgPath))
-	{
-	  mkdir($imgPath, 0777,true);
-	  chmod($imgPath, 0777);
-	}
-    $filename = $imgPath.'alipay-'.$price.'-'.$id.'.png';
-    $errorCorrectionLevel = 'H';
-    $matrixPointSize = 4;
-    if (!file_exists($filename)) QRcode::png($data, $filename, $errorCorrectionLevel, $matrixPointSize, 2); 
-  }else{
-    $filename = ii_itake('global.' . ADMIN_FOLDER . '/global:other.alipay_code','lng');
-  }
-  return $filename;
-}
-
-function alipaycode($imgurl,$price,$orderid,$id){
-  $alipay_uid = ii_itake('global.' . ADMIN_FOLDER . '/global:other.alipay_uid','lng');
-  if(ii_isnull($alipay_uid)) $alipay_uid = '2088202216609811';
-  if(!ii_isnull($imgurl) && !ii_isnull($price) && !ii_isnull($orderid) && !ii_isnull($id)){
-    $data = 'alipays://platformapi/startapp?appId=20000123&actionType=scan&biz_data={"s": "money", "u": "'. $alipay_uid .'", "a": "'. $price .'", "m": "'. $orderid .'"}'; //收款码
-    return urlencode($data);
-  }
 }
 
 //address
@@ -160,6 +194,7 @@ function mm_sel_address($nusername,$tid = '0')
 
 
 function mm_content_mip($content){
+  //百度mip移动框架使用
   global $nurlpre;
   //以下代码可根据需要修改/删除
   $content = preg_replace('/(width|height)="\d*"\s/', '', $content);//移除图片 width|height
@@ -306,118 +341,30 @@ function mm_cvalhtml($template, $vals, $recurrence)
   return $tmpstr;
 }
 
-function mm_cutepage_content($strers, $vars)
+function mm_cutepage_content($strers)
 {
   if (ii_isnull($strers)) return;
-  $tcp_note = ii_get_num(ii_get_strvalue($vars, 'cp_note'));
-  if ($tcp_note == 0)
-  {
-    return $strers;
-  }
-  else
-  {
-    $tcp_mode = ii_get_num(ii_get_strvalue($vars, 'cp_mode'));
-    $tcp_type = ii_get_num(ii_get_strvalue($vars, 'cp_type'));
-    $tcp_num = ii_get_num(ii_get_strvalue($vars, 'cp_num'));
-    $tcp_page = ii_get_num(ii_get_strvalue($vars, 'cp_page'));
-    if ($tcp_page < 1) $tcp_page = 1;
-    if ($tcp_mode == 0)
-    {
-      $tary = explode('[NextPage]', $strers);
-      $tarycount = count($tary) - 1;
-      $tcp_page -= 1;
-      if ($tcp_page < 0) $tcp_page = 0;
-      if ($tcp_page > $tarycount) $tcp_page = $tarycount;
-      return $tary[$tcp_page];
-    }
-    else
-    {
-      if ($tcp_type == 0)
-      {
-        $tary = explode(CRLF, $strers);
-        $tarycount = count($tary) - 1;
-        $tcp_page = $tcp_page * $tcp_num;
-        if ($tcp_page > $tarycount)
-        {
-          $tcp_page = $tarycount;
-          $ti = floor($tcp_page/$tcp_num) * $tcp_num;
-        }
-        else
-        {
-          $ti = $tcp_page - $tcp_num;
-          $tcp_page = $tcp_page - 1;
-        }
-        $tmpstr = '';
-        for ($i = $ti; $i <= $tcp_page; $i ++)
-        {
-          $tmpstr .= $tary[$i] . CRLF;
-        }
-        return $tmpstr;
-      }
-      else
-      {
-        $tstrlen = strlen($strers);
-        $tcp_page = $tcp_page * $tcp_num;
-        if ($tcp_page > $tstrlen)
-        {
-          $tcp_page = $tstrlen;
-          $ti = floor($tcp_page/$tcp_num) * $tcp_num;
-          $tcp_page -= $ti;
-        }
-        else
-        {
-          $ti = $tcp_page - $tcp_num;
-          $tcp_page = $tcp_num;
-        }
-        if ($ti < $tstrlen) return substr($strers, $ti, $tcp_page);
-      }
-    }
-  }
+  $tcp_page = ii_get_num($_GET['page']);
+  if ($tcp_page < 1) $tcp_page = 1;
+  $tary = explode('<!-- pagebreak -->', $strers);
+  $tarycount = count($tary) - 1;
+  $tcp_page -= 1;
+  if ($tcp_page < 0) $tcp_page = 0;
+  if ($tcp_page > $tarycount) $tcp_page = $tarycount;
+  return $tary[$tcp_page];
 }
 
-function mm_cutepage_content_page($strers, $vars)
+function mm_cutepage_content_page($strers)
 {
-  $tcp_note = ii_get_num(ii_get_strvalue($vars, 'cp_note'));
-  if ($tcp_note == 0)
-  {
-    return 0;
-  }
-  else
-  {
-    $tcp_mode = ii_get_num(ii_get_strvalue($vars, 'cp_mode'));
-    $tcp_type = ii_get_num(ii_get_strvalue($vars, 'cp_type'));
-    $tcp_num = ii_get_num(ii_get_strvalue($vars, 'cp_num'));
-    if ($tcp_mode == 0)
-    {
-      $tary = explode('[NextPage]', $strers);
-      return count($tary);
-    }
-    else
-    {
-      if ($tcp_num == 0) $tcp_num = 1000;
-      if ($tcp_type == 0)
-      {
-        $tary = explode(CRLF, $strers);
-        return ceil(count($tary) / $tcp_num);
-      }
-      else
-      {
-        $tstrlen = strlen($strers);
-        return ceil($tstrlen / $tcp_num);
-      }
-    }
-  }
+  $tary = explode('<!-- pagebreak -->', $strers);
+  return count($tary);
 }
 
-function mm_cutepage_content_page_sel($strers, $vars, $ct_strers)
+function mm_cutepage_content_page_sel($strers, $ct_strers)
 {
   global $nurltype;
-  $tcp_note = ii_get_num(ii_get_strvalue($vars, 'cp_note'));
-  $tcp_mode = ii_get_num(ii_get_strvalue($vars, 'cp_mode'));
-  $tcp_type = ii_get_num(ii_get_strvalue($vars, 'cp_type'));
-  $tcp_num = ii_get_num(ii_get_strvalue($vars, 'cp_num'));
-  $tpagenum = mm_cutepage_content_page($strers, 'cp_note=' . $tcp_note . ';cp_mode=' . $tcp_mode . ';cp_type=' . $tcp_type . ';cp_num=' . $tcp_num);
-  if ($tpagenum != 0)
+  $tpagenum = mm_cutepage_content_page($strers);
+  if ($tpagenum > 1)
   {
     $tpagelng = ii_itake('global.lng_cutepage.npage', 'lng');
     $ttpl_a_href_self = ii_itake('global.tpl_config.a_href_self', 'tpl');
@@ -511,25 +458,9 @@ function mm_em_bar($strers)
   return $tmpstr;
 }
 
-function mm_encode_content($content, $cttype, $ubbstate = 1)
+function mm_encode_content($content)
 {
-  $tcttype = ii_get_num($cttype);
-  $tubbstate = ii_get_num($ubbstate, 0);
-  switch ($tcttype)
-  {
-    case 0:
-      return ii_encode_text($content);
-      break;
-    case 1:
-      return ii_encode_article(mm_ubbcode(ii_htmlencode($content), $tubbstate));
-      break;
-    case 2:
-      return ii_encode_article(ii_htmlencode($content));
-      break;
-    case 3:
-      return ii_encode_text($content);
-      break;
-  }
+  return ii_encode_text($content);
 }
 
 function mm_get_postarystr($value)
@@ -559,6 +490,8 @@ function mm_get_mysortary($genre, $lng, $fsid)
     $tary[$trow[$sort_idfield]]['description'] = $trow[ii_cfnames($sort_fpre, 'description')];
     $tary[$trow[$sort_idfield]]['fid'] = $trow[ii_cfnames($sort_fpre, 'fid')];
     $tary[$trow[$sort_idfield]]['fsid'] = $trow[ii_cfnames($sort_fpre, 'fsid')];
+    $tary[$trow[$sort_idfield]]['image'] = $trow[ii_cfnames($sort_fpre, 'image')];
+    $tary[$trow[$sort_idfield]]['gourl'] = $trow[ii_cfnames($sort_fpre, 'gourl')];
     $tary[$trow[$sort_idfield]]['order'] = $trow[ii_cfnames($sort_fpre, 'order')];
     $tarys += $tary;
     $tarys += mm_get_mysortary($tgenre, $tlng, $trow[$sort_idfield]);
@@ -690,6 +623,26 @@ function mm_get_sortdescription($genre, $lng, $id)
   }
 }
 
+//富图片集专用函数,编辑输出时使用
+function mm_get_img_list($strers)
+{
+  if (!(ii_isnull($strers)))
+  {
+    $option_unselected = ii_itake('global.tpl_config.option_unselect', 'tpl');
+    $tary = explode('|', $strers);
+    $tmpstr = '';
+    foreach ($tary as $key => $val)
+    {
+        $sary = explode('#:#', $val);
+        $tstr = $option_unselected;
+        $tstr = str_replace('{$explain}', $sary[0], $tstr);
+        $tstr = str_replace('{$value}', $sary[0].'#:#'.$sary[1].'#:#'.$sary[2], $tstr);
+        $tmpstr .= $tstr;
+    }
+    return $tmpstr;
+  }
+}
+
 function mm_get_images_list($strers)
 {
   if (!(ii_isnull($strers)))
@@ -726,13 +679,16 @@ function mm_imessage($message, $backurl = '0')
 function mm_sendemail($address, $subject, $message)
 {
   global $variable;
-  $ttype = ii_get_num($variable['common.mail.type'], -1);
-  $tsmtpcharset = $variable['common.mail.smtpcharset'];
-  $tsmtpserver = $variable['common.mail.smtpserver'];
-  $tsmtpport = $variable['common.mail.smtpport'];
-  $tsmtpusername = $variable['common.mail.smtpusername'];
-  $tsmtppassword = $variable['common.mail.smtppassword'];
-  $tsmtpfromname = $variable['common.mail.smtpfromname'];
+  $ttype = ii_get_num(ii_itake('global.' . ADMIN_FOLDER . '/global:extend.smtptype','lng'), -1);
+  $tsmtpcharset = ii_itake('global.' . ADMIN_FOLDER . '/global:extend.smtpcharset','lng');
+  $tsmtpserver = ii_itake('global.' . ADMIN_FOLDER . '/global:extend.smtpserver','lng');
+  $tsmtpport = ii_itake('global.' . ADMIN_FOLDER . '/global:extend.smtpport','lng');
+  $tsmtpusername = ii_itake('global.' . ADMIN_FOLDER . '/global:extend.smtpusername','lng');
+  $tsmtppassword = ii_itake('global.' . ADMIN_FOLDER . '/global:extend.smtppassword','lng');
+  $tsmtpfromname = ii_itake('global.' . ADMIN_FOLDER . '/global:extend.smtpfromname','lng');
+  $taddress = iconv(CHARSET, $tsmtpcharset, $address);
+  $tsubject = iconv(CHARSET, $tsmtpcharset, $subject);
+  $tmessage = iconv(CHARSET, $tsmtpcharset, $message);
   $taddress = iconv(CHARSET, $tsmtpcharset, $address);
   $tsubject = iconv(CHARSET, $tsmtpcharset, $subject);
   $tmessage = iconv(CHARSET, $tsmtpcharset, $message);
@@ -779,6 +735,37 @@ function mm_sel_sort($genre, $lng, $sid)
     foreach ($tary as $key => $val)
     {
       if ($key == $tsid) $tmpstr = $option_selected;
+      //if (ii_cinstr($tsid,$key,',')) $tmpstr = $option_selected;
+      else $tmpstr = $option_unselected;
+      $tmpstr = str_replace('{$explain}', str_repeat($trestr, mm_get_sortfid_incount($val['fid'], ',') + 1) . $val['sort'], $tmpstr);
+      $tmpstr = str_replace('{$value}', $val['id'], $tmpstr);
+      $treturnstr .= $tmpstr;
+    }
+    return $option_pre.$treturnstr;
+  }else{
+    return $option_pre;
+  }
+}
+
+function mm_sel_sort_list($genre, $lng, $sid)
+{
+  $tary = mm_get_sortary($genre, $lng);
+  if (is_array($tary))
+  {
+    $tsid = ii_get_safecode($sid);
+    $trestr = ii_itake('global.tpl_config.sys_spsort', 'tpl');
+    $option_pre = '';//'<option value="0" selected>'.ii_itake('global.lng_config.unselect', 'lng').'</option>';
+    $option_unselected = ii_itake('global.tpl_config.option_unselect', 'tpl');
+    $option_selected = ii_itake('global.tpl_config.option_select', 'tpl');
+    $tmpstr = '';
+    $treturnstr = '';
+    foreach ($tary as $key => $val)
+    {
+      //if ($key == $tsid) $tmpstr = $option_selected;
+      $tgourl = mm_get_sort_field($val['id'],'gourl');
+      $tfgourl = mm_get_sort_field($val['fid'],'gourl');
+      if(!ii_isnull($tgourl) || !ii_isnull($tfgourl)) continue;
+      if (ii_cinstr($tsid,$key,',')) $tmpstr = $option_selected;
       else $tmpstr = $option_unselected;
       $tmpstr = str_replace('{$explain}', str_repeat($trestr, mm_get_sortfid_incount($val['fid'], ',') + 1) . $val['sort'], $tmpstr);
       $tmpstr = str_replace('{$value}', $val['id'], $tmpstr);
@@ -898,8 +885,8 @@ function mm_web_title($title)
 {
   global $ngenre;
   $ttitle = $title;
-  $tweb_topic = ii_itake('global.' . ADMIN_FOLDER . '/global:seo.topic', 'lng');
-  $tweb_title = ii_itake('global.' . ADMIN_FOLDER . '/global:seo.title', 'lng');
+  $tweb_topic = ii_itake('global.' . ADMIN_FOLDER . '/global:basic.topic', 'lng');
+  $tweb_title = ii_itake('global.' . ADMIN_FOLDER . '/global:basic.title', 'lng');
   if (ii_isnull($tweb_title)) $tweb_title = ii_itake('global.module.web_title', 'lng');
   if (ii_isnull($tweb_topic)) $tweb_topic = $tweb_title;
   if (ii_isnull($ttitle)) $tweb_title = $tweb_topic;
@@ -910,7 +897,7 @@ function mm_web_title($title)
 function mm_web_keywords($keywords)
 {
   $tkeywords = $keywords;
-  $tweb_keywords = ii_itake('global.' . ADMIN_FOLDER . '/global:seo.keywords', 'lng');
+  $tweb_keywords = ii_itake('global.' . ADMIN_FOLDER . '/global:basic.keywords', 'lng');
   if (ii_isnull($tweb_keywords)) $tweb_keywords = ii_itake('global.module.web_keywords', 'lng');
   if (!(ii_isnull($tkeywords))) $tweb_keywords = $tkeywords;
   return $tweb_keywords;
@@ -919,7 +906,7 @@ function mm_web_keywords($keywords)
 function mm_web_description($description)
 {
   $tdescription = $description;
-  $tweb_description = ii_itake('global.' . ADMIN_FOLDER . '/global:seo.description', 'lng');
+  $tweb_description = ii_itake('global.' . ADMIN_FOLDER . '/global:basic.description', 'lng');
   if (ii_isnull($tweb_description)) $tweb_description = ii_itake('global.module.web_description', 'lng');
   if (!(ii_isnull($tdescription))) $tweb_description = $tdescription;
   return $tweb_description;
@@ -934,8 +921,13 @@ function mm_web_base()
 
 function mm_web_head($key)
 {
-  $thead = ii_ireplace('global.tpl_public.' . $key, 'tpl');
-  return $thead;
+  global $ngenre;
+  $tmpstr = ii_itake('global.tpl_public.' . $key, 'tpl');
+  $tmpstr = str_replace('{$ngenre}', $ngenre, $tmpstr);
+  $tmpstr = ii_creplace($tmpstr);
+  return $tmpstr;
+  //$thead = ii_ireplace('global.tpl_public.' . $key, 'tpl');
+  //return $thead;
 }
 
 function mm_web_foot($key)
@@ -953,7 +945,8 @@ function vv_itransfer($type, $tpl, $vars)
 {
   global $conn, $variable, $ngenre;
   $tgenre = ii_get_strvalue($vars, 'genre');
-  $ttopx = ii_get_num(ii_get_strvalue($vars, 'topx'));
+  $ttopx = ii_get_strvalue($vars, 'topx');
+  if (strpos($ttopx,',') === false) $ttopx = ii_get_num($ttopx);
   $tcls = ii_get_num(ii_get_strvalue($vars, 'cls'));
   $tclass = ii_get_num(ii_get_strvalue($vars, 'class'));
   $thtml = ii_get_num(ii_get_strvalue($vars, 'html'));
@@ -968,7 +961,7 @@ function vv_itransfer($type, $tpl, $vars)
   $tfpre = ii_get_strvalue($vars, 'fpre');
   //*****************************************************
   $tbaseurl = ii_get_strvalue($vars, 'baseurl');
-  if ($ttopx >= 0)
+  if ($ttopx >= 0 || strpos($ttopx,',') !== false)
   {
     if (ii_isnull($tbaseurl))
     {
@@ -1035,7 +1028,7 @@ function vv_itransfer($type, $tpl, $vars)
             break;
         }
         if ($tcls != 0) $tsqlstr .= " and " . ii_cfnames($tfpre, 'cls') . " like '%|" . $tcls . "|%'";
-        if ($tclass != 0) $tsqlstr .= " and " . ii_cfnames($tfpre, 'class') . "=$tclass";
+        if ($tclass != 0) $tsqlstr .= " and (" . ii_cfnames($tfpre,'class') . " = $tclass or find_in_set($tclass," . ii_cfnames($tfpre,'class_list') . "))";
         if (!ii_isnull($tosql)) $tsqlstr .= $tosql;
         if (strpos($ttopx,',') !== false) $tsqlstr .= $tsqlorder . " limit $ttopx";
         else $tsqlstr .= $tsqlorder . " limit 0,$ttopx";
@@ -1156,6 +1149,7 @@ function vv_isort($genre, $vars, $sortAry = '')
   $tclassid = ii_get_num(ii_get_strvalue($vars, 'classid'));
   $ttpl = ii_get_strvalue($vars, 'tpl');
   $tgenre = ii_get_strvalue($vars, 'genre');
+  $ttopx = ii_get_num(ii_get_strvalue($vars, 'topx'),0);
   if (!ii_isnull($tgenre) && $tgenre != $genre)
   {
     $tbaseurl = ii_get_actual_route($tgenre);
@@ -1173,21 +1167,28 @@ function vv_isort($genre, $vars, $sortAry = '')
     else $tmpstr = ii_itake('global.tpl_transfer.' . $ttpl, 'tpl');
     $tmpastr = ii_ctemplate($tmpstr, '{@}');
     $tmprstr = '';
+    $i = 0;
     if (!ii_isnull($tmpstr))
     {
       foreach ($tary as $key => $val)
       {
+        if($ttopx != 0 && $i > ($ttopx - 1)) break;
         if ($val['fsid'] == $tclassid)
         {
+          $tgourl = $val['gourl'];
           $tmptstr = str_replace('{$id}', $key, $tmpastr);
           $tmptstr = str_replace('{$genre}', $genre, $tmptstr);
           $tmptstr = str_replace('{$sort}', $val['sort'], $tmptstr);
+          $tmptstr = str_replace('{$image}', $val['image'], $tmptstr);
+          if(!ii_isnull($tgourl)) $tmptstr = str_replace('{$gourl}', $tgourl, $tmptstr);
+          else $tmptstr = str_replace('{$gourl}', $tsorturl, $tmptstr);
           $tmptstr = str_replace('{$baseurl}', $tbaseurl, $tmptstr);
           $tmptstr = str_replace('{$urltype}', $turltype, $tmptstr);
           $tmptstr = str_replace('{$createfolder}', $tcreatefolder, $tmptstr);
           $tmptstr = str_replace('{$createfiletype}', $tcreatefiletype, $tmptstr);
           $tmprstr .= $tmptstr;
         }
+        $i++;
       }
       $tmpstr = str_replace(WDJA_CINFO, $tmprstr, $tmpstr);
       $tmpstr = ii_creplace($tmpstr);
@@ -1239,7 +1240,8 @@ function wdja_safe_check(){
   $badstr = array("<", ">", "--", ":/", "\0", "\'", "\/\*","\.\.\/", "\.\/", "%00", "\r",' ', '"', "'", "   ", "%3C", "%3E", "'",'#','=','`','$','&',';','(',')', '<?', '?>');
   $str = $_SERVER["QUERY_STRING"];
   $str_array = explode('&',$str);
-  $urltag = array('action', 'type', 'backurl', 'mtype');
+  $urltag = array('action', 'type', 'backurl', 'mtype', 'keyword');
+  //$urltag = array('action', 'type', 'hspan', 'backurl', 'path', 'show_path', 'file_path', 'folder_path', 'upform', 'upftype', 'uptext', 'upfname', 'upsimg','upbasefname','upbasefolder','item','module','modules','node','xml','group','burl','keyword','field');
   foreach($str_array as $k => $v)
   {
     $vl = ii_get_lrstr($v, '=', 'leftr');
@@ -1277,17 +1279,7 @@ function wdja_cms_init($route)
   $nport = $_SERVER['SERVER_PORT'];
   $nurl = $nuri;
   global $nckcode;
-  if(isset($_COOKIE[APP_NAME."admin"]["nckcode"])){
-  	 $nckcode = $_COOKIE[APP_NAME."admin"]["nckcode"];
-  }else{
-     $nckcode = ii_md5(ii_now() . 'wdja');
-	 header("Set-Cookie:".APP_NAME."admin[nckcode]=".$nckcode.";path =".COOKIES_PATH.";httpOnly;SameSite=Lax;expires=".COOKIES_EXPIRES.";",false);
-  }
-  if((IS_POST && ($nckcode != $_POST['nckcode'] || !isset($_POST["nckcode"])))  || !isset($_COOKIE[APP_NAME."admin"]["nckcode"]))
-  {
-	echo "<script>history.back()</script>";
-	exit;
-  }
+  $nckcode = ii_md5(ii_format_date(ii_now(), 2) . 'wdja');
   if (!(ii_isnull($nurs))) $nurl = $nuri . '?' . $nurs;
   if($nport == '443') $nurlpre = 'https://' . $_SERVER['HTTP_HOST'];
   else $nurlpre = 'http://' . $_SERVER['HTTP_HOST'];
@@ -1301,11 +1293,17 @@ function wdja_cms_init($route)
   $sort_idfield = $variable['common.sort.nidfield'];
   $sort_fpre = $variable['common.sort.nfpre'];
   global $address_database, $address_idfield, $address_fpre;
-  $address_database = $variable['passport.address.ndatabase'];
-  $address_idfield = $variable['passport.address.nidfield'];
-  $address_fpre = $variable['passport.address.nfpre'];
+  $address_database = $variable[USER_FOLDER.'.address.ndatabase'];
+  $address_idfield = $variable[USER_FOLDER.'.address.nidfield'];
+  $address_fpre = $variable[USER_FOLDER.'.address.nfpre'];
+  global $nvalidate;
   $nvalidate = $variable['common.nvalidate'];
   mm_disable_ip();
+  global $nwxtoken,$nwxappid,$nwxappsecret,$nwxnotifyurl;
+  $nwxtoken = ii_itake('global.' . ADMIN_FOLDER . '/global:weixin.weixin_token','lng');
+  $nwxappid = ii_itake('global.' . ADMIN_FOLDER . '/global:weixin.weixin_appid','lng');
+  $nwxappsecret = ii_itake('global.' . ADMIN_FOLDER . '/global:weixin.weixin_appsecret','lng');
+  $nwxnotifyurl = ii_itake('global.' . ADMIN_FOLDER . '/global:weixin.weixin_notify_url','lng');
 }
 
 function wdja_cms_web_head($key)

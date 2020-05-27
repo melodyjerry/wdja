@@ -18,6 +18,7 @@ function wdja_cms_module_detail()
 {
   global $conn;
   global $ndatabase, $nidfield, $nfpre;
+  global $nvalidate;
   $trootstr = pp_get_xml_root() . XML_SFX;
   if (file_exists($trootstr))
   {
@@ -55,8 +56,8 @@ function wdja_cms_module_detail()
         }
       }
     }
-  	$tmpstr = str_replace('{$cttype}', $ncttype, $tmpstr);
     $tmpstr = str_replace('{$genre}', $ngenre, $tmpstr);
+    $tmpstr = mm_cvalhtml($tmpstr, $nvalidate, '{@recurrence_valcode}');
     $tmpstr = ii_creplace($tmpstr);
     return $tmpstr;
   }

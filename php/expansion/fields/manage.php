@@ -1,7 +1,7 @@
 <?php
 require('../../common/incfiles/common.inc.php');
 require('../../common/incfiles/admin.inc.php');
-require('common/incfiles/api.php');
+require('common/incfiles/api.inc.php');
 require('common/incfiles/config.inc.php');
 require('common/incfiles/manage_config.inc.php');
 wdja_cms_islogin();

@@ -8,14 +8,10 @@
   <sel_list>
     <item>
       <value><![CDATA[1]]></value>
-      <chinese><![CDATA[加微信转帐]]></chinese>
-    </item>
-    <item>
-      <value><![CDATA[2]]></value>
       <chinese><![CDATA[微信支付]]></chinese>
     </item>
     <item>
-      <value><![CDATA[3]]></value>
+      <value><![CDATA[2]]></value>
       <chinese><![CDATA[支付宝支付]]></chinese>
     </item>
   </sel_list>

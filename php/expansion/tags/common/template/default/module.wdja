@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xml mode="wdja" author="wdja">
+  <configure>
+    <node>item</node>
+    <field>name,tpl_default</field>
+    <base>item_list</base>
+  </configure>
+  <item_list>
+    <item>
+      <name><![CDATA[list]]></name>
+      <tpl_default><![CDATA[{$=mm_web_head($GLOBALS['nhead'])}
+<section id="middle">
+  <div id="middleContent">
+        <nav class="nav">{$=vv_inavigation('{$genre}', 'strers=module;strurl={$genre}')}</nav>
+    <main class="list">
+      <div class="list_con">
+      <div class="keywords">
+      <ul>
+        {@recurrence_ida}
+            <li style="float:left;margin-left:15px;width: auto;">
+              <i class="pre_dot"></i>
+              <a style="width:auto;" href="{$url}" title="{$topic}">{$topic}</a>{$sum}
+            </li>
+        {@recurrence_ida}
+      </ul>
+    <div class="clear"></div>
+      <div id="cutepage" class="cutepage">{$cpagestr}</div>
+      </div>
+      </div>
+    <div class="clear"></div>
+    </main>
+  </div>
+</section>
+{$=mm_web_foot($GLOBALS['nfoot'])}]]></tpl_default>
+    </item>
+    <item>
+      <name><![CDATA[detail]]></name>
+      <tpl_default><![CDATA[{$=mm_web_head($GLOBALS['nhead'])}
+<section id="middle">
+  <div id="middleContent">
+      <div class="list_con">
+    <div class="content">
+        <nav class="nav">{$=vv_inavigation('{$genre}', 'strers=module;strurl={$genre}')}{$=NAV_SP_STR}<a href="{$=ii_iurl('detail', {$id}, $GLOBALS['nurltype'], 'folder=' . $GLOBALS['ncreatefolder'] . ';filetype=' . $GLOBALS['ncreatefiletype'] . ';time={$time}')}" title="{$topic}">{$topic}</a></nav>
+        <h1>{$topic}</h1>
+        <div class="con_text">
+        <p>{$=ii_itake('global.lng_config.time','lng')}:{$time},{$=ii_itake('global.lng_config.count','lng')}:<span>{$count}</span></p>
+        {$=mm_encode_content(mm_cutepage_content($GLOBALS['RS_content']))}
+        </div>
+        <div id="ct-cutepage" class="cutepage">{$=mm_cutepage_content_page_sel($GLOBALS['RS_content'], 'folder=' . $GLOBALS['ncreatefolder'] . ';filetype=' . $GLOBALS['ncreatefiletype'] . ';cutekey={$id};time={$time}')}</div>
+    <div class="clear"></div>
+  </div>
+</section>
+{$=mm_web_foot($GLOBALS['nfoot'])}]]></tpl_default>
+    </item>
+    <item>
+      <name><![CDATA[list_new]]></name>
+      <tpl_default><![CDATA[]]></tpl_default>
+    </item>
+  </item_list>
+</xml>

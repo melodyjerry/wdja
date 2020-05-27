@@ -8,8 +8,6 @@ wdja_cms_admin_init();
 $nurltype = 0;
 $nsearch = 'topic,id';
 $ncontrol = 'select,hidden,good,delete';
-$ncttype = ii_get_num($_GET['htype'], -1);
-if ($ncttype == -1) $ncttype = 0;
 
 function pp_manage_navigation()
 {
@@ -33,11 +31,6 @@ function wdja_cms_admin_manage_adddisp()
   " . ii_cfname('description') . ",
     " . ii_cfname('image') . ",
   " . ii_cfname('content') . ",
-  " . ii_cfname('cttype') . ",
-  " . ii_cfname('cp_note') . ",
-  " . ii_cfname('cp_mode') . ",
-  " . ii_cfname('cp_type') . ",
-  " . ii_cfname('cp_num') . ",
   " . ii_cfname('content_images_list') . ",
     " . ii_cfname('ucode') . ",
   " . ii_cfname('time') . ",
@@ -45,16 +38,11 @@ function wdja_cms_admin_manage_adddisp()
   " . ii_cfname('good') . ",
   " . ii_cfname('lng') . "
   ) values (
-  '" . ii_left(ii_cstr($_POST['topic']), 50) . "',
-  '" . ii_left(ii_cstr($_POST['keywords']), 150) . "',
+  '" . ii_left(ii_cstr($_POST['topic']), 250) . "',
+  '" . ii_left(ii_cstr($_POST['keywords']), 250) . "',
   '" . ii_left(ii_cstr($_POST['description']), 250) . "',
     '$timage',
   '$tcontent',
-  " . ii_get_num($_POST['cttype']) . ",
-  " . ii_get_num($_POST['content_cutepage']) . ",
-  " . ii_get_num($_POST['content_cutepage_mode']) . ",
-  " . ii_get_num($_POST['content_cutepage_type']) . ",
-  " . ii_get_num($_POST['content_cutepage_num']) . ",
   '$tcontent_images_list',
     '" . ii_left(ii_cstr($_POST['ucode']), 50) . "',
   '" . ii_now() . "',
@@ -67,7 +55,8 @@ function wdja_cms_admin_manage_adddisp()
   {
     $upfid = ii_conn_insert_id($conn);
     api_save_fields($upfid);
-    if(ii_get_num($_POST['hidden']) ==0) mm_baidu_push('urls',$ngenre,ii_left(ii_cstr($_POST['topic']), 50),$upfid);
+    api_save_tags($upfid);
+    if(ii_get_num($_POST['hidden']) ==0) mm_baidu_push('urls',$ngenre,ii_left(ii_cstr($_POST['topic']), 250),$upfid);
     uu_upload_update_database_note($ngenre, $tcontent_images_list, 'content_images', $upfid);
     wdja_cms_admin_msg(ii_itake('global.lng_public.add_succeed', 'lng'), $tbackurl, 1);
   }
@@ -87,16 +76,11 @@ function wdja_cms_admin_manage_editdisp()
   else $tcontent = ii_left(ii_cstr($_POST['content']), 100000);
   $tcontent_images_list = ii_left(ii_cstr($_POST['content_images_list']), 10000);
   $tsqlstr = "update $ndatabase set
-  " . ii_cfname('topic') . "='" . ii_left(ii_cstr($_POST['topic']), 50) . "',
-  " . ii_cfname('keywords') . "='" . ii_left(ii_cstr($_POST['keywords']), 150) . "',
+  " . ii_cfname('topic') . "='" . ii_left(ii_cstr($_POST['topic']), 250) . "',
+  " . ii_cfname('keywords') . "='" . ii_left(ii_cstr($_POST['keywords']), 250) . "',
   " . ii_cfname('description') . "='" . ii_left(ii_cstr($_POST['description']), 250) . "',
     " . ii_cfname('image') . "='$timage',
   " . ii_cfname('content') . "='$tcontent',
-  " . ii_cfname('cttype') . "=" . ii_get_num($_POST['cttype']) . ",
-  " . ii_cfname('cp_note') . "=" . ii_get_num($_POST['content_cutepage']) . ",
-  " . ii_cfname('cp_mode') . "=" . ii_get_num($_POST['content_cutepage_mode']) . ",
-  " . ii_cfname('cp_type') . "=" . ii_get_num($_POST['content_cutepage_type']) . ",
-  " . ii_cfname('cp_num') . "=" . ii_get_num($_POST['content_cutepage_num']) . ",
   " . ii_cfname('content_images_list') . "='$tcontent_images_list',
     " . ii_cfname('ucode') . "='" . ii_left(ii_cstr($_POST['ucode']), 50) . "',
   " . ii_cfname('time') . "='" . ii_get_date(ii_cstr($_POST['time'])) . "',
@@ -108,12 +92,13 @@ function wdja_cms_admin_manage_editdisp()
   if ($trs)
   {
     $upfid = $tid;
-    api_update_fields($tid);
+    api_update_fields($upfid);
+    api_update_tags($upfid);
     if(ii_get_num($_POST['hidden']) ==0){
-    if(mm_search_baidu(array('genre' => $ngenre,'gid' => $upfid))) mm_baidu_push('update',$ngenre,ii_left(ii_cstr($_POST['topic']), 50),$upfid);
-    else mm_baidu_push('urls',$ngenre,ii_left(ii_cstr($_POST['topic']), 50),$upfid);
+    if(mm_search_baidu(array('genre' => $ngenre,'gid' => $upfid))) mm_baidu_push('update',$ngenre,ii_left(ii_cstr($_POST['topic']), 250),$upfid);
+    else mm_baidu_push('urls',$ngenre,ii_left(ii_cstr($_POST['topic']), 250),$upfid);
     }else{
-      mm_baidu_push('del',$ngenre,ii_left(ii_cstr($_POST['topic']), 50),$upfid);
+      mm_baidu_push('del',$ngenre,ii_left(ii_cstr($_POST['topic']), 250),$upfid);
     }
     uu_upload_update_database_note($ngenre, $tcontent_images_list, 'content_images', $upfid);
     wdja_cms_admin_msg(ii_itake('global.lng_public.edit_succeed', 'lng'), $tbackurl, 1);

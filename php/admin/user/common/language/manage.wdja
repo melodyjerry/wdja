@@ -19,6 +19,18 @@
       <chinese><![CDATA[管理用户名]]></chinese>
     </item>
     <item>
+      <disinfo><![CDATA[admin_password]]></disinfo>
+      <chinese><![CDATA[管理员密码]]></chinese>
+    </item>
+    <item>
+      <disinfo><![CDATA[admin_password_tips]]></disinfo>
+      <chinese><![CDATA[当前登录的管理员帐号密码]]></chinese>
+    </item>
+    <item>
+      <disinfo><![CDATA[admin_password_err]]></disinfo>
+      <chinese><![CDATA[管理员密码错误]]></chinese>
+    </item>
+    <item>
       <disinfo><![CDATA[lastip]]></disinfo>
       <chinese><![CDATA[最后登陆IP]]></chinese>
     </item>

@@ -8,7 +8,7 @@
   <language_list>
     <item>
       <disinfo><![CDATA[url]]></disinfo>
-      <chinese><![CDATA[http://demo.wdja.cn]]></chinese>
+      <chinese><![CDATA[http://demo.wdja.net]]></chinese>
     </item>
     <item>
       <disinfo><![CDATA[sort]]></disinfo>
@@ -16,11 +16,11 @@
     </item>
     <item>
       <disinfo><![CDATA[module]]></disinfo>
-      <chinese><![CDATA[news,aboutus,product,shop,download,help]]></chinese>
+      <chinese><![CDATA[news,aboutus,product,shop,download,help,qestion]]></chinese>
     </item>
     <item>
       <disinfo><![CDATA[singlepage]]></disinfo>
-      <chinese><![CDATA[page]]></chinese>
+      <chinese><![CDATA[contactus]]></chinese>
     </item>
     <item>
       <disinfo><![CDATA[save]]></disinfo>

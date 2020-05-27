@@ -26,7 +26,8 @@ function pp_manage_navigation()
 function wdja_cms_admin_manage_add_folderdisp()
 {
   $tbackurl = $_GET['backurl'];
-  $tfolder_path = stripslashes(ii_cstr($_POST['folder_path']));
+  $tfolder_name = stripslashes(ii_cstr($_POST['folder_name']));
+  $tfolder_path = stripslashes(ii_cstr($_POST['folder_path'])).$tfolder_name;
   $tfolder_path = iconv(CHARSET, 'cp936', $tfolder_path);
   if (!is_dir($tfolder_path))
   {
@@ -41,11 +42,12 @@ function wdja_cms_admin_manage_edit_folderdisp()
   $tbackurl = $_GET['backurl'];
   $tfolder_patha = stripslashes(ii_cstr($_POST['folder_patha']));
   $tfolder_patha = iconv(CHARSET, 'cp936', $tfolder_patha);
-  $tfolder_pathb = stripslashes(ii_cstr($_POST['folder_pathb']));
+  $tfolder_pathb = stripslashes(ii_cstr($_POST['folder_pathb1']).ii_cstr($_POST['folder_pathb2']));
   $tfolder_pathb = iconv(CHARSET, 'cp936', $tfolder_pathb);
+  $tbackurl2 = '?type=show_files&show_path='.urlencode(rtrim(ii_cstr($_POST['folder_pathb1']),'/'));
   if (!is_dir($tfolder_pathb))
   {
-    if (rename($tfolder_patha, $tfolder_pathb)) wdja_cms_admin_msg(ii_itake('global.lng_public.succeed', 'lng'), $tbackurl, 1);
+    if (rename($tfolder_patha, $tfolder_pathb)) wdja_cms_admin_msg(ii_itake('global.lng_public.succeed', 'lng'), $tbackurl2 , 1);
     else wdja_cms_admin_msg(ii_itake('global.lng_public.failed', 'lng'), $tbackurl, 1);
   }
   else wdja_cms_admin_msg(ii_itake('global.lng_public.sudd', 'lng'), $tbackurl, 1);
@@ -63,10 +65,11 @@ function wdja_cms_admin_manage_delete_folderdisp()
 function wdja_cms_admin_manage_add_filedisp()
 {
   $tbackurl = $_GET['backurl'];
-  $tfile_path = stripslashes(ii_cstr($_POST['file_path']));
+  $tfile_name = stripslashes(ii_cstr($_POST['file_name']));
+  $tfile_path = stripslashes(ii_cstr($_POST['file_path'])).$tfile_name;
   $tfile_path = iconv(CHARSET, 'cp936', $tfile_path);
   $tfiletext = stripslashes(ii_cstr($_POST['filetext']));
-  if (file_put_contents($tfile_path, $tfiletext)) wdja_cms_admin_msg(ii_itake('global.lng_public.succeed', 'lng'), $tbackurl, 1);
+  if (file_put_contents($tfile_path, $tfiletext) >= 0) wdja_cms_admin_msg(ii_itake('global.lng_public.succeed', 'lng'), $tbackurl, 1);
   else wdja_cms_admin_msg(ii_itake('global.lng_public.failed', 'lng'), $tbackurl, 1);
 }
 
@@ -162,19 +165,33 @@ function wdja_cms_admin_manage_action()
 
 function wdja_cms_admin_manage_add_folder()
 {
+  global $nshow_path, $nshow_path_str;
+  $nshow_path = str_replace('../.././','/',$nshow_path);
   $tmpstr = ii_ireplace('manage.add_folder', 'tpl');
+  $tmpstr = str_replace('{$path}', get_npath_url(ii_htmlencode(iconv('cp936', CHARSET, $nshow_path))), $tmpstr);
   return $tmpstr;
 }
 
 function wdja_cms_admin_manage_edit_folder()
 {
+  global $nshow_path, $nshow_path_str;
+  $nfolder_path = stripslashes(ii_cstr($_GET['folder_path']));
+  $nfolder_path = str_replace('../.././','/',$nfolder_path);
+  $nshow_path = ii_get_lrstr(rtrim($nfolder_path, '/'), '/', 'leftr');
+  $nfolder_name = str_replace('/','',str_replace($nshow_path,'',$nfolder_path));
   $tmpstr = ii_ireplace('manage.edit_folder', 'tpl');
+  $tmpstr = str_replace('{$path}', get_npath_url(ii_htmlencode(iconv('cp936', CHARSET, $nshow_path))), $tmpstr);//当前文件夹上级文件夹路径
+  $tmpstr = str_replace('{$folder_pathb1}', '../../.'.$nshow_path.'/', $tmpstr);
+  $tmpstr = str_replace('{$folder_pathb2}', $nfolder_name, $tmpstr);
   return $tmpstr;
 }
 
 function wdja_cms_admin_manage_add_file()
 {
+  global $nshow_path, $nshow_path_str;
+  $nshow_path = str_replace('../.././','/',$nshow_path);
   $tmpstr = ii_ireplace('manage.add_file', 'tpl');
+  $tmpstr = str_replace('{$path}', get_npath_url(ii_htmlencode(iconv('cp936', CHARSET, $nshow_path))), $tmpstr);
   return $tmpstr;
 }
 
@@ -182,10 +199,30 @@ function wdja_cms_admin_manage_edit_file()
 {
   $tmpedittype = '.asp.aspx.css.cfm.htm.html.ini.inc.wdja.jsp.jspa.js.jtml.php.phtml.shtml.txt.vbs.xml.xsl.xslt';
   $tmptypestr = stripslashes(ii_cstr($_GET['file_path']));
+  $nshow_path = str_replace('../.././','/',$tmptypestr);
   $tmptypestr = ii_get_lrstr($tmptypestr, '.', 'right');
   if (!ii_cinstr($tmpedittype, $tmptypestr, '.')) mm_client_alert(ii_itake('manage.cannot', 'lng'), -1);
   $tmpstr = ii_ireplace('manage.edit_file', 'tpl');
+  $tmpstr = str_replace('{$path}', get_npath_url(ii_htmlencode(iconv('cp936', CHARSET, $nshow_path))), $tmpstr);
   return $tmpstr;
+}
+
+function get_npath_url($npath){
+   $tftype = '.asp.aspx.css.cfm.htm.html.ini.inc.wdja.jsp.jspa.js.jtml.php.phtml.shtml.txt.vbs.xml.xsl.xslt';
+	$res = '<a href="?type=show_files&show_path=../.././">/</a>';
+	$v = '';
+	$npath_array = Array();
+	$npath_array = explode('/',$npath);
+	foreach ($npath_array as $tkey => $tval){
+		if(!ii_isnull($tval)){
+		 $nval = $v.$tval;
+         $tfstr = ii_get_lrstr($tval, '.', 'right');
+         if (ii_cinstr($tftype, $tfstr, '.') && strpos($tval,'.') !== false) $res .= '<a href="?type=edit_file&file_path=../.././'.urlencode($nval).'">'.$tval.'</a>';
+			 else $res .= '<a href="?type=show_files&show_path=../.././'.urlencode($nval).'">'.$tval.'/</a>';
+			 $v .= $tval.'/';
+		}
+	}
+	return $res;
 }
 
 function wdja_cms_admin_manage_list()
@@ -200,8 +237,11 @@ function wdja_cms_admin_manage_list()
     else if (!(is_numeric(strpos($tentry, '.')))) $tfloders[iconv('cp936', CHARSET, $tentry)] = iconv('cp936', CHARSET, $tentry);
   }
   $twebdir -> close();
+  $npath = $nshow_path;
+  $nshow_path = str_replace('../.././','/',$nshow_path);
   $tmpstr = ii_ireplace('manage.list', 'tpl');
-  $tmpstr = str_replace('{$path}', ii_htmlencode(iconv('cp936', CHARSET, realpath($nshow_path))), $tmpstr);
+  $tmpstr = str_replace('{$path}', get_npath_url(ii_htmlencode(iconv('cp936', CHARSET, $nshow_path))), $tmpstr);
+  $tmpstr = str_replace('{$npath}', $npath, $tmpstr);
   $tmpstr = str_replace('{$foldercount}', count($tfloders), $tmpstr);
   $tmpstr = str_replace('{$filescount}', count($tfiles), $tmpstr);
   $tmprstr = '';

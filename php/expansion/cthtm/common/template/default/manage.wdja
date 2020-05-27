@@ -7,6 +7,14 @@
   </configure>
   <item_list>
     <item>
+      <name><![CDATA[navigation]]></name>
+      <tpl_default><![CDATA[
+      <button class="b2 empty show-1" onclick="javascript:change_ct_type('index');">{$=ii_itake("config.ct_index", "lng")}</button>
+      <button class="b2 empty show-1" onclick="javascript:change_ct_type('list');">{$=ii_itake("config.ct_list", "lng")}</button>
+      <button class="b2 empty show-1" onclick="javascript:change_ct_type('detail');">{$=ii_itake("config.ct_detail", "lng")}</button>
+]]></tpl_default>
+    </item>
+    <item>
       <name><![CDATA[index]]></name>
       <tpl_default><![CDATA[
 <script language="javascript">
@@ -333,102 +341,21 @@ function get_id_min_max()
   }
 }
 </script>
-<table border="0" width="100%" cellSpacing="0" cellpadding="0">
-  <tr>
-    <td width="100%" height="5"></td>
-  </tr>
-  <tr>
-    <td width="100%" align="center">
-      <table border="0" width="98%" cellSpacing="0" cellPadding="0">
-        <tr>
-          <td width="120" align="center" valign="top">
-            <table border="0" width="100%" cellSpacing="0" cellPadding="0" class="lrbtline">
-              <tr>
-                <td width="100%" height="25" class="tbtop">{$=ii_itake('global.lng_config.control','lng')}</td>
-              </tr>
-              <tr>
-                <td width="100%" align="center">
-                  <table border="0" width="98%" cellSpacing="0" cellPadding="0">
-                    <tr>
-                      <td width="100%" height="5"></td>
-                    </tr>
-                    <tr>
-                      <td width="100%" height="20">&nbsp;<img src="{$=#global_images_route}public/small/sico.gif" border="0">&nbsp;<a href="javascript:change_ct_type('index');">{$=ii_itake("config.ct_index", "lng")}</a></td>
-                    </tr>
-                    <tr>
-                      <td width="100%" height="20">&nbsp;<img src="{$=#global_images_route}public/small/sico.gif" border="0">&nbsp;<a href="javascript:change_ct_type('list');">{$=ii_itake("config.ct_list", "lng")}</a></td>
-                    </tr>
-                    <tr>
-                      <td width="100%" height="20">&nbsp;<img src="{$=#global_images_route}public/small/sico.gif" border="0">&nbsp;<a href="javascript:change_ct_type('detail');">{$=ii_itake("config.ct_detail", "lng")}</a></td>
-                    </tr>
-                    <tr>
-                      <td width="100%" height="5"></td>
-                    </tr>
-                  </table>
-                </td>
-              </tr>
-            </table>
-          </td>
-          <td width="5"></td>
-          <td width="*" align="center" valign="top">
-            <table border="0" width="100%" cellSpacing="0" cellPadding="0" class="lrbtline">
-              <tr>
-                <td width="100%" height="25" class="tbtop">{$=ii_itake('config.notice','lng')}</td>
-              </tr>
-              <tr>
-                <td width="100%" align="center">
-                  <table border="0" width="98%" cellspacing="0" cellpadding="0">
-                    <tr>
-                      <td width="100%" height="25" class="red" id="noticestr">{$=ii_itake('config.noticestr','lng')}</td>
-                    </tr>
-                  </table>
-                </td>
-              </tr>
-            </table>
-            <table border="0" width="98%" cellSpacing="0" cellPadding="0">
-              <tr>
-                <td width="100%" height="5"></td>
-              </tr>
-            </table>
-            <table border="0" width="100%" cellSpacing="0" cellPadding="0" class="lrbtline">
-              <tr>
-                <td width="100%" height="25" class="tbtop">{$=ii_itake('config.create','lng')}</td>
-              </tr>
-              <tr>
-                <td width="100%" align="center">
-                  <table border="0" width="98%" cellspacing="0" cellpadding="0">
-                    <tr>
-                      <td width="100%" height="5"></td>
-                    </tr>
-                  </table>
-                  <table border="0" width="98%" cellSpacing="0" cellPadding="0">
-                    <tr>
-                      <td width="80" height="25">{$=ii_itake('config.module','lng')}</td>
-                      <td width="120"><input type="text" name="module" id="module" size="10" value="{$=ii_htmlencode($_POST['genre'])}"></td><td width="*"><select name="modules" onclick="get_id('module').value=this.value;">{$=pp_get_cthtm_select()}</select></td>
-                    </tr>
-                  </table>
-                  <table border="0" width="98%" cellspacing="0" cellpadding="0">
-                    <tr>
-                      <td width="100%" id="controlstr"></td>
-                    </tr>
-                  </table>
-                  <table border="0" width="98%" cellSpacing="0" cellPadding="0">
-                    <tr>
-                      <td width="100%" height="5"></td>
-                    </tr>
-                  </table>
-                </td>
-              </tr>
-            </table>
-          </td>
-        </tr>
-      </table>
-    </td>
-  </tr>
-  <tr>
-    <td width="100%" height="5"></td>
-  </tr>
-</table>
+
+  <div class="table">
+    <h3>{$=ii_itake('config.create','lng')}</h3>
+    <rightarea>{$=ii_itake('config.module','lng')} <select class="s1" name="modules" onclick="get_id('module').value=this.value;">{$=pp_get_cthtm_select()}</select> <div class="searchbox"><input type="text" name="module" id="module" class="keyword" value="{$=ii_htmlencode($_POST['genre'])}"></div> {$=pp_manage_navigation()}</rightarea>
+
+  <table cellpadding="10" cellspacing="0" class="tableF">
+    <tr>
+    <td><span class="info-1" id="noticestr">{$=ii_itake('config.notice','lng')}: {$=ii_itake('config.noticestr','lng')}</span></td>
+    </tr>
+  </table>
+  <table cellpadding="10" cellspacing="0" class="tableF" id="controlstr">
+
+  </table>
+
+
 ]]></tpl_default>
     </item>
   </item_list>

@@ -8,8 +8,6 @@ wdja_cms_admin_init();
 $nurltype = 0;
 $nsearch = 'topic,id';
 $ncontrol = 'select,good,delete';
-$ncttype = ii_get_num($_GET['htype'], -1);
-if ($ncttype == -1) $ncttype = 0;
 
 function pp_manage_navigation()
 {
@@ -30,11 +28,6 @@ function wdja_cms_admin_manage_adddisp()
   " . ii_cfname('topic') . ",
     " . ii_cfname('image') . ",
   " . ii_cfname('content') . ",
-  " . ii_cfname('cttype') . ",
-  " . ii_cfname('cp_note') . ",
-  " . ii_cfname('cp_mode') . ",
-  " . ii_cfname('cp_type') . ",
-  " . ii_cfname('cp_num') . ",
   " . ii_cfname('content_images_list') . ",
   " . ii_cfname('time') . ",
   " . ii_cfname('good') . ",
@@ -43,11 +36,6 @@ function wdja_cms_admin_manage_adddisp()
   '" . ii_left(ii_cstr($_POST['topic']), 50) . "',
     '$timage',
   '$tcontent',
-  " . ii_get_num($_POST['cttype']) . ",
-  " . ii_get_num($_POST['content_cutepage']) . ",
-  " . ii_get_num($_POST['content_cutepage_mode']) . ",
-  " . ii_get_num($_POST['content_cutepage_type']) . ",
-  " . ii_get_num($_POST['content_cutepage_num']) . ",
   '$tcontent_images_list',
   '" . ii_now() . "',
   " . ii_get_num($_POST['good']) . ",
@@ -78,11 +66,6 @@ function wdja_cms_admin_manage_editdisp()
   " . ii_cfname('topic') . "='" . ii_left(ii_cstr($_POST['topic']), 50) . "',
     " . ii_cfname('image') . "='$timage',
   " . ii_cfname('content') . "='$tcontent',
-  " . ii_cfname('cttype') . "=" . ii_get_num($_POST['cttype']) . ",
-  " . ii_cfname('cp_note') . "=" . ii_get_num($_POST['content_cutepage']) . ",
-  " . ii_cfname('cp_mode') . "=" . ii_get_num($_POST['content_cutepage_mode']) . ",
-  " . ii_cfname('cp_type') . "=" . ii_get_num($_POST['content_cutepage_type']) . ",
-  " . ii_cfname('cp_num') . "=" . ii_get_num($_POST['content_cutepage_num']) . ",
   " . ii_cfname('content_images_list') . "='$tcontent_images_list',
   " . ii_cfname('time') . "='" . ii_get_date(ii_cstr($_POST['time'])) . "',
   " . ii_cfname('good') . "=" . ii_get_num($_POST['good']) . "

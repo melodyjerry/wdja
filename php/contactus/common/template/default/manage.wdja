@@ -16,76 +16,31 @@ function bfsubmit()
   get_id("att").value = get_selects_list(get_id('content_images'));
 }
 </script>
-<table border="0" width="100%" cellSpacing="0" cellPadding="0">
-  <tr>
-    <td width="100%" height="5"></td>
-  </tr>
-  <tr>
-    <td width="100%" align="center">
-      <table border="0" width="98%" cellSpacing="0" cellPadding="0">
-        <tr>
-          <td width="*" align="center" valign="top">
-            <table border="0" width="100%" cellSpacing="0" cellPadding="0" class="lrbtline">
-              <tr>
-                <td width="100%" height="25" class="tbtop">{$=ii_itake('manage.edit','lng')}</td>
-              </tr>
-              <tr>
-                <td width="100%" align="center">
-                  <table border="0" width="98%" cellSpacing="0" cellPadding="0">
-                    <tr>
-                      <td width="100%" height="5"></td>
-                    </tr>
-                  </table>
-                  <form name="form" method="post" action="?action=edit&backurl={$=urlencode($GLOBALS['nurl'])}" onsubmit="bfsubmit()">
-                  <input type="hidden" name="nckcode" value="{$=#nckcode}" />
-                  <table border="0" width="98%" cellSpacing="0" cellPadding="0">
-                    <tr>
-                      <td width="80" height="25">{$=ii_itake('global.lng_config.topic','lng')}</td>
-                      <td width="*"><input type="text" name="topic" size="40" value="{$topic}"></td>
-                    </tr>
-                    <tr>
-                      <td height="25">{$=ii_itake('global.lng_config.keywords','lng')}</td>
-                      <td><input type="text" name="keywords" size="40" value="{$keywords}"></td>
-                    </tr>
-                    <tr>
-                      <td height="25">{$=ii_itake('global.lng_config.description','lng')}</td>
-                    <td><textarea onpropertychange="if(value.length>250) value=value.substr(0,250)" onkeydown="if(value.length>250) value=value.substr(0,250)" onkeyup="if(value.length>250) value=value.substr(0,250)" type="text" rows="6" name="description" cols="60" >{$description}</textarea></td>
-                    </tr>
-                    <tr>
-                      <td height="25" valign="top">{$=ii_itake('global.lng_config.content','lng')}</td>
-                      <td>{$=mm_html_content('content',ii_htmlencode($GLOBALS['RS_content']),'{$cttype}')}</td>
-                    </tr>
-                    <tr>
-                      <td height="25">{$=ii_itake('global.lng_config.images','lng')}</td>
-                      <td><input type="hidden" name="att" id="att"><select name="content_images" id="content_images" class="select" onkeydown="selects.displace(this, this.selectedIndex, event.keyCode)">{$=mm_get_images_list('{$att}')}</select> <input type="button" class="button" value="{$=ii_itake('global.lng_config.preview','lng')}" onclick="preview_images(get_id('content_images').value, event)"> <input type="button" class="button" value="{$=ii_itake('global.lng_config.delete','lng')}" onclick="selects.remove(get_id('content_images'))"> <input type="button" class="button" value="{$=ii_itake('global.lng_config.insert','lng')}" onclick="insert_images('content', get_id('content_images').value, {$=#ncttype}, 0, '{$=ii_get_lrstr($GLOBALS['nuri'], "/", "leftr")}')"></td>
-                    </tr>
-                    <tr>
-                      <td height="25">{$=ii_itake('global.lng_config.upload','lng')}</td>
-                      <td><iframe src="?type=upload&upform=form&uptext=content_images&upftype=1&upsimg={$upsimgs}" width="100%" height="25" scrolling="no" marginwidth="0" marginheight="0" align="middle" name="upload" frameborder="0"></iframe></td>
-                    </tr>
-                    <tr>
-                      <td height="25"></td>
-                      <td><input type="submit" name="submit" value="{$=ii_itake('global.lng_config.submit','lng')}" class="button"></td>
-                    </tr>
-                  </table>
-                  </form>
-                  <table border="0" width="98%" cellSpacing="0" cellPadding="0">
-                    <tr>
-                      <td width="100%" height="5"></td>
-                    </tr>
-                  </table>
-                </td>
-              </tr>
-            </table>
-          </td>
-        </tr>
+  <div class="table">
+    <h3>{$=ii_itake('manage.edit','lng')}</h3>
+     <form name="form" method="post" action="?action=edit&backurl={$=urlencode($GLOBALS['nurl'])}" onsubmit="bfsubmit()">
+      <table cellpadding="10" cellspacing="0" class="tableF">
+        <tbody><tr>
+  <th valign="top"><t>{$=ii_itake('global.lng_config.topic','lng')}<r>*</r></t></th>
+  <td><input type="text" name="topic" class="i1" value="{$topic}"></td>
+</tr><tr>
+  <th valign="top"><t>{$=ii_itake('global.lng_config.keywords','lng')}</t></th>
+  <td><input type="text" name="keywords" size="40" class="i1" value="{$keywords}"></td>
+	</tr>
+	<tr>
+  <th valign="top"><t>{$=ii_itake('global.lng_config.description','lng')}</t></th>
+  <td><textarea onpropertychange="if(value.length>250) value=value.substr(0,250)" onkeydown="if(value.length>250) value=value.substr(0,250)" onkeyup="if(value.length>250) value=value.substr(0,250)" type="text" rows="3" name="description" cols="60" class="t1">{$description}</textarea></td>
+</tr><tr>
+  <th valign="top"><t>{$=ii_itake('global.lng_config.content','lng')}</t></th>
+  <td>{$=mm_html_content('content',ii_htmlencode($GLOBALS['RS_content']))}</td>
+</tr><tr>
+  <th valign="top"><t>{$=ii_itake('global.lng_config.images','lng')}</t></th>
+  <td><input type="hidden" name="att" id="att"><select name="content_images" id="content_images" class="s1" onkeydown="selects.displace(this, this.selectedIndex, event.keyCode)">{$=mm_get_images_list('{$att}')}</select> <input type="button" value="{$=ii_itake('global.lng_config.preview','lng')}" onclick="preview_images(get_id('content_images').value, event)" style="display: inline-block;padding: 6px 16px;border: 1px solid #eee;cursor: pointer;"> <input type="button" value="{$=ii_itake('global.lng_config.delete','lng')}" onclick="selects.remove(get_id('content_images'))" style="display: inline-block;padding: 6px 16px;border: 1px solid #eee;cursor: pointer;"> <input type="button" value="{$=ii_itake('global.lng_config.insert','lng')}" onclick="insert_images('content', get_id('content_images').value, 0, 0, '{$=ii_get_lrstr($GLOBALS['nuri'], "/", "leftr")}')" style="display: inline-block;padding: 6px 16px;border: 1px solid #eee;cursor: pointer;"> <iframe style="display: inline-block;overflow: hidden;width: 60px;height: 30px;margin-top: -3px;padding: 0;vertical-align: middle;" src="?type=upload&upform=form&uptext=content_images&upftype=1&upsimg={$upsimgs}" width="100%" height="25" scrolling="no" marginwidth="0" marginheight="0" align="middle" name="upload" frameborder="0"></iframe></td>
+</tr></tbody>
       </table>
-    </td>
-  </tr>
-  <tr>
-    <td width="100%" height="5"></td>
-  </tr>
-</table>]]></tpl_default>
+      <div class="form_button"><button class="b2 submit">{$=ii_itake('global.lng_config.submit','lng')}</button></div>
+    </form>
+      ]]></tpl_default>
     </item>
   </item_list>
 </xml>
