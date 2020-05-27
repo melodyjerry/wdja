@@ -10,10 +10,9 @@
       <name><![CDATA[data_login]]></name>
       <tpl_default><![CDATA[{@recurrence_ida}
     <form action="{$=ii_get_actual_route(USER_FOLDER)}/index.php?action=login&backurl={$=urlencode($GLOBALS['nurl'])}" method="post">
-    <input type="hidden" name="nckcode" value="{$=#nckcode}" />
     <table width="100%" cellpadding="0" cellspacing="0" border="0">
       <tr>
-        <td>{$=ii_itake('global.lng_config.username','lng')} <input type="text" name="username" size="20" class="text" />&nbsp;{$=ii_itake('global.lng_config.password','lng')} <input type="password" name="password" size="20" class="text" />{@recurrence_valcode} {$=ii_itake('global.lng_config.valcode', 'lng')} <input type="text" name="valcode" size="4" class="text" /> {$=mm_valcode()}{@recurrence_valcode}&nbsp;<input type="submit" name="submit" value="{$=ii_itake('global.' . USER_FOLDER . ':api.login','lng')}" class="button" /> <img src="{$=#global_images_route}public/small/sico.gif" border="0" /> <a href="{$=ii_get_actual_route(USER_FOLDER)}">{$=ii_itake('global.' . USER_FOLDER . ':api.register_newuser','lng')}</a> <img src="{$=#global_images_route}public/small/sico.gif" border="0" /> <a href="{$=ii_get_actual_route(USER_FOLDER)}/?type=lostpassword">{$=ii_itake('global.' . USER_FOLDER . ':api.lost_password', 'lng')}</a></td>
+        <td>{$=ii_itake('global.lng_config.username','lng')} <input type="text" name="username" size="20" class="text" />&nbsp;{$=ii_itake('global.lng_config.password','lng')} <input type="password" name="password" size="20" class="text" />{@recurrence_valcode} {$=ii_itake('global.lng_config.valcode', 'lng')} <input type="text" name="valcode" size="4" class="text" /> {$=mm_valcode()}{@recurrence_valcode}&nbsp;<input type="submit" value="{$=ii_itake('global.' . USER_FOLDER . ':api.login','lng')}" class="button" /> <img src="{$=#global_images_route}public/small/sico.gif" border="0" /> <a href="{$=ii_get_actual_route(USER_FOLDER)}">{$=ii_itake('global.' . USER_FOLDER . ':api.register_newuser','lng')}</a> <img src="{$=#global_images_route}public/small/sico.gif" border="0" /> <a href="{$=ii_get_actual_route(USER_FOLDER)}/?type=lostpassword">{$=ii_itake('global.' . USER_FOLDER . ':api.lost_password', 'lng')}</a></td>
       </tr>
     </table>
     </form>{@@}
@@ -223,10 +222,9 @@ function nloadreply(strers)
         <td width="70">{$=ii_itake('topic.htop', "lng")}</td>
         <td align="right">
           <form method="get">
-          <input type="hidden" name="nckcode" value="{$=#nckcode}" />
           <input type="hidden" name="type" value="search" />
           <input type="hidden" name="sid" value="{$sid}" />
-          <input type="text" name="keyword" style="WIDTH: 120px" class="text" /> <input type="submit" name="submit" value="{$=ii_itake('global.lng_config.search','lng')}" class="button" />
+          <input type="text" name="keyword" style="WIDTH: 120px" class="text" /> <input type="submit" value="{$=ii_itake('global.lng_config.search','lng')}" class="button" />
           </form>
         </td>
       </tr>
@@ -258,7 +256,6 @@ function forum_quotes(strers)
 <div id="middle">
   <div id="middleContent2">{$=pp_module_data_top()}{@recurrence_vote}
     <form action="{$=#nuri}?action=vote&id={$id}&backurl={$=urlencode($GLOBALS['nurl'])}" method="post">
-    <input type="hidden" name="nckcode" value="{$=#nckcode}" />
     <table cellpadding="10" cellspacing="1" class="tables">
       <tr>
         <td class="tbt">{$=ii_itake('module.votedetail', 'lng')}</td>
@@ -289,7 +286,7 @@ function forum_quotes(strers)
           <table width="100%" cellpadding="0" cellspacing="0" border="0">
             <tr>
               <td>{$=ii_itake('vote.all_1', 'lng')}<b>{$count}</b>{$=ii_itake('vote.all_2', 'lng')}{$endtime}</td>
-              <td align="right"><input type="submit" name="submit" value="{$=ii_itake('vote.submit', 'lng')}" class="button" /></td>
+              <td align="right"><input type="submit" value="{$=ii_itake('vote.submit', 'lng')}" class="button" /></td>
             </tr>
           </table>
         </td>
@@ -372,7 +369,6 @@ function forum_quotes(strers)
       <tr>
         <td valign="top">{@topic_reply}
           <form action="{$=#nuri}?action=reply&tid={$tid}&sid={$sid}&backurl={$=urlencode($GLOBALS['nurl'])}" method="post">
-          <input type="hidden" name="nckcode" value="{$=#nckcode}" />
           <table width="100%" cellpadding="0" cellspacing="0" border="0">
             <tr>
               <td width="80" height="25">{$=ii_itake('config.replytopic', 'lng')}</td>
@@ -442,7 +438,6 @@ function bfsubmit()
       <tr>
         <td valign="top">
           <form action="{$=#nuri}?action=release&sid={$sid}&vote={$=ii_get_num($_GET['vote'])}" method="post" onsubmit="bfsubmit()">
-          <input type="hidden" name="nckcode" value="{$=#nckcode}" />
           <table width="100%" cellpadding="0" cellspacing="0" border="0">
             <tr>
               <td width="80" height="25">{$=ii_itake('config.author', 'lng')}</td>
@@ -523,7 +518,6 @@ function bfsubmit()
       <tr>
         <td valign="top">
           <form action="{$=#nuri}?action=reply&tid={$tid}&sid={$sid}&backurl={$=urlencode('?type=detail&tid={$tid}&sid={$sid}')}" method="post">
-          <input type="hidden" name="nckcode" value="{$=#nckcode}" />
           <table width="100%" cellpadding="0" cellspacing="0" border="0">
             <tr>
               <td width="80" height="25">{$=ii_itake('config.replytopic', 'lng')}</td>
@@ -588,7 +582,6 @@ function bfsubmit()
       <tr>
         <td valign="top">
           <form action="{$=#nuri}?action=edit&sid={$sid}&tid={$tid}&backurl={$backurl}" method="post" onsubmit="bfsubmit();">
-          <input type="hidden" name="nckcode" value="{$=#nckcode}" />
           <table width="100%" cellpadding="0" cellspacing="0" border="0">
             <tr>
               <td width="80" height="25">{$=ii_itake('config.author', 'lng')}</td>
@@ -656,9 +649,8 @@ function bfsubmit()
       <tr>
         <td>
           <form method="get">
-          <input type="hidden" name="nckcode" value="{$=#nckcode}" />
           <input type="hidden" name="type" value="search">
-          {$=ii_itake('module.search_sid', 'lng')}<select name="sid" class="select"><option value="" >{$=ii_itake('global.lng_config.all', 'lng')}</option>{$=pp_sel_forum_sort({$sid}, $GLOBALS['nlng'])}</select> {$=ii_itake('module.search_author', 'lng')}<input type="text" name="author" size="20" class="text" value="{$author}" /> {$=ii_itake('module.search_keyword', 'lng')}<input type="text" name="keyword" size="20" class="text" value="{$keyword}" /> <input type="submit" name="submit" value="{$=ii_itake('global.lng_config.search','lng')}" class="button" />
+          {$=ii_itake('module.search_sid', 'lng')}<select name="sid" class="select"><option value="" >{$=ii_itake('global.lng_config.all', 'lng')}</option>{$=pp_sel_forum_sort({$sid}, $GLOBALS['nlng'])}</select> {$=ii_itake('module.search_author', 'lng')}<input type="text" name="author" size="20" class="text" value="{$author}" /> {$=ii_itake('module.search_keyword', 'lng')}<input type="text" name="keyword" size="20" class="text" value="{$keyword}" /> <input type="submit" value="{$=ii_itake('global.lng_config.search','lng')}" class="button" />
           </form>
         </td>
       </tr>
@@ -700,7 +692,6 @@ function bfsubmit()
 <div id="middle">
   <div id="middleContent2">{$=pp_module_data_top()}{$=pp_module_data_manage_menu()}
     <form method="post" name="sel_form" action="{$=#nuri}?action=manage&mtype=topic&sid={$sid}&backurl={$=urlencode($GLOBALS['nurl'])}" onSubmit="get_sel_id();">
-    <input type="hidden" name="nckcode" value="{$=#nckcode}" />
     <input type="hidden" name="sel_ids" />
     <table cellpadding="10" cellspacing="1" class="tables">
       <tr>
@@ -751,7 +742,6 @@ function bfsubmit()
 <div id="middle">
   <div id="middleContent2">{$=pp_module_data_top()}{$=pp_module_data_manage_menu()}
     <form method="post" name="sel_form" action="{$=#nuri}?action=manage&mtype=detail&sid={$sid}&backurl={$=urlencode($GLOBALS['nurl'])}" onSubmit="get_sel_id()">
-    <input type="hidden" name="nckcode" value="{$=#nckcode}" />
     <input type="hidden" name="sel_ids" />
     <table cellpadding="10" cellspacing="1" class="tables">
       <tr>
@@ -833,7 +823,6 @@ function bfsubmit()
 <div id="middle">
   <div id="middleContent2">{$=pp_module_data_top()}{$=pp_module_data_manage_menu()}
     <form method="post" name="sel_form" action="{$=#nuri}?action=manage&mtype=blacklist&sid={$sid}&backurl={$=urlencode($GLOBALS['nurl'])}" onSubmit="get_sel_id()">
-    <input type="hidden" name="nckcode" value="{$=#nckcode}" />
     <input type="hidden" name="sel_ids" />
     <table cellpadding="10" cellspacing="1" class="tables">
       <tr>
@@ -862,7 +851,6 @@ function bfsubmit()
     </table>
     </form>
     <form action="{$=#nuri}?action=manage&mtype=add_blacklist&sid={$sid}&backurl={$=urlencode($GLOBALS['nurl'])}" method="post">
-    <input type="hidden" name="nckcode" value="{$=#nckcode}" />
     <table cellpadding="5" cellspacing="1" class="tables">
       <tr>
         <td class="tbt">{$=ii_itake('blacklist.add', 'lng')}</td>

@@ -28,11 +28,11 @@
     </item>
     <item>
       <disinfo><![CDATA[filesadd]]></disinfo>
-      <chinese><![CDATA[增加新的文件]]></chinese>
+      <chinese><![CDATA[新建文件]]></chinese>
     </item>
     <item>
       <disinfo><![CDATA[folderadd]]></disinfo>
-      <chinese><![CDATA[增加新的文件夹]]></chinese>
+      <chinese><![CDATA[新建文件夹]]></chinese>
     </item>
     <item>
       <disinfo><![CDATA[notice]]></disinfo>
@@ -45,6 +45,10 @@
     <item>
       <disinfo><![CDATA[path]]></disinfo>
       <chinese><![CDATA[当前路径：]]></chinese>
+    </item>
+    <item>
+      <disinfo><![CDATA[foldername]]></disinfo>
+      <chinese><![CDATA[文件夹名：]]></chinese>
     </item>
     <item>
       <disinfo><![CDATA[foldercount]]></disinfo>

@@ -4,15 +4,35 @@
 // Email: admin@wdja.cn
 // Web: http://www.wdja.cn/
 //****************************************************
+function wdja_get_sort_first_id(){
+//获取模块第一个分类id
+global $conn, $nlng, $ngenre;
+global $variable, $sort_database, $sort_idfield, $sort_fpre;
+$tsqlstr = 'select * from '. $sort_database.' where ' . ii_cfnames($sort_fpre,'genre') . ' = "' .$ngenre.'" order by '.$sort_idfield.' asc';
+$trs = ii_conn_query($tsqlstr, $conn);
+$trs = ii_conn_fetch_array($trs);
+return $trs[$sort_idfield];
+}
+
 function wdja_cms_module_list()
 {
   global $conn, $nlng, $ngenre;
+  global $nvalidate;
   $tclassid = ii_get_num($_GET['classid']);
+  if($tclassid == 0) $tclassid = wdja_get_sort_first_id();//模块首页使用第一个分类
   $toffset = ii_get_num($_GET['offset']);
+  $ttpl = mm_get_sort_field($tclassid,'tpl');
+  $tgourl = mm_get_sort_field($tclassid,'gourl');
+  if(!ii_isnull($tgourl)){
+	header("HTTP/1.1 301 Moved Permanently");
+	header("Location:$tgourl");
+  	exit;
+  }
   global $nclstype, $nlisttopx, $npagesize, $nkeywords, $ndescription;
   global $ndatabase, $nidfield, $nfpre;
   $tclassids = mm_get_sortids($ngenre, $nlng);
-  $tmpstr = ii_itake('module.list', 'tpl');
+  if(!ii_isnull($ttpl)) $tmpstr = ii_itake('module.'.$ttpl, 'tpl');
+  else $tmpstr = ii_itake('module.list', 'tpl');
   $tmpastr = ii_ctemplate($tmpstr, '{@recurrence_ida}');
   $tmprstr = '';
   $tsqlstr = "select * from $ndatabase where " . ii_cfname('hidden') . "=0";
@@ -24,14 +44,14 @@ function wdja_cms_module_list()
       mm_cnkeywords(mm_get_sortkeywords($ngenre, $nlng, $tclassid));
       mm_cndescription(mm_get_sortdescription($ngenre, $nlng, $tclassid));
       if ($nclstype == 0) $tsqlstr .= " and " . ii_cfname('class') . "=$tclassid";
-      else $tsqlstr .= " and " . ii_cfname('cls') . " like '%|" . $tclassid . "|%'";
+      else $tsqlstr .= " and (" . ii_cfname('cls') . " like '%|" . $tclassid . "|%' or find_in_set($tclassid," . ii_cfname('class_list') . "))";
     }
   }elseif(ii_isnull($tclassid)){
       mm_cnkeywords($nkeywords);
       mm_cndescription($ndescription);
 }else
   {
-    if (!ii_isnull($tclassids)) $tsqlstr .= " and " . ii_cfname('class') . " in ($tclassids)";
+    if (!ii_isnull($tclassids)) $tsqlstr .= " and (" . ii_cfname('class') . " in ($tclassids) or find_in_set($tclassid," . ii_cfname('class_list') . "))";
   }
   $tgid = api_get_gid();
   if (!ii_isnull($tgid) && !ii_isnull($_GET['type'])) $tsqlstr .= " and $nidfield in ($tgid)";
@@ -66,6 +86,7 @@ function wdja_cms_module_list()
   $tmpstr = str_replace('{$genre}', $ngenre, $tmpstr);
   $tmpstr = str_replace('{$classid}', $tclassid, $tmpstr);
   $tmpstr = str_replace('{$offset}', $toffset, $tmpstr);
+  $tmpstr = mm_cvalhtml($tmpstr, $nvalidate, '{@recurrence_valcode}');
   $tmpstr = ii_creplace($tmpstr);
   return $tmpstr;
 }
@@ -73,6 +94,7 @@ function wdja_cms_module_list()
 function wdja_cms_module_detail()
 {
   global $conn, $ngenre;
+  global $nvalidate;
   $tid = ii_get_num($_GET['id']);
   $tpage = ii_get_num($_GET['page']);
   $tucode = ii_cstr($_GET['ucode']);
@@ -122,6 +144,7 @@ function wdja_cms_module_detail()
     $tmpstr = str_replace('{$id}', $trs[$nidfield], $tmpstr);
     $tmpstr = str_replace('{$genre}', $ngenre, $tmpstr);
     $tmpstr = str_replace('{$page}', $tpage, $tmpstr);
+    $tmpstr = mm_cvalhtml($tmpstr, $nvalidate, '{@recurrence_valcode}');
     $tmpstr = ii_creplace($tmpstr);
     return $tmpstr;
   }
@@ -130,8 +153,10 @@ function wdja_cms_module_detail()
 function wdja_cms_module_index()
 {
   global $ngenre;
+  global $nvalidate;
   $tmpstr = ii_itake('module.index', 'tpl');
   $tmpstr = str_replace('{$genre}', $ngenre, $tmpstr);
+  $tmpstr = mm_cvalhtml($tmpstr, $nvalidate, '{@recurrence_valcode}');
   $tmpstr = ii_creplace($tmpstr);
   if (!ii_isnull($tmpstr)) return $tmpstr;
   else return wdja_cms_module_list();

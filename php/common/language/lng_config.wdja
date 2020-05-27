@@ -218,21 +218,45 @@
       <disinfo><![CDATA[keyword]]></disinfo>
       <chinese><![CDATA[关键字]]></chinese>
     </item>
-    <item> 
+    <item>
       <disinfo><![CDATA[nodata]]></disinfo> 
       <chinese><![CDATA[没有数据]]></chinese> 
     </item> 
-    <item> 
+    <item>
       <disinfo><![CDATA[updata]]></disinfo> 
       <chinese><![CDATA[上一篇]]></chinese> 
     </item> 
-    <item> 
+    <item>
       <disinfo><![CDATA[downdata]]></disinfo> 
       <chinese><![CDATA[下一篇]]></chinese> 
-    </item> 
+    </item>
     <item> 
       <disinfo><![CDATA[nomore]]></disinfo> 
       <chinese><![CDATA[没有了]]></chinese> 
+    </item>
+    <item> 
+      <disinfo><![CDATA[gourl]]></disinfo> 
+      <chinese><![CDATA[跳转链接]]></chinese> 
+    </item>
+    <item> 
+      <disinfo><![CDATA[gourl-tips]]></disinfo> 
+      <chinese><![CDATA[填写跳转链接后，内容将作为外部链接直接跳转自此地址]]></chinese> 
+    </item>
+    <item> 
+      <disinfo><![CDATA[tpl]]></disinfo> 
+      <chinese><![CDATA[模板]]></chinese> 
+    </item>
+    <item>
+      <disinfo><![CDATA[img_title]]></disinfo>
+      <chinese><![CDATA[图片标题]]></chinese>
+    </item>
+    <item>
+      <disinfo><![CDATA[img_desc]]></disinfo>
+      <chinese><![CDATA[图片介绍]]></chinese>
+    </item>
+    <item>
+      <disinfo><![CDATA[img_url]]></disinfo>
+      <chinese><![CDATA[图片链接]]></chinese>
     </item>
   </language_list>
 </xml>

@@ -149,7 +149,7 @@ function wdja_cms_interface_create_detail()
   {
     if ($n_contentcutepage == 1)
     {
-      $tcn_crpagenum = mm_cutepage_content_page($trs[ii_cfnames($n_fpre, 'content')], 'cp_note=' . ii_get_num($trs[ii_cfnames($n_fpre, 'cp_note')]) . ';cp_mode=' . ii_get_num($trs[ii_cfnames($n_fpre, 'cp_mode')]) . ';cp_type=' . ii_get_num($trs[ii_cfnames($n_fpre, 'cp_type')]) . ';cp_num=' . ii_get_num($trs[ii_cfnames($n_fpre, 'cp_num')]));
+      $tcn_crpagenum = mm_cutepage_content_page($trs[ii_cfnames($n_fpre, 'content')]));
       if ($tpage == 0) $tcn_crpage = 2;
       else $tcn_crpage = $tpage + 1;
       if ($tcn_crpage > $tcn_crpagenum) $twlupdate = 1;

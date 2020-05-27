@@ -61,6 +61,7 @@ function pp_manage_popedom($strers)
   $option_checkbox = ii_itake('global.tpl_config.option_checkbox', 'tpl');
   $html_kong = ii_itake('global.tpl_config.html_kong', 'tpl');
   $html_br = ii_itake('global.tpl_config.html_br', 'tpl');
+  $html_p = ii_itake('global.tpl_config.html_p', 'tpl');
   $font_disabled = ii_itake('global.tpl_config.font_disabled', 'tpl');
   $tmpstr = '';
   $tarys = pp_get_manage_module();
@@ -76,9 +77,9 @@ function pp_manage_popedom($strers)
         if (!is_numeric(strpos($val, '/')))
         {
           $tcount = 0;
-          if (strlen($tmpstr) > strlen($html_br))
+          if (strlen($tmpstr) > strlen($html_p))
           {
-            if (ii_right($tmpstr, strlen($html_br)) != $html_br) $tmpstr .= $html_br;
+            if (ii_right($tmpstr, strlen($html_p)) != $html_p) $tmpstr .= $html_p;
           }
         }
         else
@@ -90,8 +91,8 @@ function pp_manage_popedom($strers)
         else $tstrs = $option_uncheckbox;
         $tstrs = str_replace('{$explain}', 'popedom[]', $tstrs);
         $tstrs = str_replace('{$value}', $val, $tstrs);
-        $tmpstr .= $tstrs . $tmodulestr . $html_kong;
-        if ($tcount % 5 == 0) $tmpstr .= $html_br;
+        $tmpstr .= str_replace('{$modulestr}', $tmodulestr, $tstrs);
+        if ($tcount % 5 == 0) $tmpstr .= $html_p;
       }
     }
     return $tmpstr;
@@ -105,6 +106,8 @@ function wdja_cms_admin_manage_adddisp()
   global $ndatabase, $nidfield, $nfpre;
   $tbackurl = $_GET['backurl'];
   $tusername = ii_get_safecode($_POST['username']);
+  $tadmin_password = ii_md5($_POST['admin_password']);
+  if(!wdja_cms_ckpassword($tadmin_password)) wdja_cms_admin_msg(ii_itake('manage.admin_password_err', 'lng'), $tbackurl, 1);
   if (ii_isnull($tusername)) mm_client_alert(str_replace('[]', '[' . ii_itake('global.lng_config.username', 'lng') . ']', ii_itake('global.lng_public.insert_empty', 'lng')), -1);
   $tsuper = ii_get_num($_POST['super']);
   if ($tsuper == 1)
@@ -145,6 +148,8 @@ function wdja_cms_admin_manage_editdisp()
   $tid = ii_get_num($_GET['id']);
   $tbackurl = $_GET['backurl'];
   $tsuper = ii_get_num($_POST['super']);
+  $tadmin_password = ii_md5($_POST['admin_password']);
+  if(!wdja_cms_ckpassword($tadmin_password)) wdja_cms_admin_msg(ii_itake('manage.admin_password_err', 'lng'), $tbackurl, 1);
   if ($tsuper == 1)
   {
     $tpopedom = '-1';

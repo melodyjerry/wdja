@@ -8,114 +8,48 @@
   <item_list>
     <item>
       <name><![CDATA[config]]></name>
-      <tpl_default><![CDATA[<script language="javascript" src="{$=#global_images_route}js/preview_images.js"></script>
-<script language="javascript" src="{$=#global_images_route}js/loader.js"></script>
-<script language="javascript">
-function bfsubmit()
-{
-  get_id("att").value = get_selects_list(get_id('content_images'));
-}
-</script>
-<table border="0" width="100%" cellSpacing="0" cellPadding="0">
-  <tr>
-    <td width="100%" height="5"></td>
-  </tr>
-  <tr>
-    <td width="100%" align="center">
-      <table border="0" width="98%" cellSpacing="0" cellPadding="0">
-        <tr>
-          <td width="*" align="center" valign="top">
-            <table border="0" width="100%" cellSpacing="0" cellPadding="0" class="lrbtline">
-              <tr>
-                <td width="100%" height="25" class="tbtop">{$=ii_itake('manage.edit','lng')}</td>
-              </tr>
-              <tr>
-                <td width="100%" align="center">
-                  <table border="0" width="98%" cellSpacing="0" cellPadding="0">
-                    <tr>
-                      <td width="100%" height="5"></td>
-                    </tr>
-                  </table>
-                  <form name="form" method="post" action="?action=config&backurl={$=urlencode($GLOBALS['nurl'])}" onsubmit="bfsubmit()">
-                  <input type="hidden" name="nckcode" value="{$=#nckcode}" />
-                  <table border="0" width="98%" cellSpacing="0" cellPadding="0">
-                    <tr>
-                      <td width="80" height="25">{$=ii_itake('manage.url','lng')}</td>
-                      <td width="*"><input type="text" name="url" size="40" value="{$url}">{$=ii_itake('manage.url_tips','lng')}</td>
-                    </tr>
-                    <tr>
-                      <td height="25">{$=ii_itake('manage.sort','lng')}</td>
-                      <td>{$=mm_sel_yesno('sort',{$sort})}</td>
-                    </tr>
-                    <tr>
-                      <td width="80" height="25">{$=ii_itake('manage.module','lng')}</td>
-                      <td width="*"><input type="text" name="module" size="40" value="{$module}"></td>
-                    </tr>
-                    <tr>
-                      <td width="80" height="25">{$=ii_itake('manage.singlepage','lng')}</td>
-                      <td width="*"><input type="text" name="singlepage" size="40" value="{$singlepage}"></td>
-                    </tr>
-                    <tr>
-                      <td height="25">{$=ii_itake('manage.save','lng')}</td>
-                      <td>{$=mm_sel_yesno('save',{$save})}{$=ii_itake('manage.save_tips','lng')}</td>
-                    </tr>
-                    <tr>
-                      <td height="25"></td>
-                      <td><input type="submit" name="submit" value="{$=ii_itake('global.lng_config.submit','lng')}" class="button"></td>
-                    </tr>
-                  </table>
-                  </form>
-                  <table border="0" width="98%" cellSpacing="0" cellPadding="0">
-                    <tr>
-                      <td width="100%" height="5"></td>
-                    </tr>
-                  </table>
-                </td>
-              </tr>
-              <tr>
-                <td width="100%" height="25" class="tbtop">{$=ii_itake('manage.create','lng')}</td>
-              </tr>
-              <tr>
-                <td width="100%" align="center">
-                  <table border="0" width="98%" cellSpacing="0" cellPadding="0">
-                    <tr>
-                      <td width="100%" height="5"></td>
-                    </tr>
-                  </table>
-                  <form name="form" method="post" action="?action=create&backurl={$=urlencode($GLOBALS['nurl'])}" onsubmit="bfsubmit()">
-                  <input type="hidden" name="nckcode" value="{$=#nckcode}" />
-                  <table border="0" width="98%" cellSpacing="0" cellPadding="0">
-                    <tr>
-                      <td  width="80" height="25">{$=ii_itake('manage.sitemap','lng')}</td>
-                      <td><a href="{$sitemap}" target="_blank" >{$sitemap}</a></td>
-                    </tr>
-                    <tr>
-                      <td  width="80" height="25">{$=ii_itake('manage.sitemap_html','lng')}</td>
-                      <td><a href="{$sitemap_html}" target="_blank" >{$sitemap_html}</a></td>
-                    </tr>
-                    <tr>
-                      <td height="25"><input type="submit" name="submit" value="{$=ii_itake('manage.create','lng')}" class="button"></td>
-                      <td></td>
-                    </tr>
-                  </table>
-                  </form>
-                  <table border="0" width="98%" cellSpacing="0" cellPadding="0">
-                    <tr>
-                      <td width="100%" height="5"></td>
-                    </tr>
-                  </table>
-                </td>
-              </tr>
-            </table>
-          </td>
-        </tr>
+      <tpl_default><![CDATA[
+  <div class="table">
+    <h3>{$=ii_itake('manage.edit','lng')}</h3>
+    <form name="form" method="post" action="?action=config&backurl={$=urlencode($GLOBALS['nurl'])}" onsubmit="bfsubmit()">
+      <table cellpadding="10" cellspacing="0" class="tableF">
+        <tbody><tr>
+          <th valign="top"><t>{$=ii_itake('manage.url','lng')}</t></th>
+          <td><input type="text" name="url" class="i1" value="{$url}"> {$=ii_itake('manage.url_tips','lng')}</td>
+        </tr><tr>
+          <th valign="top"><t>{$=ii_itake('manage.sort','lng')}</t></th>
+          <td><span onclick="inputSwitch(this)" class="switch switch-{$sort}" bind="1"><b></b><u></u><em></em><input type="hidden" name="sort" class="val" value="{$sort}" /></span></td>
+        </tr><tr>
+          <th valign="top"><t>{$=ii_itake('manage.module','lng')}</t></th>
+          <td><input type="text" name="module" class="i1" value="{$module}"></td>
+        </tr><tr>
+          <th valign="top"><t>{$=ii_itake('manage.singlepage','lng')}</t></th>
+          <td><input type="text" name="singlepage" class="i1" value="{$singlepage}"></td>
+        </tr><tr>
+          <th valign="top"><t>{$=ii_itake('manage.save','lng')}</t></th>
+          <td><span style="vertical-align: middle;" onclick="inputSwitch(this)" class="switch switch-{$save}" bind="1"><b></b><u></u><em></em><input type="hidden" name="save" class="val" value="{$save}" /></span> {$=ii_itake('manage.save_tips','lng')}</td>
+        </tr></tbody>
       </table>
-    </td>
-  </tr>
-  <tr>
-    <td width="100%" height="5"></td>
-  </tr>
-</table>]]></tpl_default>
+      <div class="form_button">
+      <button class="b2 submit">{$=ii_itake('global.lng_config.submit','lng')}</button>
+      </div>
+    </form>
+    <h3>{$=ii_itake('manage.create','lng')}</h3>
+    <form name="form" method="post" action="?action=create&backurl={$=urlencode($GLOBALS['nurl'])}" onsubmit="bfsubmit()">
+      <table cellpadding="10" cellspacing="0" class="tableF">
+        <tbody><tr>
+          <th valign="top"><t>{$=ii_itake('manage.sitemap','lng')}</t></th>
+          <td><a href="{$sitemap}" target="_blank" >{$sitemap}</a></td>
+        </tr><tr>
+          <th valign="top"><t>{$=ii_itake('manage.sitemap_html','lng')}</t></th>
+          <td><a href="{$sitemap_html}" target="_blank" >{$sitemap_html}</a></td>
+        </tr></tbody>
+      </table>
+      <div class="form_button">
+      <button class="b2 submit">{$=ii_itake('manage.create','lng')}</button>
+      </div>
+    </form>
+      ]]></tpl_default>
     </item>
   </item_list>
 </xml>

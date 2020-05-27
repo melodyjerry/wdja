@@ -14,7 +14,6 @@
     <main class="list">
     <nav class="nav">{$=vv_inavigation('{$genre}', 'strers=module;strurl={$genre}')}</nav>
 <form id="filterForm" name="form1" method="get" action="{$=#nurl}">
-<input type="hidden" name="nckcode" value="{$=#nckcode}" />
 <input id="type" type="hidden" value="list" name="type" to="filter">
 <input id="offset" type="hidden" value="{$offset}" name="offset" to="filter">
 {$=api_list_fields_input()}
@@ -46,13 +45,14 @@
         <nav class="nav">{$=vv_inavigation('{$genre}', '')}{$=NAV_SP_STR}{$topic}</nav>
         <h1>{$topic}</h1>
         <div class="con_text">
+        <p>{$=api_tags_list()}</p>
         <p>{$=ii_itake('global.lng_config.time','lng')}:{$time},{$=ii_itake('global.lng_config.count','lng')}:<span>{$count}</span></p>
-        {$=mm_encode_content(mm_cutepage_content($GLOBALS['RS_content'], 'cp_note={$cp_note};cp_mode={$cp_mode};cp_type={$cp_type};cp_num={$cp_num};cp_page={$page}'), '{$cttype}')}
+        {$=mm_encode_content(mm_cutepage_content(api_tags_replace_tags($GLOBALS['RS_content'])))}
         <table width="100%" cellspacing="0" cellpadding="0" border="0">
         {$=api_view_fields()}
 	    </table>
         </div>
-        <div id="ct-cutepage" class="cutepage">{$=mm_cutepage_content_page_sel($GLOBALS['RS_content'], 'cp_note={$cp_note};cp_mode={$cp_mode};cp_type={$cp_type};cp_num={$cp_num}', 'folder=' . $GLOBALS['ncreatefolder'] . ';filetype=' . $GLOBALS['ncreatefiletype'] . ';cutekey={$id};time={$time}')}</div>
+        <div id="ct-cutepage" class="cutepage">{$=mm_cutepage_content_page_sel($GLOBALS['RS_content'], 'folder=' . $GLOBALS['ncreatefolder'] . ';filetype=' . $GLOBALS['ncreatefiletype'] . ';cutekey={$id};time={$time}')}</div>
         <div class="updown">
             <div class="up">{$=vv_itransfer('up', 'updown', 'topx=1;genre={$genre};bid={$id}')} </div>
             <div class="down">{$=vv_itransfer('down', 'updown', 'topx=1;genre={$genre};bid={$id}')}</div>

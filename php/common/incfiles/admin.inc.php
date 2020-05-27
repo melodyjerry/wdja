@@ -4,6 +4,36 @@
 // Email: admin@wdja.cn
 // Web: http://www.wdja.cn/
 //****************************************************
+function mm_get_genre_title($genre)
+{
+  if (!ii_isnull($genre))
+  {
+    $tmpstr = @ii_itake('global.' . $genre . ':module.channel_title', 'lng');
+    if (ii_isnull($tmpstr)) $tmpstr = @ii_itake('global.' . $genre . ':module.channel_title', 'lng');
+    if (ii_isnull($tmpstr)) $tmpstr = '?';
+    return $tmpstr;
+  }
+}
+
+function mm_admin_nav($genre)
+{
+  global $variable, $nlng;
+  $tmpstr = '<a href="/'.ADMIN_FOLDER.'/admin_main.php" target="_parent">'.ii_itake('global.module.mgtitle', 'lng').'</a>';
+  $tbaseurl = ii_get_actual_route($genre);
+  if (ii_right($tbaseurl, 1) != '/') $tbaseurl .= '/';
+  $tbary = explode('/', $tbaseurl);
+  $i = 1;
+  foreach($tbary as $key => $val)
+  {
+    if($val != '..' && !ii_isnull($val)){
+	    if($i != 2) $tmpstr .= '<u><em></em>' . ii_itake('global.'. $val . ':manage.mgtitle','lng').'</u>';
+	    else $tmpstr .= '<u><em></em><a href="../.././'.$genre.'/manage.php">' . ii_itake('global.'. $genre . ':manage.mgtitle','lng').'</a></u>';
+       $i++;
+   }
+  }
+  return $tmpstr;
+}
+
 function mm_get_admin_sellng()
 {
   global $slng;
@@ -51,7 +81,7 @@ function mm_get_genre_description($genre)
   if (!ii_isnull($genre))
   {
     $tmpstr = @ii_itake('global.' . $genre . ':manage.mgtitle', 'lng');
-    if (ii_isnull($tmpstr)) $tmpstr = @ii_itake('global.' . $genre . ':module.channel_title', 'lng');
+    if (ii_isnull($tmpstr)) $tmpstr = @ii_itake('global.' . $genre . ':manage.mstitle', 'lng');
     if (ii_isnull($tmpstr)) $tmpstr = '?';
     return $tmpstr;
   }
@@ -71,34 +101,9 @@ function mm_get_html_content()
   return $tmpstr3 . ' ' . $tmpstr0 . ' ' . $tmpstr1 . ' ' . $tmpstr2;
 }
 
-function mm_html_content($name, $value, $htype)
+function mm_html_content($name, $value)
 {
-  global $ncttype;
-  $thtype = $_GET['htype'];
-  if (ii_isnull($thtype))
-  {
-    $thtype = $htype;
-    if (ii_isnull($thtype)) $thtype = $ncttype;
-  }
-  $thtype = ii_get_num($thtype);
-  switch($thtype)
-  {
-    case 0:
-      $tmpstr = ii_itake('global.tpl_admin.content_htmledit', 'tpl');
-      break;
-    case 1:
-      $tmpstr = ii_itake('global.tpl_admin.content_ubbcode', 'tpl');
-      break;
-    case 2:
-      $tmpstr = ii_itake('global.tpl_admin.content_text', 'tpl');
-      break;
-    case 3:
-      $tmpstr = ii_itake('global.tpl_admin.content_html', 'tpl');
-      break;
-    default:
-      $tmpstr = ii_itake('global.tpl_admin.content_htmledit', 'tpl');
-      break;
-  }
+  $tmpstr = ii_itake('global.tpl_admin.content_htmledit', 'tpl');
   $tmpstr = str_replace('{$name}', $name, $tmpstr);
   $tmpstr = str_replace('{$value}', $value, $tmpstr);
   $tmpstr = ii_creplace($tmpstr);
@@ -172,6 +177,23 @@ function mm_nav_sort_child($sgenre, $baseurl, $fid, $rnum)
   if (!(ii_isnull($tstre))) $tstrc .= str_replace(WDJA_CINFO, $tstre, $tstra);
   $tstrc = str_replace(WDJA_CINFO, $tstrc, $tpl_html);
   return $tstrc;
+}
+
+function wdja_cms_ckpassword($password)
+{
+  global $conn;
+  global $variable;
+  global $admc_username, $admc_popedom;
+  $tusername = $admc_username;
+  $tpassword = ii_get_safecode($password);
+  $tdatabase =  $variable['common.admin.ndatabase'];
+  $tidfield =  $variable['common.admin.nidfield'];
+  $tfpre =  $variable['common.admin.nfpre'];
+  $tsqlstr = "select * from $tdatabase where " . ii_cfnames($tfpre, 'name') . "='$tusername' and " . ii_cfnames($tfpre, 'pword') . "='$tpassword' and " . ii_cfnames($tfpre, 'lock') . "=0";
+  $trs = ii_conn_query($tsqlstr, $conn);
+  $trs = ii_conn_fetch_array($trs);
+  if ($trs) return true;
+  else return false;
 }
 
 function wdja_cms_cklogin($username, $password)

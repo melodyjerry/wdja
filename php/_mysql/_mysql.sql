@@ -1,49 +1,23 @@
-SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 
 CREATE TABLE `wdja_aboutus` (
   `abid` int(9) NOT NULL AUTO_INCREMENT,
-  `ab_topic` varchar(50) DEFAULT NULL,
-  `ab_keywords` varchar(152) DEFAULT NULL,
+  `ab_topic` varchar(252) DEFAULT NULL,
+  `ab_keywords` varchar(252) DEFAULT NULL,
   `ab_description` varchar(252) DEFAULT NULL,
   `ab_image` varchar(255) DEFAULT NULL,
   `ab_content` text,
   `ab_content_images_list` text,
-  `ab_cttype` int(1) DEFAULT '0',
-  `ab_cp_note` int(1) DEFAULT '0',
-  `ab_cp_mode` int(1) DEFAULT '0',
-  `ab_cp_type` int(1) DEFAULT '0',
-  `ab_cp_num` int(9) DEFAULT '0',
   `ab_time` datetime DEFAULT NULL,
   `ab_ucode` varchar(50) DEFAULT NULL,
   `ab_hidden` int(1) DEFAULT '0',
   `ab_update` int(1) DEFAULT '0',
   `ab_good` int(1) DEFAULT '0',
+  `ab_tpl` varchar(50) DEFAULT NULL,
+  `ab_gourl` varchar(255) DEFAULT NULL,
   `ab_count` int(9) DEFAULT '0',
   `ab_lng` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`abid`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
-
-CREATE TABLE `wdja_question` (
-  `qid` int(9) NOT NULL AUTO_INCREMENT,
-  `q_topic` varchar(50) DEFAULT NULL,
-  `q_keywords` varchar(152) DEFAULT NULL,
-  `q_description` varchar(252) DEFAULT NULL,
-  `q_image` varchar(255) DEFAULT NULL,
-  `q_content` text,
-  `q_content_images_list` text,
-  `q_cttype` int(1) DEFAULT '0',
-  `q_cp_note` int(1) DEFAULT '0',
-  `q_cp_mode` int(1) DEFAULT '0',
-  `q_cp_type` int(1) DEFAULT '0',
-  `q_cp_num` int(9) DEFAULT '0',
-  `q_time` datetime DEFAULT NULL,
-  `q_ucode` varchar(50) DEFAULT NULL,
-  `q_hidden` int(1) DEFAULT '0',
-  `q_update` int(1) DEFAULT '0',
-  `q_good` int(1) DEFAULT '0',
-  `q_count` int(9) DEFAULT '0',
-  `q_lng` varchar(50) DEFAULT NULL,
-  PRIMARY KEY (`qid`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 CREATE TABLE `wdja_admin` (
@@ -57,6 +31,7 @@ CREATE TABLE `wdja_admin` (
   PRIMARY KEY (`aid`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
+
 CREATE TABLE `wdja_admin_log` (
   `lid` int(9) NOT NULL AUTO_INCREMENT,
   `l_name` varchar(50) DEFAULT NULL,
@@ -68,14 +43,14 @@ CREATE TABLE `wdja_admin_log` (
 
 CREATE TABLE `wdja_download` (
   `did` int(9) NOT NULL AUTO_INCREMENT,
-  `d_topic` varchar(50) DEFAULT NULL,
-  `d_keywords` varchar(152) DEFAULT NULL,
+  `d_topic` varchar(252) DEFAULT NULL,
+  `d_keywords` varchar(252) DEFAULT NULL,
   `d_description` varchar(252) DEFAULT NULL,
   `d_cls` text,
   `d_class` int(9) DEFAULT '0',
+  `d_class_list` varchar(50) NOT NULL DEFAULT '0',
   `d_scont` text,
   `d_image` varchar(255) DEFAULT NULL,
-  `d_cttype` int(1) DEFAULT '0',
   `d_content` text,
   `d_content_images_list` text,
   `d_size` float DEFAULT '0',
@@ -129,9 +104,7 @@ CREATE TABLE `wdja_expansion_fields` (
   `f_topic` varchar(50) DEFAULT NULL,
   `f_type` int(1) DEFAULT '0',
   `f_count` varchar(9) DEFAULT '0',
-  `f_starttime` datetime DEFAULT NULL,
-  `f_endtime` datetime DEFAULT NULL,
-  `f_lock` int(1) DEFAULT '0',
+  `f_hidden` int(1) DEFAULT '0',
   `f_time` datetime DEFAULT NULL,
   PRIMARY KEY (`fid`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
@@ -161,11 +134,6 @@ CREATE TABLE `wdja_expansion_hotwords` (
   `eh_image` varchar(255) DEFAULT NULL,
   `eh_content` text,
   `eh_content_images_list` text,
-  `eh_cttype` int(1) DEFAULT '0',
-  `eh_cp_note` int(1) DEFAULT '0',
-  `eh_cp_mode` int(1) DEFAULT '0',
-  `eh_cp_type` int(1) DEFAULT '0',
-  `eh_cp_num` int(9) DEFAULT '0',
   `eh_time` datetime DEFAULT NULL,
   `eh_cls` text,
   `eh_class` int(9) DEFAULT '0',
@@ -189,6 +157,32 @@ CREATE TABLE `wdja_expansion_iplock` (
   `ip_count` int(9) DEFAULT '0',
   `ip_lng` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`ipid`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+
+CREATE TABLE `wdja_expansion_tags` (
+  `etid` int(9) NOT NULL AUTO_INCREMENT,
+  `et_topic` varchar(50) DEFAULT NULL,
+  `et_keywords` varchar(152) DEFAULT NULL,
+  `et_description` varchar(252) DEFAULT NULL,
+  `et_image` varchar(255) DEFAULT NULL,
+  `et_content` text,
+  `et_content_images_list` text,
+  `et_time` datetime DEFAULT NULL,
+  `et_hidden` int(1) DEFAULT '0',
+  `et_update` int(1) DEFAULT '0',
+  `et_good` int(1) DEFAULT '0',
+  `et_gourl` varchar(255) DEFAULT NULL,
+  `et_count` int(9) DEFAULT '0',
+  PRIMARY KEY (`etid`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+CREATE TABLE `wdja_expansion_tags_data` (
+  `tdid` int(9) NOT NULL AUTO_INCREMENT,
+  `td_genre` varchar(50) NOT NULL,
+  `td_gid` int(9) DEFAULT '0',
+  `td_tid` varchar(25) DEFAULT NULL,
+  PRIMARY KEY (`tdid`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 CREATE TABLE `wdja_forum_blacklist` (
@@ -286,20 +280,16 @@ CREATE TABLE `wdja_forum_vote_voter` (
 
 CREATE TABLE `wdja_help` (
   `hid` int(9) NOT NULL AUTO_INCREMENT,
-  `h_topic` varchar(50) DEFAULT NULL,
-  `h_keywords` varchar(50) DEFAULT NULL,
-  `h_description` varchar(250) DEFAULT NULL,
+  `h_topic` varchar(252) DEFAULT NULL,
+  `h_keywords` varchar(252) DEFAULT NULL,
+  `h_description` varchar(252) DEFAULT NULL,
   `h_image` varchar(255) DEFAULT NULL,
   `h_content` text,
   `h_content_images_list` text,
-  `h_cttype` int(1) DEFAULT '0',
-  `h_cp_note` int(1) DEFAULT '0',
-  `h_cp_mode` int(1) DEFAULT '0',
-  `h_cp_type` int(1) DEFAULT '0',
-  `h_cp_num` int(9) DEFAULT '0',
   `h_time` datetime DEFAULT NULL,
   `h_cls` text,
   `h_class` int(9) DEFAULT '0',
+  `h_class_list` varchar(50) NOT NULL DEFAULT '0',
   `h_top` int(1) DEFAULT '0',
   `h_hidden` int(1) DEFAULT '0',
   `h_update` int(1) DEFAULT '0',
@@ -316,7 +306,7 @@ CREATE TABLE `wdja_message` (
   `m_mobile` varchar(50) DEFAULT '0',
   `m_email` varchar(50) DEFAULT NULL,
   `m_address` varchar(255) DEFAULT NULL,
-  `m_title` varchar(50) DEFAULT NULL,
+  `m_title` varchar(252) DEFAULT NULL,
   `m_content` text,
   `m_time` datetime DEFAULT NULL,
   `m_reply` text,
@@ -328,20 +318,16 @@ CREATE TABLE `wdja_message` (
 
 CREATE TABLE `wdja_news` (
   `nid` int(9) NOT NULL AUTO_INCREMENT,
-  `n_topic` varchar(50) DEFAULT NULL,
-  `n_keywords` varchar(152) DEFAULT NULL,
+  `n_topic` varchar(252) DEFAULT NULL,
+  `n_keywords` varchar(252) DEFAULT NULL,
   `n_description` varchar(252) DEFAULT NULL,
   `n_image` varchar(255) DEFAULT NULL,
   `n_content` text,
   `n_content_images_list` text,
-  `n_cttype` int(1) DEFAULT '0',
-  `n_cp_note` int(1) DEFAULT '0',
-  `n_cp_mode` int(1) DEFAULT '0',
-  `n_cp_type` int(1) DEFAULT '0',
-  `n_cp_num` int(9) DEFAULT '0',
   `n_time` datetime DEFAULT NULL,
   `n_cls` text,
   `n_class` int(9) DEFAULT '0',
+  `n_class_list` varchar(50) NOT NULL DEFAULT '0',
   `n_ucode` varchar(50) DEFAULT NULL,
   `n_hidden` int(1) DEFAULT '0',
   `n_update` int(1) DEFAULT '0',
@@ -350,87 +336,20 @@ CREATE TABLE `wdja_news` (
   PRIMARY KEY (`nid`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
-CREATE TABLE `wdja_passport` (
-  `pid` int(9) NOT NULL AUTO_INCREMENT,
-  `p_username` varchar(50) DEFAULT NULL,
-  `p_password` varchar(50) DEFAULT NULL,
-  `p_email` varchar(50) DEFAULT NULL,
-  `p_city` varchar(50) DEFAULT NULL,
-  `p_sex` varchar(50) DEFAULT NULL,
-  `p_old` varchar(50) DEFAULT NULL,
-  `p_name` varchar(50) DEFAULT NULL,
-  `p_qq` varchar(50) DEFAULT NULL,
-  `p_msn` varchar(50) DEFAULT NULL,
-  `p_phone` varchar(50) DEFAULT NULL,
-  `p_homepage` varchar(255) DEFAULT NULL,
-  `p_code` varchar(50) DEFAULT NULL,
-  `p_address` varchar(255) DEFAULT NULL,
-  `p_emoney` int(9) DEFAULT '0',
-  `p_integral` int(9) DEFAULT '0',
-  `p_topic` int(9) DEFAULT '0',
-  `p_face` int(9) DEFAULT '0',
-  `p_face_u` int(1) DEFAULT '0',
-  `p_face_url` varchar(255) DEFAULT NULL,
-  `p_face_width` int(9) DEFAULT '0',
-  `p_face_height` int(9) DEFAULT '0',
-  `p_sign` varchar(255) DEFAULT NULL,
-  `p_forum_admin` int(1) DEFAULT '0',
-  `p_utype` int(9) DEFAULT '0',
-  `p_lock` int(1) DEFAULT '0',
-  `p_time` datetime DEFAULT NULL,
-  `p_lasttime` datetime DEFAULT NULL,
-  `p_pretime` datetime DEFAULT NULL,
-  PRIMARY KEY (`pid`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
-
-CREATE TABLE `wdja_passport_address` (
-  `addressid` int(9) NOT NULL AUTO_INCREMENT,
-  `address_name` varchar(50) DEFAULT NULL,
-  `address_address` varchar(255) DEFAULT NULL,
-  `address_code` varchar(50) DEFAULT NULL,
-  `address_phone` varchar(50) DEFAULT NULL,
-  `address_email` varchar(50) DEFAULT NULL,
-  `address_username` varchar(50) DEFAULT NULL,
-  `address_lng` varchar(50) DEFAULT NULL,
-  `address_order` int(9) DEFAULT '0',
-  `address_time` datetime DEFAULT NULL,
-  PRIMARY KEY (`addressid`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
-
-CREATE TABLE `wdja_passport_friend` (
-  `feid` int(9) NOT NULL AUTO_INCREMENT,
-  `fe_username` varchar(50) DEFAULT NULL,
-  `fe_name` varchar(50) DEFAULT NULL,
-  `fe_time` datetime DEFAULT NULL,
-  PRIMARY KEY (`feid`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
-
-CREATE TABLE `wdja_passport_message` (
-  `mid` int(9) NOT NULL AUTO_INCREMENT,
-  `m_topic` varchar(50) DEFAULT NULL,
-  `m_content` text,
-  `m_read` int(1) DEFAULT '0',
-  `m_time` datetime DEFAULT NULL,
-  `m_len` int(9) DEFAULT '0',
-  `m_addresser` varchar(50) DEFAULT NULL,
-  `m_recipients` varchar(50) DEFAULT NULL,
-  PRIMARY KEY (`mid`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
-
 CREATE TABLE `wdja_product` (
   `pid` int(9) NOT NULL AUTO_INCREMENT,
   `p_snum` varchar(50) DEFAULT NULL,
-  `p_topic` varchar(50) DEFAULT NULL,
-  `p_keywords` varchar(152) DEFAULT NULL,
+  `p_topic` varchar(252) DEFAULT NULL,
+  `p_keywords` varchar(252) DEFAULT NULL,
   `p_description` varchar(252) DEFAULT NULL,
   `p_image` varchar(255) DEFAULT NULL,
   `p_content` text,
   `p_content_images_list` text,
-  `p_cttype` int(1) DEFAULT '0',
   `p_infos` varchar(1200) DEFAULT '{:::}{|||}{:::}',
   `p_time` datetime DEFAULT NULL,
   `p_cls` text,
   `p_class` int(9) DEFAULT '0',
+  `p_class_list` varchar(50) NOT NULL DEFAULT '0',
   `p_ucode` varchar(50) DEFAULT NULL,
   `p_hidden` int(1) DEFAULT '0',
   `p_update` int(1) DEFAULT '0',
@@ -439,11 +358,29 @@ CREATE TABLE `wdja_product` (
   PRIMARY KEY (`pid`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
+CREATE TABLE `wdja_question` (
+  `qid` int(9) NOT NULL AUTO_INCREMENT,
+  `q_topic` varchar(252) DEFAULT NULL,
+  `q_keywords` varchar(252) DEFAULT NULL,
+  `q_description` varchar(252) DEFAULT NULL,
+  `q_image` varchar(255) DEFAULT NULL,
+  `q_content` text,
+  `q_content_images_list` text,
+  `q_time` datetime DEFAULT NULL,
+  `q_ucode` varchar(50) DEFAULT NULL,
+  `q_hidden` int(1) DEFAULT '0',
+  `q_update` int(1) DEFAULT '0',
+  `q_good` int(1) DEFAULT '0',
+  `q_count` int(9) DEFAULT '0',
+  `q_lng` varchar(50) DEFAULT NULL,
+  PRIMARY KEY (`qid`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
 CREATE TABLE `wdja_shop` (
   `sid` int(9) NOT NULL AUTO_INCREMENT,
   `s_snum` varchar(50) DEFAULT NULL,
-  `s_topic` varchar(50) DEFAULT NULL,
-  `s_keywords` varchar(152) DEFAULT NULL,
+  `s_topic` varchar(252) DEFAULT NULL,
+  `s_keywords` varchar(252) DEFAULT NULL,
   `s_description` varchar(252) DEFAULT NULL,
   `s_image` varchar(255) DEFAULT NULL,
   `s_price` float DEFAULT '0',
@@ -452,12 +389,12 @@ CREATE TABLE `wdja_shop` (
   `s_unit` varchar(50) DEFAULT NULL,
   `s_content` text,
   `s_content_images_list` text,
-  `s_cttype` int(1) DEFAULT '0',
   `s_infos` varchar(1200) DEFAULT '{:::}{|||}{:::}',
   `s_ucode` varchar(50) DEFAULT NULL,
   `s_time` datetime DEFAULT NULL,
   `s_cls` text,
   `s_class` int(9) DEFAULT '0',
+  `s_class_list` varchar(50) NOT NULL DEFAULT '0',
   `s_hidden` int(1) DEFAULT '0',
   `s_update` int(1) DEFAULT '0',
   `s_good` int(1) DEFAULT '0',
@@ -515,27 +452,7 @@ CREATE TABLE `wdja_support_slide` (
   PRIMARY KEY (`sid`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
-CREATE TABLE `wdja_sys_note` (
-  `nid` int(9) NOT NULL AUTO_INCREMENT,
-  `n_topic` varchar(50) DEFAULT NULL,
-  `n_image` varchar(255) DEFAULT NULL,
-  `n_content` text,
-  `n_content_images_list` text,
-  `n_cttype` int(1) DEFAULT '0',
-  `n_cp_note` int(1) DEFAULT '0',
-  `n_cp_mode` int(1) DEFAULT '0',
-  `n_cp_type` int(1) DEFAULT '0',
-  `n_cp_num` int(9) DEFAULT '0',
-  `n_time` datetime DEFAULT NULL,
-  `n_hidden` int(1) DEFAULT '0',
-  `n_update` int(1) DEFAULT '0',
-  `n_good` int(1) DEFAULT '0',
-  `n_count` int(9) DEFAULT '0',
-  `n_lng` varchar(50) DEFAULT NULL,
-  PRIMARY KEY (`nid`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
-
-CREATE TABLE `wdja_sys_sort` (
+CREATE TABLE `wdja_support_sort` (
   `sortid` int(9) NOT NULL AUTO_INCREMENT,
   `sort_pid` int(9) NOT NULL DEFAULT '0',
   `sort_sort` varchar(50) DEFAULT NULL,
@@ -548,9 +465,26 @@ CREATE TABLE `wdja_sys_sort` (
   `sort_genre` varchar(50) DEFAULT NULL,
   `sort_lng` varchar(50) DEFAULT NULL,
   `sort_hidden` int(1) DEFAULT '0',
+  `sort_gourl` varchar(255) DEFAULT NULL,
+  `sort_tpl` varchar(50) DEFAULT NULL,
   `sort_order` int(9) DEFAULT '0',
   `sort_time` datetime DEFAULT NULL,
   PRIMARY KEY (`sortid`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+CREATE TABLE `wdja_sys_note` (
+  `nid` int(9) NOT NULL AUTO_INCREMENT,
+  `n_topic` varchar(50) DEFAULT NULL,
+  `n_image` varchar(255) DEFAULT NULL,
+  `n_content` text,
+  `n_content_images_list` text,
+  `n_time` datetime DEFAULT NULL,
+  `n_hidden` int(1) DEFAULT '0',
+  `n_update` int(1) DEFAULT '0',
+  `n_good` int(1) DEFAULT '0',
+  `n_count` int(9) DEFAULT '0',
+  `n_lng` varchar(50) DEFAULT NULL,
+  PRIMARY KEY (`nid`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 CREATE TABLE `wdja_sys_upload` (
@@ -567,4 +501,74 @@ CREATE TABLE `wdja_sys_upload` (
   PRIMARY KEY (`upid`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
-INSERT INTO `wdja_admin` (`a_name`, `a_pword`, `a_popedom`) VALUES ('admin', '21232f297a57a5a743894a0e4a801fc3', '-1') ;
+CREATE TABLE `wdja_user` (
+  `uid` int(9) NOT NULL AUTO_INCREMENT,
+  `u_username` varchar(50) DEFAULT NULL,
+  `u_password` varchar(50) DEFAULT NULL,
+  `u_email` varchar(50) DEFAULT NULL,
+  `u_openid` varchar(255) DEFAULT NULL,
+  `u_nickname` varchar(50) DEFAULT NULL,
+  `u_headimgurl` varchar(255) DEFAULT NULL,
+  `u_city` varchar(50) DEFAULT NULL,
+  `u_sex` varchar(50) DEFAULT NULL,
+  `u_old` varchar(50) DEFAULT NULL,
+  `u_name` varchar(50) DEFAULT NULL,
+  `u_qq` varchar(50) DEFAULT NULL,
+  `u_msn` varchar(50) DEFAULT NULL,
+  `u_phone` varchar(50) DEFAULT NULL,
+  `u_homepage` varchar(255) DEFAULT NULL,
+  `u_code` varchar(50) DEFAULT NULL,
+  `u_address` varchar(255) DEFAULT NULL,
+  `u_emoney` int(9) DEFAULT '0',
+  `u_integral` int(9) DEFAULT '0',
+  `u_topic` int(9) DEFAULT '0',
+  `u_face` int(9) DEFAULT '0',
+  `u_face_u` int(1) DEFAULT '0',
+  `u_face_url` varchar(255) DEFAULT NULL,
+  `u_face_width` int(9) DEFAULT '0',
+  `u_face_height` int(9) DEFAULT '0',
+  `u_sign` varchar(255) DEFAULT NULL,
+  `u_forum_admin` int(1) DEFAULT '0',
+  `u_utype` int(9) DEFAULT '0',
+  `u_lock` int(1) DEFAULT '0',
+  `u_time` datetime DEFAULT NULL,
+  `u_lasttime` datetime DEFAULT NULL,
+  `u_pretime` datetime DEFAULT NULL,
+  PRIMARY KEY (`uid`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+CREATE TABLE `wdja_user_address` (
+  `uaid` int(9) NOT NULL AUTO_INCREMENT,
+  `ua_name` varchar(50) DEFAULT NULL,
+  `ua_address` varchar(255) DEFAULT NULL,
+  `ua_code` varchar(50) DEFAULT NULL,
+  `ua_phone` varchar(50) DEFAULT NULL,
+  `ua_email` varchar(50) DEFAULT NULL,
+  `ua_username` varchar(50) DEFAULT NULL,
+  `ua_lng` varchar(50) DEFAULT NULL,
+  `ua_order` int(9) DEFAULT '0',
+  `ua_time` datetime DEFAULT NULL,
+  PRIMARY KEY (`uaid`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+CREATE TABLE `wdja_user_friend` (
+  `ufid` int(9) NOT NULL AUTO_INCREMENT,
+  `uf_username` varchar(50) DEFAULT NULL,
+  `uf_name` varchar(50) DEFAULT NULL,
+  `uf_time` datetime DEFAULT NULL,
+  PRIMARY KEY (`ufid`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+CREATE TABLE `wdja_user_message` (
+  `umid` int(9) NOT NULL AUTO_INCREMENT,
+  `um_topic` varchar(50) DEFAULT NULL,
+  `um_content` text,
+  `um_read` int(1) DEFAULT '0',
+  `um_time` datetime DEFAULT NULL,
+  `um_len` int(9) DEFAULT '0',
+  `um_addresser` varchar(50) DEFAULT NULL,
+  `um_recipients` varchar(50) DEFAULT NULL,
+  PRIMARY KEY (`umid`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+INSERT INTO `wdja_admin` VALUES(1, 'admin', '21232f297a57a5a743894a0e4a801fc3', '-1', 0, NULL, NULL);

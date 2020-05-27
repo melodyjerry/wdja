@@ -5,8 +5,11 @@
 // Web: http://www.wdja.cn/
 //****************************************************
 wdja_cms_admin_init();
-//$nurltype = 0;
-$ncttype = 0;
+
+function pp_manage_navigation()
+{
+  return ii_ireplace('manage.navigation', 'tpl');
+}
 
 function delByValue($arr, $value){  
     $keys = array_keys($arr, $value);  
@@ -17,20 +20,7 @@ function delByValue($arr, $value){
         }  
     }  
     return $arr;  
-}  
-
-
-function mm_get_genre_title($genre)
-{
-  if (!ii_isnull($genre))
-  {
-    $tmpstr = @ii_itake('global.' . $genre . ':module.channel_title', 'lng');
-    if (ii_isnull($tmpstr)) $tmpstr = @ii_itake('global.' . $genre . ':module.channel_title', 'lng');
-    if (ii_isnull($tmpstr)) $tmpstr = '?';
-    return $tmpstr;
-  }
 }
-
 
 function pp_get_module_select($module='')
 {
@@ -66,15 +56,15 @@ function pp_get_xml_root($module)
   return $tmpstr;
 }
 
-function wdja_cms_admin_manage_home_editdisp()
+function wdja_cms_admin_manage_editdisp_basic()
 {
   global $nsaveimages;
   $tbackurl = $_GET['backurl'];
-  $tburl = pp_get_xml_root('home') . XML_SFX;
+  $tburl = pp_get_xml_root('basic') . XML_SFX;
   $tnode = 'item';
   $tfield = 'disinfo,chinese';
   $tbase = 'language_list';
-  $torder = 'logo,download_name,download_url,demo_url,modules,modules_img,';
+  $torder = 'logo,download_name,download_url,demo_url,modules,modules_img,title,topic,keywords,description,baidupush,baidupush_url,baidupush_token,icp,tongji,';
   if (ii_right($torder, 1) == ',') $torder = ii_left($torder, (strlen($torder) - 1));
   if (file_exists($tburl) && (!ii_isnull($tnode)) && (!ii_isnull($tfield)) && (!ii_isnull($tbase)))
   {
@@ -106,15 +96,15 @@ function wdja_cms_admin_manage_home_editdisp()
   }
 }
 
-function wdja_cms_admin_manage_seo_editdisp()
+function wdja_cms_admin_manage_editdisp_extend()
 {
   global $nsaveimages;
   $tbackurl = $_GET['backurl'];
-  $tburl = pp_get_xml_root('seo') . XML_SFX;
+  $tburl = pp_get_xml_root('extend') . XML_SFX;
   $tnode = 'item';
   $tfield = 'disinfo,chinese';
   $tbase = 'language_list';
-  $torder = 'title,topic,keywords,description,baidupush,baidupush_url,baidupush_token,';
+  $torder = 'alipay_appid,alipay_public_key,alipay_private_key,alipay_notify_url,alipay_return_url,wxpay_token,wxpay_appid,wxpay_appsecret,wxpay_encodingaeskey,wxpay_mch_id,wxpay_mch_key,wxpay_ssl_key,wxpay_ssl_cer,wxpay_cache_path,alipay_code,wechat_add,wechat_code,alipay_uid,smtptype,smtpcharset,smtpserver,smtpport,smtpusername,smtppassword,smtpfromname,message_mail,message_title,message_body,order_mail,order_title,order_body,';
   if (ii_right($torder, 1) == ',') $torder = ii_left($torder, (strlen($torder) - 1));
   if (file_exists($tburl) && (!ii_isnull($tnode)) && (!ii_isnull($tfield)) && (!ii_isnull($tbase)))
   {
@@ -146,15 +136,15 @@ function wdja_cms_admin_manage_seo_editdisp()
   }
 }
 
-function wdja_cms_admin_manage_wechat_editdisp()
+function wdja_cms_admin_manage_editdisp_weixin()
 {
   global $nsaveimages;
   $tbackurl = $_GET['backurl'];
-  $tburl = pp_get_xml_root('wechat') . XML_SFX;
+  $tburl = pp_get_xml_root('weixin') . XML_SFX;
   $tnode = 'item';
   $tfield = 'disinfo,chinese';
   $tbase = 'language_list';
-  $torder = 'logo,url,appid,secret,templateid,templateurl,mail,mail_topic,mail_body,content,att,';
+  $torder = 'weixin_token,weixin_appid,weixin_appsecret,weixin_notify_url,wxlogin_switch,wxlogo,url,appid,secret,templateid,templateurl,mail,mail_topic,mail_body,content,att,';
   if (ii_right($torder, 1) == ',') $torder = ii_left($torder, (strlen($torder) - 1));
   if (file_exists($tburl) && (!ii_isnull($tnode)) && (!ii_isnull($tfield)) && (!ii_isnull($tbase)))
   {
@@ -186,7 +176,7 @@ function wdja_cms_admin_manage_wechat_editdisp()
   }
 }
 
-function wdja_cms_admin_manage_other_editdisp()
+function wdja_cms_admin_manage_editdisp_other()
 {
   global $nsaveimages;
   $tbackurl = $_GET['backurl'];
@@ -194,7 +184,7 @@ function wdja_cms_admin_manage_other_editdisp()
   $tnode = 'item';
   $tfield = 'disinfo,chinese';
   $tbase = 'language_list';
-  $torder = 'alipay_code,wechat_add,wechat_code,alipay_uid,message_mail,message_title,message_body,order_mail,order_title,order_body,topic,keywords,description,content,att,';
+  $torder = '';
   if (ii_right($torder, 1) == ',') $torder = ii_left($torder, (strlen($torder) - 1));
   if (file_exists($tburl) && (!ii_isnull($tnode)) && (!ii_isnull($tfield)) && (!ii_isnull($tbase)))
   {
@@ -232,17 +222,17 @@ function wdja_cms_admin_manage_action()
 {
   switch($_GET['action'])
   {
-    case 'home':
-      wdja_cms_admin_manage_home_editdisp();
+    case 'basic':
+      wdja_cms_admin_manage_editdisp_basic();
       break;
-    case 'seo':
-      wdja_cms_admin_manage_seo_editdisp();
+    case 'extend':
+      wdja_cms_admin_manage_editdisp_extend();
       break;
-    case 'wechat':
-      wdja_cms_admin_manage_wechat_editdisp();
+    case 'weixin':
+      wdja_cms_admin_manage_editdisp_weixin();
       break;
     case 'other':
-      wdja_cms_admin_manage_other_editdisp();
+      wdja_cms_admin_manage_editdisp_other();
       break;
     case 'upload':
       uu_upload_files();
@@ -250,14 +240,14 @@ function wdja_cms_admin_manage_action()
   }
 }
 
-function wdja_cms_admin_manage_home_edit()
+function wdja_cms_admin_manage_edit_basic()
 {
   global $conn;
   global $ndatabase, $nidfield, $nfpre;
-  $trootstr = pp_get_xml_root('home') . XML_SFX;
+  $trootstr = pp_get_xml_root('basic') . XML_SFX;
   if (file_exists($trootstr))
   {
-    $tmpstr = ii_itake('manage.home' , 'tpl');
+    $tmpstr = ii_itake('manage.basic' , 'tpl');
     $tdoc = new DOMDocument();
     $tdoc -> load($trootstr);
     $txpath = new DOMXPath($tdoc);
@@ -284,11 +274,12 @@ function wdja_cms_admin_manage_home_edit()
         if($i < $tlength) $k = ii_htmlencode($nodeValue);
         if($i == $tlength) {
           if(ii_isnull($GLOBALS['RS_' . $k])) $GLOBALS['RS_' . $k] = $nodeValue;
+          $gk = "{\$=ii_itake('global.' . ADMIN_FOLDER . '/global:basic.".$k."','lng')}";
+          $tmpstr = str_replace('{$global_'.$k.'}', ii_htmlencode($gk), $tmpstr);
           $tmpstr = str_replace('{$'.$k.'}', ii_htmlencode($nodeValue), $tmpstr);
         }
       }
     }
-  	$tmpstr = str_replace('{$cttype}', $ncttype, $tmpstr);
     $tmpstr = str_replace('{$genre}', $ngenre, $tmpstr);
     $tmpstr = ii_creplace($tmpstr);
     return $tmpstr;
@@ -296,14 +287,14 @@ function wdja_cms_admin_manage_home_edit()
   else mm_client_alert(ii_itake('manage.notexists', 'lng'), -1);
 }
 
-function wdja_cms_admin_manage_seo_edit()
+function wdja_cms_admin_manage_edit_extend()
 {
   global $conn;
   global $ndatabase, $nidfield, $nfpre;
-  $trootstr = pp_get_xml_root('seo') . XML_SFX;
+  $trootstr = pp_get_xml_root('extend') . XML_SFX;
   if (file_exists($trootstr))
   {
-    $tmpstr = ii_itake('manage.seo' , 'tpl');
+    $tmpstr = ii_itake('manage.extend' , 'tpl');
     $tdoc = new DOMDocument();
     $tdoc -> load($trootstr);
     $txpath = new DOMXPath($tdoc);
@@ -330,24 +321,25 @@ function wdja_cms_admin_manage_seo_edit()
         if($i < $tlength) $k = ii_htmlencode($nodeValue);
         if($i == $tlength) {
           if(ii_isnull($GLOBALS['RS_' . $k])) $GLOBALS['RS_' . $k] = $nodeValue;
+          $gk = "{\$=ii_itake('global.' . ADMIN_FOLDER . '/global:extend.".$k."','lng')}";
+          $tmpstr = str_replace('{$global_'.$k.'}', ii_htmlencode($gk), $tmpstr);
           $tmpstr = str_replace('{$'.$k.'}', ii_htmlencode($nodeValue), $tmpstr);
         }
       }
     }
-  	$tmpstr = str_replace('{$cttype}', $ncttype, $tmpstr);
-    $tmpstr = str_replace('{$genre}', $ngenre, $tmpstr);
     $tmpstr = ii_creplace($tmpstr);
+    $tmpstr = str_replace('{#=', '{$=', $tmpstr);
     return $tmpstr;
   }
   else mm_client_alert(ii_itake('manage.notexists', 'lng'), -1);
 }
  
-function wdja_cms_admin_manage_wechat_edit()
+function wdja_cms_admin_manage_edit_weixin()
 {
-  $trootstr = pp_get_xml_root('wechat') . XML_SFX;
+  $trootstr = pp_get_xml_root('weixin') . XML_SFX;
   if (file_exists($trootstr))
   {
-    $tmpstr = ii_itake('manage.wechat' , 'tpl');
+    $tmpstr = ii_itake('manage.weixin' , 'tpl');
     $tdoc = new DOMDocument();
     $tdoc -> load($trootstr);
     $txpath = new DOMXPath($tdoc);
@@ -378,7 +370,6 @@ function wdja_cms_admin_manage_wechat_edit()
         }
       }
     }
-  	$tmpstr = str_replace('{$cttype}', $ncttype, $tmpstr);
     $tmpstr = str_replace('{$genre}', $ngenre, $tmpstr);
     $tmpstr = ii_creplace($tmpstr);
     return $tmpstr;
@@ -386,7 +377,7 @@ function wdja_cms_admin_manage_wechat_edit()
   else mm_client_alert(ii_itake('manage.notexists', 'lng'), -1);
 }
 
-function wdja_cms_admin_manage_other_edit()
+function wdja_cms_admin_manage_edit_other()
 {
   global $conn;
   global $ndatabase, $nidfield, $nfpre;
@@ -420,11 +411,12 @@ function wdja_cms_admin_manage_other_edit()
         if($i < $tlength) $k = ii_htmlencode($nodeValue);
         if($i == $tlength) {
           if(ii_isnull($GLOBALS['RS_' . $k])) $GLOBALS['RS_' . $k] = $nodeValue;
+          $gk = "{\$=ii_itake('global.' . ADMIN_FOLDER . '/global:other.".$k."','lng')}";
+          $tmpstr = str_replace('{$global_'.$k.'}', ii_htmlencode($gk), $tmpstr);
           $tmpstr = str_replace('{$'.$k.'}', ii_htmlencode($nodeValue), $tmpstr);
         }
       }
     }
-  	$tmpstr = str_replace('{$cttype}', $ncttype, $tmpstr);
     $tmpstr = str_replace('{$genre}', $ngenre, $tmpstr);
     $tmpstr = ii_creplace($tmpstr);
     return $tmpstr;
@@ -436,23 +428,23 @@ function wdja_cms_admin_manage()
 {
   switch($_GET['type'])
   {
-    case 'home':
-      return wdja_cms_admin_manage_home_edit();
+    case 'basic':
+      return wdja_cms_admin_manage_edit_basic();
       break;
-    case 'seo':
-      return wdja_cms_admin_manage_seo_edit();
+    case 'extend':
+      return wdja_cms_admin_manage_edit_extend();
       break;
-    case 'wechat':
-      return wdja_cms_admin_manage_wechat_edit();
+    case 'weixin':
+      return wdja_cms_admin_manage_edit_weixin();
       break;
     case 'other':
-      return wdja_cms_admin_manage_other_edit();
+      return wdja_cms_admin_manage_edit_other();
       break;
     case 'upload':
       uu_upload_files_html('upload_html');
       break;
     default:
-      return wdja_cms_admin_manage_home_edit();
+      return wdja_cms_admin_manage_edit_basic();
       break;
   }
 }

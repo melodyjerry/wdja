@@ -11,6 +11,10 @@
       <chinese><![CDATA[首页]]></chinese>
     </item>
     <item>
+      <disinfo><![CDATA[mgtitle]]></disinfo>
+      <chinese><![CDATA[管理后台]]></chinese>
+    </item>
+    <item>
       <disinfo><![CDATA[web_title]]></disinfo>
       <chinese><![CDATA[WDJA网站管理系统]]></chinese>
     </item>

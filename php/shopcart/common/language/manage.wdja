@@ -43,6 +43,10 @@
       <chinese><![CDATA[按年份查询]]></chinese>
     </item>
     <item>
+      <disinfo><![CDATA[month]]></disinfo>
+      <chinese><![CDATA[月]]></chinese>
+    </item>
+    <item>
       <disinfo><![CDATA[status]]></disinfo>
       <chinese><![CDATA[统计列表]]></chinese>
     </item>

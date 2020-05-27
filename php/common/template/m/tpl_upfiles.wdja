@@ -44,7 +44,6 @@ parent.loader_remove()
 }
 </style>
 <form method="post" action="?action=upload&upform={$=#upform}&uptext={$=#uptext}&upftype={$=#upftype}&upsimg={$=#upsimg}&upfname={$=#upfname}&upbasefname={$=#upbasefname}&upbasefolder={$=#upbasefolder}" enctype="multipart/form-data">
-<input type="hidden" name="nckcode" value="{$=#nckcode}" />
 <table width="100%" cellpadding="0" cellspacing="0" border="0">
   <tr>
     <td width="144"><input type="text" name="file1-route" id="file1-route" class="text fileroute" readonly="readonly" /></td>

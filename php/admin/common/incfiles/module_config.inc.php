@@ -6,6 +6,70 @@
 //****************************************************
 $admc_pstate = 'public';
 
+function wdja_cms_top_lng()
+{
+  global $nlng;
+  $outputstr = '';
+  $txinfostr = $strers;
+  $trxinfoary = ii_replace_xinfo_ary('global.sel_lng.all', 'sel');
+  $troute = $trxinfoary[0];
+  $tselectary = ii_get_xinfo($troute, $nlng);
+  if (is_array($tselectary))
+  {
+    $option_unselected = ii_itake('global.tpl_config.admin_un_lng', 'tpl');
+    $i = 0;
+    foreach ($tselectary as $key => $val)
+    {
+      if (ii_isnull($tselstr) || ii_cinstr($tselstr, $key, ','))
+      {
+        $outputstr = $outputstr . $option_unselected;
+        $outputstr = str_replace('{$explain}', $val, $outputstr);
+        $outputstr = str_replace('{$value}', $key, $outputstr);
+        $outputstr = str_replace('{$i}', $i, $outputstr);
+      }
+      $i++;
+    }
+    $outputstr = ii_creplace($outputstr);
+  }
+  return $outputstr;
+}
+
+function wdja_cms_top_lng_view()
+{
+  global $nlng;
+  $outputstr = '';
+  $txinfostr = $strers;
+  $trxinfoary = ii_replace_xinfo_ary('global.sel_lng.all', 'sel');
+  $troute = $trxinfoary[0];
+  $tselectary = ii_get_xinfo($troute, $nlng);
+  if (is_array($tselectary))
+  {
+    $option_selected = ii_itake('global.tpl_config.admin_lng', 'tpl');
+    $i = 0;
+    foreach ($tselectary as $key => $val)
+    {
+        if (ii_cinstr($nlng, $key, ','))
+        {
+          if (ii_isnull($tselstr) || ii_cinstr($tselstr, $key, ','))
+          {
+            $outputstr = $outputstr . $option_selected;
+            $outputstr = str_replace('{$explain}', $val, $outputstr);
+            $outputstr = str_replace('{$value}', $key, $outputstr);
+            $outputstr = str_replace('{$i}', $i, $outputstr);
+          }
+        break;
+        }
+      else
+      {
+        $i++;
+        continue;
+      }
+    }
+    $outputstr = ii_creplace($outputstr);
+  }
+  return $outputstr;
+}
+
 function pp_checkit()
 {
   $tckname = $_POST['ckname'];
@@ -162,7 +226,11 @@ function wdja_cms_ulogout()
 
 function wdja_cms_frame()
 {
-  return ii_ireplace('module.frame', 'tpl');
+  global $admc_name;
+    $tmpstr = ii_itake('module.frame', 'tpl');
+    $tmpstr = str_replace('{$admin_user}', $admc_name, $tmpstr);
+    $tmpstr = ii_creplace($tmpstr);
+    return $tmpstr;
 }
 
 function wdja_cms_manage()
@@ -208,6 +276,11 @@ function wdja_cms_left()
             $tstr = str_replace('{$id}', $tii, $tstr);
             $ttplstr = $ttplstr . $tstr;
             $tii = $tii + 1;
+          }
+          elseif (ii_get_lrstr($key, ':', 'right') == 'icon')
+          {
+            $tstr = str_replace('{$icon}', $val, $ttplstr);
+            $ttplstr = $tstr;
           }
           else
           {

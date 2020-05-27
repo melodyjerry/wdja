@@ -7,7 +7,7 @@
   </configure>
   <item_list>
     <item>
-      <disinfo><![CDATA[{$folder}:{$path}/manage.php]]></disinfo>
+      <disinfo><![CDATA[{$folder}:{$path}/manage.php?hspan=userlist]]></disinfo>
       <chinese><![CDATA[登录日志]]></chinese>
     </item>
   </item_list>

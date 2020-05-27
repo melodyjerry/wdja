@@ -9,67 +9,47 @@
     <item>
       <name><![CDATA[login]]></name>
       <tpl_default><![CDATA[
-<table border="0" width="100%" height="100%" cellSpacing="0" cellPadding="0">
-  <tr>
-    <td width="100%" align="center">
-      <table border="0" width="400" class="lrbtline" cellSpacing="1" cellPadding="0">
-        <tr>
-          <td height="25" class="tbtop" colspan="2">{$=ii_itake('config.login','lng')}</td>
-        </tr>
-        <tr>
-          <td width="100" align="center" valign="middle"><img src="{$=#images_route}admin_lock.gif" border="0"></td>
-          <td width="300" align="center" valign="top">
-            <table border="0" width="100%" cellSpacing="1" cellPadding="0">
-              <tr>
-                <td width="100%" height="20" colspan="2"></td>
-              </tr>
-              <form method="post" name="login" action="{$=#nuri}?action=login">
-              <input type="hidden" name="nckcode" value="{$=#nckcode}" />
-              <tr>
-                <td width="25%" height="25" align="right">{$=ii_itake('config.uname','lng')}</td>
-                <td width="75%" height="25">&nbsp;<input type="text" name="uname" style="WIDTH: 125px; HEIGHT: 20px"></td>
-              </tr>
-              <tr>
-                <td width="25%" height="25" align="right">{$=ii_itake('config.upassword','lng')}</td>
-                <td width="75%" height="25">&nbsp;<input type="password" name="password" style="WIDTH: 125px; HEIGHT: 20px"></td>
-              </tr>
-              <tr>
-                <td width="25%" height="25" align="right">{$=ii_itake('config.validate','lng')}</td>
-                <td width="75%" height="25">&nbsp;<input type="text" name="valcode" size="4">&nbsp;{$=mm_valcode()}</td>
-              </tr>
-              <tr>
-                <td width="100%" height="10" colspan="2"></td>
-              </tr>
-              <tr>
-                <td width="25%" height="25" align="right"></td>
-                <td width="75%" height="25">&nbsp;<input type="submit" name="submit" value="{$=ii_itake('config.ulogin','lng')}" class="button">&nbsp;<input type="reset" name="reset" value="{$=ii_itake('config.ureset','lng')}" class="button"></td>
-              </tr>
-              </form>
-              <tr>
-                <td width="100%" height="20" colspan="2"></td>
-              </tr>
-            </table>
-          </td>
-        </tr>
-        <tr>
-          <td height="20" colspan="2" align="right" class="tbtop">{$=ii_itake('config.copyright','lng')}&nbsp;</td>
-        </tr>
-      </table>
-    </td>
-  </tr>
-</table>
+      <style>
+      .table{border: 0 !important;}
+      .container { background: #eee;}
+      nav{display:none;}
+      </style>
+      <div class="login">
+  <h1>{$=ii_itake('config.login','lng')}</h1>
+  <form method="post" name="login" action="{$=#nuri}?action=login">
+    <div class="field">
+      <em class="u"></em>
+      <input type="text" name="uname" class="username" placeholder="{$=ii_itake('config.uname','lng')}">
+    </div>
+    <div class="field">
+      <em class="p"></em>
+      <input type="password" name="password" class="password" placeholder="{$=ii_itake('config.upassword','lng')}">
+    </div>
+    <div class="field">
+      <em class="p"></em>
+      <input style="width:230px;" type="text" name="valcode" class="password" placeholder="{$=ii_itake('config.validate','lng')}">&nbsp;{$=mm_valcode()}
+    </div>
+    <div style="text-align: center;" class="button clear_float">
+    <button style="float:none;" class="b1">{$=ii_itake('config.ulogin','lng')}</button>
+    <a style="display: inline-block;padding: 6px 16px;line-height: 100%;font-size: 1.4rem;color: #fff;border: #666 1px solid;cursor: pointer;transition: all .1s ease;background-color: #555;border-color: #555;font: Arial;" href="{$=#nurlpre}">{$=ii_itake('config.backhome','lng')}</a>
+    <!--input style="display:none;" onclick="get_id('submit').click" type="submit" id="submit" name="submit" value="{$=ii_itake('config.ulogin','lng')}" class="b1"-->
+    </div>
+  </form>
+</div>
 ]]></tpl_default>
     </item>
     <item>
       <name><![CDATA[frame]]></name>
-      <tpl_default><![CDATA[<html>
+      <tpl_default><![CDATA[<!DOCTYPE html>
+<html>
 <head>
-<meta http-equiv="x-ua-compatible" content="IE=EmulateIE7" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"> 
 <meta http-equiv="Content-Type" content="text/html; charset={$=CHARSET}" />
 <title>{$=ii_itake('global.module.web_title', 'lng')}</title>
-<link href="{$=#images_route}frame.css" type="text/css" rel="stylesheet" />
-<script language="javascript" src="{$=#global_images_route}js/main.js"></script>
-<script language="javascript">
+<link href="{$=#images_route}global.css?{$=ii_random(3)}" type="text/css" rel="stylesheet" />
+<script type="text/javascript" src="{$=#global_images_route}js/jquery-1.7.min.js"></script>
+<script type="text/javascript" src="{$=#global_images_route}js/main.js?{$=ii_random(3)}"></script>
+<script type="text/javascript">
 <!--
 if(top.location!=self.location) top.location=self.location;
 
@@ -80,6 +60,11 @@ function myobj_load()
   tlogo = get_id("logo");
   tlists = get_id("lists");
   timages = get_id("images");
+  var tcontainer = get_id("container");
+  var ttopbar = get_id("topbar");
+  tcontainer.style.height = (getClientHeight() - ttopbar.offsetHeight) + 'px';
+  var myWidth = document.body.scrollWidth - 230; 
+  document.getElementById('main').style.cssText = 'width:'+myWidth+'px';
 }
 
 function startscroll(strt, strnum)
@@ -96,290 +81,141 @@ function scrolling(strnum, strk, strn)
   setTimeout("scrolling("+strnum+", "+strk+", "+(strn+1)+")", 15);
 }
 
-function switch_menu()
+function switch_menu(obj)
 {
+  var tmpclass = 'leftmenu min';
   var tmpstyle = 'none';
   var tmpimg = '{$=#images_route}smenu.png';
-  if (tlists.style.display == "none")
+  var pobj = tlists.getElementsByTagName('dl');
+   for(let i = 0; i<pobj.length; i++){
+        pobj[i].className = '';
+        get_id("menuTitle" + i).className = 'tit t1';
+    }
+  if (tlists.className == "leftmenu min" || tlogo.style.display == "none")
   {
+    var myWidth = document.body.scrollWidth - 230; 
+    document.getElementById('main').style.cssText = 'width:'+myWidth+'px';
+    tmpclass = 'leftmenu';
     tmpstyle = '';
+    tmpobj = "185px";
     tmpimg = '{$=#images_route}smenu.png';
+  }else{
+    var myWidth = document.body.scrollWidth - 40; 
+    document.getElementById('main').style.cssText = 'width:'+myWidth+'px';
+    tmpobj = "0px";
   }
-  if (tlogo.style.display == "none")
-  {
-    tmpstyle = '';
-    tmpimg = '{$=#images_route}smenu.png';
-  }
-  tlists.style.display = tmpstyle;
+  tlists.className = tmpclass;
   tlogo.style.display = tmpstyle;
+  obj.style.left = tmpobj;
   timages.src = tmpimg;
+}
+
+function setIframeHeight(iframe) {
+if (iframe) {
+var iframeWin = iframe.contentWindow || iframe.contentDocument.parentWindow;
+if (iframeWin.document.body) {
+iframe.height = iframeWin.document.documentElement.scrollHeight || iframeWin.document.body.scrollHeight;
+}
+}
+};
+
+function getClientHeight()
+{
+  var clientHeight=0;
+  if(document.body.clientHeight&&document.documentElement.clientHeight)
+  {
+  var clientHeight = (document.body.clientHeight<document.documentElement.clientHeight)?document.documentElement.clientHeight:document.body.clientHeight;
+  }
+  else
+  {
+  var clientHeight = (document.body.clientHeight<document.documentElement.clientHeight)?document.documentElement.clientHeight:document.body.clientHeight;
+  }
+  return clientHeight;
 }
 //-->
 </script>
 </head>
 <body onload="myobj_load()">
-<table border="0" width="100%" height="100%" cellSpacing="0" cellPadding="0">
-  <tr>
-    <td width="100%" height="47" style="background: #3eb4fa;" valign="top">
-      <table cellSpacing="0" cellPadding="0" width="100%" border="0">
-        <tr>
-          <td width="120" id="logo" name="logo"><img src="{$=#images_route}top_logo.png" border="0"></td>
-          <td width="30" height="47" align="left" onclick="switch_menu();"><img id="images" name="images" src="{$=#images_route}smenu.png" width="30" border="0"></td>
-          <td align="center">
-            <table cellSpacing="0" cellPadding="0" width="98%" border="0">
-              <tr>
-                <td align="right" width="15"></td>
-                <td align="right"><a href="{$=#nurlpre}" target="_blank"><b>{$=ii_itake('module.home','lng')}</b></a>&nbsp;<a href="admin_main.php" target="_top"><b>{$=ii_itake('module.main','lng')}</b></a>&nbsp;<a href="./?action=logout" target="_top"><b>{$=ii_itake('module.logout','lng')}</b></a></td>
-                <td align="right" width="15"></td>
-              </tr>
-            </table>
-          </td>
-        </tr>
-      </table>
-    </td>
-  </tr>
-  <tr>
-    <td width="100%" height="*">
-      <table border="0" width="100%" height="100%" cellSpacing="0" cellPadding="0">
-        <tr width="100%" height="100%">
-          <td width="120" id="lists" name="lists"><iframe id="list" name="list" src="admin_left.php" frameborder="0" scrolling="auto" width="100%" height="100%"></iframe></td>
-          <td width="*"><iframe name="main" src="admin_manage.php" frameborder="0" scrolling="auto" width="100%" height="100%"></iframe></td>
-        </tr>
-      </table>
-    </td>
-  </tr>
-</table>
+<div class="console">
+  <div id="topbar" class="topbar">
+    <h1 id="logo" ><img src="{$=#images_route}top_logo.png" border="0"></h1>
+    <span class="menu hand" onclick="switch_menu(this);"><img id="images" name="images" src="{$=#images_route}smenu.png" width="30" border="0"></span>
+    <right>
+      <div class="section"><b>{$admin_user}</b><ul><li><a href="./?action=logout" target="_top"><b>{$=ii_itake('module.logout','lng')}</b></a></li></ul></div>
+      <lang class="section"><b>{$=wdja_cms_top_lng_view()}</b><em></em>
+		<ul>
+       {$=wdja_cms_top_lng()}
+		</ul>
+      </lang>
+      <admin class="hand"><a href="admin_main.php" target="_top" title="{$=ii_itake('module.main','lng')}"></a></admin>
+      <home class="hand"><a href="{$=#nurlpre}" target="_blank" title="{$=ii_itake('module.home','lng')}"></a></home>
+      <logout class="hand"><a href="./?action=logout" target="_self" title="{$=ii_itake('module.logout','lng')}"></a></logout>
+    </right>
+  </div>
+  <div id="container" class="container">
+    <div class="leftmenu" id="lists">{$=wdja_cms_left()}</div>
+    <div class="maincontent">
+      <div class="main"><iframe id="main" name="main" src="admin_manage.php" onload="iframe_onload(this)" frameborder="0" scrolling="auto" height="100%"></iframe></div>
+    </div>
+  </div>
+</div>
 </body>
 </html>
 ]]></tpl_default>
     </item>
     <item>
       <name><![CDATA[manage]]></name>
-      <tpl_default><![CDATA[<table border="0" width="100%" cellSpacing="0" cellPadding="0">
-  <tr>
-    <td width="100%" height="5"></td>
-  </tr>
-  <tr>
-    <td width="100%" align="center">
-    <table border="0" width="98%" cellSpacing="0" cellPadding="0" class="lrbtline">
-      <tr>
-        <td width="100%" height="25" class="tbtop">{$=ii_itake('global.' . ADMIN_FOLDER . '/note:manage.channel_title', 'lng')}</td>
-      </tr>
-      <tr>
-        <td width="100%" align="center">
-	  {$=ii_ireplace('global.' . ADMIN_FOLDER . '/note:manage.api','tpl')}
-        </td>
-      </tr>
-    </table>
-    </td>
-  </tr>
-  <tr>
-    <td width="100%" height="5"></td>
-  </tr>
-  <tr>
-    <td width="100%" align="center">
-    <table border="0" width="98%" cellSpacing="0" cellPadding="0" class="lrbtline">
-      <tr>
-        <td width="100%" height="25" class="tbtop">{$=ii_itake('module.condition','lng')}</td>
-      </tr>
-      <tr>
-        <td width="100%" align="center">
-          <table border="0" width="98%" cellSpacing="0" cellPadding="0">
-            <tr>
-              <td width="100%" height="5" colspan="2"></td>
-            </tr>
-            <tr>
-              <td width="50%" height="25">{$=ii_itake('module.language','lng')}{$=getenv('HTTP_ACCEPT_LANGUAGE')?getenv('HTTP_ACCEPT_LANGUAGE'):'Null'}</td>
-              <td width="50%" height="25">{$=ii_itake('module.name','lng')}{$=getenv('SERVER_NAME')?getenv('SERVER_NAME'):'Null'}</td>
-            </tr>
-            <tr>
-              <td width="50%" height="25">{$=ii_itake('module.ip','lng')}{$=getenv('SERVER_ADDR')?getenv('SERVER_ADDR'):'Null'}</td>
-              <td width="50%" height="25">{$=ii_itake('module.port','lng')}{$=getenv('SERVER_PORT')?getenv('SERVER_PORT'):'Null'}</td>
-            </tr>
-            <tr>
-              <td width="50%" height="25">{$=ii_itake('module.time','lng')}{$=ii_now()}</td>
-              <td width="50%" height="25">{$=ii_itake('module.os','lng')}{$=PHP_OS}</td>
-            </tr>
-            <tr>
-              <td width="50%" height="25">{$=ii_itake('module.engine','lng')}{$=getenv('SERVER_SOFTWARE')?getenv('SERVER_SOFTWARE'):'Null'}</td>
-              <td width="50%" height="25">{$=ii_itake('module.protocol','lng')}{$=getenv('SERVER_PROTOCOL')?getenv('SERVER_PROTOCOL'):'Null'}</td>
-            </tr>
-            <tr>
-              <td width="100%" height="5" colspan="2"></td>
-            </tr>
-          </table>
-        </td>
-      </tr>
-    </table>
-    </td>
-  </tr>
-  <tr>
-    <td width="100%" height="5"></td>
-  </tr>
-  <tr>
-    <td width="100%" align="center">
-    <table border="0" width="98%" cellSpacing="0" cellPadding="0" class="lrbtline">
-      <tr>
-        <td width="100%" height="25" class="tbtop">{$=ii_itake('module.phpother','lng')}</td>
-      </tr>
-      <tr>
-        <td width="100%" align="center">
-          <table border="0" width="98%" cellSpacing="0" cellPadding="0">
-            <tr>
-              <td width="100%" height="5" colspan="2"></td>
-            </tr>
-            <tr>
-              <td width="50%" height="25">{$=ii_itake('module.ver','lng')}{$=PHP_VERSION}</td>
-              <td width="50%" height="25">{$=ii_itake('module.runs','lng')}{$=strtoupper(php_sapi_name())}</td>
-            </tr>
-            <tr>
-              <td width="50%" height="25">{$=ii_itake('module.zendver','lng')}{$=zend_version()}</td>
-              <td width="50%" height="25">{$=ii_itake('module.timeout','lng')}{$=get_cfg_var("max_execution_time")}s</td>
-            </tr>
-            <tr>
-              <td width="50%" height="25">{$=ii_itake('module.post_max_size','lng')}{$=get_cfg_var('post_max_size')}</td>
-              <td width="50%" height="25">{$=ii_itake('module.memory_limit','lng')}{$=get_cfg_var('memory_limit')}</td>
-            </tr>
-            <tr>
-              <td width="50%" height="25">{$=ii_itake('module.stag','lng')}<b>{$=get_cfg_var('short_open_tag')?'<font color="green">√</font>':'<font color="red">×</font>'}</b></td>
-              <td width="50%" height="25">{$=ii_itake('module.smtp','lng')}<b>{$=get_cfg_var('SMTP')?'<font color="green">√</font>':'<font color="red">×</font>'}</b></td>
-            </tr>
-            <tr>
-              <td width="50%" height="25">{$=ii_itake('module.com','lng')}<b>{$=function_exists(com_set)?'<font color="green">√</font>':'<font color="red">×</font>'}</b></td>
-              <td width="50%" height="25">{$=ii_itake('module.pdf','lng')}<b>{$=function_exists(pdf_close)?'<font color="green">√</font>':'<font color="red">×</font>'}</b></td>
-            </tr>
-            <tr>
-              <td width="50%" height="25">{$=ii_itake('module.ftp','lng')}<b>{$=function_exists(ftp_login)?'<font color="green">√</font>':'<font color="red">×</font>'}</b></td>
-              <td width="50%" height="25">{$=ii_itake('module.session','lng')}<b>{$=function_exists(session_start)?'<font color="green">√</font>':'<font color="red">×</font>'}</b></td>
-            </tr>
-            <tr>
-              <td width="100%" height="5" colspan="2"></td>
-            </tr>
-          </table>
-        </td>
-      </tr>
-    </table>
-    </td>
-  </tr>
-  <tr>
-    <td width="100%" height="5"></td>
-  </tr>
-  <tr>
-    <td width="100%" align="center">
-    <table border="0" width="98%" cellSpacing="0" cellPadding="0" class="lrbtline">
-      <tr>
-        <td width="100%" height="25" class="tbtop">{$=ii_itake('module.ckother','lng')}</td>
-      </tr>
-      <tr>
-        <td width="100%" align="center">
-          <table border="0" width="98%" cellSpacing="0" cellPadding="0">
-            <tr>
-              <td width="100%" height="5"></td>
-            </tr>
-            <form method="post" name="ckform">
-            <input type="hidden" name="nckcode" value="{$=#nckcode}" />
-            <tr>
-              <td width="100%" height="25">{$=ii_itake('module.ckname','lng')}<input type="text" name="ckname" size="25">&nbsp;<input type="submit" name="submit" value="{$=ii_itake('module.cksubmit','lng')}" class="button"></td>
-            </tr>
-            </form>
-            <tr>
-              <td width="100%" height="20" class="red">{$=pp_checkit()}</td>
-            </tr>
-            <tr>
-              <td width="100%" height="5"></td>
-            </tr>
-          </table>
-        </td>
-      </tr>
-    </table>
-    </td>
-  </tr>
-  <tr>
-    <td width="100%" height="5"></td>
-  </tr>
-</table>
+      <tpl_default><![CDATA[
+  <div class="table">
+    <h3>{$=ii_itake('global.' . ADMIN_FOLDER . '/note:manage.channel_title', 'lng')}</h3>
+    {$=ii_ireplace('global.' . ADMIN_FOLDER . '/note:manage.api','tpl')}
+  </div>
+  <div class="table">
+    <h3>{$=ii_itake('module.condition','lng')}</h3>
+    <ul class="para">
+      <li><b>{$=ii_itake('module.language','lng')}</b>{$=getenv('HTTP_ACCEPT_LANGUAGE')?getenv('HTTP_ACCEPT_LANGUAGE'):'Null'}</li>
+      <li><b>{$=ii_itake('module.name','lng')}</b>{$=getenv('SERVER_NAME')?getenv('SERVER_NAME'):'Null'}</li>
+      <li><b>{$=ii_itake('module.ip','lng')}</b>{$=getenv('SERVER_ADDR')?getenv('SERVER_ADDR'):'Null'}</li>
+      <li><b>{$=ii_itake('module.port','lng')}</b>{$=getenv('SERVER_PORT')?getenv('SERVER_PORT'):'Null'}</li>
+      <li><b>{$=ii_itake('module.time','lng')}</b>{$=ii_now()}</li>
+      <li><b>{$=ii_itake('module.engine','lng')}</b>{$=getenv('SERVER_SOFTWARE')?getenv('SERVER_SOFTWARE'):'Null'}</li>
+      <li><b>{$=ii_itake('module.protocol','lng')}</b>{$=getenv('SERVER_PROTOCOL')?getenv('SERVER_PROTOCOL'):'Null'}</li>
+      <li><b>{$=ii_itake('module.os','lng')}</b>{$=PHP_OS}</li>
+    </ul>
+  </div>
+  <div class="table">
+    <h3>{$=ii_itake('module.phpother','lng')}</h3>
+    <ul class="para">
+      <li><b>{$=ii_itake('module.ver','lng')}</b>{$=PHP_VERSION}</li>
+      <li><b>{$=ii_itake('module.runs','lng')}</b>{$=strtoupper(php_sapi_name())}</li>
+      <li><b>{$=ii_itake('module.zendver','lng')}</b>{$=zend_version()}</li>
+      <li><b>{$=ii_itake('module.timeout','lng')}</b>{$=get_cfg_var("max_execution_time")}s</li>
+      <li><b>{$=ii_itake('module.post_max_size','lng')}</b>{$=get_cfg_var('post_max_size')}</li>
+      <li><b>{$=ii_itake('module.memory_limit','lng')}</b>{$=get_cfg_var('memory_limit')}</li>
+      <li><b>{$=ii_itake('module.stag','lng')}</b>{$=get_cfg_var('short_open_tag')?'<font color="green">√</font>':'<font color="red">×</font>'}</li>
+      <li><b>{$=ii_itake('module.smtp','lng')}</b>{$=get_cfg_var('SMTP')?'<font color="green">√</font>':'<font color="red">×</font>'}</li>
+      <li><b>{$=ii_itake('module.com','lng')}</b>{$=function_exists(com_set)?'<font color="green">√</font>':'<font color="red">×</font>'}</li>
+      <li><b>{$=ii_itake('module.pdf','lng')}</b>{$=function_exists(pdf_close)?'<font color="green">√</font>':'<font color="red">×</font>'}</li>
+      <li><b>{$=ii_itake('module.ftp','lng')}</b>{$=function_exists(ftp_login)?'<font color="green">√</font>':'<font color="red">×</font>'}</li>
+      <li><b>{$=ii_itake('module.session','lng')}</b>{$=function_exists(session_start)?'<font color="green">√</font>':'<font color="red">×</font>'}</li>
+    </ul>
+  </div>
 ]]></tpl_default>
     </item>
     <item>
       <name><![CDATA[left]]></name>
-      <tpl_default><![CDATA[<table cellSpacing="0" cellPadding="0" width="100%" height="100%" align="left" border="0" class="trw">
-  <tr>
-    <td height="5"></td>
-  </tr>
-  <tr>
-    <td vAlign="top">{@recurrence_ida}
-      <table cellSpacing="0" cellPadding="0" border="0" width="80" align="center">
-        <tr>
-          <td width="*" height="30" class="menu_title" id="menuTitle1" onclick="switch_display('submenu{$id}')"><span>{$description}</span></td>
-        </tr>
-      </table>
-      <table cellSpacing="0" cellPadding="0" border="0" width="80" align="center" id="submenu{$id}" style="display:none;">
-        <tr>
-          <td valign="top" align="center">
-            <table cellSpacing="0" cellPadding="0" border="0" width="80" class="sec_menu" align="center">
-              <tr>
-                <td>
-                  <table cellSpacing="0" cellPadding="0" border="0" width="72" align="center">
-                    <tr>
-                      <td height="5" colspan="2"></td>
-                    </tr>{@recurrence_idb}
-                    <tr>
-                      <td height="20" width="15" align="center"><img src="{$=#images_route}icos.gif" width="5" height="7" border="0"></td><td height="20" width="125"><a href="{$ahref}" target="main">{$topic}</a></td>
-                    </tr>{@recurrence_idb}
-                  </table>
-                 </td>
-               </tr>
-            </table>
-          </td>
-        </tr>
-      </table>
-      <table cellSpacing="0" cellPadding="0" border="0" width="80" align="center">
-        <tr>
-          <td width="72" background="{$=#images_route}menu_endbg.gif"></td>
-        </tr>
-      </table>
-      <table cellSpacing="0" cellPadding="0" border="0" width="100%" align="center">
-        <tr>
-          <td height="2"></td>
-        </tr>
-      </table>{@recurrence_ida}
-      <table cellSpacing="0" cellPadding="0" border="0" width="80" align="center">
-        <tr>
-          <td width="*" background="{$=#images_route}menu_topbg.gif" class="menu_title" id="menuTitle1" height="25"><span>{$=ii_itake('module.sysinfo','lng')}</span></td>
-        </tr>
-      </table>
-      <table cellSpacing="0" cellPadding="0" border="0" width="80" align="center">
-        <tr>
-          <td valign="top" align="center">
-            <table cellSpacing="0" cellPadding="0" border="0" width="80" class="sec_menu" align="center">
-              <tr>
-                <td>
-                  <table cellSpacing="0" cellPadding="0" border="0" width="72" align="center">
-                    <tr>
-                      <td height="5"></td>
-                    </tr>
-                    <tr>
-                      <td height="20" width="100" align="center"><a href="http://www.wdja.cn/" target="_blank">{$=ii_itake('config.copyright','lng')}</a></td>
-                    </tr>
-                    <tr>
-                      <td height="5"></td>
-                    </tr>
-                  </table>
-                 </td>
-               </tr>
-            </table>
-            <table cellSpacing="0" cellPadding="0" border="0" width="100%" align="center">
-              <tr>
-                <td height="5"></td>
-              </tr>
-            </table>
-          </td>
-        </tr>
-      </table>
-    </td>
-  </tr>
-</table>
-]]></tpl_default>
+      <tpl_default><![CDATA[<ul>
+{@recurrence_ida}
+  <li>
+  <em class="line"></em><span class="tit t1" id="menuTitle{$id}" onclick="switch_display(this,'submenu{$id}')"><em class="e{$icon}"></em><b>{$description}</b><d class=""></d></span>
+  <dl class="" id="submenu{$id}">
+  {@recurrence_idb}
+  <dd><span class="tit t2"><a href="{$ahref}" onclick="switch_display_a(this)" target="main"><b>{$topic}</b></a></span></dd>
+  {@recurrence_idb}
+</dl>
+</li>
+{@recurrence_ida}
+</ul>]]></tpl_default>
     </item>
   </item_list>
 </xml>

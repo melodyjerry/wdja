@@ -8,7 +8,7 @@
   <language_list>
     <item>
       <disinfo><![CDATA[copyright]]></disinfo>
-      <chinese><![CDATA[WDJA网站内容管理系统(V1.5.3)]]></chinese>
+      <chinese><![CDATA[WDJA网站内容管理系统(V1.0)]]></chinese>
     </item>
     <item>
       <disinfo><![CDATA[slng]]></disinfo>
@@ -41,6 +41,10 @@
     <item>
       <disinfo><![CDATA[ulogin]]></disinfo>
       <chinese><![CDATA[确认登录]]></chinese>
+    </item>
+    <item>
+      <disinfo><![CDATA[backhome]]></disinfo>
+      <chinese><![CDATA[返回首页]]></chinese>
     </item>
     <item>
       <disinfo><![CDATA[ureset]]></disinfo>

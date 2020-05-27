@@ -65,9 +65,10 @@
 </head>
 <body>
 <h2>{$topic}</h2>
+<p>{$=api_tags_list()}</p>
 <p>{$=vv_inavigation('{$genre}', 'classid={$class};strers=module;strurl={$genre}','1')}</p>
 <p>{$description}</p>
-{$=mm_encode_content(mm_cutepage_content($GLOBALS['RS_content'], 'cp_note={$cp_note};cp_mode={$cp_mode};cp_type={$cp_type};cp_num={$cp_num};cp_page={$page}'), '{$cttype}')}
+{$=mm_encode_content(mm_cutepage_content(api_tags_replace_tags($GLOBALS['RS_content'])))}
 
 <p>
 {$=vv_itransfer('up', 'updown', 'topx=1;genre={$genre};bid={$id}')}

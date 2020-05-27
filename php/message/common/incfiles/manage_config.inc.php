@@ -41,7 +41,7 @@ function wdja_cms_admin_manage_adddisp()
     '" . ii_left(ii_cstr($_POST['mobile']), 50) . "',
     '" . ii_left(ii_cstr($_POST['email']), 50) . "',
     '" . ii_left(ii_cstr($_POST['address']), 255) . "',
-    '" . ii_left($ttitle, 50) . "',
+    '" . ii_left($ttitle, 250) . "',
     '" . ii_left(ii_cstr($_POST['content']), 10000) . "',
     " . ii_get_num($_POST['hidden']) . ",
     '" . ii_now() . "',
@@ -72,7 +72,7 @@ function wdja_cms_admin_manage_editdisp()
     " . ii_cfname('mobile') . "=" . ii_left(ii_cstr($_POST['mobile']), 50) . ",
     " . ii_cfname('email') . "='" . ii_left(ii_cstr($_POST['email']), 50) . "',
     " . ii_cfname('address') . "='" . ii_left(ii_cstr($_POST['address']), 255) . "',
-    " . ii_cfname('title') . "='" . ii_left($ttitle, 50) . "',
+    " . ii_cfname('title') . "='" . ii_left($ttitle, 250) . "',
     " . ii_cfname('content') . "='" . ii_left(ii_cstr($_POST['content']), 10000) . "',
     " . ii_cfname('hidden') . "=" . ii_get_num($_POST['hidden']) . ",
     " . ii_cfname('time') . "='" . ii_get_date(ii_cstr($_POST['time'])) . "',
@@ -182,6 +182,7 @@ function wdja_cms_admin_manage_list()
       $tmptstr = str_replace('{$title}', $ttitle, $tmpastr);
       $tmptstr = str_replace('{$titlestr}', ii_encode_scripts(ii_htmlencode($trs[ii_cfname('title')])), $tmptstr);
       $tmptstr = str_replace('{$name}', ii_htmlencode($trs[ii_cfname('name')]), $tmptstr);
+      $tmptstr = str_replace('{$ip}', mm_ip_map($trs[ii_cfname('ip')]), $tmptstr);
       $tmptstr = str_replace('{$time}', ii_get_date($trs[ii_cfname('time')]), $tmptstr);
       $tmptstr = str_replace('{$id}', ii_get_num($trs[$nidfield]), $tmptstr);
       $tmprstr .= $tmptstr;

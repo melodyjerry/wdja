@@ -1,0 +1,13 @@
+<xml mode="wdja" author="wdja">
+  <configure>
+    <node>item</node>
+    <field>disinfo,chinese</field>
+    <base>language_list</base>
+  </configure>
+  <language_list>
+    <item>
+      <disinfo><![CDATA[tags]]></disinfo>
+      <chinese><![CDATA[标签]]></chinese>
+    </item>
+  </language_list>
+</xml>
