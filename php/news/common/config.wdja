@@ -19,9 +19,7 @@
     <item varstr="thumbnail.upsimg" strvalue="0" />
     <item varstr="thumbnail.upsimgs" strvalue="1" />
     <item varstr="nindex" strvalue="index.php" />
-    <item varstr="nfields" strvalue="1" />
     <item varstr="nglobal" strvalue="1" />
-    <item varstr="nsort" strvalue="1" />
     <item varstr="ncontentcutepage" strvalue="1" />
     <item varstr="ncreatefolder" strvalue="htmldata" />
     <item varstr="ncreatefiletype" strvalue=".html" />

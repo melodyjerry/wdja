@@ -41,7 +41,7 @@ function wdja_cms_module_adddisp()
     '" . ii_left(ii_cstr($_POST['mobile']), 50) . "',
     '" . ii_left(ii_cstr($_POST['email']), 50) . "',
     '" . ii_left(ii_cstr($_POST['address']), 255) . "',
-    '" . ii_left(ii_cstr($_POST['title']), 250) . "',
+    '" . ii_left(ii_cstr($_POST['title']), 50) . "',
     '" . ii_left(ii_cstr($_POST['content']), 10000) . "',
     " . ii_get_num($_POST['hidden']) . ",
     '$nlng',
@@ -49,9 +49,9 @@ function wdja_cms_module_adddisp()
     )";
     $trs = ii_conn_query($tsqlstr, $conn);
     if ($trs){
-        $gmail = ii_itake('global.' . ADMIN_FOLDER . '/global:extend.message_mail','lng');
-        $gtitle = ii_itake('global.' . ADMIN_FOLDER . '/global:extend.message_title','lng');
-        $gbody = ii_itake('global.' . ADMIN_FOLDER . '/global:extend.message_body','lng');
+        $gmail = ii_itake('global.' . ADMIN_FOLDER . '/global:other.message_mail','lng');
+        $gtitle = ii_itake('global.' . ADMIN_FOLDER . '/global:other.message_title','lng');
+        $gbody = ii_itake('global.' . ADMIN_FOLDER . '/global:other.message_body','lng');
       	mm_sendemail($gmail, $gtitle, $gbody);
    		mm_imessage(ii_itake('global.lng_public.succeed', 'lng'), $nuri);
     } else {

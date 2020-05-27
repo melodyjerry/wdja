@@ -70,9 +70,5 @@
       <value><![CDATA[ip]]></value>
       <chinese><![CDATA[按IP]]></chinese>
     </item>
-    <item>
-      <value><![CDATA[intro]]></value>
-      <chinese><![CDATA[按介绍]]></chinese>
-    </item>
   </sel_list>
 </xml>

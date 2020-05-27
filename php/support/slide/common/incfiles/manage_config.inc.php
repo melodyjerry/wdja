@@ -5,7 +5,7 @@
 // Web: http://www.wdja.cn/
 //****************************************************
 wdja_cms_admin_init();
-$nsearch = 'topic,intro';
+$nsearch = 'topic,keyword';
 $ncontrol = 'select,delete';
 
 function pp_manage_navigation()
@@ -227,7 +227,6 @@ function wdja_cms_admin_manage_list()
   $tmprstr = '';
   $tsqlstr = "select * from $ndatabase where $nidfield>0";
   if ($search_field == 'topic') $tsqlstr .= " and " . ii_cfname('topic') . " like '%" . $search_keyword . "%'";
-  if ($search_field == 'intro') $tsqlstr .= " and " . ii_cfname('intro') . " like '%" . $search_keyword . "%'";
   $tsqlstr .= " order by $ndatabase." . ii_cfname('order') . " asc";
   $tcp = new cc_cutepage;
   $tcp -> id = $nidfield;

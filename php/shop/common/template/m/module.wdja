@@ -20,6 +20,7 @@
 <script language="javascript" src="{$=#global_images_route}js/jquery-1.7.min.js"></script>
 <script type="text/javascript" src="{$=#global_images_route}js/main.js?{$=ii_random(3)}"></script>
 <form id="filterForm" name="form1" method="get" action="{$=#nurl}">
+<input type="hidden" name="nckcode" value="{$=#nckcode}" />
 <input id="type" type="hidden" value="list" name="type" to="filter">
 <input id="classid" type="hidden" value="{$classid}" name="classid" to="filter">
 <input id="offset" type="hidden" value="{$offset}" name="offset" to="filter">
@@ -87,6 +88,7 @@
                 <span layout="flex-item">{$limitnum}{$unit}</span>
                       </li>
               <form method="get" action="{$=ii_get_actual_route($GLOBALS['nshopcart'])}">
+              <input type="hidden" name="nckcode" value="{$=#nckcode}" />
               <input type="hidden" name="action" value="add" />
               <input type="hidden" name="id" value="{$id}" />
               <input type="hidden" name="backurl" value="{$=urlencode($GLOBALS['nurl'])}" />
@@ -97,7 +99,7 @@
                </li>
               </form>
 </ul>
-        {$=mm_encode_content(mm_content_mip(api_tags_replace_tags($GLOBALS['RS_content'])))}</div>
+        {$=mm_encode_content(mm_content_mip($GLOBALS['RS_content']), '{$cttype}')}</div>
         <div class="updown">
             <div class="up">{$=vv_itransfer('up', 'updown', 'topx=1;genre={$genre};bid={$id}')} </div>
             <div class="down">{$=vv_itransfer('down', 'updown', 'topx=1;genre={$genre};bid={$id}')}</div>

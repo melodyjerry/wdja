@@ -8,11 +8,6 @@ header("cache-control: no-cache, must-revalidate");
 header("pragma: no-cache");
 wdja_cms_admin_init();
 
-function pp_manage_navigation()
-{
-  return ii_ireplace('manage.navigation', 'tpl');
-}
-
 function pp_get_cthtm_select()
 {
   global $variable;

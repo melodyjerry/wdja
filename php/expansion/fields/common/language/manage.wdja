@@ -8,43 +8,47 @@
   <language_list>
     <item>
       <disinfo><![CDATA[mgtitle]]></disinfo>
-      <chinese><![CDATA[字段管理]]></chinese>
+      <chinese><![CDATA[属性管理]]></chinese>
     </item>
     <item>
       <disinfo><![CDATA[nav_list]]></disinfo>
-      <chinese><![CDATA[全部字段列表]]></chinese>
+      <chinese><![CDATA[全部属性列表]]></chinese>
     </item>
     <item>
       <disinfo><![CDATA[nav_add]]></disinfo>
-      <chinese><![CDATA[添加一个新的字段]]></chinese>
+      <chinese><![CDATA[添加一个新的属性]]></chinese>
     </item>
     <item>
       <disinfo><![CDATA[edit]]></disinfo>
-      <chinese><![CDATA[编辑字段属性]]></chinese>
+      <chinese><![CDATA[编辑属性属性]]></chinese>
     </item>
     <item>
       <disinfo><![CDATA[genre]]></disinfo>
-      <chinese><![CDATA[字段模块]]></chinese>
+      <chinese><![CDATA[所属模块]]></chinese>
     </item>
     <item>
       <disinfo><![CDATA[topic]]></disinfo>
-      <chinese><![CDATA[字段标题]]></chinese>
+      <chinese><![CDATA[属性标题]]></chinese>
     </item>
     <item>
       <disinfo><![CDATA[type]]></disinfo>
-      <chinese><![CDATA[字段类型]]></chinese>
+      <chinese><![CDATA[属性类型]]></chinese>
     </item>
     <item>
       <disinfo><![CDATA[count]]></disinfo>
-      <chinese><![CDATA[字段数目]]></chinese>
+      <chinese><![CDATA[属性数目]]></chinese>
     </item>
     <item>
       <disinfo><![CDATA[starttime]]></disinfo>
-      <chinese><![CDATA[字段开始时间]]></chinese>
+      <chinese><![CDATA[属性开始时间]]></chinese>
     </item>
     <item>
       <disinfo><![CDATA[endtime]]></disinfo>
-      <chinese><![CDATA[字段结束时间]]></chinese>
+      <chinese><![CDATA[属性结束时间]]></chinese>
+    </item>
+    <item>
+      <disinfo><![CDATA[lock]]></disinfo>
+      <chinese><![CDATA[加入筛选]]></chinese>
     </item>
     <item>
       <disinfo><![CDATA[option]]></disinfo>
@@ -68,15 +72,7 @@
     </item>
     <item>
       <disinfo><![CDATA[add_count_error]]></disinfo>
-      <chinese><![CDATA[字段总数不能小于或等于零]]></chinese>
-    </item>
-    <item>
-      <disinfo><![CDATA[input_tips]]></disinfo>
-      <chinese><![CDATA[输入框无默认选项,且创建后不可与其它字段类型进行切换.]]></chinese>
-    </item>
-    <item>
-      <disinfo><![CDATA[type_error]]></disinfo>
-      <chinese><![CDATA[输入框不可进行更改]]></chinese>
+      <chinese><![CDATA[属性总数不能小于或等于零]]></chinese>
     </item>
   </language_list>
 </xml>

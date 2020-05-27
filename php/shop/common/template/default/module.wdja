@@ -18,6 +18,7 @@
       </div>
 
 <form id="filterForm" name="form1" method="get" action="{$=#nurl}">
+<input type="hidden" name="nckcode" value="{$=#nckcode}" />
 <input id="type" type="hidden" value="list" name="type" to="filter">
 <input id="classid" type="hidden" value="{$classid}" name="classid" to="filter">
 <input id="offset" type="hidden" value="{$offset}" name="offset" to="filter">
@@ -52,111 +53,111 @@
 <section id="middle">
   <div id="middleContent">
     <div class="content">
-      <nav class="nav">{$=vv_inavigation('{$genre}', 'classid={$class};strers=module;strurl={$genre}')}</nav>
-      <h1>{$topic}</h1>
-      <div class="con_text">
+        <nav class="nav">{$=vv_inavigation('{$genre}', 'classid={$class};strers=module;strurl={$genre}')}</nav>
+        <h1>{$topic}</h1>
+        <div class="con_text">
         <p>{$=ii_itake('global.lng_config.time','lng')}:{$time},{$=ii_itake('global.lng_config.count','lng')}:<span>{$count}</span></p>
-        <div style="float: left;display:inline-block;text-align: right;"><img src="{$image}" alt="{$image}" width="300" height="246" /></div>
-        <div style="float: left;display:inline-block;">
-          <table width="100%" cellspacing="0" cellpadding="0" border="0">
-            <tr>
-              <td width="80" height="25" align="right">{$=ii_itake('config.snum', 'lng')}</td>
-              <td width="5"></td>
-              <td>{$snum}</td>
-            </tr>
-            <tr>
-              <td height="25" align="right">{$=ii_itake('config.topic', 'lng')}</td>
-              <td></td>
-              <td>{$topic}</td>
-            </tr>
-            {$=api_view_fields()}
-            {@recurrence_ida}
-            <tr>
-              <td width="80" height="25" align="right">{$infos_topic}</td>
-              <td width="5"></td>
-              <td>{$infos_link}</td>
-            </tr>
-            {@recurrence_ida}
-            <tr>
-              <td height="25" align="right">{$=ii_itake('config.price', 'lng')}</td>
-              <td></td>
-              <td class="del">{$price}{$=ii_itake('global.lng_unit.money', 'lng')}</td>
-            </tr>
-            <tr>
-              <td height="25" align="right">{$=ii_itake('config.wprice', 'lng')}</td>
-              <td></td>
-              <td>{$wprice}{$=ii_itake('global.lng_unit.money', 'lng')}</td>
-            </tr>
-            <tr>
-              <td height="25" align="right">{$=ii_itake('config.limitnum', 'lng')}</td>
-              <td></td>
-              <td>{$limitnum}{$unit}</td>
-            </tr>
-          </table>
-          <form method="get" action="{$=ii_get_actual_route($GLOBALS['nshopcart'])}" onSubmit="return ACBuy.tcksubmit();">
-            <input type="hidden" name="action" value="add" />
-            <input type="hidden" name="id" value="{$id}" />
-            <input type="hidden" name="backurl" value="{$=urlencode($GLOBALS['nurl'])}" />
-            <table width="100%" cellspacing="0" cellpadding="0" border="0">
-              <tr>
-                <td colspan="3" height="5"></td>
-              </tr>
-              <tr>
-                <td align="right" width="80" height="25">{$=ii_itake('module.buynum', 'lng')}</td><td width="5"></td><td><input type="text" id="buynum" name="buynum" value="1" size="4" onkeyup="ACBuy.tcklimitnum(this.id, this.value);" /> <input type="image" id="buyimg" src="/{$genre}/{$=#images_route}buy_{$=#nlng}.gif" /></td>
-              </tr>
-              <tr>
-                <td colspan="3" height="5"></td>
-              </tr>
-            </table>
-          </form>
-        </div>
-        <div class="clear"></div>
-        <div>{$=mm_encode_content(api_tags_replace_tags($GLOBALS['RS_content']))}</div>
-      </div>
-      <div id="ct-cutepage" class="cutepage">{$=mm_cutepage_content_page_sel($GLOBALS['RS_content'], 'folder=' . $GLOBALS['ncreatefolder'] . ';filetype=' . $GLOBALS['ncreatefiletype'] . ';cutekey={$id};time={$time}')}</div>
-      <div class="updown">
-        <div class="up">{$=vv_itransfer('up', 'updown', 'topx=1;genre={$genre};bid={$id}')} </div>
-        <div class="down">{$=vv_itransfer('down', 'updown', 'topx=1;genre={$genre};bid={$id}')}</div>
-      </div>
+                    <div style="float: left;display:inline-block;text-align: right;"><img src="{$image}" alt="{$image}" width="300" height="246" /></div>
+                    <div style="float: left;display:inline-block;">
+                    <table width="100%" cellspacing="0" cellpadding="0" border="0">
+                      <tr>
+                        <td width="80" height="25" align="right">{$=ii_itake('config.snum', 'lng')}</td>
+                        <td width="5"></td>
+                        <td>{$snum}</td>
+                      </tr>
+                      <tr>
+                        <td height="25" align="right">{$=ii_itake('config.topic', 'lng')}</td>
+                        <td></td>
+                        <td>{$topic}</td>
+                      </tr>
+                    {$=api_view_fields()}
+                    {@recurrence_ida}
+                      <tr>
+                        <td width="80" height="25" align="right">{$infos_topic}</td>
+                        <td width="5"></td>
+                        <td>{$infos_link}</td>
+                      </tr>
+                    {@recurrence_ida}
+                      <tr>
+                        <td height="25" align="right">{$=ii_itake('config.price', 'lng')}</td>
+                        <td></td>
+                        <td class="del">{$price}{$=ii_itake('global.lng_unit.money', 'lng')}</td>
+                      </tr>
+                      <tr>
+                        <td height="25" align="right">{$=ii_itake('config.wprice', 'lng')}</td>
+                        <td></td>
+                        <td>{$wprice}{$=ii_itake('global.lng_unit.money', 'lng')}</td>
+                      </tr>
+                      <tr>
+                        <td height="25" align="right">{$=ii_itake('config.limitnum', 'lng')}</td>
+                        <td></td>
+                        <td>{$limitnum}{$unit}</td>
+                      </tr>
+                    </table>
+                    <form method="get" action="{$=ii_get_actual_route($GLOBALS['nshopcart'])}" onSubmit="return ACBuy.tcksubmit();">
+                    <input type="hidden" name="nckcode" value="{$=#nckcode}" />
+                    <input type="hidden" name="action" value="add" />
+                    <input type="hidden" name="id" value="{$id}" />
+                    <input type="hidden" name="backurl" value="{$=urlencode($GLOBALS['nurl'])}" />
+                    <table width="100%" cellspacing="0" cellpadding="0" border="0">
+                      <tr>
+                        <td colspan="3" height="5"></td>
+                      </tr>
+                      <tr>
+                        <td align="right" width="80" height="25">{$=ii_itake('module.buynum', 'lng')}</td><td width="5"></td><td><input type="text" id="buynum" name="buynum" value="1" size="4" onkeyup="ACBuy.tcklimitnum(this.id, this.value);" /> <input type="image" id="buyimg" src="/{$genre}/{$=#images_route}buy_{$=#nlng}.gif" /></td>
+                      </tr>
+                      <tr>
+                        <td colspan="3" height="5"></td>
+                      </tr>
+                    </table>
+                    </form>
+                    </div>
+  					<div class="clear"></div>
+        			<div>{$=mm_encode_content($GLOBALS['RS_content'], '{$cttype}')}</div>
+                  </div>
+                  <div class="updown">
+                      <div class="up">{$=vv_itransfer('up', 'updown', 'topx=1;genre={$genre};bid={$id}')} </div>
+                      <div class="down">{$=vv_itransfer('down', 'updown', 'topx=1;genre={$genre};bid={$id}')}</div>
+                  </div>
     </div>
     <div class="clear"></div>
   </div>
 </section>
 <script type="text/javascript">
-  ACBuy = {
-    tstate: 0,
-    tlimitnum: {$limitnum},
-    tinit: function ()
+ACBuy = {
+  tstate: 0,
+  tlimitnum: {$limitnum},
+  tinit: function ()
+  {
+    if (this.tlimitnum <= 0)
     {
-      if (this.tlimitnum <= 0)
-      {
-        this.tstate = 1;
-        get_id('buynum').value = 0;
-        get_id('buyimg').src = '{$=#images_route}buyn_{$=#nlng}.gif';
-      }
-      else get_id('buynum').value = 1;
-    },
-    tcklimitnum: function (strid, strnum)
-    {
-      var tstrnum = get_num(strnum);
-      get_id(strid).value = tstrnum;
-      if (tstrnum > this.tlimitnum)
-      {
-        if (this.tlimitnum != 0) alert('{$=ii_itake('module.limitnumerror', 'lng')}');
-        get_id(strid).value = this.tlimitnum;
-      };
-    },
-    tcksubmit: function()
-    {
-      if (this.tstate == 1)
-      {
-        alert('{$=ii_itake('module.limitnumerror2', 'lng')}');
-        return false;
-      };
+      this.tstate = 1;
+      get_id('buynum').value = 0;
+      get_id('buyimg').src = '{$=#images_route}buyn_{$=#nlng}.gif';
     }
-  };
+    else get_id('buynum').value = 1;
+  },
+  tcklimitnum: function (strid, strnum)
+  {
+    var tstrnum = get_num(strnum);
+    get_id(strid).value = tstrnum;
+    if (tstrnum > this.tlimitnum)
+    {
+      if (this.tlimitnum != 0) alert('{$=ii_itake('module.limitnumerror', 'lng')}');
+      get_id(strid).value = this.tlimitnum;
+    };
+  },
+  tcksubmit: function()
+  {
+    if (this.tstate == 1)
+    {
+      alert('{$=ii_itake('module.limitnumerror2', 'lng')}');
+      return false;
+    };
+  }
+};
 
-  ACBuy.tinit();
+ACBuy.tinit();
 
 </script>
 {$=mm_web_foot($GLOBALS['nfoot'])}]]></tpl_default>

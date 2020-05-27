@@ -18,6 +18,7 @@
       </div>
 <script type="text/javascript" src="{$=#global_images_route}js/main.js?{$=ii_random(3)}"></script>
 <form id="filterForm" name="form1" method="get" action="{$=#nurl}">
+<input type="hidden" name="nckcode" value="{$=#nckcode}" />
 <input id="type" type="hidden" value="list" name="type" to="filter">
 <input id="classid" type="hidden" value="{$classid}" name="classid" to="filter">
 <input id="offset" type="hidden" value="{$offset}" name="offset" to="filter">
@@ -51,12 +52,11 @@
         <h1>{$topic}</h1>
         <div class="con_text">
         <p>{$=ii_itake('global.lng_config.time','lng')}:{$time},{$=ii_itake('global.lng_config.count','lng')}:<span>{$count}</span></p>
-        <p>{$=api_tags_list()}</p>
         {$=api_view_fields()}
 		{@recurrence_ida}
           <p>{$infos_topic} {$infos_link}</p>
 		{@recurrence_ida}
-        {$=mm_encode_content(mm_content_mip(api_tags_replace_tags($GLOBALS['RS_content'])))}
+        {$=mm_encode_content(mm_content_mip($GLOBALS['RS_content']), '{$cttype}')}
         </div>
         <div class="updown">
             <div class="up">{$=vv_itransfer('up', 'updown', 'topx=1;genre={$genre};bid={$id}')} </div>

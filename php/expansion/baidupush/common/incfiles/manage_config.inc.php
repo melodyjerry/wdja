@@ -8,6 +8,43 @@ wdja_cms_admin_init();
 $nurltype = 0;
 $nsearch = 'topic,id';
 $ncontrol = 'select,delete';
+$ncttype = ii_get_num($_GET['htype'], -1);
+if ($ncttype == -1) $ncttype = 0;
+
+function pp_get_module_select($module='')
+{
+  global $variable;
+  $tary = ii_get_valid_module();
+  if (is_array($tary))
+  {
+    $tmpstr = '';
+    $option_selected = ii_itake('global.tpl_config.option_select', 'tpl');
+    $option_unselected = ii_itake('global.tpl_config.option_unselect', 'tpl');
+    foreach ($tary as $key => $val)
+    {
+      if (!ii_isnull($module) && $val == $module) $tmprstr = $option_selected;
+      else $tmprstr = $option_unselected;
+      if (!ii_isnull($variable[ii_cvgenre($val) . '.nglobal'])){
+        $tmprstr = str_replace('{$explain}', '(' . mm_get_genre_title($val) . ')' , $tmprstr);
+        $tmprstr = str_replace('{$value}', $val, $tmprstr);
+      }
+      else continue;
+      $tmpstr .= $tmprstr;
+    }
+    return $tmpstr;
+  }
+}
+
+function mm_get_genre_title($genre)
+{
+  if (!ii_isnull($genre))
+  {
+    $tmpstr = @ii_itake('global.' . $genre . ':module.channel_title', 'lng');
+    if (ii_isnull($tmpstr)) $tmpstr = @ii_itake('global.' . $genre . ':module.channel_title', 'lng');
+    if (ii_isnull($tmpstr)) $tmpstr = '?';
+    return $tmpstr;
+  }
+}
 
 function pp_manage_navigation()
 {

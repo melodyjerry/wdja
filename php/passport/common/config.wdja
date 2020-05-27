@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xml mode="wdjafgf" author="wdja">
+  <configure>
+    <item varstr="nhead" strvalue="default_head" />
+    <item varstr="nfoot" strvalue="default_foot" />
+    <item varstr="npagesize" strvalue="20" />
+    <item varstr="nlisttopx" strvalue="2000" />
+    <item varstr="ndatabase" strvalue="wdja_passport" />
+    <item varstr="nidfield" strvalue="pid" />
+    <item varstr="nfpre" strvalue="p_" />
+    <item varstr="address.ndatabase" strvalue="wdja_passport_address" />
+    <item varstr="address.nidfield" strvalue="addressid" />
+    <item varstr="address.nfpre" strvalue="address_" />
+    <item varstr="face_width_max" strvalue="100" />
+    <item varstr="face_height_max" strvalue="100" />
+    <item varstr="register_close" strvalue="0" />
+    <item varstr="lostpassword_close" strvalue="0" />
+    <item varstr="thumbnail.switch" strvalue="1" />
+    <item varstr="nuninstall" strvalue="1|0|0" />
+  </configure>
+</xml>

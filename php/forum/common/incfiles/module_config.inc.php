@@ -1009,7 +1009,7 @@ function wdja_cms_module_topic_detail()
       $tmptstr = str_replace('{$icon}', ii_get_num($trs[ii_cfname('icon')]), $tmptstr);
       $tmptstr = str_replace('{$topic}', ii_htmlencode($trs[ii_cfname('topic')]), $tmptstr);
       $tmptstr = str_replace('{$time}', ii_get_date($trs[ii_cfname('time')]), $tmptstr);
-      $tmptstr = str_replace('{$content}',mm_encode_content($trs[ii_cfname('content')]), $tmptstr);
+      $tmptstr = str_replace('{$content}',mm_encode_content($trs[ii_cfname('content')], ''), $tmptstr);
       $tmptstr = str_replace('{$edit_info}', ii_htmlencode($trs[ii_cfname('edit_info')]), $tmptstr);
       $tmptstr = str_replace('{$floor}', $toffset + $ti, $tmptstr);
       $tmptstr = str_replace('{$tid}', ii_get_num($trs[$nidfield]), $tmptstr);
@@ -1205,9 +1205,18 @@ function wdja_cms_module()
   }
 }
 
-function mm_html_content($name, $value)
+function mm_html_content($name, $value, $htype)
 {
-  $tmpstr = ii_itake('global.tpl_admin.content_htmledit', 'tpl');
+  $thtype = ii_get_num($htype,0);
+  switch($thtype)
+  {
+    case 0:
+      $tmpstr = ii_itake('global.tpl_admin.content_htmledit', 'tpl');
+      break;
+    default:
+      $tmpstr = ii_itake('global.tpl_admin.content_htmledit', 'tpl');
+      break;
+  }
   $tmpstr = str_replace('{$name}', $name, $tmpstr);
   $tmpstr = str_replace('{$value}', $value, $tmpstr);
   $tmpstr = ii_creplace($tmpstr);

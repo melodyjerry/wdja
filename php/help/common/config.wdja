@@ -15,8 +15,6 @@
     <item varstr="nurltype" strvalue="0" />
     <item varstr="nclstype" strvalue="1" />
     <item varstr="nbasehref" strvalue="1" />
-    <item varstr="nfields" strvalue="1" />
-    <item varstr="nsort" strvalue="1" />
     <item varstr="nsaveimages" strvalue="1" />
     <item varstr="thumbnail.upsimg" strvalue="0" />
     <item varstr="thumbnail.upsimgs" strvalue="1" />

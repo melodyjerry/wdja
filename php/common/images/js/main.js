@@ -65,14 +65,6 @@ function get_id(strname)
   }
 }
 
-function get_file_type(fileurl)
-{
-  var file_pre_length = fileurl.lastIndexOf(".");//取到文件名开始到最后一个点的长度
-  var file_length = fileurl.length;//取到文件名长度
-  var file_type = fileurl.substring(file_pre_length + 1, file_length );//截取获得后缀名
-  return file_type;
-}
-
 function get_num(strers)
 {
   if (isNaN(strers) || strers == "")
@@ -236,7 +228,7 @@ function nhrefstate()
     var nhrefobj = get_id(nhref);
     if (nhrefobj)
     {
-      nhrefobj.className = "on";
+      nhrefobj.className = "red";
     }
   }
 }
@@ -263,40 +255,7 @@ function pop_win(strurl, strname, strwidth, strheight, strscroll)
   window.open(strurl, strname, 'width=' + nwidth + ',height=' + nheight + ',left=' + leftsize + ',top=' + topsize + ',toolbar=no,location=no,directories=no,status=no,menubar=no,scrollbars=' + strscroll + ',resizable=no' );
 }
 
-function switch_display(obj,strers)
-{
-  var tobj = get_id(strers);
-  var pobj = get_id("lists").getElementsByTagName('dl');
-  var sobj = get_id("lists").getElementsByTagName('span');
-  if(tobj.className == '')
-  {
-   for(let i = 0; i<pobj.length; i++){
-        pobj[i].className = '';
-    }
-   for(let i = 0; i<sobj.length; i++){
-        if(sobj[i].className == 'tit t1 open') sobj[i].className = 'tit t1';
-    }
-    obj.className = 'tit t1 open';
-    tobj.className = 'open';
-  }
-    else
-  {
-    obj.className = 'tit t1';
-    tobj.className = '';
-  }
-}
-
-function switch_display_a(strers)
-{
-  var tlists = get_id("lists");
-  var pobj = strers.parentNode.parentNode.parentNode;
-  if (tlists.className == "leftmenu min")
-  {
-  pobj.className = '';
-  }
-}
-
-function switch_display_default(strers)
+function switch_display(strers)
 {
   var tobj = get_id(strers);
   if(tobj.style.display == 'none')
@@ -307,17 +266,6 @@ function switch_display_default(strers)
   {
     tobj.style.display = 'none';
   }
-}
-
-function iframe_onload(strers)
-{
-  var tsrc = strers.contentWindow.location.href;
-  var tasrc = get_id("lists").getElementsByTagName('a');
-   for(let i = 0; i<tasrc.length; i++){
-        if(tasrc[i].href == tsrc) tasrc[i].parentNode.className = "tit t2 on";
-        else tasrc[i].parentNode.className = "tit t2";
-    }
-    if(tsrc.indexOf("?site_language=") != -1) window.location.reload();
 }
 
 function select_all()
@@ -335,15 +283,15 @@ function select_all()
 }
 
 function changeAddress(id){
-get_id('name').value = '';
-get_id('address').value = '';
-get_id('code').value = '';
-get_id('phone').value = '';
-get_id('email').value = '';
+document.getElementById('name').value = '';
+document.getElementById('address').value = '';
+document.getElementById('code').value = '';
+document.getElementById('phone').value = '';
+document.getElementById('email').value = '';
 if(id != 0){
   var domain = document.domain;
   var port = window.location.port;
-  var url = '//'+domain+':'+port+'/user/address/api.php?id=' + id;
+  var url = '//'+domain+':'+port+'/passport/address/api.php?id=' + id;
   var ajax = createXMLHttpRequest();
   ajax.open('get',url);
   ajax.send(null);
@@ -351,11 +299,11 @@ if(id != 0){
      if (ajax.readyState==4 &&ajax.status==200) {
        //console.log(ajax.responseText);
           var rtext = JSON.parse(ajax.responseText);
-          get_id('name').value = rtext['name'];
-          get_id('address').value = rtext['address'];
-          get_id('code').value = rtext['code'];
-          get_id('phone').value = rtext['phone'];
-          get_id('email').value = rtext['email'];
+          document.getElementById('name').value = rtext['name'];
+          document.getElementById('address').value = rtext['address'];
+          document.getElementById('code').value = rtext['code'];
+          document.getElementById('phone').value = rtext['phone'];
+          document.getElementById('email').value = rtext['email'];
       }
   }
 }
@@ -395,7 +343,7 @@ function GetRequest() {
 }
 //商品列表筛选
 function Filter(a,b){
-  var $ = function(e){return get_id(e);}
+  var $ = function(e){return document.getElementById(e);}
   var ipts = $('filterForm').getElementsByTagName('input'),result=[];
   for(var i=0,l=ipts.length;i<l;i++){
     if(ipts[i].getAttribute('to')=='filter'){
@@ -413,7 +361,17 @@ function Filter(a,b){
     document.forms['filterForm'].submit();
   }
   return false;
-}
+} 
+//商品列表筛选高亮
+$(function(){
+  var obj=GetRequest(); 
+  if(typeof(obj)!='undefined'){
+    for(k in obj){
+      $("#"+k).val(obj[k]);
+      $("a["+k+"="+obj[k]+"]").parent().addClass("in").siblings().removeClass("in");
+    }
+  }
+})
 
 function insert_images2(strid, strurl, strntype, strtype, strbase)
 {
@@ -431,7 +389,7 @@ function insert_images2(strid, strurl, strntype, strtype, strbase)
   switch (tstrtype)
   {
     case 0:
-      editor_insert(strid, "<img src=\"" + strurl + "\" border=\"0\" data-mce-src=\"" + strurl + "\">");
+      editor_insert(strid, "<img src=\"" + strurl + "\" border=\"0\" >");
       break;
     case 1:
       itextner(strid, "[img]" + strurl + "[/img]");
@@ -440,36 +398,4 @@ function insert_images2(strid, strurl, strntype, strtype, strbase)
       itextner(strid,  "<img src=\"" + strurl + "\" border=\"0\">");
       break;
   }
-}
-
-function inputSwitch(obj){
-    var thisObj = obj;
-    var thisVal = thisObj.getElementsByTagName('input')[0];
-    if (thisObj.getAttribute('bind') == '1')
-    {
-    	if(thisVal.value == 0){
-		    thisObj.className = 'switch switch-1';
-		    thisVal.value = 1;
-    	}else{
-		    thisObj.className = 'switch';
-		    thisVal.value = 0;
-    	}
-    }else{
-	    thisObj.setAttribute("bind","1");
-    }
-}
-
-function jscheck_topics(strers)
-{
-  var tstrers = strers;
-  get_id("view_topic").style.display = "inline-block";
-  if (tstrers == "1") get_id("view_topic").innerHTML = "标题重复";
-  else get_id("view_topic").style.display = "none";
-}
-
-function jscheck_topic(strtopic,strid="")
-{
-  if (strtopic == "") return false;
-  if (strid == "") igets("manage.php?type=check_topic&topic=" + strtopic, jscheck_topics);
-  else igets("manage.php?type=check_topic&topic=" + strtopic + "&id=" + strid, jscheck_topics);
 }

@@ -198,15 +198,15 @@ function uu_upload_files()
     if (move_uploaded_file($tmp_filename, $tfilename))
     {
       chmod($tfilename, 0755);
-      if ($upsimg == 1 && ($tfiletype == 'jpg' || $tfiletype == 'png' || $tfiletype == 'gif' || $tfiletype == 'jpeg' || $tfiletype == 'bmp')) {
+      if ($upsimg == 1) {
          uu_upload_create_thumbnail($tfilename,$stfilename,1);//生成缩略图
          if($doriginal == '1') unlink($tfilename);//删除原图
          else uu_upload_create_database_note($ngenre, '/' .$ngenre .'/' .$tfilename, $uptext);
          uu_upload_create_database_note($ngenre, '/' .$ngenre .'/' .$stfilename, $uptext);
-         mm_client_redirect('?type=upload&upform=' . $upform . '&uptext=' . $uptext . '&upftype=' . $upftype . '&upsimg=' . $upsimg . '&upfname=/' . $ngenre .'/' .$stfilename);//补全上传图片返回路径为带模块缩略图文件夹
+         mm_client_redirect('?type=upload&upform=' . $upform . '&uptext=' . $uptext . '&upftype=' . $upftype . '&upfname=/' . $ngenre .'/' .$stfilename);//补全上传图片返回路径为带模块缩略图文件夹
       }else{
         uu_upload_create_database_note($ngenre, '/' .$ngenre .'/' .$tfilename, $uptext);
-        mm_client_redirect('?type=upload&upform=' . $upform . '&uptext=' . $uptext . '&upftype=' . $upftype . '&upsimg=' . $upsimg . '&upfname=/' . $ngenre .'/'. $tfilename);//补全上传图片返回路径为带模块文件夹
+        mm_client_redirect('?type=upload&upform=' . $upform . '&uptext=' . $uptext . '&upftype=' . $upftype . '&upfname=/' . $ngenre .'/'. $tfilename);//补全上传图片返回路径为带模块文件夹
       }
     }
     else uu_upload_msg('sudd');

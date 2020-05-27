@@ -2,9 +2,9 @@
 <xml mode="wdjafg" author="wdja">
   <configure>
     <item varstr="nupmaxsize" strvalue="20480000" />
-    <item varstr="nvalidate" strvalue="0" />
+    <item varstr="nvalidate" strvalue="1" />
     <item varstr="nbasehref" strvalue="1" />
-    <item varstr="sort.ndatabase" strvalue="wdja_support_sort" />
+    <item varstr="sort.ndatabase" strvalue="wdja_sys_sort" />
     <item varstr="sort.nidfield" strvalue="sortid" />
     <item varstr="sort.nfpre" strvalue="sort_" />
     <item varstr="admin.ndatabase" strvalue="wdja_admin" />
@@ -20,5 +20,12 @@
     <item varstr="thumbnail.file" strvalue="simg" />
     <item varstr="thumbnail.width" strvalue="600" />
     <item varstr="thumbnail.height" strvalue="424" />
+    <item varstr="mail.type" strvalue="1" />
+    <item varstr="mail.smtpcharset" strvalue="utf8" />
+    <item varstr="mail.smtpserver" strvalue="" />
+    <item varstr="mail.smtpport" strvalue="465" />
+    <item varstr="mail.smtpusername" strvalue="" />
+    <item varstr="mail.smtppassword" strvalue="" />
+    <item varstr="mail.smtpfromname" strvalue="" />
   </configure>
 </xml>

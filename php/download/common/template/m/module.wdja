@@ -48,7 +48,6 @@
         <h1>{$topic}</h1>
         <div class="con_text">
         <p>{$=ii_itake('global.lng_config.time','lng')}:{$time},{$=ii_itake('global.lng_config.count','lng')}:<span>{$count}</span></p>
-        <p>{$=api_tags_list()}</p>
           <p><mip-img src="{$image}" /></mip-img></p>
             <ul>
               <li id="container">
@@ -82,7 +81,7 @@
                 <span layout="flex-item"><a href="{$link}" target="_blank">{$link}</a></span>
               </li>
             </ul>
-        {$=mm_encode_content(mm_content_mip(api_tags_replace_tags($GLOBALS['RS_content'])))}
+        {$=mm_encode_content(mm_content_mip($GLOBALS['RS_content']), '{$cttype}')}
         {$=ii_itake('config.urls_link','lng')}<p>{@recurrence_ida}<mip-img type="fixed" src="{$=#images_route}download.gif" class="before-img"></mip-img><a href="{$downhref}" target="_blank">{$downurl}</a> {@recurrence_ida}</p>
         </div>
         <div class="updown">

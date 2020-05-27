@@ -40,6 +40,7 @@ function doform(){
     <nav class="nav">{$=vv_inavigation($GLOBALS['ngenre'], 'strers=module;strurl=' . $GLOBALS['ngenre'])}</nav>
       <div class="list_con">
             <form name="sel_form" method="post" action="{$=#nuri}?action=edit" onsubmit="get_sel_id();">
+            <input type="hidden" name="nckcode" value="{$=#nckcode}" />
             <input type="hidden" name="sel_ids" />
             <table class="table" width="100%" cellpadding="0" cellspacing="0" border="0">
               <tr>
@@ -62,7 +63,7 @@ function doform(){
                 <td height="25" class="red">{$=ii_itake('module.merchandiseprice','lng')} {$merchandiseprice}({$=ii_itake('global.lng_unit.money','lng')})</td>
               </tr>
               <tr>
-                <td height="25"><input id="form_submit" type="submit" value="{$=ii_itake('module.submit','lng')}" class="button" /> <input type="button" value="{$=ii_itake('module.continue','lng')}" class="button" onclick="location.href='{$continue}'" /> <input type="button" value="{$=ii_itake('module.clear','lng')}" class="button" onclick="location.href='?action=delete'" /> <input type="button" value="{$=ii_itake('module.pay','lng')}" class="button" onclick="switch_display_default('buying')" /></td>
+                <td height="25"><input id="form_submit" type="submit" name="submit" value="{$=ii_itake('module.submit','lng')}" class="button" /> <input type="button" value="{$=ii_itake('module.continue','lng')}" class="button" onclick="location.href='{$continue}'" /> <input type="button" value="{$=ii_itake('module.clear','lng')}" class="button" onclick="location.href='?action=delete'" /> <input type="button" value="{$=ii_itake('module.pay','lng')}" class="button" onclick="switch_display('buying')" /></td>
               </tr>
               <tr>
                 <td height="25"></td>
@@ -70,6 +71,7 @@ function doform(){
             </table>
             </form>
             <form name="buy_form" method="post" action="{$=#nuri}?action=buy" onSubmit="return Validator.Validate(this, 2)">
+            <input type="hidden" name="nckcode" value="{$=#nckcode}" />
             <input type="hidden" name="merchandiseprice" value="{$merchandiseprice}" />
             <table cellspacing="0" cellpadding="0" class="tablem" id="buying" style="DISPLAY: none">
               <tr>
@@ -113,7 +115,7 @@ function doform(){
               </tr>
               <tr>
                 <td height="35"></td>
-                <td><input type="submit" value="{$=ii_itake('global.lng_config.submit','lng')}" class="button" />&nbsp;<input type="reset" value="{$=ii_itake('global.lng_config.reset','lng')}" class="button" /></td>
+                <td><input type="submit" name="submit" value="{$=ii_itake('global.lng_config.submit','lng')}" class="button" />&nbsp;<input type="reset" value="{$=ii_itake('global.lng_config.reset','lng')}" class="button" /></td>
               </tr>
             </table>
             </form>
@@ -137,7 +139,7 @@ function doform(){
         <td width="100%" height="200" align="center">
           <table width="100%" cellpadding="0" cellspacing="0" border="0">
             <tr>
-              <td width="100%" align="center" height="25" class="red">{$=ii_itake('module.orderid', 'lng')}<a href="/user/?type=shopcart_detail&id={$id}">{$orderid}</a></td>
+              <td width="100%" align="center" height="25" class="red">{$=ii_itake('module.orderid', 'lng')}<a href="/passport/?type=shopcart_detail&id={$id}">{$orderid}</a></td>
             </tr>
             <tr>
               <td width="100%" align="center" height="25">{$orderuser},{$=ii_itake('module.paysucceed', 'lng')}</td>

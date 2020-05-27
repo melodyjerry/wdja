@@ -49,7 +49,6 @@
         <h1>{$topic}</h1>
         <div class="con_text">
         <p>{$=ii_itake('global.lng_config.time','lng')}:{$time},{$=ii_itake('global.lng_config.count','lng')}:<span>{$count}</span></p>
-        <p>{$=api_tags_list()}</p>
                     <div style="float: left;display:inline-block;text-align: right;"><img src="{$image}" alt="{$image}" width="300" height="246" /></div>
                     <div style="float: left;display:inline-block;">
                     <table border="0" cellspacing="0" cellpadding="0" width="100%">
@@ -93,7 +92,7 @@
                     </table>
 				</div>
   					<div class="clear"></div>
-        <div>{$=mm_encode_content(api_tags_replace_tags($GLOBALS['RS_content']))}</div>
+        <div>{$=mm_encode_content($GLOBALS['RS_content'], '{$cttype}')}</div>
         <p>{@recurrence_ida}<img src="{$=#images_route}download.gif" align="absmiddle"> <a href="{$downhref}" target="_blank">{$downurl}</a> {@recurrence_ida}</p>
         </div>
         <div class="updown">
@@ -104,39 +103,6 @@
     <div class="clear"></div>
   </div>
 </section>
-{$=mm_web_foot($GLOBALS['nfoot'])}]]></tpl_default>
-    </item>
-    <item>
-      <name><![CDATA[list2]]></name>
-      <tpl_default><![CDATA[{$=mm_web_head($GLOBALS['nhead'])}
-<section id="middle">
-  <div id="middleContent">
-    <div class="list">
-        <nav class="nav">{$=vv_inavigation('{$genre}', 'classid={$classid};strers=module;strurl={$genre}')}22222222222222222222</nav>
-      <div id="list_menu">
-        <ul>{$=vv_isort('{$genre}', 'tpl=sort')}</ul>
-      </div>
-      <div class="list_con">
-      <ul>
-        {@recurrence_ida}
-            <li>
-              <i class="pre_dot"></i><a href="{$=ii_iurl('detail', {$id}, $GLOBALS['nurltype'], 'folder=' . $GLOBALS['ncreatefolder'] . ';filetype=' . $GLOBALS['ncreatefiletype'] . ';time={$time}')}" title="{$topic}"><strong>{$topic}</strong></a>
-              <span>
-                {$=ii_itake('config.star','lng')}:<img src="{$=#images_route}star/{$star}.gif" alt="{$star}" />
-                {$=ii_itake('config.count','lng')}:{$count}
-                {$=ii_itake('config.size','lng')}:{$size}M
-                {$=ii_format_date($GLOBALS['RS_time'], 2)}
-              </span>
-            </li>
-        {@recurrence_ida}
-      </ul>
-      <div id="cutepage" class="cutepage">{$cpagestr}</div>
-      </div>
-    <div class="clear"></div>
-    </div>
-  </div>
-</section>
-<script type="text/javascript">get_id('lm{$classid}').className = 'on';</script>
 {$=mm_web_foot($GLOBALS['nfoot'])}]]></tpl_default>
     </item>
   </item_list>

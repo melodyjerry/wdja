@@ -10,9 +10,5 @@
       <value><![CDATA[chinese]]></value>
       <chinese><![CDATA[简体中文]]></chinese>
     </item>
-    <item>
-      <value><![CDATA[english]]></value>
-      <chinese><![CDATA[English]]></chinese>
-    </item>
   </sel_list>
 </xml>

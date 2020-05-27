@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xml mode="wdja" author="wdja">
+  <configure>
+    <node>item</node>
+    <field>name,tpl_default</field>
+    <base>item_list</base>
+  </configure>
+  <item_list>
+    <item>
+      <name><![CDATA[list]]></name>
+      <tpl_default><![CDATA[{$=mm_web_head($GLOBALS['nhead'])}
+<section id="middle">
+  <div id="middleContent">
+    <main class="list">
+    <nav class="nav">{$=vv_inavigation('{$genre}', 'classid={$classid};strers=module;strurl={$genre}')}</nav>
+      <div id="list_menu">
+        <ul>{$=vv_isort('{$genre}', 'tpl=sort')}</ul>
+      </div>
+      <div class="list_con">
+      <div class="keywords">
+      <ul>
+        {@recurrence_ida}
+            <li style="float:left;margin-left:15px;width: auto;">
+              <i class="pre_dot"></i>
+              <a style="width:auto;" href="{$=ii_iurl('detail', {$id}, $GLOBALS['nurltype'], 'folder=' . $GLOBALS['ncreatefolder'] . ';filetype=' . $GLOBALS['ncreatefiletype'] . ';time={$time}')}" title="{$topic}">{$topic}</a>
+            </li>
+        {@recurrence_ida}
+      </ul>
+    <div class="clear"></div>
+      <div id="cutepage" class="cutepage">{$cpagestr}</div>
+      </div>
+      </div>
+    <div class="clear"></div>
+    </main>
+  </div>
+</section>
+<script type="text/javascript">get_id('lm{$classid}').className = 'on';</script>
+{$=mm_web_foot($GLOBALS['nfoot'])}]]></tpl_default>
+    </item>
+    <item>
+      <name><![CDATA[detail]]></name>
+      <tpl_default><![CDATA[{$=mm_web_head($GLOBALS['nhead'])}
+<section id="middle">
+  <div id="middleContent">
+      <div class="list_con">
+    <div class="content">
+        <nav class="nav">{$=vv_inavigation('{$genre}', 'classid={$class};strers=module;strurl={$genre}')}</nav>
+        <h1>{$topic}</h1>
+        <div class="con_text">
+        <p>{$=ii_itake('global.lng_config.time','lng')}:{$time},{$=ii_itake('global.lng_config.count','lng')}:<span id="count">0</span></p>
+        {$=mm_encode_content(mm_cutepage_content($GLOBALS['RS_content'], 'cp_note={$cp_note};cp_mode={$cp_mode};cp_type={$cp_type};cp_num={$cp_num};cp_page={$page}'), '{$cttype}')}
+        </div>
+        <div id="ct-cutepage" class="cutepage">{$=mm_cutepage_content_page_sel($GLOBALS['RS_content'], 'cp_note={$cp_note};cp_mode={$cp_mode};cp_type={$cp_type};cp_num={$cp_num}', 'folder=' . $GLOBALS['ncreatefolder'] . ';filetype=' . $GLOBALS['ncreatefiletype'] . ';cutekey={$id};time={$time}')}</div>
+		<div class="search_list">
+{$nhotwords_genre}
+		<div class="article" style="width:100%;">
+			<div class="art_con">
+			<div class="art_title"><b>与'{$topic}'相关的关键词</b><a href="{$=ii_get_actual_route('expansion/hotwords')}/?type=list&classid={$class}">更多</a></div>
+		  <ul class="keywords">
+		 {$=vv_itransfer('new', 'keywords_li', 'topx=15;tnum=30;genre=expansion/hotwords;osql= and eh_class=\'{$class}\' and ehid <> \'{$id}\'')}
+		  </ul>
+		</div>
+        </div>
+    <div class="clear"></div>
+        <div class="updown">
+            <div class="up">{$=vv_itransfer('up', 'updown', 'topx=1;genre={$genre};class={$class};bid={$id}')} </div>
+            <div class="down">{$=vv_itransfer('down', 'updown', 'topx=1;genre={$genre};class={$class};bid={$id}')}</div>
+        </div>
+    </div>
+    </div>
+    <div class="clear"></div>
+  </div>
+</section>
+<script type="text/javascript">get_id('lm{$id}').className = 'on';</script>
+{$=mm_web_foot($GLOBALS['nfoot'])}]]></tpl_default>
+    </item>
+    <item>
+      <name><![CDATA[module]]></name>
+      <tpl_default><![CDATA[			<div class="article" style="width:100%;">
+				<div class="art_con">
+				<div class="art_title"><b>关于'{$topic}'的{$=ii_itake('global.{$module}:module.channel_title', 'lng')}</b><a href="{$=ii_get_actual_route('{$module}')}">更多</a></div>
+				<ul>
+				{$=vv_itransfer('search', 'search_li', 'topx=9;tnum=30;genre={$module};keywords={$topic}')}
+				</ul>
+				</div>
+			</div>]]></tpl_default>
+    </item>
+    <item>
+      <name><![CDATA[seo]]></name>
+      <tpl_default><![CDATA[<html>
+<head>
+<title>{$=mm_web_title($GLOBALS['ntitle'])}</title>
+<meta name="keywords" content="{$topic},{$=mm_web_keywords($GLOBALS['nkeywords'])}" />
+<meta name="description" content="{$topic},{$=mm_web_description($GLOBALS['ndescription'])}" />
+  <script language="javascript">
+document.write("<frameset rows='100%,*' frameborder='NO' border='0' framespacing='0'>");
+document.write("<frame name='main' src='{$=#nurlpre}' scrolling=yes>");
+document.write("</frameset>");
+</script>
+</head>
+<body>
+<section id="middle">
+  <div id="middleContent">
+      <div class="list_con">
+    <div class="content">
+        <nav class="nav">{$=vv_inavigation('{$genre}', 'classid={$class};strers=module;strurl={$genre}')}</nav>
+        <h1>{$topic}</h1>
+        <div class="con_text">
+        <p>{$=ii_itake('global.lng_config.time','lng')}:{$time},{$=ii_itake('global.lng_config.count','lng')}:<span id="count">0</span></p>
+        {$=mm_encode_content(mm_cutepage_content($GLOBALS['RS_content'], 'cp_note={$cp_note};cp_mode={$cp_mode};cp_type={$cp_type};cp_num={$cp_num};cp_page={$page}'), '{$cttype}')}
+        </div>
+        <div id="ct-cutepage" class="cutepage">{$=mm_cutepage_content_page_sel($GLOBALS['RS_content'], 'cp_note={$cp_note};cp_mode={$cp_mode};cp_type={$cp_type};cp_num={$cp_num}', 'folder=' . $GLOBALS['ncreatefolder'] . ';filetype=' . $GLOBALS['ncreatefiletype'] . ';cutekey={$id};time={$time}')}</div>
+		<div class="search_list">
+{$nhotwords_genre}
+		<div class="article" style="width:100%;">
+			<div class="art_con">
+			<div class="art_title"><b>与'{$topic}'相关的关键词</b><a href="{$=ii_get_actual_route('expansion/hotwords')}/?type=list&classid={$class}">更多</a></div>
+		  <ul class="keywords">
+		 {$=vv_itransfer('new', 'keywords_li', 'topx=15;tnum=30;genre=expansion/hotwords;osql= and eh_class=\'{$class}\' and ehid <> \'{$id}\'')}
+		  </ul>
+		</div>
+        </div>
+    <div class="clear"></div>
+        <div class="updown">
+            <div class="up">{$=vv_itransfer('up', 'updown', 'topx=1;genre={$genre};class={$class};bid={$id}')} </div>
+            <div class="down">{$=vv_itransfer('down', 'updown', 'topx=1;genre={$genre};class={$class};bid={$id}')}</div>
+        </div>
+    </div>
+    </div>
+    <div class="clear"></div>
+  </div>
+</section>
+<script type="text/javascript">get_id('lm{$id}').className = 'on';</script>
+</body>
+</html>]]></tpl_default>
+    </item>
+  </item_list>
+</xml>

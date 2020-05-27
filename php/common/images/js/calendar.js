@@ -140,8 +140,8 @@ Calendar = {
     toString : function(){return false;}
 }
 var  __calendar_style = "<style>";
-    __calendar_style += "#Calendar__ {background-color:#f6f6f6;width:240px;padding:5px;position:absolute;display:none;z-index:999;border:1px solid #}";
-    __calendar_style += "#Calendar__ ul{list-style-type:none;margin:0;}";
+    __calendar_style += "#Calendar__ {background-color:#f6f6f6;width:242; !important;width:240px;position:absolute;display:none;}";
+    __calendar_style += "#Calendar__ ul{list-style-type:none;margin-left:-38px !important;margin:0 0 0 -30px;}";
     __calendar_style += "#Calendar__ ul li{display:block;width:32px;margin:1px;background-color:#fff;text-align:center;float:left;font:12px Aril;}";
     __calendar_style += "#Calendar__ ul li a{height:18px;display:block;background-color:#fff;line-height:18px;text-decoration:none;color:#666;}";
     __calendar_style += "#Calendar__ ul li a:hover{background:#336699;color:#FFF;}";

@@ -9,25 +9,6 @@ $nurltype = 0;
 $nsearch = 'name,orderid,id';
 $ncontrol = 'select,delete';
 
-function pp_manage_state_select($state){
-  $tmprstr = '';
-  $tmpastr = '<option value="{$keyword}" {$selected}>{$topic}</option>';
-  $tary = ii_itake('sel_state.all', 'sel', 1);
-  if (is_array($tary))
-  {
-    foreach ($tary as $key => $val)
-    { 
-      if($state == $key && !ii_isnull($state)) $selected = 'selected';
-      else $selected = '';
-      $tmptstr = str_replace('{$selected}', $selected, $tmpastr);
-      $tmptstr = str_replace('{$topic}', $val, $tmptstr);
-      $tmptstr = str_replace('{$keyword}',  $key, $tmptstr);
-      $tmprstr .= $tmptstr;
-    }
-  }
-  return $tmprstr;
-}
-
 function pp_manage_navigation()
 {
   return ii_ireplace('manage.navigation', 'tpl');
@@ -192,18 +173,38 @@ function wdja_cms_admin_manage_list()
   global $ngenre, $npagesize, $nlisttopx;
   global $ndatabase, $nidfield, $nfpre;
   $toffset = ii_get_num($_GET['offset']);
-  $tstate = ii_get_num($_GET['state'],-2);
   $search_field = ii_get_safecode($_GET['field']);
   $search_keyword = ii_get_safecode($_GET['keyword']);
   $tusername = ii_get_safecode($_GET['username']);
   $tmpstr = ii_itake('manage.list', 'tpl');
+  $tmpastr = ii_ctemplate($tmpstr, '{@recurrence_ida}');
   $tmprstr = '';
+  $tary = ii_itake('sel_state.all', 'sel', 1);
+  if (is_array($tary))
+  {
+    foreach ($tary as $key => $val)
+    {
+      $tstr0 = $key;
+      $tstr1 = $val;
+      if (!ii_isnull($tstr0))
+      {
+        $thspan = 'state' . $tstr0;
+        $tmptstr = $tmpastr;
+        $tmptstr = str_replace('{$topic}', $tstr1, $tmptstr);
+        $tmptstr = str_replace('{$ahref}', '?keyword=' . $tstr0 . '&field=state&hspan=' . $thspan, $tmptstr);
+        $tmptstr = str_replace('{$hspan}', $thspan, $tmptstr);
+      }
+      $tmprstr .= $tmptstr;
+    }
+  }
+  $tmpstr = str_replace(WDJA_CINFO, $tmprstr, $tmpstr);
   $tmpastr = ii_ctemplate($tmpstr, '{@recurrence_idb}');
+  $tmprstr = '';
   $tsqlstr = "select * from $ndatabase where $nidfield>0";
   if (!ii_isnull($tusername)) $tsqlstr .= " and " . ii_cfname('username') . "='" . $tusername."'";
   if ($search_field == 'name') $tsqlstr .= " and " . ii_cfname('name') . " like '%" . $search_keyword . "%'";
   if ($search_field == 'orderid') $tsqlstr .= " and " . ii_cfname('orderid') . " like '%" . $search_keyword . "%'";
-  if (!ii_isnull($tstate) && $tstate != -2) $tsqlstr .= " and " . ii_cfname('state') . "='" .$tstate."'";
+  if ($search_field == 'state') $tsqlstr .= " and " . ii_cfname('state') . "=" . ii_get_num($search_keyword);
   if ($search_field == 'prepaid') $tsqlstr .= " and " . ii_cfname('prepaid') . "=" . ii_get_num($search_keyword);
   if ($search_field == 'id') $tsqlstr .= " and $nidfield=" . ii_get_num($search_keyword);
   $tsqlstr .= " order by $ndatabase." . ii_cfname('time') . " desc";
@@ -237,7 +238,6 @@ function wdja_cms_admin_manage_list()
       $tmprstr .= $tmptstr;
     }
   }
-  $tmpstr = str_replace('{$tstate}', $tstate, $tmpstr);
   $tmpstr = str_replace('{$cpagestr}', $tcp -> get_pagestr(), $tmpstr);
   $tmpstr = str_replace(WDJA_CINFO, $tmprstr, $tmpstr);
   $tmpstr = ii_creplace($tmpstr);
@@ -248,7 +248,6 @@ function wdja_cms_admin_manage_status()
 {
   global $conn, $ngenre;
   global $ndatabase, $nidfield, $nfpre;
-  $tstate = ii_get_num($_GET['state'],-2);
   $search_state = ii_get_safecode($_GET['state']);
   $search_keyword = ii_get_safecode($_GET['keyword']);
   $tstatus = ii_get_safecode($_GET['status']);
@@ -291,8 +290,7 @@ function wdja_cms_admin_manage_status()
         break;
     }
     if (!ii_isnull($search_keyword)) $tsqlstr .= " and year(" . ii_cfname('time') . ")=" . ii_get_num($search_keyword);
-    //if (!ii_isnull($search_state)) $tsqlstr .= " and " . ii_cfname('state') . "=" . ii_get_num($search_state);
-    if (!ii_isnull($tstate) && $tstate != -2) $tsqlstr .= " and " . ii_cfname('state') . "='" .$tstate."'";
+    if (!ii_isnull($search_state)) $tsqlstr .= " and " . ii_cfname('state') . "=" . ii_get_num($search_state);
     $trs = ii_conn_query($tsqlstr, $conn);
     $trs = ii_conn_fetch_array($trs);
     if ($trs) $tary[$i] = ii_get_num($trs[0], 0);
@@ -317,7 +315,6 @@ function wdja_cms_admin_manage_status()
   $tyear = '';
   if (!ii_isnull($search_keyword)) $tyear = ii_get_num($search_keyword);
   $tmpstr = str_replace('{$year}', $tyear, $tmpstr);
-  $tmpstr = str_replace('{$tstate}', $tstate, $tmpstr);
   $tmpstr = str_replace('{$totalize}', $ttotalize, $tmpstr);
   $tmpstr = str_replace('{$status}', $tstatus, $tmpstr);
   $tmpstr = str_replace('{$unit}', $tunit, $tmpstr);

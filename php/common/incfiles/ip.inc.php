@@ -101,7 +101,7 @@ function ip_insert($ip,$admin = '')
   $trobots = 'unknown';
   $tout = 0 ;
   $tlock = 0 ;
-  $tarea = mm_ip_map($tip);//ip_get_area($tip);使用本地ip数据库查询结果.
+  $tarea = ip_get_area($tip);
   $tua = getallheaders();
   $tua = $tua['User-Agent'];
   if(mm_enable_ua()){

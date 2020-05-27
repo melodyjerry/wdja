@@ -8,13 +8,6 @@ function wdja_cms_admin_manage_delete()
 {
   global $nuri;
   $tfile = $_GET['file'];
-  $badstr = array("/","..","../","<", ">", "--", ":/", "\0", "\'", "\/\*","\.\.\/", "\.\/", "%00", "\r",' ', '"', "'", "   ", "%3C", "%3E", "'",'#','=','`','$','&',';','(',')', '<?', '?>');
-  foreach($badstr as $key){
-	if(strstr($tfile,$key))
-	{
-        wdja_cms_admin_msg(ii_itake('manage.delete_error', 'lng'), $nuri, 1);
-	}
-  }
   $tcache_dir = ii_get_actual_route('./') . CACHE_DIR;
   $tfilename = $tcache_dir . '/' . $tfile;
   $tfilename = iconv (CHARSET, 'cp936', $tfilename);

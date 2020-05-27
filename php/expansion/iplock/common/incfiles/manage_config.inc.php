@@ -8,6 +8,8 @@ wdja_cms_admin_init();
 $nurltype = 0;
 $nsearch = 'ip,content';
 $ncontrol = 'select,lock,out,delete';
+$ncttype = ii_get_num($_GET['htype'], -1);
+if ($ncttype == -1) $ncttype = 0;
 
 function pp_manage_navigation()
 {

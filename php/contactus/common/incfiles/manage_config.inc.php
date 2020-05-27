@@ -5,6 +5,8 @@
 // Web: http://www.wdja.cn/
 //****************************************************
 wdja_cms_admin_init();
+//$nurltype = 0;
+$ncttype = 0;
 
 function delByValue($arr, $value){  
     $keys = array_keys($arr, $value);  
@@ -118,6 +120,7 @@ function wdja_cms_admin_manage_edit()
         }
       }
     }
+  	$tmpstr = str_replace('{$cttype}', $ncttype, $tmpstr);
     $tmpstr = str_replace('{$genre}', $ngenre, $tmpstr);
     $tmpstr = str_replace('{$upsimg}', $nupsimg, $tmpstr);
     $tmpstr = str_replace('{$upsimgs}', $nupsimgs, $tmpstr);

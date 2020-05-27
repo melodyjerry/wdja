@@ -10,9 +10,5 @@
       <disinfo><![CDATA[{$folder}:description]]></disinfo>
       <chinese><![CDATA[插件管理]]></chinese>
     </item>
-    <item>
-      <disinfo><![CDATA[{$folder}:icon]]></disinfo>
-      <chinese><![CDATA[9]]></chinese>
-    </item>
   </item_list>
 </xml>

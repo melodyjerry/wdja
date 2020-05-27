@@ -12,15 +12,37 @@
 <script language="javascript">
 setTimeout("location.href='{$backurl}';",2000); 
 </script>
-  <div class="table">
-    <h3>{$=ii_itake('global.lng_admin.admin_info','lng')}</h3>
-      <table cellpadding="0" cellspacing="0" class="tableF">
-        <tbody>
-        <tr>
-		  <th valign="top" style="width:auto;"><t>{$msginfo}</t></th>
-		  <td>{$=ii_itake('global.lng_admin.admin_backtime','lng')}</td>
-		</tr></tbody>
-      </table>
+<table border="0" width="100%" cellSpacing="0" cellPadding="0">
+  <tr>
+    <td width="100%" height="5"></td>
+  </tr>
+  <tr>
+    <td width="100%" align="center">
+    <table border="0" width="98%" cellSpacing="0" cellPadding="0" class="lrbtline">
+      <tr>
+        <td width="100%" height="25" class="tbtop">{$=ii_itake('global.lng_admin.admin_info','lng')}</td>
+      </tr>
+      <tr>
+        <td width="100%" align="center">
+          <table border="0" width="98%" cellSpacing="0" cellPadding="0">
+            <tr>
+              <td width="100%" height="5"></td>
+            </tr>
+            <tr>
+              <td width="100%" height="80" align="center">{$msginfo}{$=ii_itake('global.lng_admin.admin_backtime','lng')}</td>
+            </tr>
+              <td width="100%" height="5"></td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+    </table>
+    </td>
+  </tr>
+  <tr>
+    <td width="100%" height="5"></td>
+  </tr>
+</table>
 ]]></tpl_default>
     </item>
     <item>
@@ -91,13 +113,38 @@ setTimeout("location.href='{$backurl}';",2000);
     </item>
     <item>
       <name><![CDATA[content_htmledit]]></name>
-      <tpl_default><![CDATA[
-<script src="{$=ii_get_actual_route('common')}/editor/tinymce/tinymce.min.js"></script>
-<script src="{$=ii_get_actual_route('common')}/editor/tinymce/wdja.edit.js"></script>
-<link href="{$=ii_get_actual_route('common')}/editor/tinymce/prism.css" rel="stylesheet" />
-<script src="{$=ii_get_actual_route('common')}/editor/tinymce/prism.js"></script>
-<textarea class="wdjaedit" id="{$name}" name="{$name}">{$value}</textarea>
-]]></tpl_default>
+      <tpl_default><![CDATA[<script src="{$=ii_get_actual_route('common')}/editor/tinymce/js/tinymce/tinymce.min.js"></script>
+        <script>
+            tinymce.init({
+                selector: '#content',
+                convert_urls: false,
+                remove_script_host : false,
+                  height: 300,
+                  plugins: [
+                    "advlist autolink autosave link image lists charmap preview hr anchor pagebreak",
+                    "searchreplace wordcount code fullscreen insertdatetime media nonbreaking",
+                    "table directionality textcolor powerpaste textcolor colorpicker textpattern"
+                  ],
+                  end_container_on_empty_block:true,
+                  paste_data_images:true,
+                  powerpaste_word_import: 'propmt',
+                  powerpaste_html_import: 'propmt',
+                  powerpaste_allow_local_images: true,
+                  toolbar1: "undo redo | bold italic underline strikethrough removeformat | subscript superscript | alignleft aligncenter alignright alignjustify | forecolor backcolor formatselect fontselect",
+                  toolbar2: "table searchreplace | ltr rtl | bullist numlist | outdent indent | link unlink anchor image media | insertdatetime charmap hr nonbreaking pagebreak | preview fullscreen code",
+                  menubar: false,
+                  toolbar_items_size: 'small',
+                  language_url: '{$=ii_get_actual_route('common')}/editor/tinymce/js/tinymce/langs/zh_CN.js',
+                  language:'zh_CN'
+            });
+        </script>
+<textarea id="{$name}" name="{$name}">{$value}</textarea>
+<script type="text/javascript">
+function editor_insert(strid, strers)
+{
+  tinyMCE.execCommand("mceInsertContent", false, strers);
+};
+</script>]]></tpl_default>
     </item>
     <item>
       <name><![CDATA[content_ubbcode]]></name>

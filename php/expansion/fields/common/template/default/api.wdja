@@ -20,18 +20,6 @@
 <li class="in"><a f{$oid}="0" href="javascript:Filter('f{$oid}','0');">全部</a></li>
 {@}<li><a f{$oid}="{$id}" href="javascript:Filter('f{$oid}','{$id}');">{$topic}</a></li>{@}
 </ul>
-<script type="text/javascript">
-//商品列表筛选高亮
-$(function(){
-  var obj=GetRequest(); 
-  if(typeof(obj)!='undefined'){
-    for(k in obj){
-      $("#"+k).val(obj[k]);
-      $("a["+k+"="+obj[k]+"]").parent().addClass("in").siblings().removeClass("in");
-    }
-  }
-});
-</script>
 ]]></tpl_default>
     </item>
     <item>
@@ -40,16 +28,6 @@ $(function(){
 <tr>
 <td height="25"><input style="display:none;" id="fields_{$oid}" type="radio" class="checkbox" name="f{$oid}" value="0" checked><label for="fields_{$oid}" >{$ctopic}</label></td>
 <td>{@}<input style="display:none;" id="fields_{$oid}_{$id}" type="radio" class="checkbox" name="f{$oid}" value="{$id}"><label for="fields_{$oid}_{$id}" >{$topic}&nbsp;<a f{$oid}="{$id}" href="javascript:Filter('f{$oid}','{$id}');">{$topic}</a></label>&nbsp;{@}</td>
-</tr>
-]]></tpl_default>
-    </item>
-    <item>
-      <name><![CDATA[viewinput]]></name>
-      <tpl_default><![CDATA[
-<tr>
-  <td height="25" align="right">{$ctopic}</td>
-  <td></td>
-  <td>{$data}</td>
 </tr>
 ]]></tpl_default>
     </item>
@@ -84,20 +62,11 @@ $(function(){
 ]]></tpl_default>
     </item>
     <item>
-      <name><![CDATA[getinput]]></name>
-      <tpl_default><![CDATA[
-<tr>
-<th valign="top"><t>{$ctopic}</t></th>
-<td><input type="text" name="fields_{$oid}" value="{$data}" class="i1"></td>
-</tr>
-]]></tpl_default>
-    </item>
-    <item>
       <name><![CDATA[getradio]]></name>
       <tpl_default><![CDATA[
 <tr>
-<th valign="top"><t>{$ctopic}</t></th>
-<td>{@}<label class="radio"><input type="radio" class="radio" name="fields_{$oid}" value="{$id}" {$checked}><vicon></vicon><span>{$topic}</span></label>{@}</td>
+<td height="25">{$ctopic}</td>
+<td>{@}<label><input type="radio" class="checkbox" name="fields_{$oid}" value="{$id}" {$checked}>{$topic}</label>{@}</td>
 </tr>
 ]]></tpl_default>
     </item>
@@ -105,8 +74,8 @@ $(function(){
       <name><![CDATA[getcheckbox]]></name>
       <tpl_default><![CDATA[
 <tr>
-<th valign="top"><t>{$ctopic}</t></th>
-<td>{@}<label class="checkbox"><input type="checkbox" class="checkbox" name="fields_{$oid}[]" value="{$id}" {$checked}><vicon></vicon><span>{$topic}</span></label>{@}</td>
+<td height="25">{$ctopic}</td>
+<td>{@}<label><input type="checkbox" class="radio" name="fields_{$oid}[]" value="{$id}" {$checked}>{$topic}</label>{@}</td>
 </tr>
 ]]></tpl_default>
     </item>
@@ -114,17 +83,8 @@ $(function(){
       <name><![CDATA[getselect]]></name>
       <tpl_default><![CDATA[
 <tr>
-<th valign="top"><t>{$ctopic}</t></th>
-<td><select name="fields_{$oid}" class="s1"><option value="0">{$=ii_itake('global.lng_config.unselect', 'lng')}</option>{@}<option value="{$id}" {$selected}>{$topic}</option>{@}</select></td>
-</tr>
-]]></tpl_default>
-    </item>
-    <item>
-      <name><![CDATA[input]]></name>
-      <tpl_default><![CDATA[
-<tr>
-<th valign="top"><t>{$ctopic}</t></th>
-<td><input type="text" name="fields_{$oid}" value="" class="i1"></td>
+<td height="25">{$ctopic}</td>
+<td><select name="fields_{$oid}" class="select"><option value="0">{$=ii_itake('global.lng_config.unselect', 'lng')}</option>{@}<option value="{$id}" {$selected}>{$topic}</option>{@}</select></td>
 </tr>
 ]]></tpl_default>
     </item>
@@ -132,8 +92,8 @@ $(function(){
       <name><![CDATA[radio]]></name>
       <tpl_default><![CDATA[
 <tr>
-<th valign="top"><t>{$ctopic}</t></th>
-<td>{@}<label class="radio"><input type="radio" class="radio" name="fields_{$oid}" value="{$id}"><vicon></vicon><span>{$topic}</span></label>{@}</td>
+<td height="25">{$ctopic}</td>
+<td>{@}<label><input type="radio" class="checkbox" name="fields_{$oid}" value="{$id}">{$topic}</label>{@}</td>
 </tr>
 ]]></tpl_default>
     </item>
@@ -141,8 +101,8 @@ $(function(){
       <name><![CDATA[checkbox]]></name>
       <tpl_default><![CDATA[
 <tr>
-<th valign="top"><t>{$ctopic}</t></th>
-<td>{@}<label class="checkbox"><input type="checkbox" class="checkbox" name="fields_{$oid}[]" value="{$id}"><vicon></vicon><span>{$topic}</span></label>{@}</td>
+<td height="25">{$ctopic}</td>
+<td>{@}<label><input type="checkbox" class="radio" name="fields_{$oid}[]" value="{$id}">{$topic}</label>{@}</td>
 </tr>
 ]]></tpl_default>
     </item>
@@ -150,8 +110,8 @@ $(function(){
       <name><![CDATA[select]]></name>
       <tpl_default><![CDATA[
 <tr>
-<th valign="top"><t>{$ctopic}</t></th>
-<td><select name="fields_{$oid}" class="s1"><option value="0" selected>{$=ii_itake('global.lng_config.unselect', 'lng')}</option>{@}<option value="{$id}">{$topic}</option>{@}</select></td>
+<td height="25">{$ctopic}</td>
+<td><select name="fields_{$oid}" class="select"><option value="0" selected>{$=ii_itake('global.lng_config.unselect', 'lng')}</option>{@}<option value="{$id}">{$topic}</option>{@}</select></td>
 </tr>
 ]]></tpl_default>
     </item>

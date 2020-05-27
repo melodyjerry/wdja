@@ -4,40 +4,21 @@
 // Email: admin@wdja.cn
 // Web: http://www.wdja.cn/
 //****************************************************
-$smodule = ii_htmlencode($_GET['module']);
-if(ii_isnull($smodule)) $smodule = pp_get_configure_select_default();
-
-function pp_get_configure_select($module='')
+function pp_get_configure_select()
 {
-  global $variable;
   $tary = ii_get_valid_module();
   if (is_array($tary))
   {
     $tmpstr = '';
     $option_unselected = ii_itake('global.tpl_config.option_unselect', 'tpl');
-    $option_selected = ii_itake('global.tpl_config.option_select', 'tpl');
     foreach ($tary as $key => $val)
     {
-      if (!ii_isnull($module) && $val == $module) $tmprstr = $option_selected;
-      else $tmprstr = $option_unselected;
-      $tmprstr = str_replace('{$explain}', '(' . mm_get_genre_description($val) . ')' , $tmprstr);
+      $tmprstr = $option_unselected;
+      $tmprstr = str_replace('{$explain}', '(' . mm_get_genre_description($val) . ')' . $val, $tmprstr);
       $tmprstr = str_replace('{$value}', $val, $tmprstr);
       $tmpstr .= $tmprstr;
     }
     return $tmpstr;
-  }
-}
-
-function pp_get_configure_select_default()
-{
-  global $variable;
-  $tary = ii_get_valid_module();
-  if (is_array($tary))
-  {
-    foreach ($tary as $key => $val)
-    {
-      return $val;
-    }
   }
 }
 
@@ -101,16 +82,21 @@ function wdja_cms_admin_manage_action()
   }
 }
 
+function wdja_cms_admin_manage_list()
+{
+  $tmpstr = ii_ireplace('manage.list', 'tpl');
+  return $tmpstr;
+}
+
 function wdja_cms_admin_manage_edit()
 {
-  global $smodule;
   global $nuri;
-  $tmodule = $smodule;
+  $tmodule = ii_get_safecode($_GET['module']);
   $trootstr = ii_get_actual_route($tmodule) . '/common/config' . XML_SFX;
   if (file_exists($trootstr))
   {
     $torder = '';
-    $tmpstr = ii_itake('manage.edit', 'tpl');
+    $tmpstr = ii_ireplace('manage.edit', 'tpl');
     $tmpastr = ii_ctemplate($tmpstr, '{@recurrence_ida}');
     $tdoc = new DOMDocument();
     $tdoc -> load($trootstr);
@@ -129,9 +115,8 @@ function wdja_cms_admin_manage_edit()
       $tmprstr = $tmprstr . $tmptstr;
     }
     $tmpstr = str_replace(WDJA_CINFO, $tmprstr, $tmpstr);
-    $tmpstr = str_replace('{$module}', ii_htmlencode($tmodule), $tmpstr);
+    $tmpstr = str_replace('{$module}', $tmodule, $tmpstr);
     $tmpstr = str_replace('{$order}', $torder, $tmpstr);
-    $tmpstr = ii_creplace($tmpstr);
     return $tmpstr;
   }
   else wdja_cms_admin_msg(ii_itake('manage.notexists', 'lng'), $nuri, 1);
@@ -144,8 +129,11 @@ function wdja_cms_admin_manage()
     case 'edit':
       return wdja_cms_admin_manage_edit();
       break;
+    case 'list':
+      return wdja_cms_admin_manage_list();
+      break;
     default:
-      return wdja_cms_admin_manage_edit();
+      return wdja_cms_admin_manage_list();
       break;
   }
 }

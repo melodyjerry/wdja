@@ -12,20 +12,20 @@
 {$=ii_ireplace('global.module.swiper-slide','tpl')}
 <section class="login">
     <div class="login_con">
-        <div class="login_con_left">{$=ii_ireplace('global.'. USER_FOLDER .':api.login2', 'tpl')}</div>
-        <div class="login_con_right"><a download href="{$=ii_itake('global.' . ADMIN_FOLDER . '/global:basic.download_url','lng')}">{$=ii_itake('global.' . ADMIN_FOLDER . '/global:basic.download_name','lng')}</a><a href="{$=ii_itake('global.' . ADMIN_FOLDER . '/global:basic.demo_url','lng')}" target="_blank">演示站</a></div>
+        <div class="login_con_left">{$=ii_ireplace('global.passport:api.login2', 'tpl')}</div>
+        <div class="login_con_right"><a download href="{$=ii_itake('global.' . ADMIN_FOLDER . '/global:home.download_url','lng')}">{$=ii_itake('global.' . ADMIN_FOLDER . '/global:home.download_name','lng')}</a><a href="{$=ii_itake('global.' . ADMIN_FOLDER . '/global:home.demo_url','lng')}" target="_blank">演示站</a></div>
     </div>
 </section>
 <section id="middle">
     <div id="middleContent">
-        <div class="title"><h3>{$=ii_itake('global.'.ii_itake('global.' . ADMIN_FOLDER . '/global:basic.modules_img','lng').':module.channel_title', 'lng')}</h3></div>
-	{$=vv_itransfer('new', '3', 'topx=4;tnum=30;genre=' . ii_itake('global.' . ADMIN_FOLDER . '/global:basic.modules_img','lng') . '')}
+        <div class="title"><h3>{$=ii_itake('global.'.ii_itake('global.' . ADMIN_FOLDER . '/global:home.modules_img','lng').':module.channel_title', 'lng')}</h3></div>
+	{$=vv_itransfer('new', '3', 'topx=4;tnum=30;genre=' . ii_itake('global.' . ADMIN_FOLDER . '/global:home.modules_img','lng') . '')}
     </div>
 </section>
 <section id="middle">
     <div id="middleContent">
-        <div class="title"><h3>{$=ii_itake('global.'.ii_itake('global.' . ADMIN_FOLDER . '/global:basic.modules','lng').':module.channel_title', 'lng')}</h3></div>
-        {$=vv_itransfer('top', 'news-list', 'topx=10;tnum=30;genre=' . ii_itake('global.' . ADMIN_FOLDER . '/global:basic.modules','lng') . '')}
+        <div class="title"><h3>{$=ii_itake('global.'.ii_itake('global.' . ADMIN_FOLDER . '/global:home.modules','lng').':module.channel_title', 'lng')}</h3></div>
+        {$=vv_itransfer('top', 'news-list', 'topx=10;tnum=30;genre=' . ii_itake('global.' . ADMIN_FOLDER . '/global:home.modules','lng') . '')}
     </div>
     <div class="clear"></div>
 </section>
@@ -44,7 +44,8 @@
     <div class="swiper-button-prev"></div>
     <div class="swiper-button-next"></div>
 </div> 
-</section>]]></tpl_default>
+</section>
+]]></tpl_default>
     </item>
     <item>
       <name><![CDATA[links]]></name>
@@ -59,9 +60,8 @@
                    {$=vv_itransfer('new', 'link', 'topx=20;tnum=30;genre=support/linktext')}
                 </ul>
 </div>
-</section>]]></tpl_default>
+   </section>
+]]></tpl_default>
     </item>
-    
-    
   </item_list>
 </xml>

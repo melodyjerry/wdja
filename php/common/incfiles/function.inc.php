@@ -11,9 +11,8 @@ function ii_isAdmin()
   $pstrurl = str_replace(dirname($_SERVER['PHP_SELF']),'',$_SERVER['PHP_SELF']);
   $strurl = str_replace('/', '', dirname($_SERVER['PHP_SELF']));
   $strlen = strlen(ADMIN_FOLDER);
-  if(ADMIN_FOLDER == substr($strurl, 0, $strlen)) return true;
-  if($pstrurl == '/manage.php' || $pstrurl == '/manage-topic.php' || $pstrurl == '/manage-dispose.php') return true;
-  if(ADMIN_FOLDER == $strurl) return false;
+  if(ADMIN_FOLDER == substr($strurl, 0, $strlen)) $bool = true;
+  if($pstrurl == '/manage.php') $bool = true;//后台管理
   return $bool;
 }
 
@@ -475,7 +474,7 @@ function ii_fileico($strers)
   $ttypelist = '.asp.asa.aspx.bat.bmp.css.cfm.com.doc.db.dll.exe.fla.gif.htm.html.inc.ini.jpg.js.wdja.log.mdb.mid.mp3.png.php.rm.rar.swf.txt.wav.xls.xml.zip';
   $tfiletype = ii_get_lrstr($strers, '.', 'right');
   if (ii_cinstr($ttypelist, $tfiletype, '.')) return $tfiletype;
-  else return 'others';
+  else return 'default';
 }
 
 function ii_get_arymax($strary, $strmax = 1)
@@ -1150,10 +1149,10 @@ function ii_show_num_select($value1, $value2, $value)
 function ii_show_old_select($value)
 {
   $tyear = date('Y', time() + 3600 * GMT_PLUS);
-  $tyear1 = $tyear - 60;
-  $tyear2 = $tyear - 0;
+  $tyear1 = $tyear - 100;
+  $tyear2 = $tyear - 5;
   $tvalue = ii_get_num($value, -1);
-  if ($tvalue == -1) $tvalue = $tyear - 30;
+  if ($tvalue == -1) $tvalue = $tyear - 20;
   return ii_show_num_select($tyear1, $tyear2, $tvalue);
 }
 

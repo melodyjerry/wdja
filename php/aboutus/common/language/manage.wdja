@@ -27,10 +27,6 @@
       <chinese><![CDATA[添加新的记录]]></chinese>
     </item>
     <item>
-      <disinfo><![CDATA[add]]></disinfo>
-      <chinese><![CDATA[添加记录]]></chinese>
-    </item>
-    <item>
       <disinfo><![CDATA[edit]]></disinfo>
       <chinese><![CDATA[编辑记录]]></chinese>
     </item>

@@ -8,6 +8,8 @@ wdja_cms_admin_init();
 $nurltype = 0;
 $nsearch = 'topic,sort,id';
 $ncontrol = 'select,hidden,good,delete';
+$ncttype = ii_get_num($_GET['htype'], -1);
+if ($ncttype == -1) $ncttype = 0;
 
 function pp_manage_navigation()
 {
@@ -36,8 +38,7 @@ function wdja_cms_admin_manage_adddisp()
   global $conn;
   global $ndatabase, $nidfield, $nfpre, $nsaveimages;
   $tbackurl = $_GET['backurl'];
-  $tclass_list = ii_get_safecode($_POST['sort_list']);
-  $tclass = ii_get_lrstr($tclass_list, ',', 'left');
+  $tclass = ii_get_num($_POST['sort'], 0);
   $tbackurl = ii_replace_querystring('classid', $tclass, $tbackurl);
   $timage = ii_left(ii_cstr($_POST['image']), 250);
   if(mm_search_field($ngenre,ii_cstr($_POST['ucode']),'ucode') && !ii_isnull($_POST['ucode'])) wdja_cms_admin_msg(ii_itake('manage.ucode_failed', 'lng'), $tbackurl, 1);
@@ -48,36 +49,46 @@ function wdja_cms_admin_manage_adddisp()
   {
     $tsqlstr = "insert into $ndatabase (
     " . ii_cfname('topic') . ",
-    " . ii_cfname('keywords') . ",
-    " . ii_cfname('description') . ",
+  " . ii_cfname('keywords') . ",
+  " . ii_cfname('description') . ",
     " . ii_cfname('cls') . ",
     " . ii_cfname('class') . ",
-    " . ii_cfname('class_list') . ",
     " . ii_cfname('scont') . ",
     " . ii_cfname('image') . ",
     " . ii_cfname('content') . ",
+    " . ii_cfname('cttype') . ",
     " . ii_cfname('content_images_list') . ",
     " . ii_cfname('ucode') . ",
     " . ii_cfname('size') . ",
+    " . ii_cfname('runco') . ",
+    " . ii_cfname('star') . ",
+    " . ii_cfname('accredit') . ",
     " . ii_cfname('lng') . ",
+    " . ii_cfname('link') . ",
+    " . ii_cfname('author') . ",
     " . ii_cfname('urls') . ",
     " . ii_cfname('hidden') . ",
     " . ii_cfname('good') . ",
     " . ii_cfname('time') . "
     ) values (
-    '" . ii_left(ii_cstr($_POST['topic']), 250) . "',
-    '" . ii_left(ii_cstr($_POST['keywords']), 250) . "',
-    '" . ii_left(ii_cstr($_POST['description']), 250) . "',
+    '" . ii_left(ii_cstr($_POST['topic']), 50) . "',
+  '" . ii_left(ii_cstr($_POST['keywords']), 150) . "',
+  '" . ii_left(ii_cstr($_POST['description']), 250) . "',
     '" . mm_get_sort_cls($tclass) . "',
     $tclass,
-    '" . $tclass_list . "',
     '" . ii_left(ii_cstr($_POST['scont']), 1000) . "',
     '$timage',
     '$tcontent',
+    " . ii_get_num($_POST['cttype']) . ",
     '$tcontent_images_list',
     '" . ii_left(ii_cstr($_POST['ucode']), 50) . "',
     " . ii_get_num($_POST['size']) . ",
+    '" . ii_left(mm_get_postarystr($_POST['runco']), 255) . "',
+    " . ii_get_num($_POST['star']) . ",
+    " . ii_get_num($_POST['accredit']) . ",
     " . ii_get_num($_POST['lng']) . ",
+    '" . ii_left(ii_cstr($_POST['link']), 255) . "',
+    '" . ii_left(ii_cstr($_POST['author']), 255) . "',
     '" . ii_left(pp_get_post_urls(ii_get_num($_POST['urls_date_option'])), 10000) . "',
     " . ii_get_num($_POST['hidden']) . ",
     " . ii_get_num($_POST['good']) . ",
@@ -87,9 +98,6 @@ function wdja_cms_admin_manage_adddisp()
     if ($trs)
     {
       $upfid = ii_conn_insert_id($conn);
-      api_save_fields($upfid);
-      api_save_tags($upfid);
-      if(ii_get_num($_POST['hidden']) ==0) mm_baidu_push('urls',$ngenre,ii_left(ii_cstr($_POST['topic']), 250),$upfid);
       uu_upload_update_database_note($ngenre, $timage, 'image', $upfid);
       uu_upload_update_database_note($ngenre, $tcontent_images_list, 'content_images', $upfid);
       wdja_cms_admin_msg(ii_itake('global.lng_public.add_succeed', 'lng'), $tbackurl, 1);
@@ -108,8 +116,7 @@ function wdja_cms_admin_manage_editdisp()
   global $conn;
   global $ndatabase, $nidfield, $nfpre, $nsaveimages;
   $tbackurl = $_GET['backurl'];
-  $tclass_list = ii_get_safecode($_POST['sort_list']);
-  $tclass = ii_get_lrstr($tclass_list, ',', 'left');
+  $tclass = ii_get_num($_POST['sort'], 0);
   $tid = ii_get_num($_GET['id']);
   $timage = ii_left(ii_cstr($_POST['image']), 250);
   if(mm_search_field($ngenre,ii_cstr($_POST['ucode']),'ucode',$tid) && !ii_isnull($_POST['ucode'])) wdja_cms_admin_msg(ii_itake('manage.ucode_failed', 'lng'), $tbackurl, 1);
@@ -119,19 +126,24 @@ function wdja_cms_admin_manage_editdisp()
   if (!($tclass == 0))
   {
     $tsqlstr = "update $ndatabase set
-    " . ii_cfname('topic') . "='" . ii_left(ii_cstr($_POST['topic']), 250) . "',
-    " . ii_cfname('keywords') . "='" . ii_left(ii_cstr($_POST['keywords']), 250) . "',
-    " . ii_cfname('description') . "='" . ii_left(ii_cstr($_POST['description']), 250) . "',
+    " . ii_cfname('topic') . "='" . ii_left(ii_cstr($_POST['topic']), 50) . "',
+  " . ii_cfname('keywords') . "='" . ii_left(ii_cstr($_POST['keywords']), 150) . "',
+  " . ii_cfname('description') . "='" . ii_left(ii_cstr($_POST['description']), 250) . "',
     " . ii_cfname('cls') . "='" . mm_get_sort_cls($tclass) . "',
     " . ii_cfname('class') . "=$tclass,
-    " . ii_cfname('class_list') . "='" . $tclass_list . "',
     " . ii_cfname('scont') . "='" . ii_left(ii_cstr($_POST['scont']), 1000) . "',
     " . ii_cfname('image') . "='$timage',
     " . ii_cfname('content') . "='$tcontent',
+    " . ii_cfname('cttype') . "=" . ii_get_num($_POST['cttype']) . ",
     " . ii_cfname('content_images_list') . "='$tcontent_images_list',
     " . ii_cfname('ucode') . "='" . ii_left(ii_cstr($_POST['ucode']), 50) . "',
     " . ii_cfname('size') . "=" . $_POST['size'] . ",
+    " . ii_cfname('runco') . "='" . ii_left(mm_get_postarystr($_POST['runco']), 255) . "',
+    " . ii_cfname('star') . "=" . ii_get_num($_POST['star']) . ",
+    " . ii_cfname('accredit') . "=" . ii_get_num($_POST['accredit']) . ",
     " . ii_cfname('lng') . "=" . ii_get_num($_POST['lng']) . ",
+    " . ii_cfname('link') . "='" . ii_left(ii_cstr($_POST['link']), 255) . "',
+    " . ii_cfname('author') . "='" . ii_left(ii_cstr($_POST['author']), 255) . "',
     " . ii_cfname('urls') . "='" . ii_left(pp_get_post_urls(ii_get_num($_POST['urls_date_option'])), 10000) . "',
     " . ii_cfname('count') . "=" . ii_get_num($_POST['count']) . ",
     " . ii_cfname('hidden') . "=" . ii_get_num($_POST['hidden']) . ",
@@ -142,14 +154,6 @@ function wdja_cms_admin_manage_editdisp()
     if ($trs)
     {
       $upfid = $tid;
-      api_update_fields($upfid);
-      api_update_tags($upfid);
-      if(ii_get_num($_POST['hidden']) ==0){
-      if(mm_search_baidu(array('genre' => $ngenre,'gid' => $upfid))) mm_baidu_push('update',$ngenre,ii_left(ii_cstr($_POST['topic']), 250),$upfid);
-      else mm_baidu_push('urls',$ngenre,ii_left(ii_cstr($_POST['topic']), 250),$upfid);
-      }else{
-        mm_baidu_push('del',$ngenre,ii_left(ii_cstr($_POST['topic']), 250),$upfid);
-      }
       uu_upload_update_database_note($ngenre, $timage, 'image', $upfid);
       uu_upload_update_database_note($ngenre, $tcontent_images_list, 'content_images', $upfid);
       wdja_cms_admin_msg(ii_itake('global.lng_public.edit_succeed', 'lng'), $tbackurl, 1);
@@ -275,7 +279,7 @@ function wdja_cms_admin_manage_list()
   if ($tclassid != 0)
   {
     if ($nclstype == 0) $tsqlstr .= " and $ndatabase." . ii_cfname('class') . "=$tclassid";
-    else $tsqlstr .= " and ($ndatabase." . ii_cfname('cls') . " like '%|" . $tclassid . "|%' or find_in_set($tclassid,$ndatabase." . ii_cfname('class_list') . "))";
+    else $tsqlstr .= " and $ndatabase." . ii_cfname('cls') . " like '%|" . $tclassid . "|%'";
   }
   if ($search_field == 'topic') $tsqlstr .= " and $ndatabase." . ii_cfname('topic') . " like '%" . $search_keyword . "%'";
   if ($search_field == 'sort') $tsqlstr .= " and $sort_database." . ii_cfnames($sort_fpre, 'sort') . " like '%" . $search_keyword . "%'";
@@ -317,6 +321,8 @@ function wdja_cms_admin_manage_list()
   }
   $tmpstr = str_replace('{$cpagestr}', $tcp -> get_pagestr(), $tmpstr);
   $tmpstr = str_replace(WDJA_CINFO, $tmprstr, $tmpstr);
+  $tmpstr = str_replace('{$nav_sort}', mm_nav_sort($ngenre, '?classid=', $tclassid), $tmpstr);
+  $tmpstr = str_replace('{$nav_sort_child}', mm_nav_sort_child($ngenre, '?classid=', $tclassid, 6), $tmpstr);
   $tmpstr = ii_creplace($tmpstr);
   return $tmpstr;
 }

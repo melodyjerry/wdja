@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xml mode="wdja" author="wdja">
+  <configure>
+    <node>item</node>
+    <field>disinfo,chinese</field>
+    <base>language_list</base>
+  </configure>
+  <language_list>
+    <item>
+      <disinfo><![CDATA[logo]]></disinfo>
+      <chinese><![CDATA[/admin/global/common/upload/2018/12/18/201812181528052Q.png]]></chinese>
+    </item>
+    <item>
+      <disinfo><![CDATA[download_name]]></disinfo>
+      <chinese><![CDATA[]]></chinese>
+    </item>
+    <item>
+      <disinfo><![CDATA[download_url]]></disinfo>
+      <chinese><![CDATA[]]></chinese>
+    </item>
+    <item>
+      <disinfo><![CDATA[demo_url]]></disinfo>
+      <chinese><![CDATA[]]></chinese>
+    </item>
+    <item>
+      <disinfo><![CDATA[modules]]></disinfo>
+      <chinese><![CDATA[article]]></chinese>
+    </item>
+    <item>
+      <disinfo><![CDATA[modules_img]]></disinfo>
+      <chinese><![CDATA[shop]]></chinese>
+    </item>
+  </language_list>
+</xml>

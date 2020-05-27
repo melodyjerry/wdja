@@ -19,10 +19,6 @@
       <tpl_default><![CDATA[<br />]]></tpl_default>
     </item>
     <item>
-      <name><![CDATA[html_p]]></name>
-      <tpl_default><![CDATA[<p><p/>]]></tpl_default>
-    </item>
-    <item>
       <name><![CDATA[a_href_self]]></name>
       <tpl_default><![CDATA[<a href="{$value}" target="_self">{$explain}</a>]]></tpl_default>
     </item>
@@ -52,11 +48,11 @@
     </item>
     <item>
       <name><![CDATA[option_uncheckbox]]></name>
-      <tpl_default><![CDATA[<label class="checkbox"><input type="checkbox" class="radio" name="{$explain}" value="{$value}"><vicon></vicon><span>{$modulestr}</span></label>]]></tpl_default>
+      <tpl_default><![CDATA[<input type="checkbox" class="radio" name="{$explain}" value="{$value}" />]]></tpl_default>
     </item>
     <item>
       <name><![CDATA[option_checkbox]]></name>
-      <tpl_default><![CDATA[<label class="checkbox"><input type="checkbox" class="radio" name="{$explain}" value="{$value}" checked><vicon></vicon><span>{$modulestr}</span></label>]]></tpl_default>
+      <tpl_default><![CDATA[<input type="checkbox" class="radio" name="{$explain}" value="{$value}" checked="checked" />]]></tpl_default>
     </item>
     <item>
       <name><![CDATA[xmlselect_unselect]]></name>
@@ -68,19 +64,19 @@
     </item>
     <item>
       <name><![CDATA[xmlselect_unradio]]></name>
-      <tpl_default><![CDATA[<label class="radio"><input type="radio" class="radio" name="{$name}" value="{$value}"><vicon></vicon><span>{$explain}</span></label>]]></tpl_default>
+      <tpl_default><![CDATA[<label><input type="radio" class="checkbox" name="{$name}" value="{$value}" />{$explain}</label>]]></tpl_default>
     </item>
     <item>
       <name><![CDATA[xmlselect_radio]]></name>
-      <tpl_default><![CDATA[<label class="radio"><input type="radio" class="radio" name="{$name}" value="{$value}" checked="checked"><vicon></vicon><span>{$explain}</span></label>]]></tpl_default>
+      <tpl_default><![CDATA[<label><input type="radio" class="checkbox" name="{$name}" value="{$value}" checked="checked" />{$explain}</label>]]></tpl_default>
     </item>
     <item>
       <name><![CDATA[xmlselect_uncheckbox]]></name>
-      <tpl_default><![CDATA[<label class="checkbox"><input type="checkbox" class="checkbox" name="{$name}" value="{$value}"><vicon></vicon><span>{$explain}</span></label>]]></tpl_default>
+      <tpl_default><![CDATA[<label><input type="checkbox" class="checkbox" name="{$name}" value="{$value}" />{$explain}</label>]]></tpl_default>
     </item>
     <item>
       <name><![CDATA[xmlselect_checkbox]]></name>
-      <tpl_default><![CDATA[<label class="checkbox"><input type="checkbox" class="checkbox" name="{$name}" value="{$value}" checked="checked"><vicon></vicon><span>{$explain}</span></label>]]></tpl_default>
+      <tpl_default><![CDATA[<label><input type="checkbox" class="checkbox" name="{$name}" value="{$value}" checked="checked" />{$explain}</label>]]></tpl_default>
     </item>
     <item>
       <name><![CDATA[textarea]]></name>
@@ -132,14 +128,6 @@
     <item>
       <name><![CDATA[sys_spsort]]></name>
       <tpl_default><![CDATA[├]]></tpl_default>
-    </item>
-    <item>
-      <name><![CDATA[admin_un_lng]]></name>
-      <tpl_default><![CDATA[<li val="{$i}" text="{$explain}"><flag class="f{$i}"></flag><span class="hand"><a target="main" href="admin_manage.php?site_language={$value}">{$explain}</a></span></li>]]></tpl_default>
-    </item>
-    <item>
-      <name><![CDATA[admin_lng]]></name>
-      <tpl_default><![CDATA[<flag class="f{$i}" title="{$explain}"></flag><span>{$explain}</span>]]></tpl_default>
     </item>
   </item_list>
 </xml>

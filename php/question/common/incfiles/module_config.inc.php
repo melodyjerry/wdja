@@ -7,7 +7,6 @@
 function wdja_cms_module_list()
 {
   global $conn, $nlng, $ngenre;
-  global $nvalidate;
   $toffset = ii_get_num($_GET['offset']);
   $tgid = api_get_gid();
   global $nclstype, $nlisttopx, $npagesize, $nkeywords, $ndescription;
@@ -49,14 +48,12 @@ function wdja_cms_module_list()
   //$tmpstr = str_replace('{$cpagestr}', $tcp -> get_pagenum(), $tmpstr);
   $tmpstr = str_replace('{$offset}', $toffset, $tmpstr);
   $tmpstr = str_replace('{$genre}', $ngenre, $tmpstr);
-  $tmpstr = mm_cvalhtml($tmpstr, $nvalidate, '{@recurrence_valcode}');
   $tmpstr = ii_creplace($tmpstr);
   return $tmpstr;
 }
 function wdja_cms_module_detail()
 {
   global $conn, $ngenre;
-  global $nvalidate;
   $tid = ii_get_num($_GET['id'],0);
   $tpage = ii_get_num($_GET['page']);
   $tucode = ii_cstr($_GET['ucode']);
@@ -87,7 +84,6 @@ function wdja_cms_module_detail()
     $tmpstr = str_replace('{$id}', $trs[$nidfield], $tmpstr);
     $tmpstr = str_replace('{$genre}', $ngenre, $tmpstr);
     $tmpstr = str_replace('{$page}', $tpage, $tmpstr);
-    $tmpstr = mm_cvalhtml($tmpstr, $nvalidate, '{@recurrence_valcode}');
     $tmpstr = ii_creplace($tmpstr);
     return $tmpstr;
   }else{
@@ -98,10 +94,8 @@ function wdja_cms_module_detail()
 function wdja_cms_module_index()
 {
   global $ngenre;
-  global $nvalidate;
   $tmpstr = ii_itake('module.index', 'tpl');
   $tmpstr = str_replace('{$genre}', $ngenre, $tmpstr);
-  $tmpstr = mm_cvalhtml($tmpstr, $nvalidate, '{@recurrence_valcode}');
   $tmpstr = ii_creplace($tmpstr);
   if (!ii_isnull($tmpstr)) return $tmpstr;
   else return wdja_cms_module_detail();
