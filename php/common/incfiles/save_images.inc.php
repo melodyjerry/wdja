@@ -54,7 +54,7 @@ function saveimages($content){
   $content = str_replace('&amp;', '&', $content);
   $content = stripslashes($content);
   preg_match_all('/url\([\'|"]?(.*?)[\'|"]?\)/i',$content,$img_array1);
-  preg_match_all('/img.*?src[\s]*=[\s]*[\'|"](.*?)[\'|"]/i',$content,$img_array2);
+  preg_match_all('/<img.*?src[\s]*=[\s]*[\'|"](.*?)[\'|"]/i',$content,$img_array2);
   $img_array = array_merge($img_array1[1], $img_array2[1]);
   $img_array = array_unique($img_array);
   if (ii_isnull($nuppath)) $imgPath = ii_format_date(ii_now(), 2);
