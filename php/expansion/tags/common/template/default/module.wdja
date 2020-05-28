@@ -52,9 +52,5 @@
 </section>
 {$=mm_web_foot($GLOBALS['nfoot'])}]]></tpl_default>
     </item>
-    <item>
-      <name><![CDATA[list_new]]></name>
-      <tpl_default><![CDATA[]]></tpl_default>
-    </item>
   </item_list>
 </xml>
