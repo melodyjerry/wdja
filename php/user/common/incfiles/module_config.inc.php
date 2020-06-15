@@ -105,7 +105,7 @@ function wdja_cms_module_registerdisp()
       '" . ii_left(ii_cstr($_POST['openid']), 250) . "',
       '" . ii_left(ii_cstr($_POST['nickname']), 50) . "',
       '" . ii_left(ii_cstr($_POST['headimgurl']), 255) . "',
-      '" . ii_left(ii_cstr($_POST['face_u']), 10) . "',
+      '" . ii_get_num($_POST['face_u']) . "',
       '" . ii_left(ii_cstr($_POST['face_url']), 255) . "',
       '" . ii_left(ii_cstr($_POST['city']), 50) . "',
       '" . ii_left(ii_cstr($_POST['sex']), 50) . "',
