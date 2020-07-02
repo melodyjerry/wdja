@@ -996,7 +996,7 @@ function check_face_height(strheight)
     <script>
 
         // 判断是否支付宝内打开
-		//生成二维码格式alipays://platformapi/startapp?appId=20000067&url=http%3A%2F%2Fdemo.wdja.cn%2FopenAlipay.html%3Fmoney%3D10.00%26num%3D123
+		//生成二维码格式alipays://platformapi/startapp?appId=20000067&url=http%3A%2F%2Fdemo.wdja.net%2FopenAlipay.html%3Fmoney%3D10.00%26num%3D123
 		//url= 后面为本页代码所在位置,本页为在支付宝内打开的页面,本页URL本传递两个参数 money 为支付的金额,num 为 数量或订单号或备注数字
 		//%3D为= ;%2F为 / ;%3A为 : ;
         var ua = window.navigator.userAgent.toLowerCase();

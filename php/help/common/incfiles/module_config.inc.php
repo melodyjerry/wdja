@@ -172,8 +172,8 @@ function wdja_cms_module()
   }
 }
 //****************************************************
-// WDJA CMS Power by wdja.cn
-// Email: i@wdja.cn
-// Web: http://www.wdja.cn/
+// WDJA CMS Power by wdja.net
+// Email: i@wdja.net
+// Web: http://www.wdja.net/
 //****************************************************
 ?>

@@ -1,8 +1,8 @@
 <?php
 //****************************************************
-// WDJA CMS Power by wdja.cn
-// Email: admin@wdja.cn
-// Web: http://www.wdja.cn/
+// WDJA CMS Power by wdja.net
+// Email: shadoweb@qq.com
+// Web: http://www.wdja.net/
 //****************************************************
 function wdja_get_sort_first_id(){
 //获取模块第一个分类id
@@ -178,8 +178,8 @@ function wdja_cms_module()
   }
 }
 //****************************************************
-// WDJA CMS Power by wdja.cn
-// Email: admin@wdja.cn
-// Web: http://www.wdja.cn/
+// WDJA CMS Power by wdja.net
+// Email: shadoweb@qq.com
+// Web: http://www.wdja.net/
 //****************************************************
 ?>

@@ -1,8 +1,8 @@
 <?php
 //****************************************************
-// WDJA CMS Power by wdja.cn
-// Email: admin@wdja.cn
-// Web: http://www.wdja.cn/
+// WDJA CMS Power by wdja.net
+// Email: shadoweb@qq.com
+// Web: http://www.wdja.net/
 //****************************************************
 $nshow_path_str = stripslashes(ii_cstr($_GET['show_path']));
 $nshow_path = iconv(CHARSET, 'cp936', $nshow_path_str);
@@ -297,8 +297,8 @@ function wdja_cms_admin_manage()
   }
 }
 //****************************************************
-// WDJA CMS Power by wdja.cn
-// Email: admin@wdja.cn
-// Web: http://www.wdja.cn/
+// WDJA CMS Power by wdja.net
+// Email: shadoweb@qq.com
+// Web: http://www.wdja.net/
 //****************************************************
 ?>

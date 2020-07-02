@@ -1,8 +1,8 @@
 <?php
 //****************************************************
-// WDJA CMS Power by wdja.cn
-// Email: admin@wdja.cn
-// Web: http://www.wdja.cn/
+// WDJA CMS Power by wdja.net
+// Email: shadoweb@qq.com
+// Web: http://www.wdja.net/
 //****************************************************
 function mm_get_genre_title($genre)
 {
@@ -468,8 +468,8 @@ function wdja_cms_admin_orderdisp($genre, $strers, $osql)
   }
 }
 //****************************************************
-// WDJA CMS Power by wdja.cn
-// Email: admin@wdja.cn
-// Web: http://www.wdja.cn/
+// WDJA CMS Power by wdja.net
+// Email: shadoweb@qq.com
+// Web: http://www.wdja.net/
 //****************************************************
 ?>

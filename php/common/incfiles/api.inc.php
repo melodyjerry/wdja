@@ -1,8 +1,8 @@
 <?php
 //****************************************************
-// WDJA CMS Power by wdja.cn
-// Email: admin@wdja.cn
-// Web: http://www.wdja.cn/
+// WDJA CMS Power by wdja.net
+// Email: shadoweb@qq.com
+// Web: http://www.wdja.net/
 //****************************************************
 
 function getAccessToken(){
@@ -498,8 +498,8 @@ function wdja_cms_singlepage_api($module)
 }
 
 //****************************************************
-// WDJA CMS Power by wdja.cn
-// Email: admin@wdja.cn
-// Web: http://www.wdja.cn/
+// WDJA CMS Power by wdja.net
+// Email: shadoweb@qq.com
+// Web: http://www.wdja.net/
 //****************************************************
 ?>

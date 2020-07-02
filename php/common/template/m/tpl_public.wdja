@@ -382,7 +382,7 @@ vertical-align:middle;
       </div>
     </mip-sidebar>
     <footer class="footer" class="wrapper">
-      Copyright 2004-{$=date('Y', ii_mktime(ii_now()))} WDJA(<a data-type="mip" href="http://www.wdja.cn/" target="_blank">CMS</a>)  All Rights Reserved.
+      Copyright 2004-{$=date('Y', ii_mktime(ii_now()))} WDJA(<a data-type="mip" href="http://www.wdja.net/" target="_blank">CMS</a>)  All Rights Reserved.
     </footer>
     <!--[if lte IE 9]>
       <div class="update-ie">

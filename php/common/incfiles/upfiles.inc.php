@@ -1,8 +1,8 @@
 <?php
 //****************************************************
-// WDJA CMS Power by wdja.cn
-// Email: admin@wdja.cn
-// Web: http://www.wdja.cn/
+// WDJA CMS Power by wdja.net
+// Email: shadoweb@qq.com
+// Web: http://www.wdja.net/
 //****************************************************
 
 function uu_upload_create_thumbnail($strURL1, $strURL2, $strScale = 0)
@@ -221,8 +221,8 @@ function uu_upload_files_html($strers)
   mm_clear_show($tmpstr);
 }
 //****************************************************
-// WDJA CMS Power by wdja.cn
-// Email: admin@wdja.cn
-// Web: http://www.wdja.cn/
+// WDJA CMS Power by wdja.net
+// Email: shadoweb@qq.com
+// Web: http://www.wdja.net/
 //****************************************************
 ?>

@@ -68,7 +68,7 @@
       <tpl_default><![CDATA[{$=ii_ireplace('global.module.links','tpl')}
 <footer id="bottom">
   <section id="bottomContent">
-    <p>Copyright 2004-{$=date('Y', ii_mktime(ii_now()))} WDJA(<a href="{$=#nurlpre}" target="_blank">CMS</a>) <a href="{$=#nurlpre}" target="_blank">wdja.cn</a> All Rights Reserved.<a href="{$=#nurlpre}/sitemap.xml" target="_blank">Sitemap</a> 备案号:{$=ii_itake('global.' . ADMIN_FOLDER . '/global:basic.icp','lng')}</p>
+    <p>Copyright 2004-{$=date('Y', ii_mktime(ii_now()))} WDJA(<a href="{$=#nurlpre}" target="_blank">CMS</a>) <a href="{$=#nurlpre}" target="_blank">wdja.net</a> All Rights Reserved.<a href="{$=#nurlpre}/sitemap.xml" target="_blank">Sitemap</a> 备案号:{$=ii_itake('global.' . ADMIN_FOLDER . '/global:basic.icp','lng')}</p>
     <div id="bottomMenu">{$=vv_itransfer('new', 'm1', 'topx=10;tnum=30;genre=aboutus;osql= and ab_lng=\'' . $GLOBALS['nlng'] . '\'')}<a href="{$=ii_get_actual_route('message')}" target="_self">{$=ii_itake('global.message:module.channel_title', 'lng')}</a></div>
   </section>
 </footer>
