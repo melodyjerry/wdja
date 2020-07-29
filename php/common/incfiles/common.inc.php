@@ -980,6 +980,16 @@ function vv_itransfer($type, $tpl, $vars)
       {
         switch($type)
         {
+          case 'rand':
+            $rsqlstr = "select count(*) as recount from $tdatabase where " . ii_cfnames($tfpre, 'hidden') . "=0";
+            $rrs = ii_conn_query($rsqlstr, $conn);
+            $stat = ii_conn_fetch_array($rrs);
+            $total = $stat['recount'];
+            $offset = mt_rand(0, $total-$ttopx);
+            $ttopx = $offset.','.$ttopx;
+            $tsqlstr = "select * from $tdatabase where " . ii_cfnames($tfpre, 'hidden') . "=0";
+            $tsqlorder = " order by rand() desc";
+            break;
           case 'all':
             $tsqlstr = "select * from $tdatabase where 1=1";
             $tsqlorder = " order by $tidfield desc";

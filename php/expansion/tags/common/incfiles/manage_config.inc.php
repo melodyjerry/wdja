@@ -31,8 +31,8 @@ function wdja_cms_admin_manage_adddisp()
   if(mm_search_field($ngenre,$_POST['topic'],'topic')) wdja_cms_admin_msg(ii_itake('manage.check', 'lng'), $tbackurl, 1);
     $tsqlstr = "insert into $ndatabase (
     " . ii_cfname('topic') . ",
-    " . ii_cfname('topic') . ",
     " . ii_cfname('gourl') . ",
+    " . ii_cfname('keywords') . ",
     " . ii_cfname('description') . ",
     " . ii_cfname('content') . ",
     " . ii_cfname('content_images_list') . ",
