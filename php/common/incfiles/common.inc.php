@@ -1288,11 +1288,18 @@ function wdja_cms_init($route)
   $nurs = $_SERVER['QUERY_STRING'];
   $nport = $_SERVER['SERVER_PORT'];
   $nurl = $nuri;
+  $burl = parse_url($_SERVER['HTTP_HOST'],PHP_URL_HOST);
+  if(ii_isnull($burl)) $burl = $_SERVER['HTTP_HOST'];
   global $nckcode;
   $nckcode = ii_md5(ii_format_date(ii_now(), 2) . 'wdja');
   if (!(ii_isnull($nurs))) $nurl = $nuri . '?' . $nurs;
-  if($nport == '443') $nurlpre = 'https://' . $_SERVER['HTTP_HOST'];
-  else $nurlpre = 'http://' . $_SERVER['HTTP_HOST'];
+  if($nport == '443'){
+    $nurlpre = 'https://' . $burl;
+  }elseif($nport == '80'){
+    $nurlpre = 'http://' . $burl;
+  }else{
+    $nurlpre = 'http://' . $burl.':'.$nport;
+  }
   $images_route = ii_itake('global.tpl_config.images_route', 'tpl');
   $global_images_route = ii_get_actual_route($images_route);
   ii_conn_init();
