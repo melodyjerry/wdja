@@ -239,6 +239,10 @@
       <chinese><![CDATA[跳转链接]]></chinese> 
     </item>
     <item> 
+      <disinfo><![CDATA[tpl-tips]]></disinfo> 
+      <chinese><![CDATA[填写模板节点后，内容将使用填写的模板节点展示]]></chinese> 
+    </item>
+    <item> 
       <disinfo><![CDATA[gourl-tips]]></disinfo> 
       <chinese><![CDATA[填写跳转链接后，内容将作为外部链接直接跳转自此地址]]></chinese> 
     </item>
