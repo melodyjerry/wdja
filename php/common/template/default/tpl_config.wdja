@@ -135,7 +135,7 @@
     </item>
     <item>
       <name><![CDATA[admin_un_lng]]></name>
-      <tpl_default><![CDATA[<li val="{$i}" text="{$explain}"><flag class="f{$i}"></flag><span class="hand"><a target="main" href="admin_manage.php?site_language={$value}">{$explain}</a></span></li>]]></tpl_default>
+      <tpl_default><![CDATA[<li val="{$i}" text="{$explain}"><flag class="f{$i}"></flag><span class="hand"><a target="main" href="admin_manage.php?slng={$value}">{$explain}</a></span></li>]]></tpl_default>
     </item>
     <item>
       <name><![CDATA[admin_lng]]></name>
