@@ -75,7 +75,7 @@
 function typeSwitch(obj)
 {
   var pobj = obj.getElementsByTagName('label');
-   for(let i = 0; i<pobj.length; i++){
+   for(var i = 0; i<pobj.length; i++){
         if(pobj[i].querySelector("label input").checked == true && pobj[i].querySelector("label input").value == '3'){
           get_id("type_input").style.display = "";
           get_id("type_other").style.display = "none";
@@ -139,7 +139,7 @@ function typeSwitch(obj)
 function typeSwitch(obj)
 {
   var pobj = obj.getElementsByTagName('label');
-   for(let i = 0; i<pobj.length; i++){
+   for(var i = 0; i<pobj.length; i++){
         if(pobj[i].querySelector("label input").checked == true && pobj[i].querySelector("label input").value == '3'){
           get_id("type_input").style.display = "";
           get_id("type_other").style.display = "none";
@@ -202,7 +202,7 @@ function typeSwitch(obj)
 function typeSwitch(obj)
 {
   var pobj = obj.getElementsByTagName('label');
-   for(let i = 0; i<pobj.length; i++){
+   for(var i = 0; i<pobj.length; i++){
         if(pobj[i].querySelector("label input").checked == true && pobj[i].querySelector("label input").value == '3'){
           get_id("type_input").style.display = "";
           get_id("type_other").style.display = "none";

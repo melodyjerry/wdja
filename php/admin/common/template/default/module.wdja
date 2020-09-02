@@ -53,19 +53,18 @@
 <!--
 if(top.location!=self.location) top.location=self.location;
 
-var tlists, timages;
-
-function myobj_load()
+var tlogo, tlists, timages;
+$(document).ready(function ()
 {
+  var tcontainer = get_id("container");
+  var ttopbar = get_id("topbar");
+  var myWidth = document.body.scrollWidth - 230; 
+  document.getElementById('main').style.cssText = 'width:'+myWidth+'px;height:'+(getClientHeight() - ttopbar.offsetHeight) + 'px';
+  tcontainer.style.height = (getClientHeight() - ttopbar.offsetHeight) + 'px';
   tlogo = get_id("logo");
   tlists = get_id("lists");
   timages = get_id("images");
-  var tcontainer = get_id("container");
-  var ttopbar = get_id("topbar");
-  tcontainer.style.height = (getClientHeight() - ttopbar.offsetHeight) + 'px';
-  var myWidth = document.body.scrollWidth - 230; 
-  document.getElementById('main').style.cssText = 'width:'+myWidth+'px';
-}
+});
 
 function startscroll(strt, strnum)
 {
@@ -87,7 +86,7 @@ function switch_menu(obj)
   var tmpstyle = 'none';
   var tmpimg = '{$=#images_route}smenu.png';
   var pobj = tlists.getElementsByTagName('dl');
-   for(let i = 0; i<pobj.length; i++){
+   for(var i = 0; i<pobj.length; i++){
         pobj[i].className = '';
         get_id("menuTitle" + i).className = 'tit t1';
     }
@@ -135,7 +134,7 @@ function getClientHeight()
 //-->
 </script>
 </head>
-<body onload="myobj_load()">
+<body>
 <div class="console">
   <div id="topbar" class="topbar">
     <h1 id="logo" ><img src="{$=#images_route}top_logo.png" border="0"></h1>

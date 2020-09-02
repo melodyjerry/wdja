@@ -270,10 +270,10 @@ function switch_display(obj,strers)
   var sobj = get_id("lists").getElementsByTagName('span');
   if(tobj.className == '')
   {
-   for(let i = 0; i<pobj.length; i++){
+   for(var i = 0; i<pobj.length; i++){
         pobj[i].className = '';
     }
-   for(let i = 0; i<sobj.length; i++){
+   for(var i = 0; i<sobj.length; i++){
         if(sobj[i].className == 'tit t1 open') sobj[i].className = 'tit t1';
     }
     obj.className = 'tit t1 open';
@@ -313,7 +313,7 @@ function iframe_onload(strers)
 {
   var tsrc = strers.contentWindow.location.href;
   var tasrc = get_id("lists").getElementsByTagName('a');
-   for(let i = 0; i<tasrc.length; i++){
+   for(var i = 0; i<tasrc.length; i++){
         if(tasrc[i].href == tsrc) tasrc[i].parentNode.className = "tit t2 on";
         else tasrc[i].parentNode.className = "tit t2";
     }
