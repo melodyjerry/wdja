@@ -49,8 +49,8 @@ function wdja_cms_module_list()
         else $tsqlstr .= " or " . ii_cfnames($tfpre, $tnfield) . " like '%" . $val . "%'";
       }
     }
-    if($ti == count($tndatabases) - 1) $tsqlstr .= " order by " . ii_cfnames($tfpre, 'time') . " desc) as un_" . $tndatabase;
-    else $tsqlstr .= " order by " . ii_cfnames($tfpre, 'time') . " desc) as un_" . $tndatabase . $tunion;
+    if($ti == count($tndatabases) - 1) $tsqlstr .= " order by " . ii_cfnames($tfpre, 'time') . " desc) as un_" . $tdatabase;
+    else $tsqlstr .= " order by " . ii_cfnames($tfpre, 'time') . " desc) as un_" . $tdatabase . $tunion;
   }
   $tcp = new cc_cutepage;
   $tcp -> id = 'un_id';
