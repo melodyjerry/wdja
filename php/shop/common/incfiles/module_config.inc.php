@@ -19,6 +19,7 @@ function wdja_cms_module_list()
 {
   global $conn, $nlng, $ngenre, $nurs;
   global $nvalidate;
+  global $sort_database, $sort_idfield, $sort_fpre;
   $tclassid = ii_get_num($_GET['classid']);
   if($tclassid == 0) $tclassid = wdja_get_sort_first_id();//模块首页使用第一个分类
   $toffset = ii_get_num($_GET['offset']);
@@ -36,7 +37,7 @@ function wdja_cms_module_list()
   else $tmpstr = ii_itake('module.list', 'tpl');
   $tmpastr = ii_ctemplate($tmpstr, '{@recurrence_ida}');
   $tmprstr = '';
-  $tsqlstr = "select * from $ndatabase where " . ii_cfname('hidden') . "=0";
+  $tsqlstr = "select * from $ndatabase,$sort_database where $ndatabase." . ii_cfname('class') . "=$sort_database.$sort_idfield and $sort_database." . ii_cfnames($sort_fpre, 'lng') . "='$nlng' and $sort_database." . ii_cfnames($sort_fpre, 'genre') . "='$ngenre' and $ndatabase." . ii_cfname('hidden') . "=0 and $ndatabase." . ii_cfname('lng') . "='$nlng'";//更新:不再显示已删除分类的内容
   if ($tclassid != 0)
   {
     if (ii_cinstr($tclassids, $tclassid, ','))
